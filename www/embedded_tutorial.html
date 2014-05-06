@@ -1,0 +1,256 @@
+<html>
+<head>
+<title>canopy - Tutorial</title>
+<link href='http://fonts.googleapis.com/css?family=ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='canopy.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class="top-bar shutterstock-network">
+    <div class=center_channel>
+        <table cellpadding=0 cellspacing=0><tr><td>
+            <a href='http://canopy.link' class=logo>canopy</div>
+        </td><td width=450>
+            &nbsp;
+        </td><td><a target=_new href="http://www.github.com/canopy-project">source code</a>
+        </td><td style='padding-left:30px'><a href=".">documentation</a>
+        </td><td style='padding-left:30px'><a target=_new href="http://muut.com/canopy-project">forum</a>
+        </tr></table>
+    </div>
+</div>
+<div class=main-section>
+    <div>
+        <div class=center_channel style="padding-top:6px">
+            <div class='warning_bar'><span class=hvy>Warning:</span> the canopy platform is still under
+                active development.  The instructions and APIs discussed in this
+                document are highly likely to change in the short term, and are probably broken at the moment.
+            </div>
+
+            <div class="xxl thin">canopy EMBEDDED Tutorial</div>
+
+            <div class="big thin">Overview</div>
+            The goal of <span class=logo-in-text>canopy EMBEDDED</span> is to
+            make it simple to expose the sensors and controls on your device to
+            the cloud (or a private cloud or LAN) in a simple and meaningful
+            way.
+
+            <p>The general process goes something like this:
+            <ol>
+                <li>
+                    Create a .sddl file that describes the sensors and
+                    controls on your device.
+                </li>
+                <li>
+                    Implement a daemon process (in C/C++) that uses libcanopy
+                    to report sensor data and receive control events.
+                </li>
+                <li>
+                    Go to http://sandbox.canopy.link to see your device.  From
+                    there, you can remotely control your device and view the
+                    collected sensor data.
+                </li>
+            </ol>
+
+            For this all to work, there are some conditions that must be met:
+            <ul>
+                <li>
+                    Your device is running some variant of linux.
+                </li>
+                <li>
+                    Your device is capable of connected to a network (wifi or
+                    wired) and can reach a <span class=logo-in-text>canopy
+                    CLOUD</span> instance that is running on the internet or
+                    the LAN.
+                </li>
+            </ul>
+
+            <h2>Getting Help</h2>
+            If you have any questions about this tutorial or canopy in general,
+            don't hesitate to ask for help on our <a href=http://muut.com/canopy-project>forum</a>.
+
+            <h2>Let's Get Started</h2>
+            This tutorial will demonstrate how to:
+            <ul>
+                <li>
+                    Monitor the CPU usage of your device.
+                </li>
+                <li>
+                    Remotely reboot the device.
+                </li>
+            </ul>
+            Your device may be a Raspberry Pi, a linux laptop, or even a server.
+
+            <h2>Step 1 - Create an SDDL file</h2>
+            The canopy platform uses SDDL files to describe the controls and
+            sensors that a device exposes.  Our device has a single "sensor"
+            (the CPU usage), and a single "control" (reboot).  In our case, the
+            SDDL file looks this:
+
+            <div class=code>/* tutorial.sddl */
+{
+    "canopy.tutorial.sample_device_1" : {
+        "cpu" : {
+            "category" : "sensor",
+            "datatype" : "float",
+            "min-value" : 0.0,
+            "max-value" : 1.0,
+            "description" : "CPU usage percentage"
+        },
+        "reboot" : {
+            "category" : "control",
+            "control-type" : "trigger",
+            "datatype" : "boolean"
+            "description" : "Reboots the device"
+        }
+    }
+}</div>
+
+            Lets go through this line-by-line.
+            <p>The top-level key <span class=icode>"canopy.tutorial.sample_device_1"</span> is
+            the the <span class=hvy>device description name</span>.  A single SDDL file may contain multiple
+            device descriptions by having multiple such keys.  Any string may be used
+            for the device description name, but we try to stick to the following
+            namespace convention:
+            <ul>
+                <li>
+                    Begin with the name of the organization that created
+            the device description.
+                </li>
+                <li>
+                    End with the specific product model name.
+                </li>
+                <li>The
+            words in the middle are optional sub-namespaces.
+                </li>
+            </ul>
+            For example, if Samsung released a line of smart toasters, the device
+            description name for a particular model might be <span
+            class=icode>"samsung.toaster.smart_toaster_3000"</span>.
+
+            <p>Inside the braces comes the list of <span class=hvy>sensors</span> and
+            <span class=hvy>controls</span> supported by the device (which we'll just call
+            <span class=hvy>properties</span>).  For each property, the key is the
+            property's a name, which may be any string.  In this example we have chosen
+            the property names <span class=icode>cpu</span> and <span
+            class=icode>reboot</span>.
+
+            <h2>Step 2 - Write daemon using libcanopy</h2>
+            The next step is to write a C program that uses libcanopy to interact with the cloud.
+
+            <p>Our program looks like like:
+            </p>
+
+            <div class=code>/* my_canopy_client.c*/
+#include &lt;canopy.h&gt;
+#include &lt;sys/reboot.h&gt;
+#define CANOPY_CLOUD_HOST "sandbox.canopy.link"
+#define CANOPY_CLOUD_PORT 8080
+#define CANOPY_CLOUD_USERNAME "myusername"
+#define CANOPY_CLOUD_PASSWORD "mypassword"
+
+static float get_cpu_usage()
+{
+    FILE *fp;
+    float val;
+    fp = fopen("/proc/loadavg");
+    fscanf(fp, "%f", &amp;val);
+    fclose(fp);
+    return val;
+}
+
+static void handle_canopy_event(CanopyContext ctx, CanopyEventDetails event)
+{
+    switch (canopy_get_event_type(event))
+    {
+        case CANOPY_EVENT_REPORT_REQUESTED:
+        {
+            CanopyReport report;
+            float cpu = get_cpu_usage();
+
+            report = canopy_begin_report(ctx);
+            canopy_report_float32(report, "cpu", cpu);
+            canopy_send_report(ctx);
+            break;
+        }
+        case CANOPY_EVENT_CONTROL_TRIGGER:
+        {
+            if (canopy_event_control_name_is(event, "reboot"))
+            {
+                reboot(RB_AUTOBOOT);
+                break;
+            }
+        }
+    }
+}
+
+int main()
+{
+    CanopyContext ctx;
+    ctx = canopy_init();
+    canopy_load_device_description(ctx, "tutorial.sddl", "canopy.tutorial.sample_device_1");
+    canopy_connect(ctx, CANOPY_CLOUD_HOST, CANOPY_CLOUD_PORT, CANOPY_CLOUD_USERNAME, CANOPY_CLOUD_PASSWORD);
+    canopy_register_callback(ctx, CANOPY_CB_EVENT_HANDLER, handle_canopy_event, NULL);
+    canopy_event_loop(ctx);
+    canopy_shutdown(ctx);
+    return 0;
+}
+</div>
+            Be advised that this code is for demonstration purposes only.  In production
+            code, you will want to have error checking!
+
+            <p>Now we will break this program down.
+
+            <h2>The main routine</h2>
+
+            <p>The <span class=icode>main</span> routine begins with a call to <span
+            class=icode>canopy_init</span>.  This is needed at the start of your
+            program to initialize canopy and create a "context", which holds all of the
+            state used by canopy.
+
+            <p>Next, comes <span class=icode>canopy_load_device_description</span>.
+            This routine reads and parses the .sddl file we wrote earlier, so that
+            canopy knows what sensors and controls there are.  This routine must to be
+            called before we can generate a report or receive control events.
+
+            <p>Next, we connect to a running <span class=logo-in-text>canopy
+            CLOUD</span> instance with <span class=icode>canopy_connect</span>.  In
+            this example, we use the free sandbox hosted by canopy.link, but if you
+            prefer you can run your own instance of canopy CLOUD, or our official
+            (coming soon) hosted service.
+
+            <p>Next, we register an event handler callback routine using <span
+            class=icode>canopy_register_callback</span>.  This routine will later get
+            called whenever an event occurs such as when a control changes value, or
+            when a sensor report should be generated.
+
+            <p>Now we can start the canopy event loop with <span
+            class=icode>canopy_event_loop</span>.  This is a blocking call that will
+            run until SIGTERM is received.  It will trigger callbacks when relevant
+            events occur.
+
+            <p>And finally, we shut everything down with <span
+            class=icode>canopy_shutdown</span> at the end.
+
+            <h2>Compiling and Running</h2>
+            We can now compile and run our code with:
+
+            <div class=code>gcc my_canopy_client.c -lwebsockets -lcanopy -o my_canopy_client
+./my_canopy_client</div>
+
+            <span class=icode>sudo</span> may be needed for the reboot feature to work.
+            
+            <p>At this point, if everything goes well, you should be able to log
+            in to <a
+            href='http://sandbox.canopy.link'>http://sandbox.canopy.link</a>
+            and see your device and the data it is reporting!
+
+            <p>You can hit ctrl-c to quit, or ctrl-z to move the process to the
+            background.
+            
+            <h2>Go Forth and Spread the Canopy!</h2>
+            We hope you enjoyed that tutorial.  Your feedback is appreciated on our <a target=_new href="http://muut.com/canopy-project">forum</a>
+.<br><br><br>
+        </div>
+    </div>
+</body>
+</html>

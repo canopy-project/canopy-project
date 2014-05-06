@@ -7,6 +7,28 @@ body {
     color: #505050;
 }
 
+.code {
+    display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    background: #f0f0f0;
+    padding: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: 153060;
+}
+
+.icode {
+    display: inline-block;
+    font-family: monospace;
+    font-size: 14px;
+    background: #f0f0f0;
+    color: 153060;
+    padding: 4px;
+}
+
 td {
     font-size: 14pt;
 }
@@ -52,6 +74,11 @@ td {
 }
 .thin {
     font-weight: 200;
+}
+h2 {
+    font-weight: 200;
+    font-size: 34px;
+    margin-bottom: 0px;
 }
 .logo-in-text {
     font-family: "ABeeZee";
@@ -100,4 +127,11 @@ a:hover
 a.logo:hover
 {
     color: #3060a0;
+}
+.warning_bar
+{
+    background: #ffff60;
+    padding: 16px;
+    border-radius: 5px;
+    color: #000000;
 }
