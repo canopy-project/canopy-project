@@ -25,7 +25,7 @@ td {
     color: #3060a0;
 }
 .top-bar {
-    border-bottom: 2px solid #c0c0c0;
+    border-bottom: 1px solid #304050;
     padding-top: 4px;
     padding-bottom: 4px;
     position: fixed;
@@ -36,8 +36,7 @@ td {
 .main-section {
     width: 100%;
     position: absolute;
-    top: 64px;
-    padding-top: 4px;
+    top: 56px;
 }
 .darkest {
     color: #000000;
@@ -63,11 +62,11 @@ td {
 }
 .logo-in-text-light {
     font-family: "ABeeZee";
-    color: #90a0c0;
+    color: #a0b0f8;
 }
 .gray-section
 {
-    background: #304050;
+    background: #283860;
     color: #ffffff;
 }
 
@@ -92,22 +91,39 @@ td {
 {
     text-align: justify;
 }
+a, a.visited
+{
+    color: #3060a0;
+    text-decoration: none;
+}
+a:hover
+{
+    color: #50a0ff
+}
+a.logo:hover
+{
+    color: #3060a0;
+}
 </style>
 <body>
 <div class="top-bar shutterstock-network">
     <div class=center_channel>
-        <div class=logo>canopy</div>
+        <table cellpadding=0 cellspacing=0><tr><td>
+            <a href='http://canopy.link' class=logo>canopy</div>
+        </td><td width=450>
+            &nbsp;
+        </td><td><a target=_new href="http://www.github.com/canopy-project">source code</a>
+        </td><td style='padding-left:30px'><a href=".">documentation</a>
+        </td><td style='padding-left:30px'><a target=_new href="http://muut.com/canopy-project">forum</a>
+        </tr></table>
     </div>
 </div>
 <div class=main-section>
-    <div class=center_channel>
-        <div class=darkest>
-        <div class=thin>An <span class=big>open source</span>
-        <br><span class=ml>&nbsp;&nbsp;&nbsp;&nbsp;platform</span> for the<br>
-        <span class=big>Internet of Things.</span></div><br>
-        </div>
+    <div class=gray-section>
+        <div class=center_channel style="padding-top:6px">
+        <div class="xxl thin">An Open Source Platform<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for the Internet of Things</div>
 
-        <div style="text-align:justify">The next billion devices to join the Internet won't be PCs, tablets or
+        <div style="padding-top:8px; text-align:justify">The next billion devices to join the Internet won't be PCs, tablets or
         smartphones.  Instead they'll be household appliances, motor vehicles,
         industrial machines, environmental sensors, and even fashion
         accessories.  The Internet of Things is the next big technological
@@ -120,53 +136,13 @@ td {
         movement.<br><br>
 
         Yes, we have lofty goals and a long journey ahead.  But
-        we need to begin somewhere, and <span class=logo-in-text>canopy</span>
+        we need to begin somewhere, and <span class=logo-in-text-light>canopy</span>
         is that beginning.<br><br>
         </div>
+        </div>
     </div>
-    <div class=gray-section>
-        <div class=center_channel>
-        <div class="xxl thin">Our Worldview</div>
-        We think about real-world "smart" objects abstractly as collections of <span class=hvy>sensors</span> and <span class=hvy>controls</span>.<br><br>
-        <table border=0 cellspacing=0 cellpadding=0>
-            <tr>
-                <td valign=top>
-        <img width=200 src=http://image.shutterstock.com/display_pic_with_logo/699367/137441036/stock-vector-clean-vector-set-of-different-graph-types-good-for-infographics-137441036.jpg></img>
-                </td>
-                <td class=gray-section valign=top style="text-align:justify; padding-left: 18px;">
-                A <span class=hvy>sensor</span> corresponds to a piece of
-                information the object can tell us about, such as the
-                ambient temperature, its GPS coordinates, or how many
-                belgian waffles it has made to date.
-                <br><br>
-                <span class=logo-in-text-light>canopy</span> takes care of efficiently
-                storing this sensor data as it changes over time, and makes it fast
-                and easy to retrieve the data and present it in graphical form.
-                </td>
-            </tr>
-        </table><br>
-        <table border=0>
-            <tr>
-                <td class=gray-section style="text-align:justify; padding-right: 18px;" valign=top>
-                A <span class=hvy>control</span> is any setting or
-                property that can be changed remotely.  For example,
-                the darkness level on a smart toaster is a <span class=hvy>control</span>.
-                Triggerable actions, such as honking a car's horn or closing
-                your garage door, are also considered <span
-                class=hvy>controls</span>.<br><br>
-                <span class=logo-in-text-light>canopy</span> exposes an
-                object's controls to the web via a REST API.
-                Additionally, <span class=logo-in-text-light>canopy's</span> default frontend
-                presents the user with an intuitive control panel for each
-                device that can be customized by the device's manufacturer.
-                </td>
-                <td valign=top>
-        <img width=200 src=http://image.shutterstock.com/display_pic_with_logo/112072/128911283/stock-photo-using-the-oven-oven-temperature-control-closeup-128911283.jpg></img>
-                </td>
-            </tr>
-        </table>
-        </div><br>
-    </div>
+
+
     <div class=center_channel>
         <div class="xxl thin">Components</div>
         <img src="canopy_block_diagram.png"><br><br>
@@ -183,7 +159,7 @@ td {
                 CLOUD</span> over secure websockets for high
                 performance and security.</div>
                 <br><br>
-                <br><a href="http://github.com/canopy-project/canopy-embedded">Source code on GitHub</a>
+                <br><a target=_new href="http://github.com/canopy-project/canopy-embedded">Source code on GitHub</a>
                 <br>View tutorial.
                 <br>View documentation.
                 <br>Status: Under construction
@@ -200,7 +176,7 @@ td {
                     class=logo-in-text>canopy CLOUD</span> is written in golang, uses
                     cassandra for data storage, and communicates with devices over
                     websockets.</div>
-                    <br><a href="http://github.com/canopy-project/canopy-cloud">Source code on GitHub</a>
+                    <br><a target=_new href="http://github.com/canopy-project/canopy-cloud">Source code on GitHub</a>
                     <br>View tutorial.
                     <br>View documentation.
                     <br>Status: Under construction
@@ -218,7 +194,8 @@ td {
                     another.  The <span class=logo-in-text>canopy APP</span> is
                     written entirely in javascript and HTML.<br><br><br>
                     </div>
-                    <br><br><br><br>Status: Under construction
+                    <br><br><br><a target=_new href="http://github.com/canopy-project/canopy-app">Source code on GitHub</a>
+                    <br>Status: Under construction
                 </div>
             </td>
         </tr></table><br>
@@ -260,14 +237,56 @@ td {
             </td>
         </tr></table><br>
     </div>
+
     <div class=gray-section>
+        <div class=center_channel>
+        <div class="xxl thin">Our View of Things</div>
+        We think about real-world "smart" objects abstractly as collections of <span class=hvy>sensors</span> and <span class=hvy>controls</span>.<br><br>
+        <table border=0 cellspacing=0 cellpadding=0>
+            <tr>
+                <td>
+        <img src=http://a.dryicons.com/images/icon_sets/coquette_part_9_icons_set/png/128x128/speedometer.png>
+                </td>
+                <td class=gray-section valign=top style="text-align:justify; padding-left: 18px;">
+                A <span class=hvy>sensor</span> corresponds to a piece of
+                information the object can tell us about, such as the
+                ambient temperature, its GPS coordinates, or how many
+                belgian waffles it has made to date.
+                <br><br>
+                <span class=logo-in-text-light>canopy</span> takes care of efficiently
+                storing this sensor data as it changes over time, and makes it fast
+                and easy to retrieve the data and present it in graphical form.
+                </td>
+            </tr>
+        </table><br>
+        <table border=0>
+            <tr>
+                <td class=gray-section style="text-align:justify; padding-right: 18px;" valign=top>
+                A <span class=hvy>control</span> is any setting or
+                property that can be changed remotely.  For example,
+                the darkness level on a smart toaster is a <span class=hvy>control</span>.
+                Triggerable actions, such as honking a car's horn or closing
+                your garage door, are also considered <span
+                class=hvy>controls</span>.<br><br>
+                <span class=logo-in-text-light>canopy</span> exposes an
+                object's controls to the web via a REST API.
+                Additionally, <span class=logo-in-text-light>canopy's</span> default frontend
+                presents the user with an intuitive control panel for each
+                device that can be customized by the device's manufacturer.
+                </td>
+                <td valign=top>
+        <img style='position:relative; top:10px' src=http://a.dryicons.com/images/icon_sets/coquette_icons_set/png/128x128/process.png>
+                </td>
+            </tr>
+        </table>
+        </div><br>
+    </div>
+
+    <div>
         <div class=center_channel>
         <div class="xxl thin">Get Involved</div>
         If you're as excited about this vision as we are, then help make it a
-        reality.  Here are some ways you can get involved:<br><br>
-        <div class="big">I'm just interested in following the progress of this project.</div>
-        Join our mailing list.
-        <br>Participate in our online forum.
+        reality.  Here are some ways you can get involved:
 
         <br><br><div class="big">I'm a coder</div>
         Read up on our software architecture.
@@ -285,6 +304,11 @@ td {
         <br><br><div class="big">I want to help sponsor this project</div>
         You're awesome!
         <br>Send us an email at sponsor@canopy.link
+
+        <br><br><div class="big">I'm just interested in following the progress of this project.</div>
+        Join our mailing list.
+        <br>Participate in our online forum.
+
         </div><br>
     </div>
 </div>
