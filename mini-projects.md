@@ -5,7 +5,7 @@ Canopy Mini Projects
 
 This documents breaks down the work that needs to be done into a bunch of "mini
 projects".  Use this document to gain background info on remaining project
-tasks.
+tasks.  Let us know if you would like to contribute to one of these efforts.
 
 
 # canopyEMBEDDED Mini Projects
