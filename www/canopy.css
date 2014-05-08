@@ -1,10 +1,11 @@
 body {
     margin: 0px;
     padding: 0px;
-    font-family: "Titillium Web", sans-serif;
+    font-family: "Source Sans Pro", Helvetica,arial,freesans,clean,sans-serif;
+    line-height: 1.5;
     font-weight: 300;
-    font-size: 14pt;
-    color: #505050;
+    font-size: 20px;
+    color: #000000;
 }
 
 .code {
@@ -17,7 +18,7 @@ body {
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 14px;
-    color: 153060;
+    color: #153060;
 }
 
 .icode {
@@ -25,13 +26,22 @@ body {
     font-family: monospace;
     font-size: 14px;
     background: #f0f0f0;
-    color: 153060;
+    color: #153060;
     padding: 4px;
 }
 
 td {
-    font-size: 14pt;
+    font-size: 20px;
+    font-weight: 300;
 }
+.main-section td
+{
+    line-height: 1.5;
+}
+.top-bar td {
+    font-weight: 400;
+}
+
 .center_channel {
     width: 940px;
     margin-left: auto;
@@ -64,13 +74,13 @@ td {
     font-size: 34px;
 }
 .xxl {
-    font-size: 48px;
+    font-size: 50px;
 }
 .ml {
     font-size: 26px;
 }
 .s {
-    font-size: 13px;
+    font-size: 15px;
 }
 .thin {
     font-weight: 200;
@@ -118,11 +128,15 @@ h2 {
 a, a.visited
 {
     color: #3060a0;
-    text-decoration: none;
+    font-weight: 400;
 }
 a:hover
 {
     color: #50a0ff
+}
+.top-bar a
+{
+    text-decoration: none;
 }
 a.logo:hover
 {
