@@ -44,9 +44,21 @@
             <div class=code>{
 }</div>
 
-            <h4>Canopy Class Names</h4>
+            The general top-level structure is:
+
+            <div class=code>{
+    <div class=code_template>METADATA KEY</div> : <div class=code_template>METADATA VALUE</div>,
+    <div class=code_template>METADATA KEY</div> : <div class=code_template>METADATA VALUE</div>,
+    ...
+
+    <div class=code_template>CANOPY CLASS NAME</div> : { <div class=code_template>CANOPY CLASS OBJECT</div> },
+    <div class=code_template>CANOPY CLASS NAME</div> : { <div class=code_template>CANOPY CLASS OBJECT</div> },
+    ...
+}</div>
+
+            <h4>Canopy Class Name</h4>
             Each key of the top-level object that begins with a letter is
-            called a <b>Canopy Class Name</b>.  A <b>Canopy Class Name</b> may consist of the characters 
+            called a <b>Canopy Class Name</b>.  A <b>Canopy Class Name</b> must contain only the characters 
             <div class=icode>A-Z</div>, 
             <div class=icode>a-z</div>, 
             <div class=icode>0-9</div>, 
@@ -69,12 +81,12 @@
                 <li>Finish with specific <b>product model</b>.
             </ul>
 
-            This example SDDL file shows two <b>Class Names</b> for
+            This example SDDL file shows the <b>Class Names</b> for two
             hypothetical products:
 
             <div class=code>{
     "miele.smart_oven_3000" : { },
-    "dyson.fans.dyson_cool.am07smart" : { },
+    "dyson.fans.dyson_cool.am08" : { },
 }</div>
             <h4>Special Top-Level Keys</h4>
             Top-level keys that begin with 
@@ -93,9 +105,100 @@
         <td>List of strings, specifying the document's authors.</td>
         </table>
 
-        <h4>Canopy Class Objects</h4>
-        Each <b>Canopy Class Name</b> key has a corresponding value called the <b>Canopy Class Object</b>, which must be a JSON object.
-        be a JSON object, and more  called the <b>Canopy Class Object</b>
+        <h4>Canopy Class Object</h4>
+        Each <b>Canopy Class Name</b> key has a corresponding value called the
+        <b>Canopy Class Object</b>, which must be a JSON object.  The <b>Canopy
+        Class Object</b> decribes the controls and sensors supported by the
+        device.  It contains keys, called <b>Device Property Names</b> and corresponding values called <b>Device Property Objects</b>:
+
+            <div class=code>{
+    "mybrand.mydevice" : {
+        <div class=code_template>DEVICE PROPERTY NAME</div> : { <div class=code_template>DEVICE PROPERTY OBJECT</div> },
+        <div class=code_template>DEVICE PROPERTY NAME</div> : { <div class=code_template>DEVICE PROPERTY OBJECT</div> },
+        <div class=code_template>DEVICE PROPERTY NAME</div> : { <div class=code_template>DEVICE PROPERTY OBJECT</div> },
+        ...
+    },
+}</div>
+
+        <h4>Device Property Name</h4>
+        The device property name may be at most 255 characters in length and must contain only the characters
+            <div class=icode>A-Z</div>, 
+            <div class=icode>a-z</div>, 
+            <div class=icode>0-9</div>, and
+            <div class=icode>_</div> (underscore).
+        Here too, case is ignored, and by convention lowercase is always used.
+
+        <h4>Device Property Object</h4>
+        The value corresponding to a <b>Canopy Property Name</b> must be a JSON
+        object and is called the <b>Device Property Object</b>.  This object
+        describes a sensor or control on the device, and has the following fields.
+
+        <table border=1 cellpadding=8 cellspacing=0>
+            <tr>
+                <td>Field</td>
+                <td>Optional?</td>
+                <td>JSON type</td>
+                <td>Description</td>
+            </tr>
+            <tr>
+                <td valign=top><div class=icode>"category"</div></td>
+                <td valign=top>Required</td>
+                <td valign=top>String</td>
+                <td valign=top>Must be one of the following:
+                    <ul>
+                        <li>SENSOR</li>
+                        <li>CONTROL</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td valign=top><div class=icode>"datatype"</div></td>
+                <td valign=top>Required</td>
+                <td valign=top>String</td>
+                <td valign=top>Must be one of the following:
+                    <ul>
+                        <li>SENSOR</li>
+                        <li>CONTROL</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td valign=top><div class=icode>"min-value"</div></td>
+                <td valign=top>Optional</td>
+                <td valign=top>Number or NULL</td>
+                <td valign=top>Minimum allowed value.
+                </td>
+            </tr>
+            <tr>
+                <td valign=top><div class=icode>"max-value"</div></td>
+                <td valign=top>Optional</td>
+                <td valign=top>Number or NULL</td>
+                <td valign=top>Maximum allowed value.
+                </td>
+            </tr>
+            <tr>
+                <td valign=top><div class=icode>"control-type"</div></td>
+                <td valign=top>Optional</td>
+                <td valign=top>String</td>
+                <td valign=top>
+                </td>
+            </tr>
+            <tr>
+                <td valign=top><div class=icode>"sensor-type"</div></td>
+                <td valign=top>Optional</td>
+                <td valign=top>String</td>
+                <td valign=top>
+                </td>
+            </tr>
+            <tr>
+                <td valign=top><div class=icode>"description"</div></td>
+                <td valign=top>Optional</td>
+                <td valign=top>String</td>
+                <td valign=top>
+                </td>
+            </tr>
+        </table>
+
     </div>
 </body>
 </html>
