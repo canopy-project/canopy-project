@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>canopy - Tutorial</title>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='canopy.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class="top-bar shutterstock-network">
+    <div class=center_channel>
+        <table cellpadding=0 cellspacing=0><tr><td>
+            <a href='http://canopy.link' class=logo>canopy</div>
+        </td><td width=450>
+            &nbsp;
+        </td><td><a target=_new href="http://www.github.com/canopy-project">source code</a>
+        </td><td style='padding-left:30px'><a href=".">documentation</a>
+        </td><td style='padding-left:30px'><a target=_new href="http://muut.com/canopy-project">forum</a>
+        </tr></table>
+    </div>
+</div>
+<div class=main-section>
+    <div>
+        <div class=center_channel style="padding-top:6px">
+            <div class='warning_bar'><span class=hvy>Notice:</span> this draft
+            specification is under active development and subject to change.
+            </div>
+
+            <div class="xxl thin">Smart Device Description Language</div>
+
+            <h2>Overview</h2>
+            The <span class=logo-in-text>Smart Device Description
+            Language (SDDL) </span> is a JSON-based document format used throughout
+            <span class=logo-in-text>canopy</span> to convey meta-data about a
+            device's sensors and controls.
+            
+            
+            <h2>Format</h2>
+            <h4>Top-Level JSON Object</h4>
+            SDDL documents are JSON-encoded.  Each SDDL document contains a
+            single top-level JSON object, beginning with <span
+            class=icode>{</span> and ending with <span class=icode>}</span>.  This top-level object may contain 0 or more keys.
+
+            <p>For example, here is the simplest allowable SDDL document:
+            <div class=code>{
+}</div>
+
+            <h4>Canopy Class Names</h4>
+            Each key of the top-level object that begins with a letter is
+            called a <b>Canopy Class Name</b>.  A <b>Canopy Class Name</b> may consist of the characters 
+            <div class=icode>A-Z</div>, 
+            <div class=icode>a-z</div>, 
+            <div class=icode>0-9</div>, 
+            <div class=icode>_</div> (underscore), and
+            <div class=icode>.</div> (dot).
+
+            Case is ignored, but by convention all lower-case is used.
+
+            <p>To avoid namespace collisions, it is recommended that <b>Canopy Class Names</b> obey the following convention:
+            <p>
+            <div class=icode>PRODUCT_NAME</div>
+            <div class=icode>.</div>
+            <div class=icode>OPTIONAL_SUB_NAMESPACES</div>
+            <div class=icode>.</div>
+            <div class=icode>PRODUCT_MODEL</div>
+            <p>That is:
+            <ul>
+                <li>Begin with the name of the <b>product vendor</b> then a <div class=icode>.</div> (dot).</li>
+                <li>Follow with 0 or more sub-namespaces of the vendor's choosing, each ending with a <div class=icode>.</div> (dot).</li>
+                <li>Finish with specific <b>product model</b>.
+            </ul>
+
+            This example SDDL file shows two <b>Class Names</b> for
+            hypothetical products:
+
+            <div class=code>{
+    "miele.smart_oven_3000" : { },
+    "dyson.fans.dyson_cool.am07smart" : { },
+}</div>
+            <h4>Special Top-Level Keys</h4>
+            Top-level keys that begin with 
+            <div class=icode>__</div> (double underscore) are reserved and some
+            have special purposes.  For example, an SDDL file's authors may be
+            specified with:
+
+            <div class=code>{
+    "__authors" : ["Philip J. Fry (fry@futurarama.com)"],
+}</div>
+
+        Valid <b>special top-level keys</b> are:
+        <table border=1>
+        <tr>
+        <td>__authors</td>
+        <td>List of strings, specifying the document's authors.</td>
+        </table>
+
+        <h4>Canopy Class Objects</h4>
+        Each <b>Canopy Class Name</b> key has a corresponding value called the <b>Canopy Class Object</b>, which must be a JSON object.
+        be a JSON object, and more  called the <b>Canopy Class Object</b>
+    </div>
+</body>
+</html>
