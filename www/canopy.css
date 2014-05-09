@@ -21,6 +21,14 @@ body {
     color: #153060;
 }
 
+.code_template {
+    display: inline-block;
+    border: 1px dashed #008000;
+    background: #ffff80;
+    margin-bottom: 3px;
+    padding: 2px;
+}
+
 .icode {
     display: inline-block;
     font-family: monospace;
@@ -40,6 +48,7 @@ td {
 }
 .top-bar td {
     font-weight: 400;
+    font-size: 22px;
 }
 
 .center_channel {
@@ -52,15 +61,18 @@ td {
     font-family: "ABeeZee";
     font-size: 35px;
     color: #3060a0;
+    border-radius: 32px;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-left:-6px;
 }
 .top-bar {
     border-bottom: 1px solid #304050;
-    padding-top: 4px;
-    padding-bottom: 4px;
     position: fixed;
     width: 100%;
-    height: 48px;
+    height: 56px;
     z-index: 100;
+    background-color: #ffffff;
 }
 .main-section {
     width: 100%;
@@ -106,10 +118,10 @@ h2 {
 
 .shutterstock-network
 {
-    background-color: #ffffff;
     background-image:url('http://image.shutterstock.com/display_pic_with_logo/1206974/130694135/stock-vector-molecule-and-communication-background-vector-illustration-graphic-design-useful-for-your-design-130694135.jpg');
     background-repeat: no-repeat;
-    background-position: 460px -160px;;
+    background-position: 108px -96px;;
+    background-size: 350px 350px;
 }
 .tbl-box
 {
