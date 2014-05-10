@@ -127,7 +127,7 @@ h2 {
 {
     background-image:url('http://image.shutterstock.com/display_pic_with_logo/1206974/130694135/stock-vector-molecule-and-communication-background-vector-illustration-graphic-design-useful-for-your-design-130694135.jpg');
     background-repeat: no-repeat;
-    background-position: 108px -96px;;
+    background-position: 106px -96px;;
     background-size: 350px 350px;
 }
 .tbl-box
@@ -156,6 +156,10 @@ a:hover
 .top-bar a
 {
     text-decoration: none;
+}
+.top-bar td
+{
+    font-size:18px;
 }
 a.logo:hover
 {
