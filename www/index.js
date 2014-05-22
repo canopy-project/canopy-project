@@ -67,7 +67,7 @@ $(document).ready(function() {
         $("#hexdetails").addClass("hexdetailsbg");
         $("#hexdetails").html("\
             It takes just a few lines of embedded code\
-            to make your device <span class=logo-in-text>Canopy-enabled</span>,\
+            to make your product <span class=logo-in-text>Canopy-enabled</span>,\
             which allows it to be controlled and monitored from the Internet.  Our\
             hosted <span class=logo-in-text>Canopy Cloud Service</span> will\
             get you up-and-running in no time.\

@@ -1,225 +1,128 @@
 <html>
 <head>
-<title>canopy - An Open Soruce Platform for the Internet of Things</title>
+<title>Canopy - An Open Soruce Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="index.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
-<link href='canopy.css' rel='stylesheet' type='text/css'>
+<link href='canopy_new.css' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-<div class="top-bar">
-    
-    <div class="center_channel shutterstock-network" style="height: 52px; padding-top:4px">
-        <table border=0 cellpadding=0 cellspacing=0><tr><td>
-            <a href='http://canopy.link' class=logo>canopy</div>
-        </td><td width=450>
-            &nbsp;
-        </td><td nowrap><a target=_blank href="http://www.github.com/canopy-project">source code</a>
-        </td><td nowrap style='padding-left:30px'><a href="embedded_tutorial.html">documentation</a>
-        </td><td nowrap style='padding-left:30px'><a target=_blank href="http://muut.com/canopy-project">forum</a>
-        </td><td nowrap style='padding-left:30px'><a href="business_services.html">business solutions</a>
-        </td></tr></table>
-    </div>
-</div>
+<img id=toaster_pic src=shutterstock_161169386_toaster_w600.jpg>
+<div id=divider>&nbsp;</div>
 <div class=main-section>
-    <div class=gray-section>
-        <div class=center_channel style="padding-top:6px">
-        <div class="xxl thin">An Open Source Platform<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for the Internet of Things</div>
-
-        <div style="padding-top:8px; text-align:justify">The next billion devices to join the Internet won't be PCs, tablets or
-        smartphones.  Instead they'll be household appliances, motor vehicles,
-        industrial machines, environmental sensors, and even fashion
-        accessories.  The Internet of Things is the next major technological
-        revolution and it will forever change the way we interact with our
-        surroundings.<br><br>
-
-        The framework that powers this revolution is too important to be based on
-        proprietary software and big corporate agendas.  That is why we are
-        working night and day to create an open platform along with open
-        standards.<br><br>
-        
-        The <span class=logo-in-text-light>canopy</span> platform is simple for your
-        organization to leverage, whether you are an established consumer brand
-        building a smart product for the home, a startup using the Intenet of
-        Things to tackle big environmental and energy problems, or a hobbyist
-        dabbling at the cutting-edge of technology.
-        <br><br>
-
-        Welcome to a smarter future!
-        <br><br>
-
+    <div class=center_channel style='text-align:center'>
+        <span class=logo>Canopy</span>
+        <span class=big style='padding-left:32px'>Because <i>everything</i> should have an API.</span>
+        <br>
+    </div>
+    <div class=center_channel style='position:relative'>
+        <div id=codesample-outer>
+            <div id=codesample-inner>POST /my/toaster
+{
+    "darkness" : 4,
+    "bagel_mode" : true
+}</div>
+            <a href=embedded_tutorial>View tutorial</a>
         </div>
-        </div>
-    </div>
-
-
-    <div class=center_channel>
-        <div class="xxl thin">Components</div>
-        <img src="canopy_block_diagram.png"><br><br>
-        <span class=logo-in-text>canopy</span> is open source and modular, so organizations can use as
-        much or as little of the platform
-        as suits their unique needs.<br><br>
-        <div class="big thin">Code Projects</div>
-        <table cellpadding=0 cellspacing=0 border=0><tr>
-            <td valign=top class=tbl-box>
-                <div class="ml logo-in-text">canopy EMBEDDED</div>
-                <div class="s">contains libcanopy, written in C.  It provides hooks for custom
-                data gathering, configuration, and control specific to your device.
-                It communicates with <span class=logo-in-text>canopy
-                CLOUD</span> over secure websockets for high
-                performance and security.</div>
-                <br><br>
-                <br><a target=_blank href="http://github.com/canopy-project/canopy-embedded">Source code on GitHub</a>
-                <br><a target=_blank href="embedded_tutorial.html">View tutorial</a>
-                <br>View documentation.
-                <br>Status: Coming Soon!
-            </td>
-            <td valign=top class=tbl-box>
-                <div>
-                    <div class="ml logo-in-text">canopy CLOUD</div>
-                    <div class='s'>is a
-                    server-side application that exposes a REST API for remotely
-                    managing smart devices.  The <span class=logo-in-text>canopy
-                    CLOUD</span> stores time-series and event-based data obtained from
-                    the sensors on your device, for visualization and analysis.
-                    The <span class=logo-in-text>canopy CLOUD</span> is written
-                    in golang, uses cassandra for data storage, and
-                    communicates with devices over websockets.<br><br></div>
-                    <a target=_blank href="http://github.com/canopy-project/canopy-cloud">Source code on GitHub</a>
-                    <br>View tutorial.
-                    <br>View documentation.
-                    <br>Status: Coming Soon!
-                </div>
-            </td>
-            <td valign=top class=tbl-box>
-                <div>
-                    <div class="ml logo-in-text">canopy APP</div>
-                    <div class=s>
-                    is a frontend to <span class=logo-in-text>canopy
-                    CLOUD</span> for the web and mobile web.  It provides an
-                    easy-to-use interface for remotely managing your smart
-                    devices, visualizing sensor data, creating rules, and
-                    connecting the output of one device to the input of
-                    another.  The <span class=logo-in-text>canopy APP</span> is
-                    written entirely in javascript and HTML.<br><br><br>
-                    </div>
-                    <br><a target=_blank href="http://github.com/canopy-project/canopy-app">Source code on GitHub</a>
-                    <br><a target=_blank href="mockup/index.html">View online mockup</a>
-                    <br>Status: Coming Soon!
-                </div>
-            </td>
-        </tr></table><br>
-        <div class="big thin">Standards and Protocols</div>
-        <table cellspacing=0 cellpadding=0><tr>
-            <td valign=top class=tbl-box>
-                <div class="ml logo-in-text">SDDL</div>
-                <div class="s">is our <span class=hvy>Smart Device Description
-                Language</span>.  <span class=logo-in-text>SDDL</span> is a
-                simple JSON-based file format that describes the sensors and
-                controls on your device.  This description data is used by
-                other components of <span class=logo-in-text>canopy</span> to
-                automatically generate input validation code and UI controls.
-                </div>
-                <br>View draft specification
-            </td>
-            <td valign=top class=tbl-box>
-                <div>
-                    <div class="ml logo-in-text">canopy PROTOCOL</div>
-                    <div class='s'>is the open protocol used for communications between <span class=logo-in-text>canopy EMBEDDED</span> and <span class=logo-in-text>canopy CLOUD</span>.<br><br><br><br><br>
-                    </div>
-                    <br>View draft specification
-                </div>
-            </td>
-            <td valign=top class=tbl-box>
-                <div>
-                    <div class="ml logo-in-text">canopy REST API</div>
-                    <div class=s>
-                    is the open REST API used for communications between the
-                    <span class=logo-in-text>canopy CLOUD</span> and <span
-                    class=logo-in-text>canopy APP</span>.  Because this API is
-                    published and open, alternative frontends can be created
-                    for <span class=logo-in-text>canopy</span> and <span
-                    class=logo-in-text>canopy's</span> capabilities can be used
-                    directly by other services and tools.
-                    </div>
-                    <br>View draft specification
-                </div>
-            </td>
-        </tr></table><br>
-    </div>
-
-    <div class=gray-section>
-        <div class=center_channel>
-        <div class="xxl thin">Our View of Things</div>
-        We think about real-world "smart" objects abstractly as collections of <span class=hvy>sensors</span> and <span class=hvy>controls</span>.<br><br>
-        <table border=0 cellspacing=0 cellpadding=0>
-            <tr>
-                <td>
-        <img src=http://a.dryicons.com/images/icon_sets/coquette_part_9_icons_set/png/128x128/speedometer.png>
-                </td>
-                <td class=gray-section valign=top style="text-align:justify; padding-left: 18px;">
-                A <span class=hvy>sensor</span> corresponds to a piece of
-                information the object can tell us about, such as the
-                ambient temperature, its GPS coordinates, or how many
-                belgian waffles it has made to date.
-                <br><br>
-                <span class=logo-in-text-light>canopy</span> takes care of efficiently
-                storing this sensor data as it changes over time, and makes it fast
-                and easy to retrieve the data and present it in graphical form.
-                </td>
-            </tr>
-        </table><br>
-        <table border=0>
-            <tr>
-                <td class=gray-section style="text-align:justify; padding-right: 18px;" valign=top>
-                A <span class=hvy>control</span> is any setting or
-                property that can be changed remotely.  For example,
-                the darkness level on a smart toaster is a <span class=hvy>control</span>.
-                Triggerable actions, such as honking a car's horn or closing
-                your garage door, are also considered <span
-                class=hvy>controls</span>.<br><br>
-                <span class=logo-in-text-light>canopy</span> exposes an
-                object's controls to the web via a REST API.
-                Additionally, <span class=logo-in-text-light>canopy's</span> default frontend
-                presents the user with an intuitive control panel for each
-                device that can be customized by the device's manufacturer.
-                </td>
-                <td valign=top>
-        <img style='position:relative; top:10px' src=http://a.dryicons.com/images/icon_sets/coquette_icons_set/png/128x128/process.png>
-                </td>
-            </tr>
-        </table>
-        </div><br>
-    </div>
-
-    <div>
-        <div class=center_channel>
-        <div class="xxl thin">Get Involved</div>
-        If you're as excited about this vision as we are, then help make it a
-        reality.  Here are some ways you can get involved:
-
-        <br><br><div class="big">I'm a coder</div>
-        Read up on our software architecture.
-        <br>View open bugs and tasks
-        <br>Join the developer's mailing and let us know that you'd like to help
-        <br>Email us at sw@canopy.link
-
-        <br><br><div class="big">I'm a designer</div>
-        Join the design mailing list and let us know that you'd like to help
-        Email us at design@canopy.link
-
-        <br><br><div class="big">I'm in business (or business school)</div>
-        Shoot us an email at biz@canopy.link
-
-        <br><br><div class="big">I want to help sponsor this project</div>
-        You're awesome!
-        <br>Send us an email at sponsor@canopy.link
-
-        <br><br><div class="big">I'm just interested in following the progress of this project.</div>
-        Join our mailing list.
-        <br>Participate in our online forum.
-
-        </div><br>
     </div>
 </div>
-</body>
-</html>
+<div class="main-section gray-section" style="margin-top:510px; position:relative">
+    <div class="center_channel">
+        <br><div class=justify><span class=ml><span class=logo-in-text>Canopy</span> is a software
+        framework for giving real-world objects a representation on the Internet
+        in just a few lines of code.  It's a great tool for rapid IoT
+        prototyping, yet powerful enough to be used in massive-scale production
+        deployments.  Best of all, it's completely open source.</span></div>
+        <div style="position:relative">
+            <div id=hex1 class=hex>
+                <img src=images/dryicons_polygon/64x64/open_book.png align=middle></img><br>Open Source
+            </div>
+            <div id=hex2 class=hex style='display:inline-block; text-align:center; width: 120px;'>
+                <img src=images/dryicons_polygon/64x64/security.png align=middle></img><br>Secure
+            </div>
+            <div id=hex3 class=hex style='display:inline-block; text-align:center; width: 120px;'>
+                <img src=images/dryicons_polygon/64x64/speedometer.png align=middle></img><br>Low-latency
+            </div>
+            <div id=hex4 class=hex style='display:inline-block; text-align:center; width: 120px;'>
+                <img src=images/dryicons_polygon/64x64/fullscreen.png align=middle></img><br>Scalable
+            </div>
+            <div id=hex5 class=hex style='display:inline-block; text-align:center; width: 120px;'>
+                <img src=images/dryicons_polygon/64x64/paper_plane.png align=middle></img><br>Simple
+            </div>
+            <div id=hex6 class=hex style='display:inline-block; text-align:center; width: 120px;'>
+                <img src=images/dryicons_polygon/64x64/light_bulb.png align=middle></img><br>Smart
+            </div>
+            <div id=hex7 class=hex style='display:inline-block; text-align:center; width: 120px;'>
+                <img src=images/dryicons_polygon/64x64/lighting.png align=middle></img><br>Powerful
+            </div>
+            <div id=hexcenter>Canopy
+            </div>
+            <div id=hexdetails>
+            </div>
+        </div>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br>
+        <br><br><br><br><br><br>
+    </div>
+</div>
+<div class="main-section">
+    <div class="center_channel" style='vertical-align:top'>
+        <br><br><br>
+        <div class=xxl>How it works</div>
+        <div class=bubble1>
+        <img src=shutterstock_82034455_fan_h175.jpg><br>
+        <span class=xxl>1.</span><br>You describe your product's capabilities using our <span class=logo-in-text>Smart Device Description Language (SDDL).</span></div>
+        <div class=bubble2>
+        <div class=code style='border-radius:16px; font-size:10px;height:125px'>bool on_fan_speed_control(
+        CanopyContext ctx,
+        uint8_t value) {
+    /* set speed using I2C */
+    result = i2c_write(
+        SPEED_PIN, 
+        value);
+    return result;
+}</div>
+        <span class=xxl>2.</span><br> You write a small amount
+        of embedded code, using <span class=logo-in-text>libcanopy</span> to
+        send status reports to the cloud and recieve control events from
+        the cloud.</div>
+        <div class=bubble3>
+        <img src=shutterstock_90189298_cloud_h175 style="margin-left:18px"><br>
+        <span class=xxl>3.</span><br> The <span
+        class=logo-in-text>Canopy Cloud Service</span> talks to your products
+        over websockets, stores historic sensor data, and translates
+        product capabilities into a REST API.</div>
+        <div class=bubble4>
+        <img src=iphone-with-fan.jpg>
+        <span class=xxl>4.</span><br> App developers use a simple REST API to interact with your <span class=logo-in-text>Canopy-enabled</span> products.</div>
+        <bR><br>
+    </div>
+</div>
+
+<div class="main-section blue-section">
+    <div class="center_channel">
+        <br>
+        <span class=big>Stay updated.<br>
+        Get involved.</span>
+        <span id=joinbutton_outer>
+            <a id=joinbutton target=_blank href=https://groups.google.com/a/canopy.link/d/forum/community>Join the <b>community@canopy.link</b> Google Group</a>
+        </span>
+        <div style='width:300px'>Announcements and discussions will take place on this mailing list.
+        </div>
+        <br>
+    </div>
+</div>
+<div class="main-section gray-section">
+    <div class="center_channel">
+    <br>
+    <span class="ml normala"><a href=blog.html>Blog</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="ml normala"><a href=embedded_tutorial.html>Documentation</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="ml normala"><a target=_blank href="http://www.github.com/canopy-project">Source</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="ml normala"><a target=_blank href=http://muut.com/canopy-project>Forum</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="ml normala"><a href="mailto:info@canopy.link">Contact</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <br><br><div class=s>Copyright 2014 Gregory Prisament</div>
+    </div>
+    <br><br>
+</div>
