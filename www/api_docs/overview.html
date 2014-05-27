@@ -1,0 +1,125 @@
+<html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='apidocs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class=main>
+    <h1>Canopy Overview</h1>
+    <p>
+        <a href=#intro>Introduction</a><br>
+        <a href=#hw>Hardware Requirements</a><br>
+        <a href=#features>Features</a><br>
+        <a href=#components>Components</a>
+    </p>
+
+    <h2><a name=intro />Introduction</h2>
+    <p>
+        Canopy is an open source Internet of Things platform.
+    </p>
+    <p>
+        Canopy takes a description of a physical object's capabilities, as
+        provided in an SDDL file (more on that later), and from that
+        description exposes a RESTful web service for monitoring and
+        controlling the object.
+    </p>
+    <p>
+        Canopy's server-side components are designed to scale to,
+        potentially, millions of connected devices.  The generality and
+        flexibility of Canopy makes it a powerful platform choice whenever
+        cloud-management is needed.
+    </p>
+
+    <h2><a name=intro />Hardware Requirements</h2>
+    <p>
+        Canopy requires a hardware platform with similar specifications to a
+        Raspberry Pi or Beagle Bone.  Canopy <i>does not</i> work on the
+        Arduino platform, at present.
+    </p>
+    <p>
+        Furthermore, a network connection (TCP/IP) is required, over ethernet,
+        wifi, or 4G LTE, between the device and the Canopy Cloud Service.
+        Canopy is designed for WiFi networks, and at present does not support
+        Zigbee, ZWave, bluetooth, or other communication protocols.
+    </p>
+    <p>
+        Canopy requires a linux-based OS on the device, such as Raspian or
+        Archlinux.  Canopy has not been tested on Android or RiscOS.
+    </p>
+
+    <h4>Recommended System Requirements:</h4>
+    <p>
+        <ul>
+            <li>ARM SOC w/ 1GHz cpu or higher</li>
+            <li>128 MB RAM
+            <li>Ethernet, WiFi, or 4G LTE connectivity</li>
+            <li>Linux-based OS</li>
+        </ul>
+    </p>
+        
+
+    <h2><a name=intro />Features</h2>
+
+    <p>
+        Canopy has several features that simplify the development of
+        high-quality IoT products. 
+    </p>
+
+    <h4>Automatic embedded code generation</h4>
+    <p>
+        Based on your product's SDDL file, the <i>canogen</i> tool will
+        automatically generate C template code for your device.  Just implement
+        a few device-specific routines (such as writing to GPIO pins) and
+        you've got yourself a Canopy-enabled smart product!
+    </p>
+
+    <h4>Sensor data collection and archiving</h4>
+    <p>
+        The Canopy Cloud Service receives periodic status updates from each
+        connected device.  It stores sensor data, device status, and control
+        events in a Cassandra database and makes this big data available for
+        monitoring and analysis.
+    </p>
+
+    <h4>Low-latency remote control</h4>
+    <p>
+        Control instructions issued from the web are forwarded to the
+        appropriate device in a matter of milliseconds.
+    </p>
+
+    <h4>User account management and device sharing</h4>
+    <p>
+        The Canopy Cloud Service has built-in user account management 
+        and device sharing systems.  Users can choose who else can control and
+        monitor their devices, and leave comments about particular devices for
+        other users to see.  These features make Canopy a veritable social
+        network for IoT.
+    </p>
+
+    <h4>Flexible deployment options</h4>
+    <p>
+        The Canopy Cloud Service is a golang application that can be run almost
+        anywhere.  For convenience, we maintain a hosted deployment that you
+        can use.  But if you choose, you can start up your own deployment on
+        EC2, in your own datacenter, on your corporate LAN, or on your laptop.
+    </p>
+
+    <h4>Device Management Frontend</h4>
+    <p>
+        You may choose to build your own custom frontend for your
+        Canopy-enabled products.  But until that's ready, you can use our
+        generic device management frontend to monitor and control your devices.
+    </p>
+
+    <h2><a name=components />SDDL - Smart Device Description Language</h2>
+    <p>
+        Canopy 
+        high-quality IoT products. 
+    </p>
+</div>
+</body>
+</html>

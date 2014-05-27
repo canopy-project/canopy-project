@@ -1,0 +1,639 @@
+<html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='apidocs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class=main>
+    <h1>Canopy REST API Documentation</h1>
+    <h2><a name=intro />Document Version 5/22/2014</h2>
+    <div class=text>
+        <a href=#intro>Introduction</a><br>
+        <a href=#intro>API Overview</a><br>
+            <div class=tabbed><a href=#intro>Resource Types</a></div>
+            <div class=tabbed><a href=#intro>Endpoint Summary</a></div>
+        <a href=#intro>Permission Model</a><br>
+        <a href=#intro>Error Handling</a><br>
+        <a href=#accounts>Accounts</a><br>
+        <div class=tabbed><a href=#intro>Account Creation</a></div>
+        <div class=tabbed><a href=#intro>Account Login</a></div>
+        <div class=tabbed><a href=#intro>Account Logout</a></div>
+        <div class=tabbed><a href=#intro>"Me" Account Details</a></div>
+        <a href=#devices>Devices</a><br>
+        <div class=tabbed><a href=#intro>Device Creation</a></div>
+        <div class=tabbed><a href=#intro>Controlling A Device</a></div>
+        <div class=tabbed><a href=#intro>Fetching Historic Sensor or Control Data</a></div>
+        <a href=#aliases>Device Aliases</a><br>
+    </div>
+
+    <h2><a name=intro />Introduction</h2>
+    <p>
+        This document contains the specification for the Canopy REST API.
+    </p>
+
+    <h2><a name=intro />API Overview</h2>
+    <p>
+        This REST API allows application developers to easily access, monitor,
+        and control Canopy-enabled devices, using HTTP endpoints.
+    </p>
+    <h3><a name=accounts />Resource Types</h2>
+    <p>
+        This API provides access to the following resources:
+    <p>
+    <h4><a name=intro />Account</h2>
+    <p>
+        An Account represents an end-user.  That is, someone with
+    credentials to login to the Canopy Cloud Service who has access
+    to zero or more Canopy-enabled devices.
+    <p>
+
+    <h4><a name=intro />Device</h2>
+    <p>
+        A Device represents a Canopy-enabled object, such as a smart
+        air conditioning unit.  The Device resouce makes it simple to monitor
+        and control Canopy-enabled objects.
+    <p>
+
+    <h4><a name=intro />Device Alias</h2>
+    <p>
+        A Device Alias represents a convenient short, semi-custom URL for
+        accessing a Device resource.
+    <p>
+    <h4><a name=intro />Event</h2>
+    <p>
+        An Event represents the log of an action taken by a user, or
+        any other relevant event that has occurred.  Examples include account
+        login, device connection &amp; disconnection, and remote control
+        changes.
+    <p>
+
+    <h3><a name=accounts />Endpoint Summary</h2>
+    <p>
+        This API provides the following HTTP endpoints:
+    </p>
+
+    <h4><a name=intro />Account endpoints</h2>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Method and URL</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>POST /create_account</td>
+                <td>Create an Account</td>
+            </tr>
+            <tr>
+                <td>POST /login</td>
+                <td>Sign-in an Account</td>
+            </tr>
+            <tr>
+                <td>POST /logout</td>
+                <td>Logout the currently signed-in Account</td>
+            </tr>
+            <tr>
+                <td>GET /me</td>
+                <td>Get details about the currently signed-in Account</td>
+            </tr>
+        </table>
+    </p>
+    <h4><a name=intro />Device endpoints</h2>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Method and URL</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>GET /device/&lt;DEVICE_ID&gt;
+                <br><br>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;ALIAS_NAME&gt;
+                <br><br>GET /my/&lt;ALIAS_NAME&gt;
+                </td>
+                <td>Obtain details about a particular Canopy-enabled device.<br><br>The second form uses an account's alias for the device.  The third form uses the currently signed-in account's alias for the device.</td>
+            </tr>
+            <tr>
+                <td>POST /device/&lt;DEVICE_ID&gt;
+                <br><br>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;ALIAS_NAME&gt;
+                <br><br>POST /my/&lt;ALIAS_NAME&gt;
+                </td>
+                <td>Remotely control a Canopy-enabled device.<br><br>The second form uses an account's alias for the device.  The third form uses the currently signed-in account's alias for the device.</td>
+            </tr>
+            <tr>
+                <td>GET /device/&lt;DEVICE_ID&gt/&lt;PROPERTY_NAME&gt;
+                <br><br>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
+                <br><br>GET /my/&lt;ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
+                </td>
+                <td>Obtain historic sensor or control data.
+                <br><br>The second form uses an account's alias for the device.  The third form uses the currently signed-in account's alias for the device.</td>
+            </tr>
+        </table>
+    </p>
+    <h4><a name=intro />Device Alias endpoints</h2>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Method and URL</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>
+                    POST /&lt;ACCOUNT_USERNAME&gt;/__aliases
+                </td>
+                <td>
+                    Create Device Alias
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;ALIAS_NAME&gt;
+                </td>
+                <td>
+                    Remove Device Alias
+                </td>
+            </tr>
+        </table>
+    </p>
+
+    <h2><a name=accounts />Accounts</h2>
+    <p>
+        An Account represents an end-user.
+    </p>
+    <h3><a name=intro />Account Creation</h3>
+    <h4>Request (Account Creation)</h4>
+    <p>
+        To create a new account, use:
+    </p>
+    <div class=code>POST /create_account
+{
+    "username" : &lt;USERNAME&gt;
+    "email" : &lt;EMAIL&gt;
+    "password" : &lt;PASSWORD&gt;
+    "password_confirm" : &lt;PASSWORD_CONFIRM&gt;
+}</div>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Parameter</th>
+                <th>Required</th>
+                <th>Validation</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>&lt;USERNAME&gt;</td>
+                <td>Required</td>
+                <td>String.<br>^[0-9A-Za-z_-]{3,16}$</td>
+                <td>New account username.  Case insensitive, but case <i>is</i> remembered.  The account username is immutable: once an account is created the unsername may not be changed.</td>
+            </tr>
+            <tr>
+                <td>&lt;EMAIL&gt;</td>
+                <td>Required</td>
+                <td>String.<br>^([a-zA-Z0-9_\.-]+)@([a-zA-Z0-9_\.-]+)\.([a-zA-Z\.]+)$</td>
+                <td>New account email address.  Case insensitive, but case <i>is</i> remembered.</td>
+            </tr>
+            <tr>
+                <td>&lt;PASSWORD&gt;</td>
+                <td>Required</td>
+                <td>String.<br>^([a-zA-Z0-9@*#]{7,16})$</td>
+                <td>New account password.</td>
+            </tr>
+            <tr>
+                <td>&lt;PASSWORD_CONFIRM&gt;</td>
+                <td>Required</td>
+                <td>String.<br>Must match &lt;PASSWORD&gt; exactly.</td>
+                <td>The account password again, for confirmation.</td>
+            </tr>
+        </table>
+    </p>
+    <h4>Response (Account Creation)</h4>
+    <p>
+        On success:
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok"
+}</div>
+    <p>
+        On validation error: See <a href=.>Validation error response</a>
+    </p>
+    <p>
+        If username is already taken:
+    </p>
+    <div class=code>??? OK
+{
+    "result" : "error",
+    "error_type" : "username_unavailable"
+}</div>
+    <p>
+        If email address is already taken:
+    </p>
+    <div class=code>??? OK
+{
+    "result" : "error",
+    "error_type" : "email_unavailable"
+}</div>
+
+
+    <h3><a name=intro />Account Login</h3>
+    <h4>Request (Account Login)</h4>
+    <p>
+        To login an account:
+    </p>
+    <div class=code>POST /login
+{
+    "username_or_email" : &lt;USERNAME_OR_EMAIL&gt;
+    "password" : &lt;PASSWORD&gt;
+}</div>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Parameter</th>
+                <th>Required</th>
+                <th>Validation</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>&lt;USERNAME_OR_EMAIL&gt;</td>
+                <td>Required</td>
+                <td>String.</td>
+                <td>Username or email address of account to login</td>
+            </tr>
+            <tr>
+                <td>&lt;PASSWORD&gt;</td>
+                <td>Required</td>
+                <td>String.</td>
+                <td>Password of account to login</td>
+            </tr>
+        </table>
+    </p>
+    <h4>Response (Account Login)</h4>
+    <p>
+        On successful login, a server-side session will be created and a cookie identifying the session will be sent in the response.
+    </p>
+    <div class=code>200 OK
+Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=&lt;COOKIE_EXPIRATION&gt; Max-Age=2592000
+{
+    "result" : "ok"
+}</div>
+    <p>
+        If username or email is not found, or password doesn't match:
+    </p>
+    <div class=code>??? OK
+{
+    "result" : "error",
+    "error_type" : "incorrect_username_or_password"
+}</div>
+    <p>
+        If too many attempts have been made in a row:
+    </p>
+    <div class=code>??? OK
+{
+    "result" : "error",
+    "error_type" : "too_many_login_attempts"
+}</div>
+
+
+
+    <h3><a name=intro />Account Logout</h3>
+    <h4>Request (Account Logout)</h4>
+    <p>
+        To logout the currently logged in user:
+    </p>
+    <div class=code>POST /logout</div>
+    <h4>Response (Account Login)</h4>
+    <p>
+        On successful logout, the active server-side session will be destroyed, and the session cookie will be no longer valid.
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok"
+}</div>
+
+    <h3><a name=intro />"Me" Account Details</h3>
+    <p>
+        The <code>/me</code> endpoint refers to the currently signed-in account.
+    </p>
+
+    <h4>Request ("Me" Account Details)</h4>
+    <p>
+        To get information about the currently signed-in acocunt.
+    </p>
+    <div class=code>GET /me</div>
+
+    <h4>Response ("Me" Account Details)</h4>
+    <p>
+        On success:
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok",
+    "username" : &lt;USERNAME&gt;,
+    "email" : &lt;EMAIL&gt;,
+}</div>
+    <p>
+        If no account is signed-in:
+    </p>
+    <div class=code>??? OK
+{
+    "result" : "error",
+    "error_type" : "not_logged_in"
+}</div>
+
+    <h2><a name=devices />Devices</h2>
+    <p>
+        A Device represents a smart object that you can monitor and control.
+    </p>
+
+    <h3>Device Creation</h3>
+    <p>
+        A Device resource is automatically created the first time a device
+        connects to the Canopy Cloud Service.  The provisioning process gives
+        an Account access to the Device.  See <a href=.>Provisioning</a>.
+    </p>
+
+    <h3>Device Details</h3>
+    <h4>Request (Device Details)</h3>
+    <p>
+        To obtain information about a particular device:
+    </p>
+    <div class=code>GET /device/&ltDEVICE_ID&gt;</div>
+
+    <h4>Response (Device Details)</h3>
+    <p>
+        On success:
+    </p>
+    <div class=code>200 OK
+{
+    "device_id" : &lt;DEVICE&gt;,
+    "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+    "sddl_class" : &lt;SDDL_CLASS&gt;,
+}</div>
+    <p>
+        On UUID validation error: See <a href=.>Validation error response</a>
+    </p>
+    <p>
+        If no account is signed in: See <a href=..>Not loggged-in error response</a>.
+    </p>
+    <p>
+        If device is not found with requested id: See <a href=..>Device not found error response</a>.
+    </p>
+
+    <h3>Controlling a Device</h3>
+
+    <p>
+        Device control is performed by issuing "target" values for one or more
+        control properties.
+    </p>
+    <h4>Request (Device Control)</h4>
+    <div class=code>POST /device/&lt;DEVICE_ID&gt;/
+{
+    "_expiration_secs" : &lt;EXPIRATION_SECS&gt;
+
+    &lt;PROPERTY_NAME_0&gt; : &lt;TARGET_VALUE&gt;,
+    &lt;PROPERTY_NAME_1&gt; : &lt;TARGET_VALUE&gt;,
+    ...
+}</div>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Parameter</th>
+                <th>Required</th>
+                <th>Validation</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>&lt;EXPIRATION_SECS&gt;</td>
+                <td>Optional</td>
+                <td>null, or number.<br>Must be non-negative.</td>
+                <td>Length of time for which this request is valid, starting
+                from the time the request is processed by the server.  If null,
+                the request never expires.  Defaults to null.
+            </tr>
+            <tr>
+                <td>&lt;PROPERTY_NAME_<i>N</i>&gt; : &lt;TARGET_VALUE_<i>N</i>&gt;</td>
+                <td>Optional</td>
+                <td>&lt;PROPERTY_NAME_<i>i</i>&gt;: Must exactly match
+                a control property id from the device's SDDL class.
+                <br><br>
+                &lt;TARGET_VALUE&gt;: Desired value for this control property.
+                See <a href=.>Validation of JSON property values</a> for more
+                details.
+                <td>Target value for the specified control property, replacing
+                the previous target value for that property.</td>
+            </tr>
+        </table>
+    </p>
+    <h4>Response (Device Control)</h4>
+    <p>
+        On success:
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok"
+}</div>
+
+    <p>
+        If one or more of the &lt;PROPERTY_NAME_<i>N</i>&gt; keys do not match a
+        control property from the device's SDDL class.
+    </p>
+    <div class=code>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "invalid_control_property",
+    "error_properties" : [&lt;PROPERTY_NAME_<i>i</i>&gt;, &lt;PROPERTY_NAME_<i>j</i>&gt;, ...]
+}</div>
+
+    <p>
+        On validation error: See <a href=.>Validation error response</a>
+    </p>
+
+    <h3>Fetch Historic Sensor or Control Data</h3>
+
+    <h4>Request (Historic Data)</h4>
+    <p>
+        To fetch historic data for a sensor or control, use:
+    </p>
+
+    <div class=code>GET /device/&lt;DEVICE_ID&gt;/&lt;PROPERTY_NAME&gt;?
+        begin_time=&lt;BEGIN_TIME&gt;
+        &amp;end_time=&lt;END_TIME&gt;</div>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>URL Parameter</th>
+                <th>Required</th>
+                <th>Validation</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>&lt;DEVICE_ID&gt;</td>
+                <td>Required</td>
+                <td>String UUID</td>
+                <td>Device to get historic data for.</td>
+            </tr>
+            <tr>
+                <td>&lt;PROPERTY_NAME&gt;</td>
+                <td>Required</td>
+                <td>String<bR>
+                    Must match a device sensor or control property name from
+                    device's SDDL class.</td>
+                <td>Sensor or contol on the device to get historic data for.</td>
+            </tr>
+            <tr>
+                <td>&lt;BEGIN_TIME&gt;</td>
+                <td>Optional</td>
+                <td>Datetime in RFC 3339 format</td>
+                <td>If provided, only samples that were taken on or
+                after the specified datetime are included in the results.</td>
+            </tr>
+            <tr>
+                <td>&lt;END_TIME&gt;</td>
+                <td>Optional</td>
+                <td>Datetime in RFC 3339 format</td>
+                <td>If provided, only samples that were taken before
+                specified datetime are included in the results.</td>
+            </tr>
+        </table>
+    </p>
+    <h4>Response (Historic Data)</h4>
+    <p>
+        On success:
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok",
+    "samples" : [
+        {
+            "t" : &lt;SAMPLE_TIME_<i>0</i>&gt;,
+            "v" : &lt;SAMPLE_VALUE_<i>0</i>&gt;
+        }, {
+            "t" : &lt;SAMPLE_TIME_<i>1</i>&gt;,
+            "v" : &lt;SAMPLE_VALUE_<i>1</i>&gt;
+        },
+        ...
+    ]
+}</div>
+    <p>
+        If device is not found with requested id: See <a href=..>Device not found error response</a>.
+    </p>
+    <p>
+        If <code>&lt;PROPERTY_NAME&gt;</code> does not match a control or sensor property from the device's SDDL class:
+    </p>
+    <div class=code>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "invalid_property",
+    "error_properties" : [&lt;PROPERTY_NAME&gt;]
+}</div>
+
+    <h2><a name=devices_aliases />Device Aliases</h2>
+    <p>
+        A Device Alias is a short, semi-custom URL for accessing device
+        endpoints.
+    </p>
+    <p>
+        A Device Alias is a subresouce of an Account.  Thus, two or more
+        Accounts may have different Device Aliases that refer to the same
+        underlying Device.
+    </p>
+    <p>
+        The regular URL for a Device resource has the following form:
+    </p>
+    <div class=code>/device/&lt;DEVICE_ID&gt;</div>
+    <p>
+        An Alias URL has this simpler form::
+    </p>
+    <div class=code>/&lt;ACCOUNT_USERNAME&gt;/&lt;ALIAS_NAME&gt;</div>
+    <p>
+        Or, using the <code>/my</code> shortcut for the currently-signed-in
+        user:
+    </p>
+    <div class=code>/my/&lt;ALIAS_NAME&gt;</div>
+    <p>
+        For example:<br>
+        User <b>leela</b> owns a smart toaster:
+    </p>
+    <div class=code>http://sandbox.canopy.link/devices/7fe620c0-e5bb-11e3-ac10-0800200c9a66</div>
+    <p>
+        Leela creates an alias for the smart toaster:
+    </p>
+    <div class=code>http://sandbox.canopy.link/leela/toaster</div>
+    <p>
+        If Leela is logged in, she can simply use:
+    </p>
+    <div class=code>http://sandbox.canopy.link/my/toaster</div>
+    <p>
+        If <b>leela</b> shares the toaster with user <b>fry</b>, he can
+        access it from either of the following URLs:
+    </p>
+    <div class=code>http://sandbox.canopy.link/devices/7fe620c0-e5bb-11e3-ac10-0800200c9a66A
+    OR
+http://sandbox.canopy.link/leela/toaster</div>
+    <p>
+        The user <b>fry</b> can create his own alias for the toaster:
+    </p>
+    <div class=code>http://sandbox.canopy.link/fry/leela_toaster</div>
+    <p>
+        Or, if <b>fry</b> is logged in:
+    </p>
+    <div class=code>http://sandbox.canopy.link/my/leela_toaster</div>
+    
+
+    <h3>Creating a Device Alias</h3>
+
+    <h4>Request (Create Device Alias)</h4>
+    <p>
+        To create a device alias use:
+    </p>
+    <div class=code>POST /&lt;ACCOUNT_USERNAME&gt;/__aliases
+{
+    "device_id" : &lt;DEVICE_ID&gt;,
+    "alias" : &lt;ALIAS&gt;
+}</div>
+
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Parameter</th>
+                <th>Required</th>
+                <th>Validation</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>&lt;DEVICE_ID&gt;</td>
+                <td>Required</td>
+                <td>String UUID</td>
+                <td>Device to create Alias for.</td>
+            </tr>
+                <td>&lt;ALIAS&gt;</td>
+                <td>Required</td>
+                <td>String.<br>^[0-9A-Za-z_-]{1,32}$</td>
+                <td>Alias name for the device.</td>
+            </tr>
+        </table>
+    </p>
+
+    <h3>Deleting a Device Alias</h3> 
+    A Device Alias will automatically be deleted if the underlying Device
+    resource is deleted.  Additionally, a Device resource may be deleted
+    manually as follows:
+
+    <h4>Request (Delete Device Alias)</h4>
+    <p>
+        To delete a device alias use:
+    </p>
+    <div class=code>DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;ALIAS&gt;</div>
+
+</div>
+</body>
+</html>
+
+<!--
+TODO:
+- Permissions
+- Errors
+- Events
+-->
