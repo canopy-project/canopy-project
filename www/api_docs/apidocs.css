@@ -13,12 +13,15 @@ h1 {
 }
 
 h2 {
-    background: #c0e0ff;
+    background: #204080;
     font-weight: bold;
     font-size: 16pt;
     padding: 4px;
     padding-left: 16px;
-    color: #3060a0;
+    color: #ffffff;
+}
+h2 a {
+    color: #ffffff;
 }
 
 h3 {

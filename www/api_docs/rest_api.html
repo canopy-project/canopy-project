@@ -11,13 +11,13 @@
 <body>
 <div class=main>
     <h1>Canopy REST API Documentation</h1>
-    <h2><a name=toc />Document Version 5/22/2014</h2>
+    <h2><a name=toc />Document Version 5/28/2014</h2>
     <div class=text>
         <a href=#intro>Introduction</a><br>
         <a href=#api_overview>API overview</a><br>
             <div class=tabbed><a href=#resource_types>Resource types</a></div>
             <div class=tabbed><a href=#endpoint_summary>Endpoint summary</a></div>
-        <a href=#permission_model>Permission Model</a><br>
+        <a href=#permission_model>Permission model</a><br>
         <div class=tabbed><a href=#device_access_permissions>Device access permissions</a></div>
         <div class=tabbed><a href=#device_sharing_permissions>Device sharing permissions</a></div>
         <div class=tabbed><a href=#gaining_access>Gaining access</a></div>
@@ -36,6 +36,10 @@
         <a href=#aliases>Device aliases</a><br>
         <div class=tabbed><a href=#creating_a_device_alias>Creating a Device Alias</a></div>
         <div class=tabbed><a href=#deleting_a_device_alias>Deleting a Device Alias</a></div>
+        <a href=#aliases>Device permissions and sharing</a><br>
+        <div class=tabbed><a href=#sharing_a_device>Sharing a Device</a></div>
+        <div class=tabbed><a href=#revoking_access_to_a_device>Revoking access to a Device</a></div>
+        <div class=tabbed><a href=#seeing_who_can_access_a_device>Seeing who can access a Device</a></div>
     </div>
 
     <h2><a name=intro>Introduction</a></h2>
@@ -288,14 +292,21 @@
             </tr>
             <tr>
                 <td>S0 - NO_SHARING</td>
-                <td>(Default) Account is forbidden from granting other users access to this Device</td>
+                <td>(Default) Account is forbidden from granting or revoking access to this Device</td>
             </tr>
             <tr>
-                <td>S1 - SHARING_ALLOWED</td>
-                <td>Account may grant other users access to this Device.  The
-                level of access that the Account is allowed to grant may not
-                exceed the Account's own level of access for the particular
-                Device.</td>
+                <td>S1 - SHARE_ONLY</td>
+                <td>Account can grant access to this Device, but not revoke
+                access.  The level of access that the Account is allowed to
+                grant may not exceed the Account's own level of access for the
+                particular Device.</td>
+            </tr>
+            <tr>
+                <td>S2 - SHARE_AND_REVOKE</td>
+                <td>Account can both grant and revoke access to this Device.
+                The level of access that the Account is allowed to grant, or
+                revoke, may not exceed the Account's own level of access for
+                the particular Device.
             </tr>
         </table>
     </p>
@@ -307,14 +318,14 @@
     <h4>Gaining access from provisioning</h4>
     <p>
         For a newly purchased Canopy-enabled device, the provisioning process
-        grants <code>A2+S1</code> access to the Account of the user performing
+        grants <code>A2+S2</code> access to the Account of the user performing
         the provisioning.  See <a href='device_provisioning'>Device provisioning</a>
     </p>
     <h4>Gaining access from sharing</h4>
     <p>
-        An Account with <code>S1</code> sharing permission level may grant
-        other Accounts access to monitor, control, and/or further share a
-        Device.  See <a href='.'>Sharing a Device</a>
+        An Account with <code>S1</code> or higher sharing permission level may
+        grant other Accounts access to monitor, control, and/or further share a
+        Device.  See <a href='sharing_a_device'>Sharing a Device</a>
     </p>
     
 
@@ -538,7 +549,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         device connects, the Canopy Cloud Service will perform the following actions:
         <ol>
             <li>A Device resource is created</li>
-            <li>The configured Account will be granted <a href=#permission_model>A2+S1 access</a> to the
+            <li>The configured Account will be granted <a href=#permission_model>A2+S2 access</a> to the
             Device.</li>
         </ol>
     </p>
@@ -583,7 +594,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <h4>Request (Device Control)</h4>
     <div class=code>POST /device/&lt;DEVICE_ID&gt;/
 {
-    "_expiration_secs" : &lt;EXPIRATION_SECS&gt;
+    "__expiration_secs" : &lt;EXPIRATION_SECS&gt;
 
     &lt;PROPERTY_NAME_0&gt; : &lt;TARGET_VALUE&gt;,
     &lt;PROPERTY_NAME_1&gt; : &lt;TARGET_VALUE&gt;,
@@ -822,11 +833,270 @@ http://sandbox.canopy.link/leela/toaster</div>
     </p>
     <div class=code>DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;ALIAS&gt;</div>
 
+
+    <h2><a name=deleting_a_device_alias>Device permissions and sharing</a></h2> 
+    <p>
+    </p>
+
+    <h3><a name=sharing_a_device>Sharing a Device</a></h2> 
+
+    <h4>Request (Sharing A Device)</h4>
+    <p>
+        Multiple Accounts can be granted access and/or sharing privileges for multiple Devices
+        with a single API call:
+    </p>
+    <div class=code>POST /permissions
+{
+    "set_permissions" : [
+        {
+            "account" : &lt;ACCOUNT_USERNAME_OR_EMAIL_<i>0</i>&gt;,
+            "device_id" : &lt;DEVICE_ID_<i>0</i>&gt;,,
+            "access_level" : &lt;ACCESS_LEVEL_<i>0</i>&gt;,
+            "sharing_level" : &lt;SHARING_LEVEL_<i>0</i>&gt;
+        },
+        {
+            "account" : &lt;ACCOUNT_USERNAME_OR_EMAIL_<i>1</i>&gt;,
+            "device_id" : &lt;DEVICE_ID_<i>1</i>&gt;,,
+            "access_level" : &lt;ACCESS_LEVEL_<i>1</i>&gt;,
+            "sharing_level" : &lt;SHARING_LEVEL_<i>1</i>&gt;
+        },
+        ...
+    ]
+}</div>
+
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Parameter</th>
+                <th>Required</th>
+                <th>Validation</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>&lt;ACCOUNT_USERNAME_OR_EMAIL_<i>N</i>&gt;</td>
+                <td>Required</td>
+                <td>String</td>
+                <td>Username or email address of Account to change permissions for.</td>
+            </tr>
+            <tr>
+                <td>&lt;DEVICE_ID_<i>N</i>&gt;</td>
+                <td>Required</td>
+                <td>String UUID</td>
+                <td>Device for which access is being granted or revoked.</td>
+            </tr>
+            <tr>
+                <td>&lt;ACCESS_LEVEL_<i>N</i>&gt;</td>
+                <td>Optional</td>
+                <td>String
+                    <br>Must be one of the following:
+                    <ul>
+                        <li>"no_access"
+                        <li>"monitor_only"
+                        <li>"monitor_and_control"
+                    </ul>
+                </td>
+                <td>Access privilege level for Account to monitor and
+                control Device.  See <a href=#device_access_permissions>Device
+                access permissions</a> for more details.  If omitted, will
+                remain unchanged.
+                </td>
+            </tr>
+            <tr>
+                <td>&lt;SHARING_LEVEL_<i>N</i>&gt;</td>
+                <td>Optional</td>
+                <td>String
+                    <br>Must be one of the following:
+                    <ul>
+                        <li>"no_sharing"
+                        <li>"share_only"
+                        <li>"share_and_revoke"
+                    </ul>
+                </td>
+                <td>Sharing privilege level for Account to modify permissions
+                of Device.  See <a href=#device_sharing_permissions>Device
+                sharing permissions</a> for more details.  If omitted, will
+                remain unchanged.
+                </td>
+            </tr>
+        </table>
+    </p>
+    <p>
+        The <code>"set_permission"</code> list may contain any number of
+        entries.  For each entry, access and sharing privileges will be updated
+        for the specified Account and Device.
+    </p>
+
+    <h4>Response (Sharing A Device)</h4>
+    <p>
+        The Canopy Web Service will attempt to set each of the requested
+        permissions independantly.  That is, in most cases, a failure to apply
+        one <code>"set_permission"</code> entry will not prevent the other
+        <code>"set_permission"</code> entries from being applied.  If ALL
+        <code>"set_permission"</code> entries are applied successfully, the
+        response will be:
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok",
+}</div>
+    <p>
+        If one or more non-fatal errors occur, the response will still send
+        status code <code>200 OK</code> and will include <code>"result" :
+        "ok"</code>, but additionally will include details about the errors
+        that occurred.
+    </p>
+
+    <p>
+        If the Account making the request does not have permission to grant
+        access to a Device, it will be reported as follows:
+    </p>
+
+    <div class=code>200 OK
+{
+    "result" : "ok",
+    "errors" : [
+        {
+            "error_type" : "insufficient_sharing_privileges",
+            "account" : &lt;ACCOUNT_USERNAME_OR_EMAIL&gt;,
+            "device_id" : &lt;DEVICE_ID&gt;,
+            "requested_access_level" : &lt;ACCESS_LEVEL&gt;,
+            "requested_sharing_level" : &lt;SHARING_LEVEL&gt;
+        },
+        ...
+    ]
+}</div>
+
+    <p>
+        This warning will be generated if any of the following are true:
+        <ul>
+            <li>The requester has <code>NO_SHARING(0)</code> sharing privileges
+                for the requested Device.
+            </li>
+            <li>The requested <code>"access_level"</code> is higher than the
+                requester's own access level for the requested Device.
+            </li>
+            <li>The requested <code>"sharing_level"</code> is higher than the
+                requester's own sharing level for the requested Device.
+            </li>
+            <li>The requester has <code>SHARE_ONLY(1)</code> sharing privileges
+            and <code>"access_level"</code> is lower than the target Account's
+            current access level.
+            </li>
+            <li>The requester has <code>SHARE_ONLY(1)</code> sharing privileges
+            and <code>"sharing_level"</code> is lower than the target Account's
+            current sharing level.
+            </li>
+            <li>The requester has <code>SHARE_AND_REVOKE(2)</code> sharing privileges
+            and the target Account's current access level is above the
+            requester's current access level for the requested Device.
+            </li>
+            <li>The requester has <code>SHARE_AND_REVOKE(2)</code> sharing privileges
+            and the target Account's current sharing level is above the
+            requester's current sharing level for the requested Device.
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        If an <code>&lt;ACCOUNT_USERNAME_OR_EMAIL_<i>N</i>&gt;</code> value does not correspond to an
+        Account, it will be reported as follows:
+    </p>
+    <div class=code>200 OK
+{
+    "errors" : [
+        {
+            "error_type" : "account_not_found",
+            "account" : &lt;ACCOUNT_USERNAME_OR_EMAIL&gt;,
+            "device_id" : &lt;DEVICE_ID&gt;,
+            "requested_access_level" : &lt;ACCESS_LEVEL&gt;,
+            "requested_sharing_level" : &lt;SHARING_LEVEL&gt;
+        },
+        ...
+    ]
+}</div>
+
+    <p>
+        If a <code>&lt;DEVICE_ID_<i>N</i>&gt;</code> value does not correspond to a
+        Device, it will be reported as follows:
+    </p>
+    <div class=code>200 OK
+{
+    "errors" : [
+        {
+            "error_type" : "device_not_found",
+            "account" : &lt;ACCOUNT_USERNAME_OR_EMAIL&gt;,
+            "device_id" : &lt;DEVICE_ID&gt;,
+            "requested_access_level" : &lt;ACCESS_LEVEL&gt;,
+            "requested_sharing_level" : &lt;SHARING_LEVEL&gt;
+        },
+        ...
+    ]
+}</div>
+
+    <p>
+        If input validation fails within an <code>"set_permissions"</code>
+        entry, it will be reported as follows:
+    </p>
+    <div class=code>200 OK
+{
+    "errors" : [
+        {
+            "error_type" : "input_validation_error",
+            "error_field" : &lt;ERROR_FIELD&gt;,
+            "account" : &lt;ACCOUNT_USERNAME_OR_EMAIL&gt;,
+            "device_id" : &lt;DEVICE_ID&gt;,
+            "requested_access_level" : &lt;ACCESS_LEVEL&gt;,
+            "requested_sharing_level" : &lt;SHARING_LEVEL&gt;
+        },
+        ...
+    ]
+}</div>
+    <h3><a name=revoking_access_to_a_device>Revoking access to a Device</a></h3>
+    <p>
+        Revoking another Account's access to a Device is simply a matter of
+        lowering the Account's access privilege to <code>NO_ACCESS(0)</code>.
+        For example, to revoke a single Account's access to a single Device,
+        you would use:
+    <div class=code>POST /permissions
+{
+    "set_permissions" : [ {
+        "account" : &lt;ACCOUNT_USERNAME_OR_EMAIL&gt;,
+        "device_id" : &lt;DEVICE_ID&gt;,
+        "access_level" : "no_access",
+        "sharing_level" : "no_sharing"
+    } ]
+}</div>
+    </p>
+
+    <h3><a name=seeing_who_can_access_a_device>Seeing who can access a Device</a><h3>
+    <h4>Request (Device Permission Details)</h4>
+    <p>
+        Anyone with access level <code>MONITOR_ONLY(A1)</code> or higher can discover who
+        else has access to a Device with the following request:
+    </p>
+    <div class=code>GET /devices/&lt;DEVICE_ID&gt;/__permissions</div>
+
+    <h4>Response (Device Permission Details)</h4>
+    <p>
+        On success, the result will include all Accounts with access level <code>MONITOR_ONLY(A1)</code> or higher:
+    </p>
+    <div class=code>200 OK
+{
+    "permissions" : [
+        {
+            "account" : &lt;ACCOUNT_USERNAME&gt;,
+            "access_level" : &lt;ACCESS_LEVEL&gt;,
+            "sharing_level" : &lt;SHARING_LEVEL&gt;
+        },
+        ...
+    ]
+}</div>
+
+
     <p>
         <center>
         The content of this page is licensed under the Creative Commons Attribution 3.0 License, and code is licensed under a BSD license.
     </p>
-
 </div>
 </body>
 </html>
