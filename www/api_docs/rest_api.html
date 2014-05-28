@@ -22,13 +22,14 @@
         <div class=tabbed><a href=#device_sharing_permissions>Device sharing permissions</a></div>
         <div class=tabbed><a href=#gaining_access>Gaining access</a></div>
         <a href=#error_handling>Error handling</a><br>
-        <div class=tabbed><a href=#device_access_permissions>"Not found" error response</a></div>
-        <div class=tabbed><a href=#device_access_permissions>"Bad method" error response</a></div>
-        <div class=tabbed><a href=#device_access_permissions>"Not logged in" error response</a></div>
-        <div class=tabbed><a href=#device_access_permissions>"Insufficient access privileges" error response</a></div>
-        <div class=tabbed><a href=#device_access_permissions>"Internal server error" error response</a></div>
-        <div class=tabbed><a href=#device_access_permissions>"JSON parsing" error response</a></div>
-        <div class=tabbed><a href=#device_access_permissions>"Validation" error response</a></div>
+        <div class=tabbed><a href=#not_found_error_response>"Not found" error response</a></div>
+        <div class=tabbed><a href=#bad_method_error_response>"Bad method" error response</a></div>
+        <div class=tabbed><a href=#not_logged_in_error_response>"Not logged in" error response</a></div>
+        <div class=tabbed><a href=#insufficient_access_privileges_error_response>"Insufficient access privileges" error response</a></div>
+        <div class=tabbed><a href=#insufficient_sharing_privileges_error_response>"Internal server error" error response</a></div>
+        <div class=tabbed><a href=#json_parsing_error_response>"JSON parsing" error response</a></div>
+        <div class=tabbed><a href=#required_field_missing_error_response>"Required field missing" error response</a></div>
+        <div class=tabbed><a href=#validation_error_response>"Validation" error response</a></div>
         <a href=#accounts>Accounts</a><br>
         <div class=tabbed><a href=#account_creation>Account creation</a></div>
         <div class=tabbed><a href=#account_login>Account login</a></div>
@@ -503,6 +504,22 @@
         The <code>&lt;ERROR_MSG&gt;</code> is an implementation-specific debug
         message provided by the server describing the JSON parsing error in
         more detail.
+    </p>
+
+    <h3><a name=required_field_missing_error_response>"Required field missing" error response</a></h3>
+    <p>
+        If the request payload is missing a required field, the following
+        response is given:
+    </p>
+    <div class=code>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "required_field_missing",
+    "error_fields" : [&lt;MISSING_FIELD_0&gt;, &lt;MISSING_FIELD_1&gt;, ...]
+}</div>
+    <p>
+        The <code>&lt;MISSING_FIELD_<i>N</i>&gt;</code> items are the string
+        keys that were required but missing in the request.
     </p>
 
     <h3><a name=validation_error_response>"Validation" error response</a></h3>
