@@ -118,31 +118,78 @@
             </tr>
             <tr>
                 <td>GET /device/&lt;DEVICE_ID&gt;
-                <br><br>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;
-                <br><br>GET /my/&lt;DEVICE_ALIAS_NAME&gt;
                 </td>
-                <td>Obtain details about a particular Canopy-enabled device.<br><br>The second form uses an Account's alias for the Device.  <br><br>The third form uses the currently signed-in Account's alias for the Device.</td>
+                <td>Obtain details about a particular Canopy-enabled device.</td>
             </tr>
             <tr>
                 <td>POST /device/&lt;DEVICE_ID&gt;
-                <br><br>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;
-                <br><br>POST /my/&lt;DEVICE_ALIAS_NAME&gt;
                 </td>
-                <td>Remotely control a Canopy-enabled device.<br><br>The second
-                form uses an account's Alias for the Device.  
-                <br><br>The third form uses the currently signed-in Account's
-                alias for the Device.
-            </td>
+                <td>Remotely control a Canopy-enabled device.
+                </td>
             </tr>
             <tr>
                 <td>GET /device/&lt;DEVICE_ID&gt/&lt;PROPERTY_NAME&gt;
-                <br><br>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
-                <br><br>GET /my/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
+                </td>
+                <td>Obtain historic sensor or control data.</td>
+            </tr>
+        </table>
+    </p>
+    <p>
+        Device Aliases provide an alternative URL scheme for accessing Device resources:
+    </p>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Method and URL</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;
+                </td>
+                <td>Obtain details about a particular Canopy-enabled device.</td>
+            </tr>
+            <tr>
+                <td>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;
+                </td>
+                <td>Remotely control a Canopy-enabled device.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
                 </td>
                 <td>Obtain historic sensor or control data.
-                <br><br>The second form uses an Account's alias for the Device.
-                <br><br>The third form uses the currently signed-in Account's
-                alias for the Device.</td>
+                </td>
+            </tr>
+        </table>
+    </p>
+    <p>
+    The <code>/my</code> prefix is shorthand for the currently signed-in
+    account username, and simplifies the device URLs even further:
+    </p>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Method and URL</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>GET /my/&lt;DEVICE_ALIAS_NAME&gt;
+                </td>
+                <td>Obtain details about a particular Canopy-enabled device.</td>
+            </tr>
+            <tr>
+                <td>POST /my/&lt;DEVICE_ALIAS_NAME&gt;
+                </td>
+                <td>Remotely control a Canopy-enabled device.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    GET /my/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
+                </td>
+                <td>Obtain historic sensor or control data.
+                </td>
             </tr>
         </table>
     </p>
@@ -156,6 +203,7 @@
             <tr>
                 <td>
                     POST /&lt;ACCOUNT_USERNAME&gt;/__aliases
+                    <br>POST /my/__aliases
                 </td>
                 <td>
                     Create Device Alias
@@ -164,6 +212,7 @@
             <tr>
                 <td>
                     DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;DEVICE_ALIAS_NAME&gt;
+                    <br>DELETE /my/__aliases/&lt;DEVICE_ALIAS_NAME&gt;
                 </td>
                 <td>
                     Remove Device Alias
