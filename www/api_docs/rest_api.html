@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 
 <head>
@@ -28,6 +29,7 @@
         <div class=tabbed><a href=#me_account_details>"Me" Account details</a></div>
         <a href=#devices>Devices</a><br>
         <div class=tabbed><a href=#device_creation>Device creation</a></div>
+        <div class=tabbed><a href=#device_provisioning>Device provisioning</a></div>
         <div class=tabbed><a href=#device_details>Device details</a></div>
         <div class=tabbed><a href=#controlling_a_device>Controlling a Device</a></div>
         <div class=tabbed><a href=#fetching_historical_data>Fetching historical sensor or control data</a></div>
@@ -306,7 +308,7 @@
     <p>
         For a newly purchased Canopy-enabled device, the provisioning process
         grants <code>A2+S1</code> access to the Account of the user performing
-        the provisioning.  See <a href='.'>Provisioning</a>
+        the provisioning.  See <a href='device_provisioning'>Device provisioning</a>
     </p>
     <h4>Gaining access from sharing</h4>
     <p>
@@ -509,7 +511,40 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <p>
         A Device resource is automatically created the first time a device
         connects to the Canopy Cloud Service.  The provisioning process gives
-        an Account access to the Device.  See <a href=.>Provisioning</a>.
+        an Account access to the Device.  See the next section on <a href=#device_provisioning>Device provisioning</a>.
+    </p>
+
+    <h3><a name=device_provisioning>Device Provisioning</a></h3>
+    <p>
+        For a Canopy-enabled device to connect to the Canopy Cloud Service, the
+        device needs to be configured with the following information:
+        <ul>
+            <li>WiFi network SSID and passphrase (if WiFi is being used)</li>
+            <li>Canopy Cloud Service hostname and port</li>
+            <li>Canopy Cloud Service Account username and password</li>
+            <li>Device UUID</li>
+            <li>Device SDDL class</li>
+        </ul>
+    </p>
+    <p>
+        Configuration of these settings may be achieved using a micro SD card,
+        or using an ad-hoc captive portal wifi network, or using some other
+        mechanism.  This configuration is required, but the details of how it
+        is achieved is outside the scope of this specification.
+    </p>
+    <p>
+        Once a Canopy-enabled device has been configured, it will begin
+        communicating with the Canopy Cloud Service.  The very first time a
+        device connects, the Canopy Cloud Service will perform the following actions:
+        <ol>
+            <li>A Device resource is created</li>
+            <li>The configured Account will be granted <a href=#permission_model>A2+S1 access</a> to the
+            Device.</li>
+        </ol>
+    </p>
+    <p>
+        This process is called "Device Provisioning" and upon completion, the
+        Device can be monitored, controlled, and shared by its owner.
     </p>
 
     <h3><a name=device_details>Device Details</a></h3>
@@ -517,7 +552,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <p>
         To obtain information about a particular device:
     </p>
-    <div class=code>GET /device/&ltDEVICE_ID&gt;</div>
+    <div class=code>GET /device/&lt;DEVICE_ID&gt;</div>
 
     <h4>Response (Device Details)</h4>
     <p>

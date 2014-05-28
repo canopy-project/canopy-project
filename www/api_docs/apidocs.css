@@ -3,8 +3,8 @@ body, td {
     vertical-align: top;
 }
 
-.main p, .main ul{
-    margin-left: 3em;
+.main p, .main ul, .main ol {
+    margin-left: 48px;
 }
 
 h1 {
@@ -39,14 +39,15 @@ h3 a {
 }
 
 .tabbed {
-    margin-left: 2em;
+    margin-left: 32px;
 }
 .text {
-    margin-left: 1em;
+    margin-left: 48px;
 }
 
 .paramtable {
     border-spacing: 0px;
+    margin-left: 48px;
 }
 
 a, a.visited {
@@ -70,7 +71,7 @@ a, a.visited {
     white-space: pre;
     background: #f0f0f0;
     padding: 13pt;
-    margin-left: 3em;
+    margin-left: 48px;
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 14px;
