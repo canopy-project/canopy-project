@@ -22,6 +22,13 @@
         <div class=tabbed><a href=#device_sharing_permissions>Device sharing permissions</a></div>
         <div class=tabbed><a href=#gaining_access>Gaining access</a></div>
         <a href=#error_handling>Error handling</a><br>
+        <div class=tabbed><a href=#device_access_permissions>"Not found" error response</a></div>
+        <div class=tabbed><a href=#device_access_permissions>"Bad method" error response</a></div>
+        <div class=tabbed><a href=#device_access_permissions>"Not logged in" error response</a></div>
+        <div class=tabbed><a href=#device_access_permissions>"Insufficient access privileges" error response</a></div>
+        <div class=tabbed><a href=#device_access_permissions>"Internal server error" error response</a></div>
+        <div class=tabbed><a href=#device_access_permissions>"JSON parsing" error response</a></div>
+        <div class=tabbed><a href=#device_access_permissions>"Validation" error response</a></div>
         <a href=#accounts>Accounts</a><br>
         <div class=tabbed><a href=#account_creation>Account creation</a></div>
         <div class=tabbed><a href=#account_login>Account login</a></div>
@@ -246,6 +253,37 @@
             </tr>
         </table>
     </p>
+    <h4>Device Permission endpoints</h4>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>Method and URL</th>
+                <th>Description</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>
+                    POST /permissions
+                </td>
+                <td>
+                    Grant or revoke access and/or sharing privileges for
+                    Devices.
+                </td>
+                <td>See <a href=#sharing_a_device>Sharing a Device</a></td>
+            </tr>
+            <tr>
+                <td>
+                    GET /devices/&lt;DEVICE_ID&gt;/__permissions
+                    <br>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/__permissions
+                    <br>GET /my/&lt;DEVICE_ALIAS_NAME&gt;/__permissions
+                </td>
+                <td>
+                    See who can access a Device.
+                </td>
+                <td>See <a href=#seeing_who_can_access_a_device>Seeing who can access a Device</a></td>
+            </tr>
+        </table>
+    </p>
 
     <h2><a name=permission_model>Permission Model</a></h2>
 
@@ -328,6 +366,158 @@
         Device.  See <a href='sharing_a_device'>Sharing a Device</a>
     </p>
     
+    <h2><a name=error_handling>Error handling</a></h2>
+    <p>
+    If an error occurs while processing a request, the appropriate HTTP status
+    code is returned, unless otherwise noted.  Additionally, the response
+    payload may contain additional information about the error that occurred.
+    </p>
+    <p>
+    The general form for a successful response, unless otherwise noted, is:
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok",
+    ...
+}</div>
+
+    <p>
+        The general form for an error response, unless otherwise noted, is:
+    </p>
+    <div class=code>4XX
+{
+    "result" : "error",
+    "error_type" : &lt;ERROR_TYPE&gt;
+    ...
+}</div>
+
+    <h3><a name=not_found_error_response>"Not found" error response</a></h3>
+    <p>
+        If the requested URL is not found or inaccessible, the following
+        response is given:
+    </p>
+    
+    <div class=code>404 NOT FOUND
+{
+    "result" : "error",
+    "error_type" : "url_not_found"
+}</div>
+
+    <p>
+        This response is sent if any of the following occur:
+        <ul>
+            <li>The requested URL is invalid.</li>
+            <li>The requested URL refers to a Device, Account, Alias, or other
+            resource that does not exist.</li>
+            <li>The requested URL refers to a Device, Account, Alias, or other
+            resource that you do not have any access to.</li>
+        </ul>
+    </p>
+
+    <h3><a name=bad_method_error_response>"Bad method" error response</a></h3>
+    <p>
+        If the requested URL is valid, but an unsupported HTTP method is used,
+        the following response is given:
+    </p>
+    
+    <div class=code>405 METHOD NOT ALLOWED
+{
+    "result" : "error",
+    "error_type" : "method_not_allowed"
+}</div>
+
+    <h3><a name=not_logged_in_error_response>"Not logged in" error response</a></h3>
+    <p>
+        If the user is not signed-in, and needs to be in order to access the
+        requested resource, the following response is given:
+    </p>
+    <div class=code>401 UNAUTHORIZED
+{
+    "result" : "error",
+    "error_type" : "not_logged_in"
+}</div>
+
+    <h3><a name=insufficient_access_privileges_error_response>"Insufficient access privileges" error response</a></h3>
+    <p>
+        If the currently signed-in user does not have sufficient access
+        privileges to monitor or control a Device, the following response is
+        given:
+    </p>
+    <div class=code>401 UNAUTHORIZED
+{
+    "result" : "error",
+    "error_type" : "insufficient_access_privileges"
+}</div>
+
+    <h3><a name=insufficient_sharing_privileges_error_response>"Insufficient sharing privileges" error response</a></h3>
+    <p>
+        If the currently signed-in user does not have sufficient sharing
+        privileges to share a device, the following response is
+        given:
+    </p>
+    <div class=code>401 UNAUTHORIZED
+{
+    "result" : "error",
+    "error_type" : "insufficient_sharing_privileges"
+}</div>
+
+    <h3><a name=internal_server_error_error_response>"Internal server error" error response</a></h3>
+    <p>
+        If an internal server error occurs while processing the request, and
+        the Canopy Cloud Service is configured in debug mode, the response may
+        contain diagnostic information:
+    </p>
+    <div class=code>500 Internal Server Error
+{
+    "result" : "error",
+    "error_type" : "server_side_exception",
+    "error_msg" : &lt;ERROR_MSG&gt;,
+    "error_callstack" : [
+        &lt;CALLSTACK_ENTRY_0&gt;,
+        &lt;CALLSTACK_ENTRY_1&gt;,
+        ...
+    ]
+}</div>
+    <p>
+        The <code>&lt;ERROR_MSG&gt;</code> is an implementation-specific debug
+        message provided by the server describing the reason for failure.
+    </p>
+    <p>
+        The <code>&lt;CALLSTACK_ENTRY_<i>N</i>&gt;</code> items are
+        implementation-specific strings corresponding to the callstack on the
+        server, if available.
+    </p>
+
+    <h3><a name=json_parsing_error_response>"JSON parsing" error response</a></h3>
+    <p>
+        If the request payload does not contain valid JSON, the following
+        response is given:
+    </p>
+    <div class=code>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "invalid_json",
+    "error_msg" : &lt;ERROR_MSG&gt;
+}</div>
+    <p>
+        The <code>&lt;ERROR_MSG&gt;</code> is an implementation-specific debug
+        message provided by the server describing the JSON parsing error in
+        more detail.
+    </p>
+
+    <h3><a name=validation_error_response>"Validation" error response</a></h3>
+    <p>
+        If the request contains JSON keys or values that do not satisfy the
+        input validation criteria specified in this document, the response
+        will describe which fields failed validation:
+        
+    </p>
+    <div class=code>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "input_validation_failed",
+    "error_fields" : [&lt;INPUT_FIELD_0&gt;, &lt;INPUT_FIELD_1&gt;, ...]
+}</div>
 
     <h2><a name=accounts>Accounts</a></h2>
     <p>
@@ -442,7 +632,7 @@
     </p>
     <h4>Response (Account Login)</h4>
     <p>
-        On successful login, a server-side session will be created and a cookie identifying the session will be sent in the response.
+        On successful login, a server-side session is created and a cookie identifying the session is sent in the response.
     </p>
     <div class=code>200 OK
 Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=&lt;COOKIE_EXPIRATION&gt; Max-Age=2592000
@@ -476,7 +666,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <div class=code>POST /logout</div>
     <h4>Response (Account Login)</h4>
     <p>
-        On successful logout, the active server-side session will be destroyed, and the session cookie will be no longer valid.
+        On successful logout, the active server-side session is destroyed, and the session cookie is invalidated.
     </p>
     <div class=code>200 OK
 {
@@ -544,12 +734,12 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         is achieved is outside the scope of this specification.
     </p>
     <p>
-        Once a Canopy-enabled device has been configured, it will begin
+        Once a Canopy-enabled device has been configured and connects to the network, it begins
         communicating with the Canopy Cloud Service.  The very first time a
         device connects, the Canopy Cloud Service will perform the following actions:
         <ol>
             <li>A Device resource is created</li>
-            <li>The configured Account will be granted <a href=#permission_model>A2+S2 access</a> to the
+            <li>The configured Account is granted <a href=#permission_model>A2+S2 access</a> to the
             Device.</li>
         </ol>
     </p>
@@ -922,7 +1112,7 @@ http://sandbox.canopy.link/leela/toaster</div>
     </p>
     <p>
         The <code>"set_permission"</code> list may contain any number of
-        entries.  For each entry, access and sharing privileges will be updated
+        entries.  For each entry, access and sharing privileges are updated
         for the specified Account and Device.
     </p>
 
@@ -933,7 +1123,7 @@ http://sandbox.canopy.link/leela/toaster</div>
         one <code>"set_permission"</code> entry will not prevent the other
         <code>"set_permission"</code> entries from being applied.  If ALL
         <code>"set_permission"</code> entries are applied successfully, the
-        response will be:
+        response is:
     </p>
     <div class=code>200 OK
 {
@@ -948,7 +1138,7 @@ http://sandbox.canopy.link/leela/toaster</div>
 
     <p>
         If the Account making the request does not have permission to grant
-        access to a Device, it will be reported as follows:
+        access to a Device, it is reported as follows:
     </p>
 
     <div class=code>200 OK
@@ -967,7 +1157,7 @@ http://sandbox.canopy.link/leela/toaster</div>
 }</div>
 
     <p>
-        This warning will be generated if any of the following are true:
+        This warning is generated if any of the following are true:
         <ul>
             <li>The requester has <code>NO_SHARING(0)</code> sharing privileges
                 for the requested Device.
@@ -999,7 +1189,7 @@ http://sandbox.canopy.link/leela/toaster</div>
 
     <p>
         If an <code>&lt;ACCOUNT_USERNAME_OR_EMAIL_<i>N</i>&gt;</code> value does not correspond to an
-        Account, it will be reported as follows:
+        Account, it is reported as follows:
     </p>
     <div class=code>200 OK
 {
@@ -1017,7 +1207,7 @@ http://sandbox.canopy.link/leela/toaster</div>
 
     <p>
         If a <code>&lt;DEVICE_ID_<i>N</i>&gt;</code> value does not correspond to a
-        Device, it will be reported as follows:
+        Device, it is reported as follows:
     </p>
     <div class=code>200 OK
 {
@@ -1035,7 +1225,7 @@ http://sandbox.canopy.link/leela/toaster</div>
 
     <p>
         If input validation fails within an <code>"set_permissions"</code>
-        entry, it will be reported as follows:
+        entry, it is reported as follows:
     </p>
     <div class=code>200 OK
 {
