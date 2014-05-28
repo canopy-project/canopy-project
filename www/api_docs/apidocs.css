@@ -1,13 +1,14 @@
 body, td {
     font-family: sans-serif;
+    vertical-align: top;
 }
 
 .main p, .main ul{
-    margin-left: 2em;
+    margin-left: 3em;
 }
 
 h1 {
-    padding-left: 8px;
+    padding-left: 16px;
     color: #3060a0;
 }
 
@@ -16,19 +17,19 @@ h2 {
     font-weight: bold;
     font-size: 16pt;
     padding: 4px;
-    padding-left: 8px;
+    padding-left: 16px;
     color: #3060a0;
 }
 
 h3 {
     font-weight: bold;
     font-size: 16pt;
-    padding-left: 8px;
+    padding-left: 16px;
     color: #3060a0;
 }
 
 h4 {
-    padding-left: 8px;
+    padding-left: 16px;
     color: #3060a0;
 }
 
@@ -41,11 +42,16 @@ h3 a {
     margin-left: 2em;
 }
 .text {
-    margin-left: 2em;
+    margin-left: 1em;
 }
 
 .paramtable {
     border-spacing: 0px;
+}
+
+a, a.visited {
+    color: #3060a0;
+    text-decoration: none;
 }
 
 .paramtable td, .paramtable th {
@@ -64,9 +70,10 @@ h3 a {
     white-space: pre;
     background: #f0f0f0;
     padding: 13pt;
-    margin-left: 2em;
+    margin-left: 3em;
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 14px;
     color: #153060;
 }
+.
