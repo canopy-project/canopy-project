@@ -47,7 +47,7 @@
         <a href=#aliases>Device aliases</a><br>
         <div class=tabbed><a href=#creating_a_device_alias>Creating a Device Alias</a></div>
         <div class=tabbed><a href=#deleting_a_device_alias>Deleting a Device Alias</a></div>
-        <a href=#aliases>Device permissions and sharing</a><br>
+        <a href=#device_permissions_and_sharing>Device permissions and sharing</a><br>
         <div class=tabbed><a href=#sharing_a_device>Sharing a Device</a></div>
         <div class=tabbed><a href=#revoking_access_to_a_device>Revoking access to a Device</a></div>
         <div class=tabbed><a href=#seeing_who_can_access_a_device>Seeing who can access a Device</a></div>
@@ -435,7 +435,7 @@
     <h3><a name=insufficient_access_privileges_error_response>"Insufficient access privileges" error response</a></h3>
     <p>
         If the currently signed-in user does not have sufficient access
-        privileges to monitor or control a Device, the following response is
+        privileges to monitor or control a Device, or modify an Account, the following response is
         given:
     </p>
     <div class=code>401 UNAUTHORIZED
@@ -596,7 +596,7 @@
     "result" : "ok"
 }</div>
     <p>
-        On validation error: See <a href=.>Validation error response</a>
+        On validation error: See <a href=#validation_error_response>"Validation" error response</a>.
     </p>
     <p>
         If username is already taken:
@@ -1066,7 +1066,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         If one or more of the <code>&lt;TARGET_VALUE_<i>N</i>&gt;</code> values do not
         satisfy the validation criteria outlined in <a
         href=#validation_of_sddl_properties>Validation of SDDL properties</a>,
-        or any other input validation error occurred: See <a href=validation_error_response>"Validation" error response</a>.
+        or any other input validation error occurred: See <a href=#validation_error_response>"Validation" error response</a>.
     </p>
 
     <h3><a name=fetching_historical_data>Fetching Historical Sensor or Control Data</a></h3>
@@ -1235,7 +1235,11 @@ http://sandbox.canopy.link/leela/toaster</div>
     "device_id" : &lt;DEVICE_ID&gt;,
     "alias" : &lt;ALIAS&gt;
 }</div>
-
+    <p>
+        Or, using the <code>/my</code> shorthand:
+    </p>
+    <div class=code>POST /my/__aliases</div>
+    
     <p>
         <table class=paramtable>
             <tr>
@@ -1265,6 +1269,40 @@ http://sandbox.canopy.link/leela/toaster</div>
         This request requires that <code>&lt;ACCOUNT_USERNAME&gt;</code> is the currently signed-in account.
     </p>
 
+    <h4>Response (Create Device Alias)</h4>
+    <p>
+        On success, a new Device Alias is created:
+    </p>
+    <div class=code>200 OK
+{
+    "result" : "ok"
+}</div>
+    <p>
+        A <a href=#not_found_error_response>"Not found" error response</a> is
+        sent if any of the following are true:
+        <ul>
+            <li><code>&lt;DEVICE_ID&gt;</code> is not a valid Device ID.</li>
+            <li>No Device is found with that ID.</li>
+            <li>The currently signed-in Account does
+                not have <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> or higher access to the Device.
+            </li>
+        </ul>
+    </p>
+    <p>
+        On validation error: See <a href=#validation_error_response>"Validation" error response</a>.
+    </p>
+    <p>
+        If <code>&lt;ACCOUNT_USERNAME&gt;</code> does not match the the currently signed-in account: See <a href=#insufficient_sharing_privileges>"Insufficient access privileges" error response</a>.
+    </p>
+    <p>
+        If the currently signed-in account already has a Device Alias with the requested name:
+    <div class=code>403 FORBIDDEN
+{
+    "result" : "error",
+    "error_type" : "alias_name_unavialable"
+}</div>
+    </p>
+
     <h3><a name=deleting_a_device_alias>Deleting a Device Alias</a></h3> 
     <p>
         A Device Alias will automatically be deleted if the underlying Device
@@ -1278,13 +1316,34 @@ http://sandbox.canopy.link/leela/toaster</div>
     </p>
     <div class=code>DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;ALIAS&gt;</div>
     <p>
+        Or, using the <code>/my</code> shorthand:
+    </p>
+    <div class=code>DELETE /my/__aliases/&lt;ALIAS&gt;</div>
+    <p>
         This request requires that <code>&lt;ACCOUNT_USERNAME&gt;</code> is the currently signed-in account.
     </p>
 
-
-    <h2><a name=deleting_a_device_alias>Device permissions and sharing</a></h2> 
+    <h4>Response (Delete Device Alias)</h4>
     <p>
+        On success, a the Device Alias will be removed:
     </p>
+    <div class=code>200 OK
+{
+    "result" : "ok"
+}</div>
+    <p>
+        A <a href=#not_found_error_response>"Not found" error response</a> is
+        sent if <code>&lt;ALIAS&gt;</code> does not name a Device Alias created by the
+        currently currently-in Account.
+    </p>
+    <p>
+        On validation error: See <a href=#validation_error_response>"Validation" error response</a>.
+    </p>
+    <p>
+        If <code>&lt;ACCOUNT_USERNAME&gt;</code> does not match the the currently signed-in account: See <a href=#insufficient_sharing_privileges>"Insufficient access privileges" error response</a>.
+    </p>
+
+    <h2><a name=device_permissions_and_sharing>Device permissions and sharing</a></h2> 
 
     <h3><a name=sharing_a_device>Sharing a Device</a></h2> 
 
