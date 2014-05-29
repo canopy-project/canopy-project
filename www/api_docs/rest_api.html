@@ -26,7 +26,7 @@
         <div class=tabbed><a href=#bad_method_error_response>"Bad method" error response</a></div>
         <div class=tabbed><a href=#not_logged_in_error_response>"Not logged in" error response</a></div>
         <div class=tabbed><a href=#insufficient_access_privileges_error_response>"Insufficient access privileges" error response</a></div>
-        <div class=tabbed><a href=#insufficient_sharing_privileges_error_response>"Internal server error" error response</a></div>
+        <div class=tabbed><a href=#internal_server_error_error_response>"Internal server error" error response</a></div>
         <div class=tabbed><a href=#json_parsing_error_response>"JSON parsing" error response</a></div>
         <div class=tabbed><a href=#required_field_missing_error_response>"Required field missing" error response</a></div>
         <div class=tabbed><a href=#validation_error_response>"Validation" error response</a></div>
@@ -44,7 +44,7 @@
         <div class=tabbed><a href=#device_details>Device details</a></div>
         <div class=tabbed><a href=#controlling_a_device>Controlling a Device</a></div>
         <div class=tabbed><a href=#fetching_historical_data>Fetching historical sensor or control data</a></div>
-        <a href=#aliases>Device aliases</a><br>
+        <a href=#device_aliases>Device aliases</a><br>
         <div class=tabbed><a href=#creating_a_device_alias>Creating a Device Alias</a></div>
         <div class=tabbed><a href=#deleting_a_device_alias>Deleting a Device Alias</a></div>
         <a href=#device_permissions_and_sharing>Device permissions and sharing</a><br>
@@ -1069,7 +1069,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         or any other input validation error occurred: See <a href=#validation_error_response>"Validation" error response</a>.
     </p>
 
-    <h3><a name=fetching_historical_data>Fetching Historical Sensor or Control Data</a></h3>
+    <h3><a name=fetching_historical_data>Fetching historical sensor or control data</a></h3>
 
     <h4>Request (Historic Data)</h4>
     <p>
@@ -1171,7 +1171,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     "error_properties" : [&lt;PROPERTY_NAME&gt;]
 }</div>
 
-    <h2><a name=devices_aliases>Device Aliases</a></h2>
+    <h2><a name=device_aliases>Device Aliases</a></h2>
     <p>
         A Device Alias is a short, semi-custom URL for accessing device
         endpoints.
@@ -1610,10 +1610,13 @@ http://sandbox.canopy.link/leela/toaster</div>
 }</div>
 
 
+    <br>
     <p>
         <center>
         The content of this page is licensed under the Creative Commons Attribution 3.0 License, and code is licensed under a BSD license.
     </p>
+    <br>
+    <br>
 </div>
 </body>
 </html>
