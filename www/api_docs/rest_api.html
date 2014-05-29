@@ -936,6 +936,14 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     </p>
     <div class=code>GET /device/&lt;DEVICE_ID&gt;</div>
     <p>
+        Or, using a Device Alias URL:
+    </p>
+    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <p>
+        Or, using a Device Alias URL with <code>/my</code> shorthand:
+    </p>
+    <div class=code>GET /my/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <p>
         This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the
         requested Device or higher.
     </p>
@@ -980,6 +988,14 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     &lt;PROPERTY_NAME_1&gt; : &lt;TARGET_VALUE&gt;,
     ...
 }</div>
+    <p>
+        Or, using a Device Alias URL:
+    </p>
+    <div class=code>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <p>
+        Or, using a Device Alias URL with <code>/my</code> shorthand:
+    </p>
+    <div class=code>POST /my/&lt;DEVICE_ALIAS_NAME&gt;</div>
     <p>
         <table class=paramtable>
             <tr>
@@ -1067,6 +1083,14 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <div class=code>GET /device/&lt;DEVICE_ID&gt;/&lt;PROPERTY_NAME&gt;?
         begin_time=&lt;BEGIN_TIME&gt;
         &amp;end_time=&lt;END_TIME&gt;</div>
+    <p>
+        Or, using a Device Alias URL:
+    </p>
+    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;?...</div>
+    <p>
+        Or, using a Device Alias URL with <code>/my</code> shorthand:
+    </p>
+    <div class=code>GET /my/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;?...</div>
     <p>
         <table class=paramtable>
             <tr>
@@ -1170,7 +1194,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     </p>
     <div class=code>/&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;</div>
     <p>
-        Or, using the <code>/my</code> shortcut for the currently-signed-in
+        Or, using the <code>/my</code> shorthand for the currently-signed-in
         user:
     </p>
     <div class=code>/my/&lt;DEVICE_ALIAS_NAME&gt;</div>
@@ -1502,6 +1526,14 @@ http://sandbox.canopy.link/leela/toaster</div>
         To discover who has access to a Device, use:
     </p>
     <div class=code>GET /devices/&lt;DEVICE_ID&gt;/__permissions</div>
+    <p>
+        Or, using a Device Alias URL:
+    </p>
+    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/_permissions</div>
+    <p>
+        Or, using a Device Alias URL with <code>/my</code> shorthand:
+    </p>
+    <div class=code>GET /my/&lt;DEVICE_ALIAS_NAME&gt;/_permissions</div>
     <p>
         This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> or higher access to the requested Device.
     </p>
