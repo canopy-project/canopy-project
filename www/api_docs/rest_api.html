@@ -36,6 +36,8 @@
         <div class=tabbed><a href=#account_logout>Account logout</a></div>
         <div class=tabbed><a href=#me_account_details>"Me" Account details</a></div>
         <a href=#devices>Devices</a><br>
+        <div class=tabbed><a href=#sddl>Smart Device Description Language</a></div>
+        <div class=tabbed><a href=#validation_of_sddl_properties>Validation of SDDL properties</a></div>
         <div class=tabbed><a href=#device_creation>Device creation</a></div>
         <div class=tabbed><a href=#device_provisioning>Device provisioning</a></div>
         <div class=tabbed><a href=#device_details>Device details</a></div>
@@ -725,6 +727,169 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         A Device represents a smart object that you can monitor and control.
     </p>
 
+    <h3><a name=sddl>Smart Device Description Language (SDDL)</a></h3>
+    <p>
+        Each Canopy-enabled device publishes its capabilities to the Canopy
+        Cloud Service using a format called the Smart Device Description
+        Language ("SDDL").  The SDDL describes the device's controls and
+        sensors.  The Canopy Cloud Service uses this information to generate a
+        REST API specific to each Canopy-enabled device.
+    </p>
+
+    <h3><a name=validation_of_sddl_properties>Validation of SDDL properties</a></h3>
+    <p>
+        SDDL supports several datatypes.  The following table describes how
+        SDDL property values are validated when supplied to this API using
+        JSON.
+    </p>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>SDDL datatype</th>
+                <th>JSON type</th>
+                <th>Additional validation criteria</th>
+                <th>Other notes</th>
+            </tr>
+            <tr>
+                <td>bool</td>
+                <td>true | false</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>int8</td>
+                <td>number</td>
+                <td>
+                    Must be between -128 and 127 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>uint8</td>
+                <td>number</td>
+                <td>
+                    Must be between 0 and 255 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>int16</td>
+                <td>number</td>
+                <td>
+                    Must be between -32768 and 32767 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>uint16</td>
+                <td>number</td>
+                <td>
+                    Must be between 0 and 65535 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>int32</td>
+                <td>number</td>
+                <td>
+                    Must be between -(2<sup>31</sup>) and 2<sup>31</sup> - 1 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>uint32</td>
+                <td>number</td>
+                <td>
+                    Must be between 0 and 2<sup>32</sup> - 1 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>int64</td>
+                <td>number</td>
+                <td>
+                    Must be between -(2<sup>63</sup> and 2<sup>63</sup> - 1 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>uint64</td>
+                <td>number</td>
+                <td>
+                    Must be between 0 and 2<sup>64</sup> - 1 (inclusive)
+                    <br>Must not have a fractional component.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>float32</td>
+                <td>number</td>
+                <td>
+                </td>
+                <td>
+                    The number will be converted to a 32-bit float in an
+                    implementation-dependant manner.
+                </td>
+            </tr>
+            <tr>
+                <td>float64</td>
+                <td>number</td>
+                <td>
+                </td>
+                <td>
+                    The number will be converted to a 64-bit float in an
+                    implementation-dependant manner.
+                </td>
+            </tr>
+            <tr>
+                <td>string</td>
+                <td>string</td>
+                <td>
+                </td>
+                <td>
+                    UTF-8 encoded.
+                </td>
+            </tr>
+        </table>
+    </p>
+
+    <p>
+        The SDDL may also contain additional validation requirements for each
+        control property.  The following table describes how these validation
+        requirements are enforced:
+    </p>
+    <p>
+        <table class=paramtable>
+            <tr>
+                <th>SDDL validation requirement</th>
+                <th>JSON validation criteria</th>
+            </tr>
+            <tr>
+                <td>min-value</th>
+                <td>The supplied JSON value must be greater-than-or-equal-to the SDDL-specified "min-value".</th>
+            </tr>
+            <tr>
+                <td>min-value-exclusive</th>
+                <td>The supplied JSON value must be greater-than the SDDL-specified "min-value".</th>
+            </tr>
+            <tr>
+                <td>max-value</th>
+                <td>The supplied JSON value must be less-than-or-equal-to the SDDL-specified "max-value-exclusive".</th>
+            </tr>
+            <tr>
+                <td>max-value-exclusive</th>
+                <td>The supplied JSON value must be less-than the SDDL-specified "min-value-exclusive".</th>
+            </tr>
+        <table class=paramtable>
+    </p>
+
     <h3><a name=device_creation>Device Creation</a></h3>
     <p>
         A Device resource is automatically created the first time a device
@@ -830,7 +995,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
                 a control property id from the device's SDDL class.
                 <br><br>
                 &lt;TARGET_VALUE&gt;: Desired value for this control property.
-                See <a href=.>Validation of JSON property values</a> for more
+                See <a href=validation_of_sddl_properties>Validation of SDDL properties</a> for more
                 details.
                 <td>Target value for the specified control property, replacing
                 the previous target value for that property.</td>
