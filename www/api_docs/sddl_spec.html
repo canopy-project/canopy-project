@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='apidocs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class=main>
+    <h1>Smart Device Description Language (SDDL) Specification</h1>
+    <h2><a name=toc />Document Version 5/28/2014</h2>
+    <div class=text>
+        <a href=#overview>Overview</a><br>
+    </div>
+
+    <h2><a name=overview>Overview</a></h2>
+    <p>
+        The Smart Device Description Language (SDDL) is a JSON-based document
+        format used to convey metadata about a device's sensors and controls.
+    </p>
+
+    <h2><a name=overview>Format</a></h2>
+    <h3><a name=overview>Top-level JSON object</a></h3>
+    <p>
+        SDDL documents are JSON-encoded.  Each SDDL document contains a single
+        top-level JSON object, beginning with <code>{</code> and ending with
+        <code>}</code>.  This top-level object may contain 0 or more keys.
+    </p>
+    <p>
+        For example, here is the simplest allowable SDDL document:
+    </p>
+    <div class=code>{
+}</div>
+    <p>
+        The general top-level structure for an SDDL document is:
+    </p>
+    <div class=code>{
+    <span class=code_template>METADATA_KEY</span> : <span class=code_template>METADATA_VALUE</span>, 
+    <span class=code_template>METADATA_KEY</span> : <span class=code_template>METADATA_VALUE</span>, 
+    ...
+    
+    <span class=code_template>PROPERTY_DECLARATION</span> : <span class=code_template>PROPERTY_DEFINITION</span>,
+    <span class=code_template>PROPERTY_DECLARATION</span> : <span class=code_template>PROPERTY_DEFINITION</span>,
+    ...
+
+}</div>
+
+    <h2><a name=overview>Properties</a></h2>
+    <h3>Basic property types</h3>
+    <p>
+        SDDL supports three (3) basic property types:
+        <code>control</code>, <code>sensor</code>, and
+        <code>class</code>.
+    </p>
+    <p>
+        A <code>control</code> represents a device setting that can be changed
+        remotely.
+    </p>
+    <p>
+        A <code>sensor</code> represents a piece of data that is known to the device,
+        that changes over time, and that can be monitored remotely.
+    </p>
+    <p>
+        A <code>class</code> is a collection of other properties (similar to a
+        "struct" in other languages).
+    </p>
+    <h3>Property arrays and maps</h3>
+    <p>
+        SDDL also supports <code>array</code> and <code>map</code> property
+        collections.
+    </p>
+    <p>
+        An <code>array</code> is a fixed-length list of properties.  In an <code>array</code>, each
+        entry has the same property definition.
+    </p>
+    <p>
+        A <code>map</code> is an unordered mapping from a basic datatype (such
+        as strings) to properties.  In a <code>map</code>, each value has the
+        same property definition.
+    </p>
+
+    <h3>Property declarations</h3>
+    <h4>Control declarations</h4>
+    <p>
+        To declare a <code>control</code> property, use:
+    </p>
+    <div class=code>"control <span class=code_template>CONTROL_NAME</span>" : <span class=code_template>CONTROL_DEFINITION</span> </div>
+    <p>
+        For example:
+    </p>
+    <div class=code>"control master_power_switch" : { 
+    "datatype" : "bool"
+}</div>
+
+    <h4>Sensor declarations</h4>
+    <p>
+        To declare a <code>sensor</code> property, use:
+    </p>
+    <div class=code>"sensor <span class=code_template>SENSOR_NAME</span>" : <span class=code_template>SENSOR_DEFINITION</span> </div>
+    <p>
+        For example:
+    </p>
+    <div class=code>"sensor humidity" : { 
+    "datatype" : "float32",
+    "min-value" : 0.0,
+    "max-value" : 1.0,
+    "numeric-format-hint" : "percentage"
+}</div>
+
+    <h4>Class declarations</h4>
+    <p>
+        To declare a <code>class</code> property, use:
+    </p>
+    <div class=code>"class <span class=code_template>CLASS_NAME</span>" : <span class=code_template>CLASS_DEFINITION</span> </div>
+    <p>
+        For example:
+    </p>
+    <div class=code>"class canopy.example.toaster" : { 
+    "control darkness" : {
+        "datatype" : "int8",
+        "min-value" : 0,
+        "max-value" : 4,
+    },
+    "control bagel_mode" : {
+        "datatype" : "bool",
+    },
+    "sensor time_remaining" : {
+        "datatype" : "float32",
+        "min-value" : 0,
+        "nullable" : true
+    }
+
+}</div>
+
+    <h4>Array declarations</h4>
+    <p>
+        An <code>array</code> can be created from any of the three basic
+        property types (<code>control</code>, <code>sensor</code>, or
+        <code>class</code>) by using square brackets <code>[]</code> with a non-negative
+        integer size:
+    </p>
+    <div class=code>"<span class=code_template>PROPERTY_TYPE</span> <span class=code_template>PROPERTY_NAME</span>[<span class=code_template>NUM_ITEMS</span>]" : <span class=code_template>PROPERTY_DEFINITION</span> </div>
+    <p>
+        For example, to create an array of 4 sensors:
+    </p>
+    <div class=code>"sensor outlet_wattage[4]" : {
+    "datatype" : "float32",
+    "unit-hint" : "watts"
+}</div>
+
+    <h4>Map declarations</h4>
+    <p>
+        A <code>map</code> can be created by using curly braces
+        <code>{}</code> with the keys' datatype inside:
+    </p>
+    <div class=code>"<span class=code_template>PROPERTY_TYPE</span> <span class=code_template>PROPERTY_NAME</span>{<span class=code_template>KEY_DATATYPE</span>}" : <span class=code_template>PROPERTY_DEFINITION</span> </div>
+    <p>
+        For example, a "smart scale" may use <code>map</code> to report the weight of several individuals, identified by name:
+    </p>
+    <div class=code>"sensor weight{string}" : {
+    "datatype" : "float32",
+    "min-value" : 0.0,
+    "unit-hint" : "lbs"
+}</div>
+
+    <h3>Property names</h4>
+    <p>
+        A property name must contain only the characters <code>A-Z</code>,
+        <code>a-z</code>, <code>0-9</code>, <code>_</code> (underscore), and
+        <code>.</code> (dot).  Case is ignored, but by convention all lowercase
+        is used.
+    </p>
+
+    <h4>Class name conventions</h4>
+    <p>
+        To avoid namespace collisions, it is recommended that
+        <code>class</code> property names obey the following convention:
+    </p>
+    
+
+    <h2>Control properties</h2>
+    <h3>Control definition object</h3>
+    <p>
+        A <code>control</code> is defined using a JSON object containing 
+        one or more of the following keys:
+    </p>
+    <div class=code>"control-type"
+
+    Specifies the type of control, either "parameter" or "trigger".  A
+    "parameter" control always has a <i>current value</i> that can be queried,
+    whereas a "trigger" control does not.
+
+    Value must be one of: "parameter" or "trigger".
+
+    Defaults to "parameter" if omitted.
+
+"datatype"
+
+    Specifies the underlying datatype used for this control's values.  
+    
+    Value must be one of:
+        "string"
+        "bool"
+        "int8"
+        "uint8"
+        "int16"
+        "uint16"
+        "int32"
+        "uint32"
+        "float32"
+        "float64"
+        "enum"
+
+    Defaults to "float32" if omitted
+
+"description"
+
+    Describes the purpose of this control to application developers, giving
+    semantic meaning to the control's definition.  This field is intended to be
+    used for reference only and should not be shown to end-users.
+
+    Value must be a string.
+
+    Defaults to "" if omitted.
+
+"max-value"
+
+    Maximum numeric value that this control can have.  This field is only
+    applicable if the control has one of the "int", "uint" or "float"
+    datatypes, and must be omitted or set to null otherwise.  If null, the
+    control's datatype will dictate the maximum allowed value.
+
+    This field's value must be a number that is representable in the control's
+    datatype, or null.
+
+    Defaults to null if omitted.
+
+"min-value"
+
+    Minimum numeric value that this control can have.  This field is only
+    applicable if the control has one of the "int", "uint" or "float"
+    datatypes, and must be omitted or set to null otherwise.  If null, the
+    control's datatype will dictate the minimum allowed value.
+
+    This field's value must be a number that is representable in the control's
+    datatype, or null.
+
+    Defaults to null if omitted.
+
+"numeric-display-hint"
+
+    Provides hint to application about how to display this control's value,
+    either "normal", "hex", "scientific", or "percentage".  Applications
+    may choose how to interpret this hint, and may ignore it entirely.
+
+    Defaults to "normal" if omitted.
+
+"regex"
+
+    Regular expression that this control's value must match.  This field is
+    only applicable if the control has a "string" datatype, and must be omitted
+    or set to null otherwise.  If null, no regular expression validation is
+    performed.
+
+    This field must be a string regular expression, using syntax accepted by
+    RE2, or null.
+
+    Defaults to null if omitted.
+
+"units"
+
+    Provide hint to application about the physical units of this control's
+    value.  Must be string.
+
+    Defaults to "" if omitted.
+</div>
+
+    <br>
+    <p>
+        <center>
+        The content of this page is licensed under the Creative Commons Attribution 3.0 License, and code is licensed under a BSD license.
+    </p>
+    <br>
+    <br>
+</div>
+</body>
+</html>
+
+<!--
+TODO:
+- Permissions
+- Errors
+- Events
+
+
+{
+    "dyson.fans.dyson_cool.am08" : {
+        "@type" : "class",
+        "gps" : {
+            "@extends" : "canopy.common.gps",
+            "@priority" : 1,
+        },
+        "second_gps" : "canopy.common.gps",
+    }
+}
+
+{
+    "interface canopy.example.smart_fan" : {
+        "control speed" : {
+            "datatype" : "int8",
+            "min-value" : "0",
+            "max-value" : "3",
+            "description" : "Fan speed.  0=off, 3=max."
+        },
+        "description" : "Smart fan for demo",
+    }
+}
+
+{
+    "interface canopy.example.tutorial1" : {
+        "sensor cpu[4]" : {
+            "datatype" : "float32",
+            "min-value" : 0.0,
+            "max-value" : 1.0,
+            "description" : "CPU usage percentage, one entry for each core.",
+            "units" : "percentage",
+        }
+        "control reboot{string}" : {
+            "control-type" : "trigger",
+            "datatype" : "bool",
+            "description" : "Reboots the device",
+        }
+    }
+}
+
+{
+    "canopy.example.tutorial1.computer" : {
+        "@type" : "class",
+        "stats[2]" : {
+            "cpu[4]" : {
+                "@type" : "sensor",
+                "@datatype" : "float32",
+                "@min-value" : 0.0,
+                "@max-value" : 1.0,
+                "@description" : "CPU usage percentage, one entry for each core.",
+                "@units" : "percentage",
+            },
+            "mem" : {
+                "@type" : "sensor",
+                "@datatype" : "float32",
+                "@min-value" : 0.0,
+                "@max-value" : 1.0,
+                "@description" : "CPU usage percentage, one entry for each core.",
+            }
+        }
+        "reboot" : {
+            "@type" : "control",
+            "@control-type" : "trigger",
+            "@datatype" : "bool",
+            "@description" : "Reboots the device",
+        },
+    }
+}
+-->

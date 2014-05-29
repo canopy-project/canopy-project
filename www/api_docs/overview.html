@@ -12,12 +12,12 @@
     <h1>Canopy Overview</h1>
     <p>
         <a href=#intro>Introduction</a><br>
-        <a href=#hw>Hardware Requirements</a><br>
+        <a href=#hw>Hardware and OS Requirements</a><br>
         <a href=#features>Features</a><br>
         <a href=#components>Components</a>
     </p>
 
-    <h2><a name=intro />Introduction</h2>
+    <h2><a name=intro>Introduction</a></h2>
     <p>
         Canopy is an open source Internet of Things platform.
     </p>
@@ -34,11 +34,10 @@
         cloud-management is needed.
     </p>
 
-    <h2><a name=intro />Hardware Requirements</h2>
+    <h2><a name=hw>Hardware and OS Requirements</a></h2>
     <p>
         Canopy requires a hardware platform with similar specifications to a
-        Raspberry Pi or Beagle Bone.  Canopy <i>does not</i> work on the
-        Arduino platform, at present.
+        Raspberry Pi or Beagle Bone.
     </p>
     <p>
         Furthermore, a network connection (TCP/IP) is required, over ethernet,
@@ -53,6 +52,7 @@
 
     <h4>Recommended System Requirements:</h4>
     <p>
+    The recommended system requirements for a Canopy-enabled device are:
         <ul>
             <li>ARM SOC w/ 1GHz cpu or higher</li>
             <li>128 MB RAM
@@ -62,7 +62,7 @@
     </p>
         
 
-    <h2><a name=intro />Features</h2>
+    <h2><a name=features>Features</a></h2>
 
     <p>
         Canopy has several features that simplify the development of
@@ -106,8 +106,7 @@
         anywhere.  For convenience, we maintain a hosted deployment that you
         can use.  But if you choose, you can start up your own deployment on
         EC2, in your own datacenter, on your corporate LAN, or on your laptop.
-    </p>
-
+    </p> 
     <h4>Device Management Frontend</h4>
     <p>
         You may choose to build your own custom frontend for your
@@ -115,11 +114,39 @@
         generic device management frontend to monitor and control your devices.
     </p>
 
-    <h2><a name=components />SDDL - Smart Device Description Language</h2>
+    <h2><a name=components>Components</a></h2>
     <p>
-        Canopy 
-        high-quality IoT products. 
+        The Canopy project consists of several software components and
+        royalty-free specifications that work together to simplify IoT
+        development.
     </p>
+    <h3><a name=SDDL>Smart Device Description Language (SDDL)</a></h3>
+    <p>
+        The Smart Device Description Language, or SDDL, is a JSON-based text
+        format for describing the capabilities of a Canopy-enabled device.
+        Primarily, the SDDL file describes the sensors and controls exposed by
+        a device.
+    </p>
+    <h3><a name=libcanopy>libcanopy</a></h3>
+    <p>
+        The main embedded software component of Canopy is a C library called
+        libcanopy.  This library provides an event-driven system for
+        interacting with the cloud, and makes it easy to work with SDDL files.
+    </p>
+    <h3><a name=libcanopy>canogen</a></h3>
+    <p>
+        The canogen tool offers an alternative approach to embedded development
+        that is even easier than using libcanopy directly.  The canogen tool
+        uses your SDDL file to auto-generate boilerplate code and stubs for
+        your particular device.
+    </p>
+    <h3><a name=libcanopy>Canopy Websocket Protocol (CWP)</a></h3>
+    <p>
+        The Canopy Websocket Protocol (CWP) is the protocol used for
+        communication between Canopy-enabled devices and the cloud.  It uses
+        secure websockets with JSON payloads.
+    </p>
+
 </div>
 </body>
 </html>

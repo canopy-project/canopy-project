@@ -81,4 +81,11 @@ a, a.visited {
     color: #153060;
     overflow: auto;
 }
-.
+
+.code_template {
+    display: inline-block;
+    border: 1px dashed #008000;
+    background: #ffff80;
+    margin-bottom: 3px;
+    padding: 2px;
+}
