@@ -617,7 +617,7 @@
 }</div>
 
 
-    <h3><a name=account_login>Account Login</a></h3>
+    <h3><a name=account_login>Account login</a></h3>
     <h4>Request (Account Login)</h4>
     <p>
         To login an account:
@@ -677,7 +677,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
 
 
 
-    <h3><a name=account_logout>Account Logout</a></h3>
+    <h3><a name=account_logout>Account logout</a></h3>
     <h4>Request (Account Logout)</h4>
     <p>
         To logout the currently logged in user:
@@ -691,6 +691,10 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
 {
     "result" : "ok"
 }</div>
+    <p>
+        This same response is given even if no user was signed-in.
+    </p>
+
 
     <h3><a name=me_account_details>"Me" Account Details</a></h3>
     <p>
@@ -714,13 +718,8 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     "email" : &lt;EMAIL&gt;,
 }</div>
     <p>
-        If no account is signed-in:
+        If no account is signed-in: See <a href=#not_logged_in_error_response>"Not logged in" error response</a>.
     </p>
-    <div class=code>401 UNAUTHORIZED
-{
-    "result" : "error",
-    "error_type" : "not_logged_in"
-}</div>
 
     <h2><a name=devices>Devices</a></h2>
     <p>
@@ -887,7 +886,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
                 <td>max-value-exclusive</th>
                 <td>The supplied JSON value must be less-than the SDDL-specified "min-value-exclusive".</th>
             </tr>
-        <table class=paramtable>
+        </table>
     </p>
 
     <h3><a name=device_creation>Device Creation</a></h3>
@@ -936,6 +935,10 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         To obtain information about a particular device:
     </p>
     <div class=code>GET /device/&lt;DEVICE_ID&gt;</div>
+    <p>
+        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the
+        requested Device or higher.
+    </p>
 
     <h4>Response (Device Details)</h4>
     <p>
@@ -948,22 +951,27 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     "sddl_class" : &lt;SDDL_CLASS&gt;,
 }</div>
     <p>
-        On UUID validation error: See <a href=.>Validation error response</a>
+        A <a href=#not_found_error_response>"Not found" error response</a> is
+        sent if any of the following are true:
+        <ul>
+            <li><code>&lt;DEVICE_ID&gt;</code> is not a valid Device ID.</li>
+            <li>No Device is found with that ID.</li>
+            <li>The currently signed-in Account does
+                not have <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> or higher access to the Device.
+            </li>
+        </ul>
     </p>
     <p>
-        If no account is signed in: See <a href=..>Not logged-in error response</a>.
-    </p>
-    <p>
-        If device is not found with requested id: See <a href=..>Device not found error response</a>.
+        If no Account is signed in: See <a href=..>Not logged-in error response</a>.
     </p>
 
     <h3><a name=controlling_a_device>Controlling a Device</a></h3>
 
+    <h4>Request (Device Control)</h4>
     <p>
         Device control is performed by issuing "target" values for one or more
         control properties.
     </p>
-    <h4>Request (Device Control)</h4>
     <div class=code>POST /device/&lt;DEVICE_ID&gt;/
 {
     "__expiration_secs" : &lt;EXPIRATION_SECS&gt;
@@ -1002,6 +1010,10 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
             </tr>
         </table>
     </p>
+    <p>
+        This request requires <a href=#permission_model><code>MONITOR_AND_CONTROL(A2)</code></a> access to the
+        requested Device.
+    </p>
     <h4>Response (Device Control)</h4>
     <p>
         On success:
@@ -1012,18 +1024,37 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
 }</div>
 
     <p>
-        If one or more of the &lt;PROPERTY_NAME_<i>N</i>&gt; keys do not match a
-        control property from the device's SDDL class.
+        A <a href=#not_found_error_response>"Not found" error response</a> is
+        sent if any of the following are true:
+        <ul>
+            <li><code>&lt;DEVICE_ID&gt;</code> is not a valid Device ID.</li>
+            <li>No Device is found with that ID.</li>
+            <li>The currently signed-in Account has
+                <a href=#permission_model><code>NO_ACCESS(A0)</code></a> to the Device.
+            </li>
+        </ul>
+    </p>
+    <p>If the currently signed-in Account has 
+        <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the Device: See <a href=#insufficient_access_privileges_error_response>"Insufficient access privileges" error response</a>.
+    <p>
+        If no Account is signed in: See <a href=..>Not logged-in error response</a>.
+    </p>
+    <p>
+        If one or more of the <code>&lt;PROPERTY_NAME_<i>N</i>&gt;</code> keys do not match a
+        control property from the device's SDDL class:
     </p>
     <div class=code>403 FORBIDDEN
 {
     "result" : "error",
     "error_type" : "invalid_control_property",
-    "error_properties" : [&lt;PROPERTY_NAME_<i>i</i>&gt;, &lt;PROPERTY_NAME_<i>j</i>&gt;, ...]
+    "error_fields" : [&lt;PROPERTY_NAME_<i>i</i>&gt;, &lt;PROPERTY_NAME_<i>j</i>&gt;, ...]
 }</div>
 
     <p>
-        On validation error: See <a href=.>Validation error response</a>
+        If one or more of the <code>&lt;TARGET_VALUE_<i>N</i>&gt;</code> values do not
+        satisfy the validation criteria outlined in <a
+        href=#validation_of_sddl_properties>Validation of SDDL properties</a>,
+        or any other input validation error occurred: See <a href=validation_error_response>"Validation" error response</a>.
     </p>
 
     <h3><a name=fetching_historical_data>Fetching Historical Sensor or Control Data</a></h3>
@@ -1074,6 +1105,10 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
             </tr>
         </table>
     </p>
+    <p>
+        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the
+        requested Device or higher.
+    </p>
     <h4>Response (Historic Data)</h4>
     <p>
         On success:
@@ -1093,7 +1128,18 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     ]
 }</div>
     <p>
-        If device is not found with requested id: See <a href=..>Device not found error response</a>.
+        A <a href=#not_found_error_response>"Not found" error response</a> is
+        sent if any of the following are true:
+        <ul>
+            <li><code>&lt;DEVICE_ID&gt;</code> is not a valid Device ID.</li>
+            <li>No Device is found with that ID.</li>
+            <li>The currently signed-in Account does
+                not have <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> or higher access to the Device.
+            </li>
+        </ul>
+    </p>
+    <p>
+        If no Account is signed in: See <a href=..>Not logged-in error response</a>.
     </p>
     <p>
         If <code>&lt;PROPERTY_NAME&gt;</code> does not match a control or sensor property from the device's SDDL class:
@@ -1191,12 +1237,19 @@ http://sandbox.canopy.link/leela/toaster</div>
             </tr>
         </table>
     </p>
+    <p>
+        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the
+        requested Device or higher.
+    </p>
+    <p>
+        This request requires that <code>&lt;ACCOUNT_USERNAME&gt;</code> is the currently signed-in account.
+    </p>
 
     <h3><a name=deleting_a_device_alias>Deleting a Device Alias</a></h3> 
     <p>
         A Device Alias will automatically be deleted if the underlying Device
         resource is deleted.  Additionally, a Device resource may be deleted
-        manually as follows:
+        manually.
     </p>
 
     <h4>Request (Delete Device Alias)</h4>
@@ -1204,6 +1257,9 @@ http://sandbox.canopy.link/leela/toaster</div>
         To delete a device alias use:
     </p>
     <div class=code>DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;ALIAS&gt;</div>
+    <p>
+        This request requires that <code>&lt;ACCOUNT_USERNAME&gt;</code> is the currently signed-in account.
+    </p>
 
 
     <h2><a name=deleting_a_device_alias>Device permissions and sharing</a></h2> 
@@ -1443,10 +1499,12 @@ http://sandbox.canopy.link/leela/toaster</div>
     <h3><a name=seeing_who_can_access_a_device>Seeing who can access a Device</a><h3>
     <h4>Request (Device Permission Details)</h4>
     <p>
-        Anyone with access level <code>MONITOR_ONLY(A1)</code> or higher can discover who
-        else has access to a Device with the following request:
+        To discover who has access to a Device, use:
     </p>
     <div class=code>GET /devices/&lt;DEVICE_ID&gt;/__permissions</div>
+    <p>
+        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> or higher access to the requested Device.
+    </p>
 
     <h4>Response (Device Permission Details)</h4>
     <p>
