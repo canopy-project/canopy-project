@@ -30,6 +30,7 @@
         <div class=tabbed><a href=#json_parsing_error_response>"JSON parsing" error response</a></div>
         <div class=tabbed><a href=#required_field_missing_error_response>"Required field missing" error response</a></div>
         <div class=tabbed><a href=#validation_error_response>"Validation" error response</a></div>
+        <div class=tabbed><a href=#other_error_responses>Other error responses</a></div>
         <a href=#accounts>Accounts</a><br>
         <div class=tabbed><a href=#account_creation>Account creation</a></div>
         <div class=tabbed><a href=#account_login>Account login</a></div>
@@ -160,67 +161,58 @@
         </table>
     </p>
     <p>
-        Device Aliases provide an alternative URL scheme for accessing Device resources:
+        Device Aliases provide an alternative URL scheme for accessing Device resources.
+        The <code>/my</code> prefix is shorthand for the currently signed-in
+        account username, and simplifies the device URLs even further:
     </p>
     <p>
         <table class=paramtable>
             <tr>
                 <th>Method and URL</th>
-                <th>Description</th>
+                <th>Maps To</th>
                 <th>Details</th>
             </tr>
             <tr>
-                <td>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;
+                <td>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;
                 </td>
-                <td>Obtain details about a particular Canopy-enabled device.</td>
+                <td>GET /device/&lt;DEVICE_ID&gt;
+                </td>
                 <td>See <a href=#device_details>Device details</a></td>
             </tr>
             <tr>
-                <td>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;
+                <td>GET /my/&lt;DEVICE_ALIAS&gt;
                 </td>
-                <td>Remotely control a Canopy-enabled device.
+                <td>GET /device/&lt;DEVICE_ID&gt;
+                </td>
+                <td>See <a href=#device_details>Device details</a></td>
+            </tr>
+            <tr>
+                <td>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;
+                </td>
+                <td>POST /device/&lt;DEVICE_ID&gt;
+                </td>
+                <td>See <a href=#controlling_a_device>Controlling a Device</a></td>
+            </tr>
+            <tr>
+                <td>POST /my/&lt;DEVICE_ALIAS&gt;
+                </td>
+                <td>POST /device/&lt;DEVICE_ID&gt;
                 </td>
                 <td>See <a href=#controlling_a_device>Controlling a Device</a></td>
             </tr>
             <tr>
                 <td>
-                    GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
+                    GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;/&lt;PROPERTY_NAME&gt;
                 </td>
-                <td>Obtain historic sensor or control data.
+                <td>GET /device/&lt;DEVICE_ID&gt;/&lt;PROPERTY_NAME&gt;
                 </td>
                 <td>See <a href=#fetching_historical_data>Fetching historical sensor or control data</a></td>
             </tr>
-        </table>
-    </p>
-    <p>
-    The <code>/my</code> prefix is shorthand for the currently signed-in
-    account username, and simplifies the device URLs even further:
-    </p>
-    <p>
-        <table class=paramtable>
-            <tr>
-                <th>Method and URL</th>
-                <th>Description</th>
-                <th>Details</th>
-            </tr>
-            <tr>
-                <td>GET /my/&lt;DEVICE_ALIAS_NAME&gt;
-                </td>
-                <td>Obtain details about a particular Canopy-enabled device.</td>
-                <td>See <a href=#device_details>Device details</a></td>
-            </tr>
-            <tr>
-                <td>POST /my/&lt;DEVICE_ALIAS_NAME&gt;
-                </td>
-                <td>Remotely control a Canopy-enabled device.
-                </td>
-                <td>See <a href=#controlling_a_device>Controlling a Device</a></td>
-            </tr>
             <tr>
                 <td>
-                    GET /my/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;
+                    GET /my/&lt;DEVICE_ALIAS&gt;/&lt;PROPERTY_NAME&gt;
                 </td>
-                <td>Obtain historic sensor or control data.
+                <td>GET /device/&lt;DEVICE_ID&gt;/&lt;PROPERTY_NAME&gt;
                 </td>
                 <td>See <a href=#fetching_historical_data>Fetching historical sensor or control data</a></td>
             </tr>
@@ -246,8 +238,8 @@
             </tr>
             <tr>
                 <td>
-                    DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;DEVICE_ALIAS_NAME&gt;
-                    <br>DELETE /my/__aliases/&lt;DEVICE_ALIAS_NAME&gt;
+                    DELETE /&lt;ACCOUNT_USERNAME&gt;/__aliases/&lt;DEVICE_ALIAS&gt;
+                    <br>DELETE /my/__aliases/&lt;DEVICE_ALIAS&gt;
                 </td>
                 <td>
                     Remove Device Alias
@@ -277,8 +269,8 @@
             <tr>
                 <td>
                     GET /devices/&lt;DEVICE_ID&gt;/__permissions
-                    <br>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/__permissions
-                    <br>GET /my/&lt;DEVICE_ALIAS_NAME&gt;/__permissions
+                    <br>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;/__permissions
+                    <br>GET /my/&lt;DEVICE_ALIAS&gt;/__permissions
                 </td>
                 <td>
                     See who can access a Device.
@@ -359,14 +351,14 @@
     <h4>Gaining access from provisioning</h4>
     <p>
         For a newly purchased Canopy-enabled device, the provisioning process
-        grants <code>A2+S2</code> access to the Account of the user performing
-        the provisioning.  See <a href='device_provisioning'>Device provisioning</a>
+        grants <code>A2+S2</code> access to the owner of the device.
+        See <a href='device_provisioning'>Device provisioning</a>.
     </p>
     <h4>Gaining access from sharing</h4>
     <p>
         An Account with <code>S1</code> or higher sharing permission level may
         grant other Accounts access to monitor, control, and/or further share a
-        Device.  See <a href='sharing_a_device'>Sharing a Device</a>
+        Device.  See <a href='sharing_a_device'>Sharing a Device</a>.
     </p>
     
     <h2><a name=error_handling>Error handling</a></h2>
@@ -413,7 +405,7 @@
             <li>The requested URL refers to a Device, Account, Alias, or other
             resource that does not exist.</li>
             <li>The requested URL refers to a Device, Account, Alias, or other
-            resource that you do not have any access to.</li>
+            resource that the currently signed-in Account does not have any access to.</li>
         </ul>
     </p>
 
@@ -537,6 +529,13 @@
     "error_type" : "input_validation_failed",
     "error_fields" : [&lt;INPUT_FIELD_0&gt;, &lt;INPUT_FIELD_1&gt;, ...]
 }</div>
+
+    <h3><a name=other_error_responses>Other error responses</a></h3>
+    <p>
+        Other error responses that may occur are documented later in the
+        documentation for specific endpoints.
+        
+    </p>
 
     <h2><a name=accounts>Accounts</a></h2>
     <p>
@@ -680,7 +679,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <h3><a name=account_logout>Account logout</a></h3>
     <h4>Request (Account Logout)</h4>
     <p>
-        To logout the currently logged in user:
+        To logout the currently logged-in user:
     </p>
     <div class=code>POST /logout</div>
     <h4>Response (Account Login)</h4>
@@ -697,9 +696,6 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
 
 
     <h3><a name=me_account_details>"Me" Account Details</a></h3>
-    <p>
-        The <code>/me</code> endpoint refers to the currently signed-in account.
-    </p>
 
     <h4>Request ("Me" Account Details)</h4>
     <p>
@@ -732,7 +728,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         Cloud Service using a format called the Smart Device Description
         Language ("SDDL").  The SDDL describes the device's controls and
         sensors.  The Canopy Cloud Service uses this information to generate a
-        REST API specific to each Canopy-enabled device.
+        REST API specific to each Canopy-enabled device, as described in the follow sections.
     </p>
 
     <h3><a name=validation_of_sddl_properties>Validation of SDDL properties</a></h3>
@@ -938,11 +934,11 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <p>
         Or, using a Device Alias URL:
     </p>
-    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;</div>
     <p>
         Or, using a Device Alias URL with <code>/my</code> shorthand:
     </p>
-    <div class=code>GET /my/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <div class=code>GET /my/&lt;DEVICE_ALIAS&gt;</div>
     <p>
         This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the
         requested Device or higher.
@@ -991,11 +987,11 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <p>
         Or, using a Device Alias URL:
     </p>
-    <div class=code>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <div class=code>POST /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;</div>
     <p>
         Or, using a Device Alias URL with <code>/my</code> shorthand:
     </p>
-    <div class=code>POST /my/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <div class=code>POST /my/&lt;DEVICE_ALIAS&gt;</div>
     <p>
         <table class=paramtable>
             <tr>
@@ -1086,11 +1082,11 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <p>
         Or, using a Device Alias URL:
     </p>
-    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;?...</div>
+    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;/&lt;PROPERTY_NAME&gt;?...</div>
     <p>
         Or, using a Device Alias URL with <code>/my</code> shorthand:
     </p>
-    <div class=code>GET /my/&lt;DEVICE_ALIAS_NAME&gt;/&lt;PROPERTY_NAME&gt;?...</div>
+    <div class=code>GET /my/&lt;DEVICE_ALIAS&gt;/&lt;PROPERTY_NAME&gt;?...</div>
     <p>
         <table class=paramtable>
             <tr>
@@ -1130,8 +1126,8 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         </table>
     </p>
     <p>
-        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the
-        requested Device or higher.
+        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access, or higher, to the
+        requested Device.
     </p>
     <h4>Response (Historic Data)</h4>
     <p>
@@ -1192,12 +1188,12 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <p>
         An Alias URL has this simpler form::
     </p>
-    <div class=code>/&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <div class=code>/&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;</div>
     <p>
         Or, using the <code>/my</code> shorthand for the currently-signed-in
         user:
     </p>
-    <div class=code>/my/&lt;DEVICE_ALIAS_NAME&gt;</div>
+    <div class=code>/my/&lt;DEVICE_ALIAS&gt;</div>
     <p>
         For example:<br>
         User <b>leela</b> owns a smart toaster:
@@ -1529,18 +1525,18 @@ http://sandbox.canopy.link/leela/toaster</div>
     <p>
         Or, using a Device Alias URL:
     </p>
-    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS_NAME&gt;/_permissions</div>
+    <div class=code>GET /&lt;ACCOUNT_USERNAME&gt;/&lt;DEVICE_ALIAS&gt;/__permissions</div>
     <p>
         Or, using a Device Alias URL with <code>/my</code> shorthand:
     </p>
-    <div class=code>GET /my/&lt;DEVICE_ALIAS_NAME&gt;/_permissions</div>
+    <div class=code>GET /my/&lt;DEVICE_ALIAS&gt;/__permissions</div>
     <p>
-        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> or higher access to the requested Device.
+        This request requires <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access, or higher, to the requested Device.
     </p>
 
     <h4>Response (Device Permission Details)</h4>
     <p>
-        On success, the result will include all Accounts with access level <code>MONITOR_ONLY(A1)</code> or higher:
+        On success, the result will list all Accounts with <code>MONITOR_ONLY(A1)</code> access, or higher, to the requested Device:
     </p>
     <div class=code>200 OK
 {
