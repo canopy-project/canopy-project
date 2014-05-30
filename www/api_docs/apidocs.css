@@ -41,6 +41,10 @@ h3 a {
     text-decoration: none;
 }
 
+a.nolink {
+    color: #a03030;
+}
+
 .tabbed {
     margin-left: 32px;
 }
