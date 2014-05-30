@@ -22,7 +22,6 @@
         format used to convey metadata about a device's sensors and controls.
     </p>
 
-    <h2><a name=overview>Format</a></h2>
     <h3><a name=overview>Top-level JSON object</a></h3>
     <p>
         SDDL documents are JSON-encoded.  Each SDDL document contains a single
@@ -48,7 +47,6 @@
 
 }</div>
 
-    <h2><a name=overview>Properties</a></h2>
     <h3>Basic property types</h3>
     <p>
         SDDL supports three (3) basic property types:
@@ -82,89 +80,7 @@
         same property definition.
     </p>
 
-    <h3>Property declarations</h3>
-    <h4>Control declarations</h4>
-    <p>
-        To declare a <code>control</code> property, use:
-    </p>
-    <div class=code>"control <span class=code_template>CONTROL_NAME</span>" : <span class=code_template>CONTROL_DEFINITION</span> </div>
-    <p>
-        For example:
-    </p>
-    <div class=code>"control master_power_switch" : { 
-    "datatype" : "bool"
-}</div>
-
-    <h4>Sensor declarations</h4>
-    <p>
-        To declare a <code>sensor</code> property, use:
-    </p>
-    <div class=code>"sensor <span class=code_template>SENSOR_NAME</span>" : <span class=code_template>SENSOR_DEFINITION</span> </div>
-    <p>
-        For example:
-    </p>
-    <div class=code>"sensor humidity" : { 
-    "datatype" : "float32",
-    "min-value" : 0.0,
-    "max-value" : 1.0,
-    "numeric-format-hint" : "percentage"
-}</div>
-
-    <h4>Class declarations</h4>
-    <p>
-        To declare a <code>class</code> property, use:
-    </p>
-    <div class=code>"class <span class=code_template>CLASS_NAME</span>" : <span class=code_template>CLASS_DEFINITION</span> </div>
-    <p>
-        For example:
-    </p>
-    <div class=code>"class canopy.example.toaster" : { 
-    "control darkness" : {
-        "datatype" : "int8",
-        "min-value" : 0,
-        "max-value" : 4,
-    },
-    "control bagel_mode" : {
-        "datatype" : "bool",
-    },
-    "sensor time_remaining" : {
-        "datatype" : "float32",
-        "min-value" : 0,
-        "nullable" : true
-    }
-
-}</div>
-
-    <h4>Array declarations</h4>
-    <p>
-        An <code>array</code> can be created from any of the three basic
-        property types (<code>control</code>, <code>sensor</code>, or
-        <code>class</code>) by using square brackets <code>[]</code> with a non-negative
-        integer size:
-    </p>
-    <div class=code>"<span class=code_template>PROPERTY_TYPE</span> <span class=code_template>PROPERTY_NAME</span>[<span class=code_template>NUM_ITEMS</span>]" : <span class=code_template>PROPERTY_DEFINITION</span> </div>
-    <p>
-        For example, to create an array of 4 sensors:
-    </p>
-    <div class=code>"sensor outlet_wattage[4]" : {
-    "datatype" : "float32",
-    "unit-hint" : "watts"
-}</div>
-
-    <h4>Map declarations</h4>
-    <p>
-        A <code>map</code> can be created by using curly braces
-        <code>{}</code> with the keys' datatype inside:
-    </p>
-    <div class=code>"<span class=code_template>PROPERTY_TYPE</span> <span class=code_template>PROPERTY_NAME</span>{<span class=code_template>KEY_DATATYPE</span>}" : <span class=code_template>PROPERTY_DEFINITION</span> </div>
-    <p>
-        For example, a "smart scale" may use <code>map</code> to report the weight of several individuals, identified by name:
-    </p>
-    <div class=code>"sensor weight{string}" : {
-    "datatype" : "float32",
-    "min-value" : 0.0,
-    "unit-hint" : "lbs"
-}</div>
+    <h2>Property declarations</h2>
 
     <h3>Property names</h4>
     <p>
@@ -182,7 +98,24 @@
     
 
     <h2>Control properties</h2>
-    <h3>Control definition object</h3>
+    <p>
+        A <code>control</code> represents a device setting that can be changed
+        remotely.
+    </p>
+
+    <h3>Declaring a control property</h3>
+    <p>
+        To declare a <code>control</code> property, use:
+    </p>
+    <div class=code>"control <span class=code_template>CONTROL_NAME</span>" : <span class=code_template>CONTROL_DEFINITION</span> </div>
+    <p>
+        For example:
+    </p>
+    <div class=code>"control master_power_switch" : { 
+    "datatype" : "bool"
+}</div>
+
+    <h3>Defining a control property</h3>
     <p>
         A <code>control</code> is defined using a JSON object containing 
         one or more of the following keys:
@@ -278,11 +211,261 @@
     Defaults to "" if omitted.
 </div>
 
+    <h2>Sensor properties</h2>
+    <p>
+        A <code>sensor</code> represents a piece of data that is known to the device,
+        that changes over time, and that can be monitored remotely.
+    </p>
+    <h3>Declaring a sensor property</h3>
+    <p>
+        To declare a <code>sensor</code> property, use:
+    </p>
+    <div class=code>"sensor <span class=code_template>SENSOR_NAME</span>" : <span class=code_template>SENSOR_DEFINITION</span> </div>
+    <p>
+        For example:
+    </p>
+    <div class=code>"sensor humidity" : { 
+    "datatype" : "float32",
+    "min-value" : 0.0,
+    "max-value" : 1.0,
+    "numeric-format-hint" : "percentage"
+}</div>
+    <h3>Defining a sensor property</h3>
+    <p>
+        A <code>sensor</code> is using a JSON object containing one or more of
+        the following keys:
+    </p>
+    <div class=code>"datatype"
+
+    Specifies the underlying datatype used for this sensor's values.  
+    
+    Value must be one of:
+        "string"
+        "bool"
+        "int8"
+        "uint8"
+        "int16"
+        "uint16"
+        "int32"
+        "uint32"
+        "float32"
+        "float64"
+        "enum"
+
+    Defaults to "float32" if omitted
+
+"description"
+
+    Describes the purpose of this sensor to application developers, giving
+    semantic meaning to the sensor's definition.  This field is intended to be
+    used for reference only and should not be shown to end-users.
+
+    Value must be a string.
+
+    Defaults to "" if omitted.
+
+"max-value"
+
+    Maximum numeric value that this sensor can have.  This field is only
+    applicable if the sensor has one of the "int", "uint" or "float"
+    datatypes, and must be omitted or set to null otherwise.  If null, the
+    sensor's datatype will dictate the maximum allowed value.
+
+    This field's value must be a number that is representable in the sensor's
+    datatype, or null.
+
+    Defaults to null if omitted.
+
+"min-value"
+
+    Minimum numeric value that this sensor can have.  This field is only
+    applicable if the sensor has one of the "int", "uint" or "float"
+    datatypes, and must be omitted or set to null otherwise.  If null, the
+    sensor's datatype will dictate the minimum allowed value.
+
+    This field's value must be a number that is representable in the sensor's
+    datatype, or null.
+
+    Defaults to null if omitted.
+
+"numeric-display-hint"
+
+    Provides hint to application about how to display this sensor's value,
+    either "normal", "hex", "scientific", or "percentage".  Applications
+    may choose how to interpret this hint, and may ignore it entirely.
+
+    Defaults to "normal" if omitted.
+
+"regex"
+
+    Regular expression that this sensor's value must match.  This field is
+    only applicable if the sensor has a "string" datatype, and must be omitted
+    or set to null otherwise.  If null, no regular expression validation is
+    performed.
+
+    This field must be a string regular expression, using syntax accepted by
+    RE2, or null.
+
+    Defaults to null if omitted.
+
+"units"
+
+    Provide hint to application about the physical units of this sensor's
+    value.  Must be string.
+
+    Defaults to "" if omitted.
+</div>
+
+    <h2>Class properties</h2>
+    <p>
+        A <code>class</code> property is a collection of child properties,
+        along with some additional metadata.  
+    </p>
+    <h3>Declaring a class property</h3>
+    <p>
+        To declare a <code>class</code> property, use:
+    </p>
+    <div class=code>"class <span class=code_template>CLASS_NAME</span>" : <span class=code_template>CLASS_DEFINITION</span> </div>
+    <p>
+        For example:
+    </p>
+    <div class=code>"class canopy.example.toaster" : { 
+    "control darkness" : {
+        "datatype" : "int8",
+        "min-value" : 0,
+        "max-value" : 4,
+    },
+    "control bagel_mode" : {
+        "datatype" : "bool",
+    },
+    "sensor time_remaining" : {
+        "datatype" : "float32",
+        "min-value" : 0,
+        "nullable" : true
+    }
+
+}</div>
+    <h3>Defining a class property</h3>
+    <p>
+    A <code>class</code> is defined using a
+    JSON object:
+    <div class=code>"class <span class=code_template>CLASS_NAME</span>" : {
+    <span class=code_template>CLASS_METADATA_KEY</span> : <span class=code_template>CLASS_METADATA_VALUE</span>, 
+    <span class=code_template>CLASS_METADATA_KEY</span> : <span class=code_template>CLASS_METADATA_VALUE</span>, 
+    ...
+    
+    <span class=code_template>PROPERTY_DECLARATION</span> : <span class=code_template>PROPERTY_DEFINITION</span>,
+    <span class=code_template>PROPERTY_DECLARATION</span> : <span class=code_template>PROPERTY_DEFINITION</span>,
+    ...
+
+}</div>
+    <p>
+        The <code>CLASS_METADATA_KEY</code> keys may be zero or more of the
+        following:
+    </p>
+    <div class=code>"authors"
+
+    List of strings naming the individual(s) who authored this class.
+
+    Defaults to [] if omitted.
+    
+"description"
+
+    Describes the purpose of this class to application developers, giving
+    semantic meaning to the class's definition.  This field is intended to be
+    used for reference only and should not be shown to end-users.
+
+    Value must be a string.
+
+    Defaults to "" if omitted.
+    </div>
+
+    <p>
+        The <code>PROPERTY_DECLARATION</code> keys declare the member
+        <code>control</code>, <code>sensor</code>, <code>class</code>,
+        <code>array</code>, and <code>map</code> properties.  See <a
+        href=#property_declarations>Property declarations</a>.
+    </p>
+    <p>
+        The <code>PROPERTY_DEFINITION</code> values define the corresponding
+        <code>control</code>, <code>sensor</code>, <code>class</code>,
+        <code>array</code>, and <code>map</code> properties.
+    </p>
+    <p>
+        Classes may be nested arbitrarily deep.  For example, this is a valid
+        <code>class</code>:
+    </p>
+    <div class=code>"class outer" : {
+    "description" : "Example showing nesting of classes",
+    "class middle" : {
+        "class inner" : {
+            "class innermost" : {
+                "description" : "I'm the inner-most class!"
+            }
+        }
+    }
+}
+    </div>
+
+    <h2>Array properties</h2>
+    <p>
+        An <code>array</code> is a fixed-length list of properties.  In an <code>array</code>, each
+        entry has the same property definition.
+    </p>
+    <h3>Declaring an array property</h3>
+    <p>
+        An <code>array</code> can be created from any of the three basic
+        property types (<code>control</code>, <code>sensor</code>, or
+        <code>class</code>) by using square brackets <code>[]</code> with a non-negative
+        integer size:
+    </p>
+    <div class=code>"<span class=code_template>PROPERTY_TYPE</span> <span class=code_template>PROPERTY_NAME</span>[<span class=code_template>NUM_ITEMS</span>]" : <span class=code_template>PROPERTY_DEFINITION</span> </div>
+    <p>
+        For example, to create an array of 4 sensors:
+    </p>
+    <div class=code>"sensor outlet_wattage[4]" : {
+    "datatype" : "float32",
+    "units" : "watts"
+}</div>
+
+    <h2>Map properties</h2>
+    <p>
+        A <code>map</code> is an unordered mapping from a basic datatype (such
+        as strings) to properties.  In a <code>map</code>, each value has the
+        same property definition.
+    </p>
+    <h3>Declaring a map property</h3>
+    <p>
+        A <code>map</code> can be created by using curly braces
+        <code>{}</code> with the keys' datatype inside:
+    </p>
+    <div class=code>"<span class=code_template>PROPERTY_TYPE</span> <span class=code_template>PROPERTY_NAME</span>{<span class=code_template>KEY_DATATYPE</span>}" : <span class=code_template>PROPERTY_DEFINITION</span> </div>
+    <p>
+        For example, a "smart scale" may use a <code>map</code> to report the weight of several individuals, identified by their name:
+    </p>
+    <div class=code>"sensor weight{string}" : {
+    "datatype" : "float32",
+    "min-value" : 0.0,
+    "units" : "lbs"
+}</div>
+    <p>
+        The <code>KEY_DATATYPE</code> must be one of the following:
+    </p>
+    <div class=code>string
+int8
+uint8
+int16
+uint16
+int32
+uint32
+</div>
+
     <br>
     <p>
         <center>
         The content of this page is licensed under the Creative Commons Attribution 3.0 License, and code is licensed under a BSD license.
     </p>
+
     <br>
     <br>
 </div>
