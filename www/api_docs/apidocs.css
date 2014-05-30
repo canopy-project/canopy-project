@@ -67,6 +67,15 @@ a, a.visited {
     font-size: 14px;
     text-align: left;
 }
+.icode {
+    display: inline-block;
+    font-family: monospace;
+    font-size: 14px;
+    background: #f0f0f0;
+    color: #153060;
+    padding: 4px;
+}
+
 .code {
     display: block;
     unicode-bidi: embed;

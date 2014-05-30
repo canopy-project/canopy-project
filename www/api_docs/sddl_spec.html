@@ -11,18 +11,35 @@
 <body>
 <div class=main>
     <h1>Smart Device Description Language (SDDL) Specification</h1>
-    <h2><a name=toc />Document Version 5/28/2014</h2>
+    <h2><a name=toc />Document Version 5/29/2014</h2>
     <div class=text>
         <a href=#overview>Overview</a><br>
+            <div class=tabbed><a href=#top_level_json_object>Top-level JSON object</a></div>
+            <div class=tabbed><a href=#basic_property_types>Basic property types</a></div>
+            <div class=tabbed><a href=#property_arrays_and_maps>Property arrays and maps</a></div>
+            <div class=tabbed><a href=#property_names>Property names</a></div>
+        <a href=#control_properties>Control properties</a><br>
+            <div class=tabbed><a href=#declaring_a_control_property>Declaring a control property</a></div>
+            <div class=tabbed><a href=#defining_a_control_property>Defining a control property</a></div>
+        <a href=#sensor_properties>Sensor properties</a><br>
+            <div class=tabbed><a href=#declaring_a_sensor_property>Declaring a sensor property</a></div>
+            <div class=tabbed><a href=#defining_a_sensor_property>Defining a sensor property</a></div>
+        <a href=#class_properties>Class properties</a><br>
+            <div class=tabbed><a href=#declaring_a_class_property>Declaring a class property</a></div>
+            <div class=tabbed><a href=#defining_a_class_property>Defining a class property</a></div>
+        <a href=#arrays>Arrays</a><br>
+            <div class=tabbed><a href=#declaring_an_array_of_properties>Declaring an array of properties</a></div>
+        <a href=#maps>Maps</a><br>
+            <div class=tabbed><a href=#declaring_a_map>Declaring a map</a></div>
     </div>
 
     <h2><a name=overview>Overview</a></h2>
     <p>
         The Smart Device Description Language (SDDL) is a JSON-based document
-        format used to convey metadata about a device's sensors and controls.
+        format used to convey information about a device's sensors and controls.
     </p>
 
-    <h3><a name=overview>Top-level JSON object</a></h3>
+    <h3><a name=top_level_json_object>Top-level JSON object</a></h3>
     <p>
         SDDL documents are JSON-encoded.  Each SDDL document contains a single
         top-level JSON object, beginning with <code>{</code> and ending with
@@ -37,8 +54,8 @@
         The general top-level structure for an SDDL document is:
     </p>
     <div class=code>{
-    <span class=code_template>METADATA_KEY</span> : <span class=code_template>METADATA_VALUE</span>, 
-    <span class=code_template>METADATA_KEY</span> : <span class=code_template>METADATA_VALUE</span>, 
+    <span class=code_template>ROOT_METADATA_KEY</span> : <span class=code_template>ROOT_METADATA_VALUE</span>, 
+    <span class=code_template>ROOT_METADATA_KEY</span> : <span class=code_template>ROOT_METADATA_VALUE</span>, 
     ...
     
     <span class=code_template>PROPERTY_DECLARATION</span> : <span class=code_template>PROPERTY_DEFINITION</span>,
@@ -47,7 +64,27 @@
 
 }</div>
 
-    <h3>Basic property types</h3>
+    <p>
+        The <code>ROOT_METADATA_KEY</code> keys may be zero or more of the
+        following:
+    </p>
+    <div class=code>"authors"
+
+    List of strings naming the individual(s) who authored this SDDL file.
+
+    Defaults to [] if omitted.
+    
+"description"
+
+    Text describing the purpose of this SDDL file.  This field is intended
+    to be used for reference only and should not be shown to end-users.
+
+    Value must be a string.
+
+    Defaults to "" if omitted.
+    </div>
+
+    <h3><a name=basic_property_types>Basic property types</a></h3>
     <p>
         SDDL supports three (3) basic property types:
         <code>control</code>, <code>sensor</code>, and
@@ -65,7 +102,7 @@
         A <code>class</code> is a collection of other properties (similar to a
         "struct" in other languages).
     </p>
-    <h3>Property arrays and maps</h3>
+    <h3><a name=property_arrays_and_maps>Property arrays and maps</a></h3>
     <p>
         SDDL also supports <code>array</code> and <code>map</code> property
         collections.
@@ -80,9 +117,7 @@
         same property definition.
     </p>
 
-    <h2>Property declarations</h2>
-
-    <h3>Property names</h4>
+    <h3><a name=property_names>Property names</a></h3>
     <p>
         A property name must contain only the characters <code>A-Z</code>,
         <code>a-z</code>, <code>0-9</code>, <code>_</code> (underscore), and
@@ -90,20 +125,43 @@
         is used.
     </p>
 
-    <h4>Class name conventions</h4>
+    <h4>Class naming conventions</h4>
     <p>
         To avoid namespace collisions, it is recommended that
-        <code>class</code> property names obey the following convention:
+        top-level <code>class</code> property names obey the following convention:
     </p>
+    <p>
+        <span class=icode>PRODUCT_NAME</span>
+        <span class=icode>.</span>
+        <span class=icode>OPTIONAL_SUB_NAMESPACES</span>
+        <span class=icode>.</span>
+        <span class=icode>PRODUCT_MODEL</span>
+    </p>
+    <p>That is:
+    <ul>
+        <li>Begin with the name of the <b>product vendor</b> then a <div class=icode>.</div> (dot).</li>
+        <li>Follow with 0 or more sub-namespaces of the vendor's choosing, each ending with a <div class=icode>.</div> (dot).</li>
+        <li>Finish with specific <b>product model</b>.
+    </ul>
+
+    <p>
+        This example SDDL document shows the class names for two hypothetical
+        products:
+    </p>
+
+    <div class=code>{
+    "class miele.smart_oven_3000" : { },
+    "class dyson.fans.dyson_cool.am08" : { },
+}</div>
     
 
-    <h2>Control properties</h2>
+    <h2><a name=control_properties>Control properties</a></h2>
     <p>
         A <code>control</code> represents a device setting that can be changed
         remotely.
     </p>
 
-    <h3>Declaring a control property</h3>
+    <h3><a name=declaring_a_control_property>Declaring a control property</a></h3>
     <p>
         To declare a <code>control</code> property, use:
     </p>
@@ -115,7 +173,7 @@
     "datatype" : "bool"
 }</div>
 
-    <h3>Defining a control property</h3>
+    <h3><a name=defining_a_control_property>Defining a control property</a></h3>
     <p>
         A <code>control</code> is defined using a JSON object containing 
         one or more of the following keys:
@@ -211,12 +269,12 @@
     Defaults to "" if omitted.
 </div>
 
-    <h2>Sensor properties</h2>
+    <h2><a name=sensor_properties>Sensor properties</a></h2>
     <p>
         A <code>sensor</code> represents a piece of data that is known to the device,
         that changes over time, and that can be monitored remotely.
     </p>
-    <h3>Declaring a sensor property</h3>
+    <h3><a name=declaring_a_sensor_property>Declaring a sensor property</a></h3>
     <p>
         To declare a <code>sensor</code> property, use:
     </p>
@@ -228,9 +286,9 @@
     "datatype" : "float32",
     "min-value" : 0.0,
     "max-value" : 1.0,
-    "numeric-format-hint" : "percentage"
+    "numeric-display-hint" : "percentage"
 }</div>
-    <h3>Defining a sensor property</h3>
+    <h3><a name=defining_a_sensor_property>Defining a sensor property</a></h3>
     <p>
         A <code>sensor</code> is using a JSON object containing one or more of
         the following keys:
@@ -316,12 +374,12 @@
     Defaults to "" if omitted.
 </div>
 
-    <h2>Class properties</h2>
+    <h2><a name=class_properties>Class properties</a></h2>
     <p>
         A <code>class</code> property is a collection of child properties,
         along with some additional metadata.  
     </p>
-    <h3>Declaring a class property</h3>
+    <h3><a name=declaring_a_class_property>Declaring a class property</a></h3>
     <p>
         To declare a <code>class</code> property, use:
     </p>
@@ -341,11 +399,10 @@
     "sensor time_remaining" : {
         "datatype" : "float32",
         "min-value" : 0,
-        "nullable" : true
     }
 
 }</div>
-    <h3>Defining a class property</h3>
+    <h3><a name=defining_a_class_property>Defining a class property</a></h3>
     <p>
     A <code>class</code> is defined using a
     JSON object:
@@ -407,12 +464,12 @@
 }
     </div>
 
-    <h2>Array properties</h2>
+    <h2><a name=arrays>Arrays</a></h2>
     <p>
         An <code>array</code> is a fixed-length list of properties.  In an <code>array</code>, each
         entry has the same property definition.
     </p>
-    <h3>Declaring an array property</h3>
+    <h3><a name=declaring_an_array_of_properties>Declaring an array of properties</a></h3>
     <p>
         An <code>array</code> can be created from any of the three basic
         property types (<code>control</code>, <code>sensor</code>, or
@@ -428,13 +485,13 @@
     "units" : "watts"
 }</div>
 
-    <h2>Map properties</h2>
+    <h2><a name=maps>Maps</a></h2>
     <p>
         A <code>map</code> is an unordered mapping from a basic datatype (such
         as strings) to properties.  In a <code>map</code>, each value has the
         same property definition.
     </p>
-    <h3>Declaring a map property</h3>
+    <h3><a name=declaring_a_map>Declaring a map</a></h3>
     <p>
         A <code>map</code> can be created by using curly braces
         <code>{}</code> with the keys' datatype inside:
