@@ -12,6 +12,7 @@ P1
 
 CLOUD
 - Implement BASIC AUTH support for 
+- Switch to standard port
 
 Canogen
 - Document Canogen
@@ -20,3 +21,4 @@ Canogen
 --------------------------------------------------------------------------------
 P2
 --------------------------------------------------------------------------------
+- Mention canogen on homepage
