@@ -20,12 +20,15 @@
         <a href=#start>6) Start the program</a><br>
         <a href=#where_to_go_from_here>Where to go from here</a><br>
     </p>
+    <p>
+        <a href=index.html><img style='position:relative; top:10px;' src=../images/dryicons_polygon/32x32/left_arrow.png> <b>Back to Canopy Documentation</b></a>
+    </p>
 
     <h2><a name=intro>Introduction</a></h2>
     <p>
         This tutorial will demonstrate how to monitor and control a Raspberry
         Pi from the web, using Canopy.  Specifically, we will monitor the CPU
-        usage of our Pi, and be able to remotely reboot it.
+        usage of our Pi, and also be able to remotely reboot it.
     </p>
     <p>
         This tutorial has been tested on a Model B Raspberry Pi with Raspbian
@@ -36,7 +39,7 @@
         computer, including desktops and servers.
     </p>
 
-    <h2><a name=hw>1) Install the Canopy Embedded Toolchain</a></h2>
+    <h2><a name=install>1) Install the Canopy Embedded Toolchain</a></h2>
     <p>
         From the commandline on your Pi: 
     </p>
@@ -54,7 +57,7 @@ sudo make install</div>
     </p>
     <div class=code>All tests passed.</div>
 
-    <h2><a name=hw>2) Describe your device</a></h2>
+    <h2><a name=describe>2) Describe your device</a></h2>
     <p>
         Next, we must provide Canopy with a description of our device, using
         the Smart Device Description Language.
@@ -90,7 +93,7 @@ cd tutorial</div>
         } 
     } 
 }</div>
-    <h2><a name=hw>3) Generate embedded code using "cano gen"</a></h2>
+    <h2><a name=generate>3) Generate embedded code using "cano gen"</a></h2>
     <p>
         The <code>cano</code> tool will generate embedded C code from the
         SDDL file.
@@ -107,7 +110,7 @@ cd tutorial</div>
         must hand-edit.
     </p>
     
-    <h2><a name=hw>4) Customize the C code for this particular device</a></h2>
+    <h2><a name=customize>4) Customize the C code for this particular device</a></h2>
     <p>
         If you look at <code>sample_device_1.c</code> you will see that it
         contains this stub:
@@ -179,7 +182,7 @@ static bool on_trigger__reboot(CanopyContext canopy)
         If all goes well, the program <code>sample_device_1</code> will be created.
     </p>
 
-    <h2><a name=hw>5) Provisioning</a></h2>
+    <h2><a name=provisioning>5) Provisioning</a></h2>
     <p>
         We're almost done.  One last thing to do is to create a Canopy account
         (if you haven't already) and associate this device with that account.
@@ -196,7 +199,7 @@ static bool on_trigger__reboot(CanopyContext canopy)
     <p>
         When prompted, enter your Canopy username and password.
     </p>
-    <h2><a name=hw>6) Start the program</a></h2>
+    <h2><a name=start>6) Start the program</a></h2>
     <p>
         Now, just run:
     </p>
@@ -217,7 +220,7 @@ static bool on_trigger__reboot(CanopyContext canopy)
     </p>
     <div class=code>/home/pi/tutorial/sample_device_1 &amp;</div>
 
-    <h2><a name=hw>Where to go from here</a></h2>
+    <h2><a name=where_to_go_from_here>Where to go from here</a></h2>
     <p>Congrats!  You've created your first smart device using Canopy.
     Hopefully you found it easy.</p>
 
@@ -235,6 +238,10 @@ static bool on_trigger__reboot(CanopyContext canopy)
             <li>
                 Deploy your own instance of Canopy Cloud server.
             </li>
+        </ul>
+    </p>
+    <p>
+        <a href=index.html><img style='position:relative; top:10px;' src=../images/dryicons_polygon/32x32/left_arrow.png> <b>Back to Canopy Documentation</b></a>
     </p>
     <br>
     <br>
