@@ -26,18 +26,49 @@
 
     <h2><a name=intro>Introduction</a></h2>
     <p>
-        This tutorial will demonstrate how to monitor and control a Raspberry
-        Pi from the web, using Canopy.  Specifically, we will monitor the CPU
-        usage of our Pi, and also be able to remotely reboot it.
+        Canopy makes it simple to develop IoT devices.  In this tutorial, we
+        will show you how to remotely monitor and control a Raspberry Pi with
+        just a few lines of code.  Specifically, we will monitor the CPU usage
+        of the Pi, and also be able to remotely reboot the device.
+    </p>
+    <p>
+        The principal is simple: You describe the capabilities of your "smart
+        device" in a language called SDDL.  Canopy uses this description file
+        and does a bunch of work for you:
+        <ol>
+            <li>automatically generates embedded code that talks to the cloud, </li>
+            <li>dynamically generates a server-side REST API, and </li>
+            <li>dynamically generates a web UI for your device.</li>
+        </ol>
+    </p>
+    <p>
+        You <i>will</i> need to write a small amount of embedded code specific
+        to your device (unfortunately Canopy can't do <i>everything</i> for
+        you), but don't worry, we'll walk you through this.  You may also
+        choose to build a customized frontend if you don't like the default UI.
     </p>
     <p>
         This tutorial has been tested on a Model B Raspberry Pi with Raspbian
-        OS.
+        OS.  This tutorial will probably work equally well on any linux-based
+        computer, including desktops and servers, but has not been tested on
+        those platforms.
     </p>
+
+    <h2><a name=install>0) Install prerequisites</a></h2>
     <p>
-        This tutorial will probably work equally well on any linux-based
-        computer, including desktops and servers.
+        Canopy requires libwebsockets.  To build and install libwebsockets from
+        source, execute these commands on your Pi:
     </p>
+    <div class=code>sudo apt-get install cmake zlib1g-dev libssl-dev rpm g++
+git clone git://git.libwebsockets.org/libwebsockets
+cd libwebsockets
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ../../
+</div>
 
     <h2><a name=install>1) Install the Canopy Embedded Toolchain</a></h2>
     <p>
@@ -53,9 +84,10 @@ sudo make install</div>
     </p>
     <div class=code>cano test</div>
     <p>
-        After a short amount of time, you should see the output:
+        After a short amount of time, you should see output along the lines of:
     </p>
-    <div class=code>All tests passed.</div>
+    <div class=code>cano PASSED.  2 subtests.
+All tests passed.</div>
 
     <h2><a name=describe>2) Describe your device</a></h2>
     <p>
@@ -117,7 +149,10 @@ cd tutorial</div>
     </p>
     <div class=code>static bool on_trigger__reboot(CanopyContext canopy)
 {
-    /* Your code here */
+    /* Your code here 
+     * Return true on success
+     */
+    return false;
 }</div>
     <p>
     This function will be called on the device when a reboot is triggered from
@@ -140,11 +175,12 @@ static bool on_trigger__reboot(CanopyContext canopy)
     For reporting CPU usage, a little more code is needed.  This time, we will
     modify the stub:
     </p>
-    <div class=code>bool on_report_requested(CanopyContext canopy)
+    <div class=code>static bool on_report_requested(CanopyContext canopy)
 {
     CanopyReport report = canopy_begin_report(canopy);
 
     /* Your code here */
+    /* canopy_report_float32(report, "cpu", 0); */
 
     canopy_send_report(report);
     return true;
@@ -154,12 +190,12 @@ static bool on_trigger__reboot(CanopyContext canopy)
     Each time it is called, we will report the current CPU usage to the cloud.
     Change the implementation to this:</p>
 
-    <div class=code>bool on_report_requested(CanopyContext canopy)
+    <div class=code>static bool on_report_requested(CanopyContext canopy)
 {
     CanopyReport report = canopy_begin_report(canopy);
 
     FILE *fp;
-    float cpu;
+    float val;
 
     /* Read current CPU usage */
     fp = fopen("/proc/loadavg", "r");

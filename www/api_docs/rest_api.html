@@ -1,4 +1,4 @@
-<!doctype html>
+doctype html>
 <html>
 
 <head>
@@ -140,6 +140,16 @@
                 <th>Details</th>
             </tr>
             <tr>
+                <td>
+                    POST /create_device
+                </td>
+                <td>
+                    Create a new server-side device resource and respond with
+                    its UUID.
+                </td>
+                <td>See <a href=#device_creation>Device creation</a></td>
+            </tr>
+            <tr>
                 <td>GET /device/&lt;DEVICE_ID&gt;
                 </td>
                 <td>Obtain details about a particular Canopy-enabled device.</td>
@@ -248,7 +258,7 @@
             </tr>
         </table>
     </p>
-    <h4>Device Permission endpoints</h4>
+    <h4>Device Sharing endpoints</h4>
     <p>
         <table class=paramtable>
             <tr>
@@ -885,12 +895,42 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         </table>
     </p>
 
-    <h3><a name=device_creation>Device Creation</a></h3>
+    <h3><a name=device_creation>Device creation</a></h3>
+    <h4>Request (Device creation)</h2>
     <p>
-        A Device resource is automatically created the first time a device
-        connects to the Canopy Cloud Service.  The provisioning process gives
-        an Account access to the Device.  See the next section on <a href=#device_provisioning>Device provisioning</a>.
+        A Device resource is created by calling:
     </p>
+
+    <div class=code>POST /create_device</div>
+    <p>
+        The request payload is ignored.  The server takes the following actions
+        while carrying out this request:
+        <ul>
+            <li>A new Device UUID is generated on the server.</li>
+            <li>A new Device resource is created on the server.</li>
+            <li>The authenticated Account is granted <a
+            href=#permission_model>A2+S2 access</a> to the Device.</li>
+            <li>The generated UUID is sent in the response.</li>
+        </ul>
+    </p>
+    <p>
+    This request requires authentication credentials.  Typically, "BASIC AUTH"
+    credentials will be included for this request.
+    </p>
+
+    <h4>Response (Device creation)</h4>
+    <p>
+        On success:
+    </p>
+    <div class=code>200 OK
+{
+    "device_id" : &lt;DEVICE_ID&gt;,
+}</div>
+    <p>
+        If Account credentials are not provided: See <a href=#not_logged_in_error_response>Not logged-in error response</a>.
+
+
+    </u>
 
     <h3><a name=device_provisioning>Device Provisioning</a></h3>
     <p>
@@ -966,7 +1006,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         </ul>
     </p>
     <p>
-        If no Account is signed in: See <a href=..>Not logged-in error response</a>.
+        If no Account is signed in: See <a href=#not_logged_in_error_response>Not logged-in error response</a>.
     </p>
 
     <h3><a name=controlling_a_device>Controlling a Device</a></h3>
@@ -1049,7 +1089,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <p>If the currently signed-in Account has 
         <a href=#permission_model><code>MONITOR_ONLY(A1)</code></a> access to the Device: See <a href=#insufficient_access_privileges_error_response>"Insufficient access privileges" error response</a>.
     <p>
-        If no Account is signed in: See <a href=..>Not logged-in error response</a>.
+        If no Account is signed in: See <a href=#not_logged_in_error_response>Not logged-in error response</a>.
     </p>
     <p>
         If one or more of the <code>&lt;PROPERTY_NAME_<i>N</i>&gt;</code> keys do not match a
@@ -1159,7 +1199,7 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
         </ul>
     </p>
     <p>
-        If no Account is signed in: See <a href=..>Not logged-in error response</a>.
+        If no Account is signed in: See <a href=#not_logged_in_error_response>Not logged-in error response</a>.
     </p>
     <p>
         If <code>&lt;PROPERTY_NAME&gt;</code> does not match a control or sensor property from the device's SDDL class:
