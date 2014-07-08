@@ -1,0 +1,756 @@
+<html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='apidocs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class=main>
+    <h1>Canopy Javascript Application Client</h1>
+    <p>
+        <a href=#intro>Introduction</a><br>
+        <a href=#hw>Hardware and OS Requirements</a><br>
+        <a href=#features>Features</a><br>
+        <a href=#components>Components</a>
+    </p>
+
+    <h2><a name=intro>Introduction</a></h2>
+    <p>
+        The <b>Canopy Javascript Application Client</b> is a javascript library
+        that helps you develop web applications that interact with
+        <b>Canopy-enabled</b> products.
+    </p>
+    <p>
+        This library consists of a single file <code>canopy_client.js</code>,
+        which provides an object-oriented javascript wrapper around the
+        <b>Canopy REST API</b>.
+    </p>
+    <p>
+        The latest version of <code>canopy_client.js</code> can be found on github: <a target=_blank href='http://github.com/canopy-project/canopy-js-client'>http://github.com/canopy-project/canopy-js-client</a>
+    </p>
+
+    <h2><a name=intro>A simple example</a></h2>
+    <p>
+        Here is an example that demonstrates some the library's capabilities:
+    </p>
+    <div class=code>
+$(function() {
+
+    /*
+     * Initialize the canopy client.
+     */
+    var canopy = new CanopyClient();
+    if (!canopy) {
+        $("#main").html("failed to initialize canopy client");
+    }
+
+    /*
+     * Get account object for currently-signed in account.
+     */
+    canopy.fetchAccount({
+        onSuccess: function(account) { 
+
+            /* 
+             * Obtain list of devices for currently-signed-in account
+             */ 
+            account.fetchDevices({
+                onSuccess: function(devices) {
+                    for (i = 0; i &lt; devices.length; i++) {
+                        $("#main").append("ul")
+                            devices[i]
+                    }
+                }
+                onFailure: function() {
+                }
+            });
+        },
+        onFailure: function() {
+        };
+    });
+});
+    </div>
+
+    <h2><a name=intro>CanopyClient object</a></h2>
+    <h3>Initialization</h3>
+    <p>
+        This library is initialized by creating a <b>CanopyClient</b> object:
+    </p>
+    <div class=code>var canopy = new CanopyClient();</div>
+    <p>
+        Optional creation parameters can be supplied to the constructor:
+    </p>
+    <div class=code>var canopy = new CanopyClient({
+    cloudHost: "api.mycanopyserver.com",
+    cloudHTTPPort: 8080,
+    cloudUseHTTPS: false
+});</div>
+
+    <h3>CanopyClient Methods</h3>
+    <div class=method_outer>
+        <div class=method_title>
+            new CanopyClient([params])
+            <div class=method_returns><i>Returns:</i> CanopyClient or null</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Initializes the library.
+            <div class=param_outer>
+                <div class=param_title><b>params</b><br>
+                    type: object containing zero or more of the following fields<br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>cloudHost</div>
+                        Type: string<br>
+                        Defaults to: <code>"canopy.link"</code><br>
+                        Hostname of the Canopy cloud server.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>cloudHTTPPort</div>
+                        Type: integer<br>
+                        Defaults to: <code>80</code><br>
+                        HTTP port of the Canopy cloud server.  This is ignored if
+                        <code>cloudUseHTTPS</code> is <code>true</code>.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>cloudHTTPSPort</div>
+                        Type: integer<br>
+                        Defaults to: <code>433</code><br>
+                        HTTPS port of the Canopy cloud server.  This is ignored if
+                        <code>cloudUseHTTPS</code> is <code>false</code>.
+                    </div>
+                    <div class=param_last_section>
+                        <div class=param_name>cloudUseHTTPS</div>
+                        Type: boolean<br>
+                        Defaults to: <code>true</code><br>
+                        If <code>true</code>, HTTPS is used in all requests.
+                        Otherwise, HTTP is used.<br><br>
+                        <b>WARNING:</b> Setting this to <code>false</code> is
+                        highly insecure and should only be used during testing and
+                        development.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyClient object)</span> .apiBaseUrl()
+            <div class=method_returns><i>Returns:</i> string</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain the URL prefix used to make API requests.<br><br>
+
+            This is based on the <code>cloudHost</code>, <code>cloudHTTPPort</code>,
+            <code>cloudHTTPSPort</code>, and <code>cloudUseHTTPS</code> settings
+            provided when the CanopyClient object was initialized.
+
+            <br><br>Example return value might be: <code>"http://canopy.link:8080"</code>
+
+            <br><br>Example:
+            <div class=param_code>var canopy = new CanopyClient();
+if (canopy != null) {
+    alert(canopy.apiBaseUrl());
+}
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyClient object)</span> .fetchAccount([params])
+            <div class=method_returns><i>Returns:</i> undefined</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain a CanopyAccount object for the currently-signed in account.
+            <div class=param_outer>
+                <div class=param_title><b>params</b><br>
+                    type: object containing the following fields<br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>onFailure</div>
+                        Type: <code>function(reason)</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request failed, or no account is currently signed in.
+                        <br><br>
+                        <code>reason</code> - String, reason for the failure (TODO: document further)
+                    </div>
+                    <div class=param_last_section>
+                        <div class=param_name>onSuccess</div>
+                        Type: <code>function(account)</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request succeeded and an account is currently
+                        signed in.<br><br>
+                        <code>account</code> - CanopyAccount object representing the user's account.
+                    </div>
+                </div>
+            
+                <br>On success, the CanopyAccount object is passed to the <b>onSuccess</b> callback.
+                
+                <br><br>Example:
+                <div class=param_code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.fetchAccount({
+        onSuccess: function(account) {
+            alert("Hello " + account.username());
+        }
+        onFailure: function(reason) {
+            if (reason == "not_logged_in") {
+                alert("Please log in");
+            }
+            else {
+                alert("Oops!  Something went wrong.");
+            }
+        }
+    });
+}
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyClient object)</span> .login(params)
+            <div class=method_returns><i>Returns:</i> undefined</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Attempt to sign in.
+            <div class=param_outer>
+                <div class=param_title><b>params</b><br>
+                    type: object containing the following fields<br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>onFailure</div>
+                        Type: <code>function(reason)</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request failed, or no account is currently signed in.
+                        <br><br>
+                        <code>reason</code> - String, reason for the failure (TODO: document further)
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>onSuccess</div>
+                        Type: <code>function(account)</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request succeeded and an account is currently
+                        signed in.<br><br>
+                        <code>account</code> - CanopyAccount object representing the user's account.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>password</div>
+                        Type: string<br>
+                        Required.<br>
+                        Password of account that is attempting to sign in.
+                    </div>
+                    <div class=param_last_section>
+                        <div class=param_name>username</div>
+                        Type: string<br>
+                        Required.<br>
+                        Username or email address of account that is attempting to sign in.
+                    </div>
+                </div>
+            
+                <br>On success, a CanopyAccount object is passed to the
+                <b>onSuccess</b> callback.  Also, a server-side session is
+                created and a client-side cookie is created that identifies the
+                session.
+
+                <br><br>Example:
+                <div class=param_code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.login({
+        username: "demo",
+        password: "1234",
+        onSuccess: function(account) {
+            alert("Welcome " + account.username());
+        }
+        onFailure: function(reason) {
+            if (reason == "invalid_username_or_password") {
+                alert("Invalid username or password");
+            }
+            else {
+                alert("Oops!  Something went wrong.");
+            }
+        }
+    });
+}
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyClient object)</span> .logout([params])
+            <div class=method_returns><i>Returns:</i> undefined</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Attempts to logout the currently-signed-in
+            account.
+            <div class=param_outer>
+                <div class=param_title><b>params</b><br>
+                    type: object containing the following fields<br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>onFailure</div>
+                        Type: <code>function(reason)</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request failed, or no account is currently signed in.
+                        <br><br>
+                        <code>reason</code> - String, reason for the failure (TODO: document further)
+                    </div>
+                    <div class=param_last_section>
+                        <div class=param_name>onSuccess</div>
+                        Type: <code>function()</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request succeeded and the account was signed out.  This
+                        is also triggered if no account was signed in.
+                    </div>
+                </div>
+            
+                <br>On success, the currently active server-side session is
+                destroyed.
+
+                <br><br>Example:
+                <div class=param_code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.logout({
+        onSuccess: function(account) {
+            alert("Goodbye! You've been signed out.");
+        }
+        onFailure: function(reason) {
+            alert("Strange...we couldn't sign you out.");
+        }
+    });
+}
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <h2><a name=intro>CanopyAccount object</a></h2>
+    <h3>Account overview</h3>
+    <p>
+        A CanopyAccount represents a user who can sign-in to the canopy server.<br><br>
+        It is necessary to obtain a CanopyAccount object before you can access a user's <b>Canopy-enabled</b> devices.<br><br>
+        To obtain a CanopyAccount object for the currently-signed-in user:
+        <div class=code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.fetchAccount({
+        onSuccess: function(account) {
+            alert("Hello " + account.username());
+        }
+        onFailure: function(reason) {
+            if (reason == "not_logged_in") {
+                alert("Please log in");
+            }
+            else {
+                alert("Oops!  Something went wrong.");
+            }
+        }
+    });
+}
+        </div>
+    </p>
+
+    <h3>CanopyAccount Methods</h3>
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyAccount object)</span> .email()
+            <div class=method_returns><i>Returns:</i> string</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain email address associated with this account.
+            <br><br>Example:
+            <div class=param_code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.fetchAccount({
+        onSuccess: function(account) {
+            alert("Your email is " + account.email());
+        }
+        onFailure: function(reason) {
+            if (reason == "not_logged_in") {
+                alert("Please log in");
+            }
+            else {
+                alert("Oops!  Something went wrong.");
+            }
+        }
+    });
+}
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyAccount object)</span> .fetchDevices([params])
+            <div class=method_returns><i>Returns:</i> undefined</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain CanopyDevice objects representing the
+            <b>Canopy-enabled</b> devices that can be monitored, controlled,
+            and shared by this account.
+
+            <br><br>If the CanopyAccount object (on which this method was
+            invoked) is not the same as the currently-signed-in account, then
+            the returned list of CanopyDevice objects will only contain those
+            devices that <b>both</b> accounts have access to.
+
+            <div class=param_outer>
+                <div class=param_title><b>params</b><br>
+                    type: object containing the following fields<br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>onFailure</div>
+                        Type: <code>function(reason)</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request failed.
+                        <br><br>
+                        <code>reason</code> - String, reason for the failure (TODO: document further)
+                    </div>
+                    <div class=param_last_section>
+                        <div class=param_name>onSuccess</div>
+                        Type: <code>function(devices)</code> returning <code>undefined</code><br>
+                        Defaults to: <code>function(){}</code><br>
+                        Callback that is triggered if the underlying AJAX
+                        request succeeded. <br><br>
+                        <code>devices</code> - List of CanopyDevice objects.
+                    </div>
+                </div>
+            
+                <br>On success, the list of CanopyDevice objects is passed to the <b>onSuccess</b> callback.
+                
+                <br><br>Example:
+                <div class=param_code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.fetchAccount({
+        onSuccess: function(account) {
+            account.fetchDevices({
+                onSuccess: function(devices) {
+                for (var i = 0; i &lt; devices.length; i++) {
+                    jQuery("body").append("Device " + devices[i].friendlyName);
+                }
+                onFailure: function() {
+                    alert("Oops!  Something went wrong.");
+                }
+            }
+        }
+        onFailure: function(reason) {
+            if (reason == "not_logged_in") {
+                alert("Please log in");
+            }
+            else {
+                alert("Oops!  Something went wrong.");
+            }
+        }
+    });
+}
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyAccount object)</span> .username()
+            <div class=method_returns><i>Returns:</i> string</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain username associated with this account.
+            <br><br>Example:
+            <div class=param_code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.fetchAccount({
+        onSuccess: function(account) {
+            alert("Hello " + account.username());
+        }
+        onFailure: function(reason) {
+            if (reason == "not_logged_in") {
+                alert("Please log in");
+            }
+            else {
+                alert("Oops!  Something went wrong.");
+            }
+        }
+    });
+}
+            </div>
+        </div>
+    </div><br>
+
+    <h2><a name=intro>CanopyDevice object</a></h2>
+    <h3>Device overview</h3>
+    <p>
+        A CanopyDevice represents a <b>Canopy-enabled</b> device that can be monitored, controlled, and shared.<br><br>
+
+        CanopyDevice objects can be obtained by calling the <code>.fetchDevices</code> method of a CanopyAccount object.  For example:
+        <div class=code>var canopy = new CanopyClient();
+if (canopy != null) {
+    canopy.fetchAccount({
+        onSuccess: function(account) {
+            account.fetchDevices({
+                onSuccess: function(devices) {
+                for (var i = 0; i &lt; devices.length; i++) {
+                    jQuery("body").append("Device " + devices[i].friendlyName);
+                }
+                onFailure: function() {
+                    alert("Oops!  Something went wrong.");
+                }
+            }
+        }
+        onFailure: function(reason) {
+            if (reason == "not_logged_in") {
+                alert("Please log in");
+            }
+            else {
+                alert("Oops!  Something went wrong.");
+            }
+        }
+    });
+}
+        </div>
+    </p>
+    <h3>Accessing device properties</h3>
+    <p>
+        Every <b>Canopy-enabled</b> device has a description written in the <a
+        target=_blank href="sddl_spec.html">Smart Device Description
+        Language</a>.  This description contains named properties of the following types:
+        <ul>
+            <li>basic sensor</li>
+            <li>basic control</li>
+            <li>basic child class</li>
+            <li>fixed-length array of identical sensors</li>
+            <li>fixed-length array of identical controls</li>
+            <li>fixed-length array of identical child classes</li>
+            <li>associative array of identical sensors</li>
+            <li>associative array of identical controls</li>
+            <li>associative array of identical child classes</li>
+        </ul>
+    </p>
+
+    <p>
+        This client library maps these "SDDL properties" to javascript in a
+        natural way.
+    </p>
+    <h4>Sensor properties</h4>
+    <p>
+        Given a CanopyDevice object, you can access its sensors using:
+    </p>
+    <div class=code>device.sensors</div>
+    <p>
+        This is an object whose keys are string sensor names, and values are
+        SDDLSensor objects.  An SDDLSensor object may represent a basic sensor
+        or a fixed-length or associative array of sensors.
+    </p>
+    <p>
+        To loop over all sensors:
+    </p>
+    <div class=code>for (var sensorName in device.sensors) {
+    if (device.sensors.hasOwnProperty(sensorName) {
+        var s = device.sensors[sensorName];
+        /* your code here */
+    }
+}</div>
+
+    <p>
+        If you know the name of the sensor you are interested in, you can use:
+    </p>
+    <div class=code>var humiditySensor = device.sensors.humidity;
+var humiditySensor = device.sensors["humidity"]; /* equivalent */</div>
+
+    <p>
+        You can check whether this sensor is a "basic" sensor, or an array,
+        using:
+    </p>
+    <div class=code>var sensor = device.sensors.humidity;
+if (sensor.isBasic()) {
+    /* "basic" sensor */
+}
+else if (sensor.isFixedArray()) {
+    /* fixed-length array of identical sensors */
+}
+else if (sensor.isMap()) {
+    /* associative array of identical sensors */
+}
+else {
+    /* unknown type, possibly from the future */
+}</div>
+
+    <p>
+        To get the latest known value(s) for a sensor, use:
+    </p>
+    <div class=code>var humidityValue = device.sensors.humidity.value();
+    If the sensor is a basic sensor, this will return a singular value.  If the
+    sensor is 
+</div>
+
+    <h3>Device methods</h3>
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyDevice object)</span> .friendlyName()
+            <div class=method_returns><i>Returns:</i> string</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain human-readable name of this device
+            <br><br>Example return value: <code>"Zoidberg's Toaster Oven"</code>
+            <br><br>Example:
+            <div class=param_code>alert(device.friendlyName());</div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyDevice object)</span> .id()
+            <div class=method_returns><i>Returns:</i> string</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain unique ID of this device
+            <br><br>Example return value: <code>"a19daca0-0646-11e4-9191-0800200c9a66"</code>
+            <br><br>Example:
+            <div class=param_code>alert(device.id());</div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyDevice object)</span> .sddlClass()
+            <div class=method_returns><i>Returns:</i> SDDLClass</div>
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Obtain SDDLClass object for this device.
+            <br><br>
+            The SDDLClass is an object that provides information about the
+            controls and sensors on a device.
+            <br><br>Example:
+            <div class=param_code>var cls = device.sddlClass();
+var sensors = cls.sensors;
+var msg = "This device has " + cls.numSensors() + " sensors.  They are: ";
+for (var sensorName in cls.sensors) {
+    if (cls.sensors.hasOwnProperty(sensorName)) {
+        msg += sensors[i].name;
+    }
+}
+alert(msg);
+            </div>
+        </div>
+    </div><br>
+
+    <h3>Device properties</h3>
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyDevice object)</span> .classes
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Object containing the device's child class
+            properties.
+            <br><br>
+            The <i>keys</i> are string child class names.
+            <br><br>
+            The <i>values</i> are SDDLClass objects.
+            <br><br>Example:
+            <div class=param_code>var gpsClass = device.classes.gps;
+alert("Coordinates: " + gpsClass.sensors.latitude.value() + ", " + gpsClass.sensors.longitude.value());</div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyDevice object)</span> .controls
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Object containing the device's control
+            properties.
+            <br><br>
+            The <i>keys</i> are string control names.
+            <br><br>
+            The <i>values</i> are SDDLControl objects.
+            <br><br>Example:
+            <div class=param_code>
+alert("Toast darkness level is currently set to: " + device.controls.darkness.value());
+
+device.controls.darkness.setTargetValue(2, {
+    onSuccess: function() {
+        alert("Darkness level set to 2");
+    },
+    onFailure: function() {
+        alert("Oops.  There was a problem changing the darkness level.");
+    }
+});
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyDevice object)</span> .properties
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Object containing all of the device's SDDL
+            properties, including control properties, sensor properties, and
+            child class properties.
+            <br><br>
+            The <i>keys</i> are string property names.
+            <br><br>
+            The <i>values</i> are a mix of SDDLClass, SDDLControl, and
+            SDDLSensor objects.
+            <br><br>Example:
+            <div class=param_code>for (propName in device.properties) {
+    if (device.properties.hasOwnProperty(propName)) {
+        if (device.properties[propName].isSensor()) {
+            alert("Sensor property " + propName);
+        }
+        else if (device.properties[propName].isClass()) {
+            alert("Child class " + propName);
+        }
+        else if (device.properties[propName].isControl()) {
+            alert("Control property " + propName);
+        }
+    }
+}</div>
+            <br>The <code>.properties</code> object is the union of the
+            other members (<code>.sensors</code>, <code>.controls</code>, and
+            <code>.classes</code>).  For example, a sensor named "humidity" can
+            be accessed using either of the following:
+            <div class=param_code>var humidity = device.properties.humidity;
+var humidity2 = device.sensors.humidity; /* returns same object */</div>
+
+        </div>
+    </div><br>
+
+
+    <div class=method_outer>
+        <div class=method_title>
+            <span class=method_class>(CanopyDevice object)</span> .sensors
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Object containing the device's sensor
+            properties.
+            <br><br>
+            The <i>keys</i> are string sensor names.
+            <br><br>
+            The <i>values</i> are SDDLSensor objects.
+            <br><br>Example:
+            <div class=param_code>var humiditySensor = device.sensors.humidity;
+alert("The humidity is " + humiditySensor.value());
+            </div>
+        </div>
+    </div><br>
+
+</div>
+</body>
+</html>
