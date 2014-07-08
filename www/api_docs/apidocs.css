@@ -170,3 +170,7 @@ a, a.visited {
     color: #153060;
     overflow: auto;
 }
+.method_outer ul {
+    margin-left: 0px;;
+}
+
