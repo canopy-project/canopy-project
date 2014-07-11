@@ -9,7 +9,7 @@
 
 <body>
 <div class=main>
-    <h1>Canopy Javascript Application Client</h1>
+    <h1>Canopy Application Client (Javascript)</h1>
     <p>
         <a href=#intro>Introduction</a><br>
         <a href=#hw>Hardware and OS Requirements</a><br>
@@ -19,60 +19,493 @@
 
     <h2><a name=intro>Introduction</a></h2>
     <p>
-        The <b>Canopy Javascript Application Client</b> is a javascript library
-        that helps you develop web applications that interact with
-        <b>Canopy-enabled</b> products.
+        The <b>Canopy Application Client (Javascript)</b> is a javascript
+        library for interacting with <b>Canopy-enabled</b> smart products.
     </p>
     <p>
-        This library consists of a single file <code>canopy_client.js</code>,
-        which provides an object-oriented javascript wrapper around the
-        <b>Canopy REST API</b>.
-    </p>
     <p>
-        The latest version of <code>canopy_client.js</code> can be found on github: <a target=_blank href='http://github.com/canopy-project/canopy-js-client'>http://github.com/canopy-project/canopy-js-client</a>
+        This library consists of a single file <code>canopy_client.js</code>.
+        The latest version can be found on github: <a target=_blank href='http://github.com/canopy-project/canopy-js-client'>http://github.com/canopy-project/canopy-js-client</a>
     </p>
 
-    <h2><a name=intro>A simple example</a></h2>
+    <h2><a name=intro>Quick tutorial</a></h2>
     <p>
-        Here is an example that demonstrates some the library's capabilities:
+        The first step is to initialize the library:
     </p>
-    <div class=code>
-$(function() {
+    <div class=code>var canopy = new CanopyClient();</div>
+    <p>
+        The library will automatically make some AJAX requests to the canopy
+        cloud service.  You can setup a callback to be notified when the system is
+        ready:
+    </p>
+    <div class=code>canopy.onReady(function() {
+    // Canopy is ready to be used.
+});
+</div>
+    <p>
+        The CanopyClient object contains a CanopyAccount object which has
+        information about the currently-authenticated user, if any.
+    </p>
+    <div class=code>canopy.onReady(function() {
+    if (canopy.account) {
+        alert("Hello " + canopy.account.username());
+    } else {
+        alert("Please log in at http://canopy.link");
+        return;
+    }
+    ...
+</div>
+    <p>
+        The CanopyClient object also contains a CanopyDeviceList object, which
+        has information about all of the user's devices.
+    </p>
+    <div class=code>    ...
+    var numDevices = canopy.devices.length;
+    var numOnline = canopy.devices.connected().length;
+    var numOffline = canopy.devices.disconnected().length;
+    alert("You have access to " + numDevices + " devices, of which " + numOnline + " are online");
+    ...
+</div>
+    <p>
+        You can obtain a single CanopyDevice using either an array index or the device's ID.
+    </p>
+    <div class=code>    ...
+    var firstDevice = canopy.devices[0];
+    var firstConnectedDevice = canopy.devices.connected()[0];
+    var mySmartFan = canopy.devices["784f2160-0882-11e4-9191-0800200c9a66"];
+    ...
+</div>
+    <p>
+        Every Canopy device has an <a href='sddl_spec.html'>SDDL
+        description</a> that describes the device's sensors and controls.  This
+        description is stored on the device, and is automatically communicated
+        to the rest of the Canopy system (including this client library).  In
+        this example, lets consider a "smart fan", that has controllable speed
+        and an integrated temperature and humidity sensor.  The SDDL
+        description looks like this:
+    </p>
+    <div class=code>{
+    "authors" : ["Greg Prisament (greg@canopy.link)"],
+    "description" : "SDDL class for controlling a modded Honeywell fan.",
 
-    /*
-     * Initialize the canopy client.
-     */
-    var canopy = new CanopyClient();
-    if (!canopy) {
-        $("#main").html("failed to initialize canopy client");
+    "class canopy.example.fan" : {
+        "control speed" : {
+            "datatype" : "int8",
+            "min-value" : 0,
+            "max-value" : 3
+        },
+        "sensor temperature" : {
+            "datatype" : "float32",
+            "units" : "degrees_f"
+        },
+        "sensor humidity" : {
+            "datatype" : "float32",
+            "numeric-display-hint" : "percentage"
+        }
+    }
+}</div>
+
+    <p>
+        The javascript client library makes it simple to access these
+        properties.  In this example, to get the current humidity level:
+    </p>
+    <div class=code>    var curHumidity = mySmartFan.properties.humidity.value();</div>
+    <p>
+        To get notified whenever the value of this property changes, you can
+        setup a callback:
+    </p>
+    <div class=code>    mySmartFan.properties.humidity.onChange(function(property) {
+        alert("The humidity is now: " + property.value());
+    });</div>
+
+    <p>
+        To get the historical time-series data for this property, use:
+    </p>
+    <div class=code>    mySmartFan.properties.humidity.fetchHistoricData({
+        onSuccess: function(data) {
+            console.log(data);
+        },
+        onFailure: function(reason) {
+            alert("Problem fetching historical humidity data: " + reason);
+        }
+    );</div>
+
+    <p>
+        You can also get the current fan speed setting:
+    </p>
+    <div class=code>    var fanSpeed = properties.speed.value();</div>
+
+    <p>
+        To remotely change the speed of the fan, call:
+    </p>
+    <div class=code>    mySmartFan.properties.speed.setTargetValue(3, {
+        onSuccess: function(data) {
+            alert("Fan speed set to max!");
+        },
+    );</div>
+
+    <p>
+        The previous example assumes that you know the name and details of
+        mySmartFans's properties.  However, a generic application will need to
+        discover this information at runtime.  This next code snippet
+        demonstrates how to do this:
+    </p>
+    <div class=code>    var out = "";
+
+    // loop over all devices
+    for (var i = 0; i &lt; canopy.devices.length; i++) {
+        var device = canopy.devices[i];
+
+        out += device.name() + " has the following properties:&lt;br&gt;";
+
+        // loop over all properties that this device has:
+        for (var j = 0; j &lt; device.properties.length; i++) {
+            var prop = device.properties[i];
+
+            if (prop.isControl()) {
+                // prop is a CanopyControlInstance object.
+                out += prop.name() + " is a control with datatype " + prop.datatype() + "&lt;br&gt;";
+            }
+            else if (prop.isSensor()) {
+                // prop is a CanopySensorInstance object.
+                out += prop.name() + " is a sensor with datatype " + prop.datatype() + "&lt;br&gt;";
+            }
+            else if (prop.isClass()) {
+                // prop is a CanopyClassInstance object.
+                out += prop.name() + " is child class with " + prop.properties.length + " properties&lt;br&gt;";
+            }
+        }
     }
 
-    /*
-     * Get account object for currently-signed in account.
-     */
-    canopy.fetchAccount({
-        onSuccess: function(account) { 
-
-            /* 
-             * Obtain list of devices for currently-signed-in account
-             */ 
-            account.fetchDevices({
-                onSuccess: function(devices) {
-                    for (i = 0; i &lt; devices.length; i++) {
-                        $("#main").append("ul")
-                            devices[i]
-                    }
-                }
-                onFailure: function() {
-                }
-            });
-        },
-        onFailure: function() {
-        };
-    });
-});
+    jQuery("#main").append(out);
     </div>
+    <p>
+        This section only scratches the surface of what you can do with Canopy
+        and the javascript client.  The following sections provide a complete
+        reference.
+    </p>
+    <h3>Getting Help</h3>
+    <p>
+        If you have any questions or need help with Canopy, please post your
+        questions to the <a target=_blank
+        href=https://groups.google.com/a/canopy.link/forum/#!forum/community>community@canopy.link</a>
+        Google Group.
+    </p>
 
+    <h2><a name=intro>Library Overview</a></h2>
+    <p>
+        This section summarizes the objects that are provided by the library:
+    </p>
+
+    <div class=method_outer>
+        <div class=method_title>
+            CanopyClient object
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Main library object that must be created before
+            you can do anything else.
+            <div class=param_outer>
+                <div class=param_title><b>Members</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>account</div>
+                        Type: <a href=..>CanopyAccount object</a>, or null<br>
+                        Represents the currently-authenticated user, if any.
+                    </div>
+                    <div class=param_last_section>
+                        <div class=param_name>devices</div>
+                        Type: <a href=..>CanopyDeviceList object</a>, or null<br>
+                        Contains all devices that the currently-authenticated
+                        user has access to.
+                    </div>
+                </div>
+            </div>
+
+            <div class=param_outer>
+                <div class=param_title><b>Methods</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>.apiBaseUrl()</div>
+                        Obtain the URL prefix used to make API requests.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.finishShareTransaction([params])</div>
+                        Complete a pending device sharing transaction.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.login([params])</div>
+                        Attempt to sign in.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.logout([params])</div>
+                        Attempt to logout the currently-signed-in account.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onDeviceAdded(callback)</div>
+                        Register callback that is triggered when a new device
+                        is added to the account.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onLogin(callback)</div>
+                        Register callback that is triggered when an account has
+                        signed in the Canopy Cloud Service.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onLogout(callback)</div>
+                        Register callback that is triggered when an account has
+                        signed out.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onReady(callback)</div>
+                        Register callback that is triggered when the
+                        CanopyClient is ready to be used.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onRefresh(callback)</div>
+                        Register callback that is triggered when the
+                        CanopyClient's account and device data has been
+                        refreshed.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    </p>
+
+    <div class=method_outer>
+        <div class=method_title>
+            CanopyAccount object
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Represents a user account.
+            <div class=param_outer>
+                <div class=param_title><b>Methods</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>.email()</div>
+                        Obtain email address associated with this account.
+
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.username([params])</div>
+                        Obtain username associated with this account.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            CanopyDevice object
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Represents a <b>Canopy-enabled</b> device.
+            <div class=param_outer>
+                <div class=param_title><b>Members</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>properties</div>
+                        Type: <a href=..>CanopyClassInstance object</a><br>
+                        Top-level container for the device's sensors and controls.
+                    </div>
+                </div>
+            </div>
+
+            <div class=param_outer>
+                <div class=param_title><b>Methods</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>.friendlyName()</div>
+                        Obtain user-assigned name for this device.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.friendlyName(name)</div>
+                        Change user-assigned name for this device.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.id()</div>
+                        Obtain unique ID of this device.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.isConnected()</div>
+                        Check if this device currently connected to the <b>Canopy Cloud Service</b>.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onConnectionStatusChange()</div>
+                        Register callback that gets triggered when the
+                        connection status of this device changes.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onRefresh()</div>
+                        Register callback that gets triggered when this
+                        device's data has been refreshed.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.onRemoved()</div>
+                        Register callback that is triggered when this device
+                        is removed from the account.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.share([params])</div>
+                        Share access to this device with someone else.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            CanopyDeviceList object
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Represents a list of devices.
+            <div class=param_outer>
+                <div class=param_title><b>Array-style Access</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>[&lt;index&gt;]</div>
+                        Type: <a href=..>CanopyDevice object</a><br>
+                        Access a device using array-style access.  For example: devices[0];
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.length</div>
+                        Type: integer<br>
+                        Number of items in the collection.
+                    </div>
+                </div><br>
+
+                <div class=param_title><b>Object-style Access</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>[&lt;device_id&gt;]</div>
+                        Type: <a href=..>CanopyDevice object</a><br>
+                        Access a device by its ID.  For example: devices["784f2160-0882-11e4-9191-0800200c9a66"];
+                    </div>
+                </div>
+            </div>
+
+            <div class=param_outer>
+                <div class=param_title><b>Methods</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>.filter([params])</div>
+                        Create a filtered device list from this list.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.connected()</div>
+                        Create a filtered device list containing only connected devices.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.disconnected()</div>
+                        Create a filtered device list containing only disconnected devices.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            CanopyPropertyInstance object
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Base interface implemented by
+            CanopyClassInstance, CanopyControlInstance, and
+            CanopySensorInstance.  Represents a device property.
+            <div class=param_outer>
+                <div class=param_title><b>Methods</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>.isClass()</div>
+                        Check if this object is a CanopyClassInstance.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.isControl()</div>
+                        Check if this object is a CanopyControlInstance.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.isSensor()</div>
+                        Check if this object is a CanopySensorInstance.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.propertyType()</div>
+                        Obtain the property type.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.name()</div>
+                        Obtain property name.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
+            CanopyClassInstance object
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Represents an collection of "smart" device
+            properties, including sensors, controls, and child classes.
+            <div class=param_outer>
+                <div class=param_title><b>Array-style Access</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>[&lt;index&gt;]</div>
+                        Type: <a href=..>CanopyPropertyInstance object</a><br>
+                        Access a member property using array-style access.  For example: properties[0];
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.length</div>
+                        Type: integer<br>
+                        Number of items in the collection.
+                    </div>
+                </div><br>
+
+                <div class=param_title><b>Object-style Access</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>[&lt;device_id&gt;]</div>
+                        Type: <a href=..>CanopyDevice object</a><br>
+                        Access a device by its ID.  For example: devices["784f2160-0882-11e4-9191-0800200c9a66"];
+                    </div>
+                </div>
+            </div>
+
+            <div class=param_outer>
+                <div class=param_title><b>Methods</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>.filter([params])</div>
+                        Create a filtered device list from this list.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.connected()</div>
+                        Create a filtered device list containing only connected devices.
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.disconnected()</div>
+                        Create a filtered device list containing only disconnected devices.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+    </p>
     <h2><a name=intro>CanopyClient object</a></h2>
     <h3>Initialization</h3>
     <p>
@@ -547,6 +980,7 @@ if (canopy != null) {
         This client library maps these "SDDL properties" to javascript in a
         natural way.
     </p>
+
     <h4>Sensor properties</h4>
     <p>
         Given a CanopyDevice object, you can access its sensors using:
@@ -1288,6 +1722,28 @@ alert("The humidity is " + humiditySensor.value());
         </div>
     </div><br>
 
+    <h2>CanopyProperty</h4>
+    <p>
+        Every <b>Canopy-enabled</b> device has a description written in the <a
+        target=_blank href="sddl_spec.html">Smart Device Description
+        Language</a>.  This description contains named properties of the following types:
+        <ul>
+            <li>basic sensor</li>
+            <li>basic control</li>
+            <li>basic child class</li>
+            <li>fixed-length array of identical sensors</li>
+            <li>fixed-length array of identical controls</li>
+            <li>fixed-length array of identical child classes</li>
+            <li>associative array of identical sensors</li>
+            <li>associative array of identical controls</li>
+            <li>associative array of identical child classes</li>
+        </ul>
+    </p>
+
+    <p>
+        This client library maps these "SDDL properties" to javascript in a
+        natural way.
+    </p>
 </div>
 </body>
 </html>

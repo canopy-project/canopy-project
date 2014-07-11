@@ -111,7 +111,7 @@ a, a.visited {
     background: #282828;
     color: #ffffff;
     font-weight:bold;
-    padding:16px;
+    padding:12px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 }
@@ -123,17 +123,17 @@ a, a.visited {
 .method_body {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    padding: 16px;
+    padding: 12px;
     border: 1px solid #b0b0b0;
 }
 .param_outer {
-    margin-top:16px;
+    margin-top:12px;
 }
 
 .param_title {
     background: #3060a0;
     color: #ffffff;
-    padding:16px;
+    padding:12px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 }
@@ -143,12 +143,12 @@ a, a.visited {
     border: 1px solid #b0b0b0;
 }
 .param_section {
-    padding:16px;
+    padding:12px;
     border-bottom: 1px solid #b0b0b0;
     background: #f0f0f0;
 }
 .param_last_section {
-    padding:16px;
+    padding:12px;
     background: #f0f0f0;
 }
 .param_name {
