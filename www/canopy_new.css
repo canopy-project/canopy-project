@@ -340,3 +340,8 @@ a.logo:hover
     text-decoration: none;
 
 }
+
+.release_item td {
+    background: #f0f0f0;
+    padding: 4px;
+}
