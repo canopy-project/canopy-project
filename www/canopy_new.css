@@ -259,6 +259,11 @@ h2 {
     color: #a0b0f8;
 }
 
+.actual-gray-section
+{
+    background: #f0f0f0;
+}
+
 .shutterstock-network
 {
     background-image:url('http://image.shutterstock.com/display_pic_with_logo/1206974/130694135/stock-vector-molecule-and-communication-background-vector-illustration-graphic-design-useful-for-your-design-130694135.jpg');
@@ -322,4 +327,16 @@ a.logo:hover
     margin-left: 165px;
     color: #204080;
     font-weight: 400;
+}
+
+.button_link {
+    background: #3060b0;
+    display: inline-block;
+    padding: 8px;
+    border-radius: 6px;
+    margin-right:16px;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+
 }
