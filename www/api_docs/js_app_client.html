@@ -159,8 +159,8 @@
         out += device.name() + " has the following properties:&lt;br&gt;";
 
         // loop over all properties that this device has:
-        for (var j = 0; j &lt; device.properties.length; i++) {
-            var prop = device.properties[i];
+        for (var j = 0; j &lt; device.properties.__length; j++) {
+            var prop = device.properties[j];
 
             if (prop.isControl()) {
                 // prop is a CanopyControlInstance object.
@@ -172,7 +172,7 @@
             }
             else if (prop.isClass()) {
                 // prop is a CanopyClassInstance object.
-                out += prop.name() + " is child class with " + prop.properties.length + " properties&lt;br&gt;";
+                out += prop.name() + " is child class with " + prop.properties.__length + " properties&lt;br&gt;";
             }
         }
     }
@@ -416,6 +416,41 @@
 
     <div class=method_outer>
         <div class=method_title>
+            CanopyPropertyList object
+        </div>
+        <div class=method_body>
+            <b>Description:</b> Represents a list of properties.  A "property" is a sensor, control, or child class.
+            <div class=param_outer>
+                <div class=param_title><b>Array-style Access</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>[&lt;index&gt;]</div>
+                        Type: <a href=..>CanopyPropertyInstance object</a><br>
+                        Access a member property using array-style access.  For example: properties[0];
+                    </div>
+                    <div class=param_section>
+                        <div class=param_name>.length</div>
+                        Type: integer<br>
+                        Number of items in the collection.
+                    </div>
+                </div><br>
+
+                <div class=param_title><b>Object-style Access</b><br>
+                </div>
+                <div class=param_body>
+                    <div class=param_section>
+                        <div class=param_name>[&lt;property_name&gt;] or .&lt;property_name&gt;</div>
+                        Type: <a href=..>CanopyPropertyInstance object</a><br>
+                        Access a property by its name.  For example: device.properties.gps.properties.longitude;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div class=method_outer>
+        <div class=method_title>
             CanopyPropertyInstance object
         </div>
         <div class=method_body>
@@ -458,32 +493,6 @@
         <div class=method_body>
             <b>Description:</b> Represents an collection of "smart" device
             properties, including sensors, controls, and child classes.
-            <div class=param_outer>
-                <div class=param_title><b>Array-style Access</b><br>
-                </div>
-                <div class=param_body>
-                    <div class=param_section>
-                        <div class=param_name>[&lt;index&gt;]</div>
-                        Type: <a href=..>CanopyPropertyInstance object</a><br>
-                        Access a member property using array-style access.  For example: properties[0];
-                    </div>
-                    <div class=param_section>
-                        <div class=param_name>.length</div>
-                        Type: integer<br>
-                        Number of items in the collection.
-                    </div>
-                </div><br>
-
-                <div class=param_title><b>Object-style Access</b><br>
-                </div>
-                <div class=param_body>
-                    <div class=param_section>
-                        <div class=param_name>[&lt;device_id&gt;]</div>
-                        Type: <a href=..>CanopyDevice object</a><br>
-                        Access a device by its ID.  For example: devices["784f2160-0882-11e4-9191-0800200c9a66"];
-                    </div>
-                </div>
-            </div>
 
             <div class=param_outer>
                 <div class=param_title><b>Methods</b><br>

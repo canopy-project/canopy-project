@@ -15,6 +15,7 @@ SDDL:
     - Implement maps and arrays.
     - Add tuple values.
     - Add named tuple values.
+    - Interfaces
 
 JS Client:
     - Event-based callbacks
