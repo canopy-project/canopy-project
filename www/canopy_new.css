@@ -217,6 +217,9 @@ td {
 .big {
     font-size: 34px;
 }
+.xl {
+    font-size: 40px;
+}
 .xxl {
     font-size: 50px;
 }
@@ -338,9 +341,33 @@ a.logo:hover
     color: #ffffff;
     font-weight: bold;
     text-decoration: none;
-
+    box-shadow: 1px 1px 3px #c0c0c0;
 }
 
+.title_panel {
+}
+
+.title_menu {
+    background: #f0f0f0;
+    border-radius:8px;
+    padding:8px;
+    padding-bottom:0px;
+    padding-left:16px;
+    box-shadow: 1px 1px 3px #c0c0c0;
+}
+.title_menu_item {
+    display: inline-block;
+    padding-bottom:4px;
+    margin-left:54px;
+}
+.title_menu_item_selected {
+    padding-bottom:2px;
+    border-bottom: 4px solid #c00000;
+}
+.title_menu_item a {
+    text-decoration: none !important;
+    color: #000000 !important;
+}
 .release_item td {
     background: #f0f0f0;
     padding: 4px;
