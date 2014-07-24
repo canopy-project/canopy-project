@@ -1019,6 +1019,8 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
     <div class=code>POST /device/&lt;DEVICE_ID&gt;/
 {
     "__expiration_secs" : &lt;EXPIRATION_SECS&gt;
+    "__friendly_name" : &lt;FRIENDLY_NAME&gt;
+    "__location_note" : &lt;LOCATION_NOTE&gt;
 
     &lt;PROPERTY_NAME_0&gt; : &lt;TARGET_VALUE&gt;,
     &lt;PROPERTY_NAME_1&gt; : &lt;TARGET_VALUE&gt;,
@@ -1047,6 +1049,23 @@ Set-Cookie:canopy-login-session=&lt;COOKIE_ENCRYPTED_VALUE&gt;; Path=/; Expires=
                 <td>Length of time for which this request is valid, starting
                 from the time the request is processed by the server.  If null,
                 the request never expires.  Defaults to null.
+            </tr>
+            <tr>
+                <td>&lt;FRIENDLY_NAME&gt;</td>
+                <td>Optional</td>
+                <td>string or null</td>
+                <td>User-assigned name for this device.  If string, updates the name of this device.
+                    If omitted or null, the device name is not changed.
+                </td>
+            </tr>
+            <tr>
+                <td>&lt;LOCATION_NOTE&gt;</td>
+                <td>Optional</td>
+                <td>string or null</td>
+                <td>User-assigned description of this device's location.  If
+                string, updates this devices' location note.
+                    If omitted or null, the location note is not changed.
+                </td>
             </tr>
             <tr>
                 <td>&lt;PROPERTY_NAME_<i>N</i>&gt; : &lt;TARGET_VALUE_<i>N</i>&gt;</td>

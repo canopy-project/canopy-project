@@ -2,7 +2,7 @@ body {
     margin: 0px;
     padding: 0px;
     font-family: "Source Sans Pro", Helvetica,arial,freesans,clean,sans-serif;
-    line-height: 1.5;
+    line-height: 1.33;
     font-weight: 300;
     font-size: 20px;
     color: #000000;
@@ -87,7 +87,7 @@ td {
 }
 .main-section td
 {
-    line-height: 1.5;
+    line-height: 1.33;
 }
 .top-bar td {
     font-weight: 400;
@@ -343,6 +343,17 @@ a.logo:hover
     text-decoration: none;
     box-shadow: 1px 1px 3px #c0c0c0;
 }
+.button_link:hover {
+    background: #3060b0;
+    display: inline-block;
+    padding: 8px;
+    border-radius: 6px;
+    margin-right:16px;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 1px 1px 3px #c0c0c0;
+}
 
 .title_panel {
 }
@@ -358,10 +369,10 @@ a.logo:hover
 .title_menu_item {
     display: inline-block;
     padding-bottom:4px;
-    margin-left:54px;
+    margin-left:30px;
 }
 .title_menu_item_selected {
-    padding-bottom:2px;
+    padding-bottom:5px;
     border-bottom: 4px solid #c00000;
 }
 .title_menu_item a {

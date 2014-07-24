@@ -1,4 +1,41 @@
+var gPage = "";
+
+function RenderTopbar($target, page) {
+    function extraClass(p) {
+        if (p == page)
+            return "title_menu_item_selected";
+        return "";
+    }
+
+    $target.html("\
+    <table width=100% border=0 cellpadding=0 cellspacing=0>\
+        <tr>\
+            <td valign=bottom style='padding:8px' width=1>\
+                <img src=canopy_logo.jpg border=0 width=100 style='position:relative; top:5px'>\
+            </td>\
+            <td>\
+                <div class=title_menu>\
+                    <div class='title_menu_item' style='margin-left:0px'>\
+                        <a href=index_new.html><img align=top src=http://c.dryicons.com/images/icon_sets/stickers_icon_set/png/32x32/home.png></a>\
+                    </div>\
+                    <div class='title_menu_item " + extraClass("features") + "'><a href=new_features.html>Features</a></div>\
+                    <div class='title_menu_item " + extraClass("download") + "'><a href=downloads.html>Download</a></div>\
+                    <div class='title_menu_item'><a target=_blank href=api_docs>Documentation</a></div>\
+                    <div class='title_menu_item'><a target=_blank href=http://github.com/canopy-project>Source</a></div>\
+                    <div class='title_menu_item " + extraClass("faq") + "'><a href=faq.html>FAQ</a></div>\
+                    <div class='title_menu_item " + extraClass("contact") + "'><a href='contact'>Contact</a></div>\
+                </div>\
+            </td>\
+            <td width=1 nowrap style='padding:8px;padding-right:16px' >\
+                <a class=button_link href=go.php>login</a>\
+            </td>\
+        </tr>\
+    </table>");
+}
+
 $(document).ready(function() {
+    RenderTopbar($("#topbar"), gPage);
+
     $("#hex1").hover(function() {
         $("#hexdetails").addClass("hexdetailsbg");
         $("#hexdetails").html("\
