@@ -387,6 +387,13 @@ a.logo:hover
     margin-left:30px;
 }
 
+.topbar_button a {
+    color: #000000;
+    font-weight: 300;
+}
+.topbar_button a:hover {
+    color: #3060b0;
+}
 .abstract_div {
     width: 100%;
     background: #000000;
@@ -395,4 +402,9 @@ a.logo:hover
 }
 .w400 {
     font-weight: 400;
+}
+
+a {
+    font-weight: 300;
+    text-decoration:none;
 }
