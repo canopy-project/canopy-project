@@ -8,6 +8,52 @@ body {
     color: #000000;
 }
 
+.center_channel {
+    width: 976px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left:16px;
+    padding-right:16px;
+}
+
+.footer-outer {
+    background: #c0c0c0;
+    min-width: 1004px;
+}
+
+.main_banner-outer {
+    width: 100%;
+    background: #000000 url(http://image.shutterstock.com/display_pic_with_logo/219154/100858951/stock-photo-cloud-computing-concept-world-wide-data-sharing-and-communication-100858951.jpg) right top no-repeat;
+    background-size: 640px 520px;
+    color: #c0c0c0;
+}
+
+.main_banner-text {
+    font-size: 43px;
+    padding-top: 56px;
+}
+.main_banner-small-text {
+    padding-top: 32px;
+    width: 325px;
+    font-size: 20px;
+}
+
+.features-outer h1 {
+    font-weight: 400;
+    font-size: 34px;
+    text-align: center;
+    margin-top: 64px;
+    margin-bottom: 32px;
+}
+
+.topbar-outer {
+    border-bottom:1px solid #d0d0d0";
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+
+
 .code {
     display: block;
     unicode-bidi: embed;
@@ -92,12 +138,6 @@ td {
 .top-bar td {
     font-weight: 400;
     font-size: 22px;
-}
-
-.center_channel {
-    width: 940px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .logo {
@@ -247,6 +287,7 @@ h2 {
 .logo-topbar {
     font-family: "ABeeZee";
     color: #3060a0;
+    font-size:33px;
 }
 .logo-in-text-light {
     font-family: "ABeeZee";
@@ -394,11 +435,8 @@ a.logo:hover
 .topbar_button a:hover {
     color: #3060b0;
 }
+
 .abstract_div {
-    width: 100%;
-    background: #000000;
-    background: #000000 url(http://image.shutterstock.com/display_pic_with_logo/219154/100858951/stock-photo-cloud-computing-concept-world-wide-data-sharing-and-communication-100858951.jpg) right top no-repeat;
-    background-size: 640px 520px;
 }
 .w400 {
     font-weight: 400;
