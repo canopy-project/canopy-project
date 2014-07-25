@@ -46,6 +46,16 @@ body {
     margin-bottom: 32px;
 }
 
+.features-code {
+    width: 240px;
+    background: #f0f0f0;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: monospace;
+    white-space: pre;
+}
+
 .topbar-outer {
     border-bottom:1px solid #d0d0d0";
     padding-top: 18px;
