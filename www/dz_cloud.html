@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='canopy_new2.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div style="border-bottom:1px solid #d0d0d0">
+    <div class=center_channel>
+        <div style="padding:24px">
+            <span class=logo-topbar>Canopy</span>
+            <div style="float:right">
+                <div class=topbar_button><a href=index_new2.html>Home</a></div>
+                <div class='topbar_button w400'>Developer Zone</div>
+                <div class=topbar_button>Support Us</div>
+                <div style='margin-left:30px' class='button_link'>LOGIN</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style='min-width:960px; border-bottom:1px solid #d0d0d0'>
+    <div class=center_channel>
+        <div style="padding:24px">
+            <div class='topbar_button' style='margin-left:0px'><a href=developer_zone.html>SDDL</a></div>
+            <div class='topbar_button'><a href=dz_embedded.html>Embedded</a></div>
+            <div class='topbar_button'>Application</div>
+            <div class='topbar_button w400'>Cloud</div>
+            <div class=topbar_button>Contribute</div>
+        </div>
+    </div>
+</div>
+
+<div class=center_channel>
+    <br>
+    <table width=100% cellspacing=0 cellpadding=0><tr><td valign=top style='padding-right:18px;'>
+        <div class='big w400'>Canopy Cloud Service</div>
+        <br>
+        The Canopy Cloud Service is a server-side application written in golang
+        that uses CassandraDB as a datastore.
+
+        <br><br>The Canopy Cloud Service can run in a public cloud, private
+        cloud, LAN, or even on your laptop.  However, the easiest option is to
+        point your devices to our hosted deployment and not worry about the
+        cloud at all.
+
+        <br><br>In order to point your devices to our hosted deployment, use
+        the following configuration settings (see <a href=..>Embedded
+        Configuration Settings</a>):
+
+        <br><div class=code>{
+    "cloud-host" : "ccs.canopy.link",
+    "cloud-use-https" : true,
+    "cloud-https-port" : 433,
+}</div>
+
+    </td><td width=1 valign=top style='white-space:nowrap; line-height:1.5; border-left: 1px solid #d0d0d0; padding:24px; padding-right:0px;'>
+        <div class='w400 ml'>Cloud Resources</div>
+        <a href=api_docs/sddl_spec.html>Cloud Service Deployment Guide</a><br>
+        <br>
+    </td></tr></table>
+
+</div>
+
+<br><br><br>
+<div style='background:#c0c0c0; min-width:960'>
+    <div class=center_channel>
+    <div class=w400>
+        <br>
+        Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+        <br><br><br>
+    </div>
+</div>
+
+</body>
+
+</html>
