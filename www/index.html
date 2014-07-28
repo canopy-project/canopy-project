@@ -3,6 +3,7 @@
 <head>
 <title>Canopy - An Open Source Platform for the Internet of Things</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="canopy_project.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
 <link href='canopy_project.css' rel='stylesheet' type='text/css'>
 </head>
@@ -10,30 +11,27 @@
 <body>
 
 <!-- TOP NAVIGATION BAR -->
-<div class='topbar-outer'>
-    <div class=center_channel>
-        <span class=logo-topbar>Canopy</span>
-        <div style="float:right">
-            <div class='topbar_button w400'>Home</div>
-            <div class=topbar_button><a href=developer_zone.html>Developer Zone</a></div>
-            <div class=topbar_button>Support Us</div>
-            <div style='margin-left:30px' class='button_link'>LOGIN</div>
-        </div>
-    </div>
-</div>
+<script>RenderTopbar("home");</script>
 
 <!-- MAIN BANNER -->
 <div style='min-width:1004px'>
     <div class=main_banner-outer>
-        <div class=center_channel>
-            <div class=main_banner-text>
-                Internet of Things<br>
-                made simple.<br>
+        <div class='center_channel'>
+            <div style='position:relative;'>
+                <div style='position:absolute; top:-20px; right:-120px;'>
+                <img src='images/shutterstock_100858951_cloud_computing_mod_h500.jpg'>)
+                </div>
             </div>
-            <div class=main_banner-small-text>
-                Monitor.  &nbsp;Control. &nbsp;Share.<br><br>
-                Canopy is an open source end-to-end IoT platform that is
-                exceptionally easy to use and develop for.
+            <div style='position: relative'>
+                <div class=main_banner-text>
+                    Internet of Things<br>
+                    made simple.<br>
+                </div>
+                <div class=main_banner-small-text>
+                    Monitor.  &nbsp;Control. &nbsp;Share.<br><br>
+                    Canopy is an open source IoT software platform that is
+                    exceptionally easy to use and develop for.
+                </div>
             </div>
             <br><br>
         </div>
@@ -45,10 +43,10 @@
     <div class=center_channel>
         <h1>Beautiful Control. &nbsp;From Anywhere.</h1>
         <table width=100%><tr><td width=240>
-        <img src=images/iphone-with-fan.jpg>
+        <img src=images/iphone-with-fan_240x123.jpg>
         </td><td valign=top style='padding:32px'>
             Canopy-enabled devices can be controlled from the web or your
-            phone.<br>At home or on the go.<br><br>Each device has a unique interface that manufacturers can configure to match the look-and-feel
+            phone.<br>At home or on the go.<br><br>Each device has a unique interface that manufacturers can customize to match the look-and-feel
             of the real thing.
         </td></tr></table>
     </div>
@@ -56,7 +54,7 @@
     <div class=center_channel>
         <h1>Designed for Sensors</h1>
         <table width=100%><tr><td width=240>
-        <img src=http://image.shutterstock.com/display_pic_with_logo/3266/177343904/stock-vector-editable-business-diagram-graph-chart-with-colorful-bright-triangle-pattern-177343904.jpg width=200>
+        <img src=images/shutterstock_177343904_graph_240x111.jpg>
         </td><td valign=top style='padding:32px'>
             Our platform is designed to store massive amounts of sensor data in the cloud, and
             to present this data with stunning visuals.
@@ -68,7 +66,7 @@
     <div class=center_channel>
         <h1>Built-in Social Network of Things</h1>
         <table width=100%><tr><td width=240>
-        <img src=http://image.shutterstock.com/display_pic_with_logo/335395/125119499/stock-photo-male-hand-drawing-sharing-concept-on-transparent-wipe-board-125119499.jpg width=220>
+        <img src=images/shutterstock_125119499_share_hand_240x160.jpg style='border-bottom:1px solid #f0f0f0'>
         </td><td valign=top style='padding:32px'>
             Share your things with others.  Let the
             delivery man access your garage door for the next 15 minutes.
@@ -94,25 +92,44 @@
     }</div>
         </td><td valign=top style='padding:32px'>
             Developing a smart product has never been easier.  Just describe the
-            product using our <i>Smart Device Description Language</i>, and our
+            product using SDDL (<i>Smart Device Description Language</i>), and our
             embedded software tool generates most of the code and UI
             for you.
 
             <br><br>App developers can use our REST API or client libraries to
-            interact with Canopy-enabled devices from third-party applications.
+            interact with Canopy-enabled devices from their own applications.
         </td></tr></table>
     </div>
 
     <div class=center_channel>
-        <h1>Hosted for free.</h1>
+        <h1>Completely Open Source</h1>
         <table width=100%><tr><td width=240>
-            <img src=images/shutterstock_90189298_cloud_h175.jpg width=210>
+            <img src=images/shutterstock_178775597_freedom_h175.jpg style='border-radius:8px' width=210>
         </td><td valign=top style='padding:32px'>
-            We take care of the cloud, so you don't have to.  
+            It's simple, really.  We believe that the Internet of Things, like the World
+            Wide Web, should be based on open software and royalty-free standards.
+        </td></tr></table>
+    </div>
+
+    <div class=center_channel>
+        <h1>Free hosting.  Worry-free cloud.</h1>
+        <table width=100%><tr><td width=240>
+            <img src=images/shutterstock_90189298_cloud_215x155.jpg>
+        </td><td valign=top style='padding:32px'>
+            We take care of the cloud, so you don't have to even think about
+            it.
+
+            <br><br>Our hosted platform is free.  Devices connect for free.
+            End-users manage their devices for free.  We plan to eventually
+            cover our costs through ad revenue and premium features.
             
-            <br><br>Users can control up to 5 devices on our hosted platform
-            for free.  After that, it's just $1.00/device/month, charged
-            directly to the end-user.
+            <!--br><br>Our hosted platform follows a freemium model.  Devices
+            connect for free.  End-users can manage their devices for free.  We
+            then offer premium features for $1/device/month, which is
+            charged directly to the end-user.
+            <br><br>But there's more!  With our profit-sharing program, you
+            actually make money by pointing devices to our servers.  We're
+            turning the cloud from an expense to a source of revenue for you.-->
         </td></tr></table>
     </div>
 </div>

@@ -23,17 +23,25 @@ body {
 
 .main_banner-outer {
     width: 100%;
-    background: #000000 url(http://image.shutterstock.com/display_pic_with_logo/219154/100858951/stock-photo-cloud-computing-concept-world-wide-data-sharing-and-communication-100858951.jpg) right top no-repeat;
-    background-size: 640px 520px;
-    color: #c0c0c0;
+    background: #1c1c1c;
+    color: #ffffff;
+    overflow:hidden;
+}
+
+.main_banner-inner {
+    background: #1c1c1c url(images/shutterstock_100858951_cloud_computing_mod_h500.jpg) right top no-repeat;
 }
 
 .main_banner-text {
+    font-weight: 800;
     font-size: 43px;
     padding-top: 56px;
+    padding-left: 42px;
 }
 .main_banner-small-text {
+    font-weight: 400;
     padding-top: 32px;
+    padding-left: 42px;
     width: 325px;
     font-size: 20px;
 }
@@ -57,7 +65,7 @@ body {
 }
 
 .topbar-outer {
-    border-bottom:1px solid #d0d0d0";
+    border-bottom: 1px solid #d0d0d0;
     padding-top: 18px;
     padding-bottom: 18px;
 }
