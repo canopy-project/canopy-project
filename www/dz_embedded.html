@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="canopy_project.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<!-- TOP NAVIGATION BAR -->
+<script>RenderTopbar("devzone");</script>
+
+<!-- SUB MENU -->
+<script>RenderDevZoneMenu("embedded");</script>
+
+<div class=center_channel>
+    <br>
+    <table width=100% cellspacing=0 cellpadding=0><tr><td valign=top style='padding-right:18px;'>
+        <div class='big w400'>Canopy Embedded Development</div>
+        <br>Making things smart with Canopy is easy.  However, it does require
+        that your device can connect to the internet and can
+        compile and run linux-based binaries.  As a rule-of-thumb,
+        Canopy requires hardware and software comparable to what comes on a Raspberry Pi or Beaglebone.
+
+    </td><td width=1 valign=top style='white-space:nowrap; line-height:1.5; border-left: 1px solid #d0d0d0; padding:24px; padding-right:0px;'>
+        <div class='w400 ml'>Embedded Resources</div>
+        <!--a href=api_docs/sddl_spec.html>Embedded Developer Kit Setup & Installation</a>
+        <br>
+        <a href=..>Embedded Developer Guide</a>
+        <br>
+        <a href=..>libcanopy Reference</a>
+        <br>
+        <a href=..>cano Reference</a>
+        <br>
+        <a href=..>Embedded Configuration Reference</a-->
+        <a href=api_docs/tutorial.html>Canopy Embedded Tutorial</a-->
+        <br>
+        <a href=api_docs/embedded_configuration.html>Embedded Configuration Reference</a-->
+        <br>
+        <a href=http://github.com/canopy-project/canopy-embedded>Source on Github</a>
+    </td></tr></table>
+
+    <br><div class='big w400'>Embedded Development Kit</div><br>
+    The Canopy Embedded Development Kit is entirely open source.
+    There are a few pieces that you should know about:
+
+    <br><br><div class='w400'><code>libcanopy</code></div>
+    Embedded software library that interacts with the Canopy Cloud Service.
+
+    <br><br><div class='w400'><code>cano</code></div>
+    Command-line utility.  Running "<code>cano gen &lt;SDDL_FILE&gt;</code>"
+    generates embedded code for your product based on your SDDL file.
+
+    <br><br><div class='w400'><code>/etc/canopy/canopy.conf.json</code></div>
+    Embedded configuration file.
+
+    <br><br><div class='big w400'>Smart Product Development Process</div><br>
+    The process of developing a smart product with Canopy generally goes like
+    this:
+    <ol>
+        <li>Install the Canopy Embedded Development Kit on your device.
+        <li>Create an SDDL file describing your product's sensors and controls
+        .</li>
+        <li>Run "<code>cano gen &lt;SDDL_FILE&gt;</code>" to generate embedded
+        C code for your device.</li>
+        <li>Modify the generated code stubs.  For example. you may need to 
+        write to GPIO pins.</li>
+        <li>Compile and run.  Your device will begin
+        communicating with our cloud servers.</li>
+        <li>Log in to <a href=http://canopy.link>http://canopy.link</a> to
+        monitor and control your device.</li>
+        <li>Optionally, develop a customized frontend for your device, using
+        our REST API or client libraries.  </li>
+    </ol>
+
+    See the <a href=api_docs/tutorial.html>Embedded Tutorial</a> for a
+    walkthrough of these steps.
+
+    <br><br><div class='big w400'>Need help bringing it all together?</div><br>
+        If you need help on the mechanical or electrical side, let us
+        know.  We have several partners who specialize in those areas who we
+        can refer you to.
+
+        <br><br>If you need help on the software side (embedded, cloud, or
+        app), the Canopy team is available to help at reasonable rates.
+<br><br><br>
+</div>
+
+</div>
+<div style='background:#c0c0c0; min-width:960'>
+    <div class=center_channel>
+    <div class=w400>
+        <br>
+        Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+        <br><br><br>
+    </div>
+</div>
+
+</body>
+
+</html>

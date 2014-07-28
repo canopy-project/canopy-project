@@ -3,127 +3,146 @@
 <head>
 <title>Canopy - An Open Source Platform for the Internet of Things</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="index.js"></script>
+<script src="canopy_project.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
-<link href='canopy_new.css' rel='stylesheet' type='text/css'>
+<link href='canopy_project.css' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-<img id=toaster_pic src=shutterstock_161169386_toaster_w600.jpg>
-<div id=divider>&nbsp;</div>
-<div class=main-section>
-    <div class=center_channel style='text-align:center'>
-        <span class=logo>Canopy</span>
-        <span class=big style='padding-left:32px'>Because <i>everything</i> should have an API.</span>
-        <br>
-    </div>
-    <div class=center_channel style='position:relative'>
-        <div id=codesample-outer>
-            <div id=codesample-inner>POST /my/toaster
-{
-    "darkness" : 4,
-    "bagel_mode" : true
-}</div>
-            <a href=api_docs/tutorial.html>View tutorial</a>
+
+<!-- TOP NAVIGATION BAR -->
+<script>RenderTopbar("home");</script>
+
+<!-- MAIN BANNER -->
+<div style='min-width:1004px'>
+    <div class=main_banner-outer>
+        <div class='center_channel'>
+            <div style='position:relative;'>
+                <div style='position:absolute; top:-20px; right:-120px;'>
+                <img src='images/shutterstock_100858951_cloud_computing_mod_h500.jpg'>)
+                </div>
+            </div>
+            <div style='position: relative'>
+                <div class=main_banner-text>
+                    Internet of Things<br>
+                    made simple.<br>
+                </div>
+                <div class=main_banner-small-text>
+                    Monitor.  &nbsp;Control. &nbsp;Share.<br><br>
+                    Canopy is an open source IoT software platform that is
+                    exceptionally easy to use and develop for.
+                </div>
+            </div>
+            <br><br>
         </div>
-    </div>
-</div>
-<div class="main-section gray-section" style="margin-top:510px; position:relative">
-    <div class="center_channel">
-        <br><div class=justify><span class=ml><span class=logo-in-text>Canopy</span> is a software
-        framework for giving real-world objects a representation on the Internet
-        in just a few lines of code.  It's a great tool for rapid IoT
-        prototyping, yet powerful enough to be used in massive-scale production
-        deployments.  Best of all, it's completely open source.</span></div>
-        <div style="position:relative">
-            <div id=hex1 class=hex>
-                <img src=images/dryicons_polygon/64x64/open_book.png align=middle></img><br>Open Source
-            </div>
-            <div id=hex2 class=hex style='display:inline-block; text-align:center; width: 120px;'>
-                <img src=images/dryicons_polygon/64x64/security.png align=middle></img><br>Secure
-            </div>
-            <div id=hex3 class=hex style='display:inline-block; text-align:center; width: 120px;'>
-                <img src=images/dryicons_polygon/64x64/speedometer.png align=middle></img><br>Low-latency
-            </div>
-            <div id=hex4 class=hex style='display:inline-block; text-align:center; width: 120px;'>
-                <img src=images/dryicons_polygon/64x64/fullscreen.png align=middle></img><br>Scalable
-            </div>
-            <div id=hex5 class=hex style='display:inline-block; text-align:center; width: 120px;'>
-                <img src=images/dryicons_polygon/64x64/paper_plane.png align=middle></img><br>Simple
-            </div>
-            <div id=hex6 class=hex style='display:inline-block; text-align:center; width: 120px;'>
-                <img src=images/dryicons_polygon/64x64/light_bulb.png align=middle></img><br>Smart
-            </div>
-            <div id=hex7 class=hex style='display:inline-block; text-align:center; width: 120px;'>
-                <img src=images/dryicons_polygon/64x64/lighting.png align=middle></img><br>Powerful
-            </div>
-            <div id=hexcenter>Canopy
-            </div>
-            <div id=hexdetails>
-            </div>
-        </div>
-        <br><br><br><br>
-        <br><br><br><br>
-        <br><br><br><br>
-        <br><br><br><br><br><br>
-    </div>
-</div>
-<div class="main-section">
-    <div class="center_channel" style='vertical-align:top'>
-        <br><br><br>
-        <div class=xxl>How it works</div>
-        <div class=bubble1>
-        <img src=shutterstock_82034455_fan_h175.jpg><br>
-        <span class=xxl>1.</span><br>You describe your product's capabilities using our <span class=logo-in-text>Smart Device Description Language (SDDL).</span></div>
-        <div class=bubble2>
-        <div class=code style='border-radius:16px; font-size:10px;height:125px'>bool on_fan_speed_control(
-        CanopyContext ctx,
-        uint8_t value) {
-    /* set speed using I2C */
-    result = i2c_write(
-        SPEED_PIN, 
-        value);
-    return result;
-}</div>
-        <span class=xxl>2.</span><br> You write a small amount
-        of embedded code, using <span class=logo-in-text>libcanopy</span> to
-        send status reports to the cloud and recieve control events from
-        the cloud.</div>
-        <div class=bubble3>
-        <img src=shutterstock_90189298_cloud_h175 style="margin-left:18px"><br>
-        <span class=xxl>3.</span><br> The <span
-        class=logo-in-text>Canopy Cloud Service</span> talks to your products
-        over websockets, stores historic sensor data, and translates
-        product capabilities into a REST API.</div>
-        <div class=bubble4>
-        <img src=iphone-with-fan.jpg>
-        <span class=xxl>4.</span><br> App developers use a simple REST API to interact with your <span class=logo-in-text>Canopy-enabled</span> products.</div>
-        <bR><br>
     </div>
 </div>
 
-<div class="main-section blue-section">
-    <div class="center_channel">
-        <br>
-        <span class=big>Stay updated.<br>
-        Get involved.</span>
-        <span id=joinbutton_outer>
-            <a id=joinbutton target=_blank href=https://groups.google.com/a/canopy.link/d/forum/community>Join the <b>community@canopy.link</b> Google Group</a>
-        </span>
-        <div style='width:300px'>Announcements and discussions will take place on this mailing list.
-        </div>
-        <br>
+<!-- FEATURES SECTION -->
+<div class=features-outer>
+    <div class=center_channel>
+        <h1>Beautiful Control. &nbsp;From Anywhere.</h1>
+        <table width=100%><tr><td width=240>
+        <img src=images/iphone-with-fan_240x123.jpg>
+        </td><td valign=top style='padding:32px'>
+            Canopy-enabled devices can be controlled from the web or your
+            phone.<br>At home or on the go.<br><br>Each device has a unique interface that manufacturers can customize to match the look-and-feel
+            of the real thing.
+        </td></tr></table>
+    </div>
+
+    <div class=center_channel>
+        <h1>Designed for Sensors</h1>
+        <table width=100%><tr><td width=240>
+        <img src=images/shutterstock_177343904_graph_240x111.jpg>
+        </td><td valign=top style='padding:32px'>
+            Our platform is designed to store massive amounts of sensor data in the cloud, and
+            to present this data with stunning visuals.
+
+            <br><br>Bring on the big data.
+        </td></tr></table>
+    </div>
+
+    <div class=center_channel>
+        <h1>Built-in Social Network of Things</h1>
+        <table width=100%><tr><td width=240>
+        <img src=images/shutterstock_125119499_share_hand_240x160.jpg style='border-bottom:1px solid #f0f0f0'>
+        </td><td valign=top style='padding:32px'>
+            Share your things with others.  Let the
+            delivery man access your garage door for the next 15 minutes.
+
+            <br><br>Leave notes and comment on things.  Notify your housemates
+            that the smart coffee machine needs more filters when they next
+            open the app.
+        </td></tr></table>
+    </div>
+
+    <div class=center_channel>
+        <h1>Best-in-class developer tools and APIs.</h1>
+        <table width=100%><tr><td width=240>
+        <div class=features-code>"class fan" : {
+      "control speed" : {
+        "min-value": 0,
+        "max-value": 4,
+      },
+      "sensor temp" : {
+        "datatype": "float32",
+        "units": "degrees_c"
+      }
+    }</div>
+        </td><td valign=top style='padding:32px'>
+            Developing a smart product has never been easier.  Just describe the
+            product using SDDL (<i>Smart Device Description Language</i>), and our
+            embedded software tool generates most of the code and UI
+            for you.
+
+            <br><br>App developers can use our REST API or client libraries to
+            interact with Canopy-enabled devices from their own applications.
+        </td></tr></table>
+    </div>
+
+    <div class=center_channel>
+        <h1>Completely Open Source</h1>
+        <table width=100%><tr><td width=240>
+            <img src=images/shutterstock_178775597_freedom_h175.jpg style='border-radius:8px' width=210>
+        </td><td valign=top style='padding:32px'>
+            It's simple, really.  We believe that the Internet of Things, like the World
+            Wide Web, should be based on open software and royalty-free standards.
+        </td></tr></table>
+    </div>
+
+    <div class=center_channel>
+        <h1>Free hosting.  Worry-free cloud.</h1>
+        <table width=100%><tr><td width=240>
+            <img src=images/shutterstock_90189298_cloud_215x155.jpg>
+        </td><td valign=top style='padding:32px'>
+            We take care of the cloud, so you don't have to even think about
+            it.
+
+            <br><br>Our hosted platform is free.  Devices connect for free.
+            End-users manage their devices for free.  We plan to eventually
+            cover our costs through ad revenue and premium features.
+            
+            <!--br><br>Our hosted platform follows a freemium model.  Devices
+            connect for free.  End-users can manage their devices for free.  We
+            then offer premium features for $1/device/month, which is
+            charged directly to the end-user.
+            <br><br>But there's more!  With our profit-sharing program, you
+            actually make money by pointing devices to our servers.  We're
+            turning the cloud from an expense to a source of revenue for you.-->
+        </td></tr></table>
     </div>
 </div>
-<div class="main-section gray-section">
-    <div class="center_channel">
-    <br>
-    <span class="ml normala"><a href=blog.html>Blog</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="ml normala"><a target=_blank href=api_docs/index.html>Documentation</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="ml normala"><a target=_blank href="http://www.github.com/canopy-project">Source</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="ml normala"><a target=_blank href=http://muut.com/canopy-project>Forum</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="ml normala"><a href="mailto:info@canopy.link">Contact</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <br><br><div class=s>Copyright 2014 Gregory Prisament</div>
+
+<!--FOOTER-->
+<div class=footer-outer>
+    <div class='center_channel w400'>
+        <br>
+        Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+        <br><br><br>
     </div>
-    <br><br>
 </div>
+
+</body>
+
+</html>

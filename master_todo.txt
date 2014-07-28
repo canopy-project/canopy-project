@@ -1,3 +1,6 @@
+TODAY:
+- 
+
 --------------------------------------------------------------------------------
 P0
 --------------------------------------------------------------------------------
@@ -5,6 +8,30 @@ P0
 --------------------------------------------------------------------------------
 P1
 --------------------------------------------------------------------------------
+New App
+- Settings page
+- Single device page
+- Faux browser Navigation
+- Logout
+- Create account
+- Display correct controls
+- Backgrounds & realistic looking controls.
+- Use random robot
+- Implement events panel for realz
+- Code cleanup
+- CSS cleanup
+- Implement location
+- Implement all control types
+- Implement all sensor types
+- Timeseries plots
+- Sharing
+    - Show list of accounts that have access
+    - Validate email/username as typed
+    - Error reporting
+    - Documentation (REST, JSClient, etc)
+    - Finish share transaction
+
+
 Embedded
 - cano
     - Implement "help <CMD>"

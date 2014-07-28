@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="canopy_project.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<!-- TOP NAVIGATION BAR -->
+<script>RenderTopbar("devzone");</script>
+
+<!-- SUB MENU -->
+<script>RenderDevZoneMenu("sddl");</script>
+
+<div class=center_channel>
+    <br>
+    <table cellspacing=0 cellpadding=0><tr><td valign=top style='padding-right:18px;'>
+        <div class='big w400'>Smart Device Description Language</div>
+        <br>SDDL provides a standardized format for describing the capabilities of a
+        smart product.
+
+        <br><br>SDDL serves as a common thread throughout the Canopy platform.
+        Canopy auto-generates embedded C code based on SDDL.  The Canopy cloud components uses SDDL
+        to dynamically generate a REST API.  The Canopy web
+        application uses SDDL to generate a UI for your product.
+
+        <br><br>In fact, writting an SDDL file gets you 90% of the
+        way towards having a cloud-controllable smart device (on the software side,
+        anyway).
+    </td><td valign=top style='white-space:nowrap; line-height:1.5; border-left: 1px solid #d0d0d0; padding:24px; padding-right:0px;'>
+        <div class='w400 ml'>SDDL Documentation</div>
+        <a href=api_docs/sddl_spec.html>SDDL Specification</a>
+        <br>
+        <!--a href=..>SDDL By Example</a-->
+    </td></tr></table>
+
+
+    <br><br><div class='big w400'>A Quick Example</div>
+    <br>SDDL is JSON-based format.  It describes the sensors and controls on a
+    device using special keys that begin with <code>"class "</code>,
+    <code>"sensor "</code>, or <code>"control "</code>.  A <code>class</code> is a
+    collection of sensors and controls, and every SDDL file contains at least
+    one.
+<br><br>
+<div class=code>{
+    "class canopy.example.smartfan" : {
+        "control speed" : {
+            "datatype" : "int8",
+            "min-value" : 0,
+            "max-value" : 4
+        },
+        "sensor temperature" : {
+            "datatype" : "float32",
+            "units" : "degrees_c"
+        },
+        "sensor humidity" : {
+            "datatype" : "float32",
+            "ui-numeric-display-hint" : "percentage"
+        }
+    }
+}
+</div>
+    <br>
+    From this description, canopy generates a default web UI for your device.
+    Something like: <br><br><img src="images/canopy_example_panel.jpg">
+    <br><br>
+    On the embedded side, Canopy generates embedded C boilerplate code, with stubs
+    for you to fill in:
+    <br><Br><div class=code>static bool on_change__speed(CanopyContext canopy, int8_t value)
+{
+    /* Your code here */
+    return true;
+}
+
+static bool on_report_requested(CanopyContext canopy)
+{
+    CanopyReport report = canopy_begin_report(canopy);
+
+    /* Your code here */
+    /* canopy_report_float32(report, "temperature", 0); */
+    /* canopy_report_float32(report, "humidity", 0); */
+
+    canopy_send_report(report);
+    return true;
+}
+    </div>
+
+    <br>Just implement the stubs, compile and run, and your device can be remotely
+    monitored and controlled from the web.
+
+    <br><br>One neat aspect of Canopy is that it has special handling for
+    common SDDL classes.  For example, if your device has a GPS sensor, you can
+    add the following to your SDDL:<br><br>
+    <div class=code>{
+    "class canopy.example.smartfan" : {
+        ...
+        "class gps" : {
+            "sensor longitude" : {
+                "datatype" : "float64"
+            },
+            "sensor latitude" : {
+                "datatype" : "float64"
+            }
+        }
+    }
+}
+    </div>
+
+    <br>The Canopy platform knows to interpret this as a GPS coordinate, and will
+    display the location of your device on a map.
+</div>
+
+<br><br>
+<div style='background:#c0c0c0; min-width:960'>
+    <div class=center_channel>
+    <div class=w400>
+        <br>
+        Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+        <br><br><br>
+    </div>
+</div>
+
+</body>
+
+</html>
