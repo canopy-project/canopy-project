@@ -3,35 +3,18 @@
 <head>
 <title>Canopy - An Open Source Platform for the Internet of Things</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="canopy_project.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
 <link href='canopy_project.css' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-<div style="border-bottom:1px solid #d0d0d0">
-    <div class=center_channel>
-        <div style="padding:24px">
-            <span class=logo-topbar>Canopy</span>
-            <div style="float:right">
-                <div class=topbar_button><a href=index_new2.html>Home</a></div>
-                <div class='topbar_button w400'>Developer Zone</div>
-                <div class=topbar_button>Support Us</div>
-                <div style='margin-left:30px' class='button_link'>LOGIN</div>
-            </div>
-        </div>
-    </div>
-</div>
-<div style='min-width:960px; border-bottom:1px solid #d0d0d0'>
-    <div class=center_channel>
-        <div style="padding:24px">
-            <div class='topbar_button w400' style='margin-left:0px'>SDDL</div>
-            <div class='topbar_button'><a href=dz_embedded.html>Embedded</a></div>
-            <div class='topbar_button'>Application</div>
-            <div class='topbar_button'>Cloud</div>
-            <div class=topbar_button>Contribute</div>
-        </div>
-    </div>
-</div>
+
+<!-- TOP NAVIGATION BAR -->
+<script>RenderTopbar("devzone");</script>
+
+<!-- SUB MENU -->
+<script>RenderDevZoneMenu("sddl");</script>
 
 <div class=center_channel>
     <br>
@@ -41,10 +24,9 @@
         smart product.
 
         <br><br>SDDL serves as a common thread throughout the Canopy platform.
-        Canopy auto-generates embedded C code based on SDDL.  The Canopy Cloud Service uses SDDL
-        to create a dynamic column family for each device in the Cassandra DB, and also
-        to dynamically generate a REST API.  The Canopy Web Application uses SDDL
-        to generate a UI for your product.
+        Canopy auto-generates embedded C code based on SDDL.  The Canopy cloud components uses SDDL
+        to dynamically generate a REST API.  The Canopy web
+        application uses SDDL to generate a UI for your product.
 
         <br><br>In fact, writting an SDDL file gets you 90% of the
         way towards having a cloud-controllable smart device (on the software side,
@@ -53,7 +35,7 @@
         <div class='w400 ml'>SDDL Documentation</div>
         <a href=api_docs/sddl_spec.html>SDDL Specification</a>
         <br>
-        <a href=..>SDDL By Example</a>
+        <!--a href=..>SDDL By Example</a-->
     </td></tr></table>
 
 
@@ -83,12 +65,12 @@
 }
 </div>
     <br>
-    From this description, canopy generates a default UI for your device.
-    Something like: <img src="shutterstock_161169386_toaster.jpg" width=700 height=100>
-    <br>
+    From this description, canopy generates a default web UI for your device.
+    Something like: <br><br><img src="images/canopy_example_panel.jpg">
+    <br><br>
     On the embedded side, Canopy generates embedded C boilerplate code, with stubs
     for you to fill in:
-    <div class=code>static bool on_change__speed(CanopyContext canopy, int8_t value)
+    <br><Br><div class=code>static bool on_change__speed(CanopyContext canopy, int8_t value)
 {
     /* Your code here */
     return true;
@@ -107,7 +89,7 @@ static bool on_report_requested(CanopyContext canopy)
 }
     </div>
 
-    Just implement the stubs, compile and run, and your device can be remotely
+    <br>Just implement the stubs, compile and run, and your device can be remotely
     monitored and controlled from the web.
 
     <br><br>One neat aspect of Canopy is that it has special handling for

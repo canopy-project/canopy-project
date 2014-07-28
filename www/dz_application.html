@@ -3,35 +3,17 @@
 <head>
 <title>Canopy - An Open Source Platform for the Internet of Things</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="canopy_project.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
-<link href='canopy_new2.css' rel='stylesheet' type='text/css'>
+<link href='canopy_project.css' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-<div style="border-bottom:1px solid #d0d0d0">
-    <div class=center_channel>
-        <div style="padding:24px">
-            <span class=logo-topbar>Canopy</span>
-            <div style="float:right">
-                <div class=topbar_button><a href=index_new2.html>Home</a></div>
-                <div class='topbar_button w400'>Developer Zone</div>
-                <div class=topbar_button>Support Us</div>
-                <div style='margin-left:30px' class='button_link'>LOGIN</div>
-            </div>
-        </div>
-    </div>
-</div>
-<div style='min-width:960px; border-bottom:1px solid #d0d0d0'>
-    <div class=center_channel>
-        <div style="padding:24px">
-            <div class='topbar_button' style='margin-left:0px'><a href=developer_zone.html>SDDL</a></div>
-            <div class='topbar_button'><a href=dz_embedded.html>Embedded</a></div>
-            <div class='topbar_button w400'>Application</div>
-            <div class='topbar_button'>Cloud</div>
-            <div class=topbar_button>Contribute</div>
-        </div>
-    </div>
-</div>
+<!-- TOP NAVIGATION BAR -->
+<script>RenderTopbar("devzone");</script>
+
+<!-- SUB MENU -->
+<script>RenderDevZoneMenu("application");</script>
 
 <div class=center_channel>
     <br>
@@ -39,7 +21,8 @@
         <div class='big w400'>Canopy Application Development</div>
         <br>
         Canopy has been designed with application developers in mind.  The
-        Canopy Cloud Service provides a REST API that supports OAUTH 2.0.
+        Canopy Cloud Service provides a REST API that will soon support OAUTH
+        2.0.
 
         <br><br>Additionally, application client libraries provide a simple way
         to interact with Canopy-enabled devices from the language of your
@@ -52,17 +35,17 @@
 
     </td><td width=1 valign=top style='white-space:nowrap; line-height:1.5; border-left: 1px solid #d0d0d0; padding:24px; padding-right:0px;'>
         <div class='w400 ml'>App Developer Resources</div>
-        <a href=api_docs/sddl_spec.html>Register your Application</a><br>
+        <!--a href=api_docs/sddl_spec.html>Register your Application</a><br-->
         <a href=api_docs/rest_api.html>REST API Specification</a>
         <br>
-        <a href=..>Javascript Application Client</a>
+        <a href=api_docs/js_app_client.html>Javascript Application Client</a>
         <br>
     </td></tr></table>
 
     <br><br>
-    <div class='big w400'>App Registration</div><br>
+    <!--div class='big w400'>App Registration</div><br>
     Third-party applications that use OAUTH 2.0 for authorization must be registered.
-    <br><br><a href=..>REGISTER YOUR APPLICATION HERE</a>
+    <br><br><a href=..>REGISTER YOUR APPLICATION HERE</a-->
 </div>
 
 <br><br><br>
