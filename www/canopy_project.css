@@ -458,4 +458,21 @@ a.logo:hover
 .w400 {
     font-weight: 400;
 }
-
+.release_table td {
+    border-bottom: 1px solid #c0c0c0;
+    padding: 12px;
+    vertical-align: top;
+}
+.release_table ul {
+    margin: 0px;
+}
+.row_white td {
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+.row_blue td {
+    background: #d0f0f8;
+}
+.row_gray td {
+    background: #f4f4f4;
+}
