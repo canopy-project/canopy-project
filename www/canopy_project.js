@@ -15,7 +15,7 @@ function RenderTopbar(page) {
                 + writeLink("index.html", "Home", (page == "home"))
                 + writeLink("developer_zone.html", "Developer Zone", (page == "devzone"))
                 + writeLink("support_us.html", "Support Us", (page == "supportus")) + "\
-                <a href=http://app.canopy.link/web><div class='button_link'>LOGIN</div></a>\
+                <a href=http://app.canopy.link><div class='button_link'>LOGIN</div></a>\
             </div>\
         </div>\
     </div>\
