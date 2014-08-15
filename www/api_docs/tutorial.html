@@ -61,7 +61,7 @@ git clone git://git.libwebsockets.org/libwebsockets
 cd libwebsockets
 mkdir build
 cd build
-cmake ..
+cmake .. -DLWS_IPV6=0
 make
 sudo make install
 cd ../../
