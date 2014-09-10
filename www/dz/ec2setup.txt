@@ -1,0 +1,235 @@
+Step-by-step: Setup Canopy Cloud Service on EC2
+
+Step 1) Launch an Ubuntu EC2 Instance
+--------------------------------------
+
+From the Amazon EC2 Management Console, click "Launch Instance".
+
+<IMG>
+
+Select "Ubuntu Server 14.04 LTS" for the AMI.
+
+<IMG>
+
+Select the desired instance type.  For now, we will just use the smallest
+instance available.  Click "Review and Launch".
+
+<IMG>
+
+Everything looks good.  Click "Launch".
+
+<IMG>
+
+You will be prompted about selecting a key pair.  Choose "Create a new pair"
+and call it "canopy-ec2".  Download the key pair.  This is very important!
+These keys are the only way to access the instance and cannot be downloaded
+once the instance is created.  Finally, click "Launch Instance".
+
+<IMG>
+
+Click on the instance name.
+
+<IMG>
+
+Take note of the public IP address.
+
+
+Step 2) Connect to the EC2 instance.
+--------------------------------------
+
+First, change the permissions of the .pem file.  Otherwise, SSH will reject it.
+
+    chmod 400 canopy-ec2.pem
+
+SSH into the instance from the terminal:
+
+    ssh -i canopy-ec2.pem ubunt@PUBLIC_IP
+
+For example:
+    
+    ssh -i canopy-ec2.pem ubunt@54.68.36.105
+
+You should see the following:
+
+    Welcome to Ubuntu 14.04 LTS (GNU/Linux 3.13.0-29-generic x86_64)
+
+     * Documentation:  https://help.ubuntu.com/
+
+      System information as of Mon Sep  8 16:11:10 UTC 2014
+
+      System load: 0.32             Memory usage: 6%   Processes:       118
+      Usage of /:  9.7% of 7.74GB   Swap usage:   0%   Users logged in: 0
+
+      => There are 2 zombie processes.
+
+      Graph this data and manage this system at:
+        https://landscape.canonical.com/
+
+      Get cloud support with Ubuntu Advantage Cloud Guest:
+        http://www.ubuntu.com/business/services/cloud
+
+    0 packages can be updated.
+    0 updates are security updates.
+
+
+
+    The programs included with the Ubuntu system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+    applicable law.
+
+    ubuntu@ip-172-31-27-38:~$ 
+
+
+Step 3) Install prerequisites
+--------------------------------------
+
+Install Cassandra
+
+    sudo vim /etc/apt/sources.list.d/cassandra.sources.list
+        
+        deb http://debian.datastax.com/community stable main
+
+    curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
+    sudo apt-get update
+    sudo apt-get install -y cassandra=2.0.7
+
+Install ORACLE JAVA 1.7
+
+    sudo apt-get install -y python-software-properties
+    sudo add-apt-repository ppa:webupd8team/java
+
+        PRESS ENTER
+
+    sudo apt-get update
+    sudo apt-get install -y oracle-java7-installer
+
+        PRESS ENTER for "OK"
+        SELECT "Yes" and press ENTER
+
+Install GOLANG
+
+    sudo apt-get install -y golang git make mercurial
+
+Start cassandra:
+
+    sudo cassandra
+
+You should see a bunch of text scroll, ending with:
+
+    INFO 17:24:59,576 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-3-Data.db (114 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=91604)
+    INFO 17:24:59,644 CFS(Keyspace='system', ColumnFamily='local') liveRatio is 27.44988344988345 (just-counted was 3.515151515151515).  calculation took 5ms for 257 cells
+    INFO 17:24:59,644 Enqueuing flush of Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
+    INFO 17:24:59,645 Writing Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
+    INFO 17:24:59,677 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-4-Data.db (5275 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=103603)
+    INFO 17:24:59,693 Compacting [SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-1-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-3-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-4-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-2-Data.db')]
+    INFO 17:24:59,780 Node localhost/127.0.0.1 state jump to normal
+
+
+Press ENTER to return to the command-line.
+
+Step 3) Install Canopy
+
+Clone the repository:
+
+    git clone https://github.com/canopy-project/canopy-cloud
+
+Build the project:
+
+    cd canopy-cloud
+    make
+
+You should see this output:
+
+    make -C src/canopy go_get_deps
+    make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+    mkdir -p ~/.canopy/golang
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.net/websocket
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gocql/gocql
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/sessions
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/context
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/mux
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/sendgrid/sendgrid-go
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.crypto/bcrypt
+    make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+    make -C src/canopy all
+    make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+    mkdir -p ~/.canopy/golang
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy-cloud-service.go canopy_cloud.go canopy_json.go
+    mkdir -p build/
+    mv canopy-cloud-service build/
+    mkdir -p ~/.canopy/golang
+    GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy_cmd.go
+    mkdir -p build/
+    mv canopy_cmd build/canodevtool
+    make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+
+Install it:
+    
+    sudo make install
+
+You should see this output:
+
+     src/canopy install
+     make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+     cp build/canopy-cloud-service build/canodevtool /usr/local/bin
+     cp ../../scripts/canopy-cloud-service /etc/init.d
+     mkdir -p /etc/canopy
+     cp ../../scripts/ccs-env.sh /etc/canopy
+     ../../scripts/create-canopy-group-user.sh
+     id: canopy: no such user
+     Adding group `canopy' (GID 114) ...
+     Done.
+     id: canopy: no such user
+     Adding system user `canopy' (UID 108) ...
+     Adding new user `canopy' (UID 108) with group `canopy' ...
+     Not creating home directory `/home/canopy'.
+     mkdir -p /var/log/canopy
+     touch /var/log/canopy/ccs.log
+     touch /var/log/canopy/ccs-errors.log
+     chown canopy /var/log/canopy
+     chgrp canopy /var/log/canopy
+     chown canopy /var/log/canopy/ccs.log
+     chgrp canopy /var/log/canopy/ccs.log
+     chown canopy /var/log/canopy/ccs-errors.log
+     chgrp canopy /var/log/canopy/ccs-errors.log
+     make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+
+Create the database:
+
+    canodevtool create-db
+
+You should see this output:
+
+    Error opening file /var/log/canopy/ccs.log:  open /var/log/canopy/ccs.log: permission denied
+    Falling back to STDOUT for logging
+    WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched input '(' expecting ')'
+
+Configure the instance:
+
+    sudo vim /etc/canopy/ccs-env.sh
+
+    CCS_ALLOW_ORIGIN=http://devel.canopy.link
+    CCS_HOSTNAME=54.68.36.105
+    CCS_DEFAULT_PROXY_TARGET=http://74.93.13.249:8080
+
+
+Step 3: Run Canopy Cloud Service
+
+     sudo /etc/init.d/canopy-cloud-service start
+
+     sudo /etc/init.d/canopy-cloud-service status
+
+You should see:
+     * Canopy Cloud Service is running
+
+
+
+/*
+ * TODO: 
+ * - By default, don't have the proxy target stuff.
+ *
+ * - Host the app pages.
+ */

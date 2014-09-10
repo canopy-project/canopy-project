@@ -85,6 +85,21 @@ body {
     color: #153060;
 }
 
+.code_output {
+    display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+    background: #f0f0f0;
+    padding: 13pt;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    max-height: 150px;
+    overflow: auto;
+    color: #000000;
+}
+
 #codesample-inner {
     unicode-bidi: embed;
     font-family: monospace;

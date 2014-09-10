@@ -1,10 +1,12 @@
+var _RELATIVE_PATH = (typeof v === "undefined") ? "" : RELATIVE_PATH;
+
 function RenderTopbar(page) {
     function writeLink(link, name, selected) {
         if (selected) {
-            return "<div class='topbar_button w400'><a href=" + link + ">" + name + "</a></div>";
+            return "<div class='topbar_button w400'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
         else {
-            return "<div class='topbar_button'><a href=" + link + ">" + name + "</a></div>";
+            return "<div class='topbar_button'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
     }
     document.write("<div style='min-width:1004px'>\
@@ -25,10 +27,10 @@ function RenderTopbar(page) {
 function RenderDevZoneMenu(page) {
     function writeLink(link, name, selected) {
         if (selected) {
-            return "<div class='topbar_button w400'><a href=" + link + ">" + name + "</a></div>";
+            return "<div class='topbar_button w400'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
         else {
-            return "<div class='topbar_button'><a href=" + link + ">" + name + "</a></div>";
+            return "<div class='topbar_button'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
     }
     document.write("<div style='min-width:1004px'>\

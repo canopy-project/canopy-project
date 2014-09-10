@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../canopy_project.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='../canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<!-- TOP NAVIGATION BAR -->
+<script>RenderTopbar("devzone");</script>
+
+<!-- SUB MENU -->
+<div style='min-width:1004px'>
+    <div class='topbar-outer'>
+        <div class=center_channel>
+        <div style='padding-top:2px;padding-bottom:2px;'>
+            <a href='../dz_cloud.html' class='w400'>Cloud</a> &rarr; 
+            <span class='w400'>Guide: Setup EC2 Instance</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class=center_channel>
+    <br><div class='big w400'>Guide: Setup EC2 Instance</div>
+    <br>This is a step-by-step guide for launching an EC2 instance that hosts
+    the Canopy Cloud Service.
+
+    <br><br><div class='big w400'>Step 1: Launch an Ubuntu 14.04 instance</div>
+
+    <br><b>1.1</b>&nbsp; From the Amazon EC2 Management Console, click "Launch Instance":<br>
+
+    <br><center><img src=ec2_cloud_tut1.jpg></img></center><br>
+
+    <b>1.2</b>&nbsp; Select "Ubuntu Server 14.04 LTS" when asked to choose an AMI:<br>
+
+    <br><center><img src=ec2_cloud_tut2.jpg></img></center><br>
+
+    <b>1.3</b>&nbsp; Select the desired instance type.  For now, we will just use the smallest
+    instance available.  Click "Review and Launch":<br>
+
+    <br><center><img src=ec2_cloud_tut3.jpg></img></center><br>
+
+    <b>1.4</b>&nbsp; Everything looks good.  Click "Launch":<br>
+
+    <br><center><img src=ec2_cloud_tut4.jpg></img></center><br>
+
+    <b>1.5</b>&nbsp; You will be prompted about selecting a key pair.  Choose "Create a new key
+    pair" and call it "canopy-ec2".  Download the key pair.  This is very
+    important!  These keys are the only way to access the instance and cannot
+    be downloaded again once the instance is created.  Finally, click "Launch
+    Instance":<br>
+
+    <br><center><img src=ec2_cloud_tut5.jpg></img></center><br>
+
+    <b>1.6</b>&nbsp; Click on the instance name to view its status:<br>
+
+    <br><center><img src=ec2_cloud_tut6.jpg></img></center><br>
+
+    <b>1.7</b>&nbsp; Take note of the public IP address.  You will need this
+    later to SSH into the server:<br>
+
+    <br><center><img src=ec2_cloud_tut7.jpg></img></center><br>
+
+    <b>1.8</b>&nbsp; One last thing.  We need to change the firewall to allow
+    incoming HTTP/HTTPS packets.  Click on the instance's "Security Group" to
+    modify it:<br>
+
+    <br><center><img src=ec2_cloud_tut8.jpg></img></center><br>
+
+    <b>1.9</b>&nbsp; Under the "Inbound" tab, click "Edit":<br>
+
+    <br><center><img src=ec2_cloud_tut9.jpg></img></center><br>
+
+    <b>1.9</b>&nbsp; Add rules for "HTTP" and "HTTPS".  Then click "Save".<br>
+
+    <br><center><img src=ec2_cloud_tut10.jpg></img></center><br>
+
+    <br><br><div class='big w400'>Step 2: SSH into the server</div>
+
+    <br>For this you will need:
+    <ul>
+        <li>The instance's public IP address from step 1.7</li>
+        <li>The downloaded canopy-ec2.pem file from step 1.5</li>
+    </ul>
+    
+    <br><b>2.1</b>&nbsp; First, change the permissions of the .pem file.
+    Otherwise, SSH will reject it.<br>
+    <div class=code>chmod 400 canopy-ec2.pem</div>
+
+    <br><b>2.2</b>&nbsp; SSH into the instance from the terminal using the .pem
+    file:
+    <div class=code>ssh -i canopy-ec2.pem ubuntu@PUBLIC_IP</div>
+
+    <br>For example:
+    <div class=code>ssh -i canopy-ec2.pem ubuntu@54.68.36.105</div>
+
+    You should see the following output in your terminal:
+
+    <br>
+    <div class=code>Welcome to Ubuntu 14.04 LTS (GNU/Linux 3.13.0-29-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Mon Sep  8 16:11:10 UTC 2014
+
+  System load: 0.32             Memory usage: 6%   Processes:       118
+  Usage of /:  9.7% of 7.74GB   Swap usage:   0%   Users logged in: 0
+
+  => There are 2 zombie processes.
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+ubuntu@ip-172-31-27-38:~$ 
+    </div>
+
+    <br><br><div class='big w400'>Step 3: Install Canopy Cloud Service</div>
+    <Br>Follow these instructions: <a href=install_ccs_ubuntu_1404.html>Guide: Install CCS on Ubuntu 14.04</a>
+
+</div>
+<br><br><br>
+<div style='background:#c0c0c0; min-width:960'>
+    <div class=center_channel>
+    <div class=w400>
+        <br>
+        Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+        <br><br><br>
+    </div>
+</div>
+
+</body>
+
+</html>
+
+

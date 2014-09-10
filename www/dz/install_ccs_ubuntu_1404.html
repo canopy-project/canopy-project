@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../canopy_project.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='../canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<!-- TOP NAVIGATION BAR -->
+<script>var RELATIVE_PATH = "../"; </script>
+<script>RenderTopbar("devzone");</script>
+
+<!-- SUB MENU -->
+<div style='min-width:1004px'>
+    <div class='topbar-outer'>
+        <div class=center_channel>
+        <div style='padding-top:2px;padding-bottom:2px;'>
+            <a href='../dz_cloud.html' class='w400'>Cloud</a> &rarr; 
+            <span class='w400'>Guide: Install CCS on Ubuntu 14.04 LTS</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class=center_channel>
+    <br><div class='big w400'>Guide: Install CCS on Ubuntu 14.04 LTS</div>
+    <br>These are the instructions for installing Canopy Cloud Service from
+    source on a fresh Ubuntu 14.04 LTS machine.
+
+    <br><br>If you need an Ubuntu 14.04 server, you can use an Amazon EC2
+    instance.  See: <a href=launch_ec2_instance.html>Guide: Setup EC2 Instance</a>.
+
+    <br><br><div class='big w400'>Step 1: Install Dependencies</div>
+
+    Canopy requires Cassandra, Oragle Java 1.7, and Go-lang in order to run.
+
+    <br><br><b>1.1</b>&nbsp; Install Cassandra:<br>
+
+    <br>Using the text editor of your choice, edit <div class=icode>/etc/apt/sources.list.d/cassandra.sources.list</div>:
+    <div class=code>sudo vim /etc/apt/sources.list.d/cassandra.sources.list</div>
+
+    <br>Add the following line:
+       
+    <div class=code>deb http://debian.datastax.com/community stable main</div>
+
+    <br>Save and exit.  Then run:
+
+    <div class=code>curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y cassandra=2.0.7</div>
+
+    <br><br><b>1.2</b>&nbsp; Install Oracle Java 1.7:<br>
+  
+    <br>Run:
+    <div class=code>sudo apt-get install -y python-software-properties
+sudo add-apt-repository ppa:webupd8team/java</div>
+
+    <br>Press ENTER when prompted.  The run:
+
+    <div class=code>sudo apt-get update
+sudo apt-get install -y oracle-java7-installer</div>
+
+    <br>When prompted, press ENTER.  Then select "Yes"
+    and press ENTER.
+
+    <br><br><b>1.3</b>&nbsp; Install Go-lang<br>
+    <div class=code>sudo apt-get install -y golang git make mercurial</div>
+
+    <br><br><div class='big w400'>Step 2: Install Canopy Cloud Service</div>
+
+    <br>Clone the repository:
+
+    <div class=code>git clone https://github.com/canopy-project/canopy-cloud</div>
+
+    <br>Build the project:
+
+    <div class=code>cd canopy-cloud
+make</div>
+
+    <br>You should see this output:
+
+    <div class=code_output>make -C src/canopy go_get_deps
+make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+mkdir -p ~/.canopy/golang
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.net/websocket
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gocql/gocql
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/sessions
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/context
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/mux
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/sendgrid/sendgrid-go
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.crypto/bcrypt
+make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+make -C src/canopy all
+make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+mkdir -p ~/.canopy/golang
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy-cloud-service.go canopy_cloud.go canopy_json.go
+mkdir -p build/
+mv canopy-cloud-service build/
+mkdir -p ~/.canopy/golang
+GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy_cmd.go
+mkdir -p build/
+mv canopy_cmd build/canodevtool
+make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+    </div>
+
+    <br>Install it:
+
+    <div class=code>sudo make install</div>
+
+    <br>You should see this output:
+
+    <div class=code_output>src/canopy install
+make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+cp build/canopy-cloud-service build/canodevtool /usr/local/bin
+cp ../../scripts/canopy-cloud-service /etc/init.d
+mkdir -p /etc/canopy
+cp ../../scripts/ccs-env.sh /etc/canopy
+../../scripts/create-canopy-group-user.sh
+id: canopy: no such user
+Adding group `canopy' (GID 114) ...
+Done.
+id: canopy: no such user
+Adding system user `canopy' (UID 108) ...
+Adding new user `canopy' (UID 108) with group `canopy' ...
+Not creating home directory `/home/canopy'.
+mkdir -p /var/log/canopy
+touch /var/log/canopy/ccs.log
+touch /var/log/canopy/ccs-errors.log
+chown canopy /var/log/canopy
+chgrp canopy /var/log/canopy
+chown canopy /var/log/canopy/ccs.log
+chgrp canopy /var/log/canopy/ccs.log
+chown canopy /var/log/canopy/ccs-errors.log
+chgrp canopy /var/log/canopy/ccs-errors.log
+make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+    </div>
+
+    <br>Start Cassandra running:
+
+    <div class=code>sudo cassandra</div>
+
+You should see a bunch of text scroll, ending with:
+
+    <div class=code_output>INFO 17:24:59,576 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-3-Data.db (114 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=91604)
+INFO 17:24:59,644 CFS(Keyspace='system', ColumnFamily='local') liveRatio is 27.44988344988345 (just-counted was 3.515151515151515).  calculation took 5ms for 257 cells
+INFO 17:24:59,644 Enqueuing flush of Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
+INFO 17:24:59,645 Writing Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
+INFO 17:24:59,677 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-4-Data.db (5275 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=103603)
+INFO 17:24:59,693 Compacting [SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-1-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-3-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-4-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-2-Data.db')]
+INFO 17:24:59,780 Node localhost/127.0.0.1 state jump to normal
+</div>
+
+    <br>Press ENTER to return to the command-line.
+
+    <br>Create the database:
+
+    <div class=code>canodevtool create-db</div>
+
+    <br>Don't worry if there are errors.  You should see this output:
+
+    <div class=code_output>Error opening file /var/log/canopy/ccs.log:  open /var/log/canopy/ccs.log: permission denied
+Falling back to STDOUT for logging
+WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched input '(' expecting ')'</div>
+
+    <br><br><div class='big w400'>Step 3: Configure, Run and Test</div>
+
+    One last step before running Canopy Cloud Service.  We must configure it.
+    Edit the file <div class=icode>/etc/canopy/ccs-env.sh</div>
+
+    <div class=code>CCS_ALLOW_ORIGIN=http://devel.canopy.link
+CCS_HOSTNAME=54.68.36.105
+CCS_DEFAULT_PROXY_TARGET=http://74.93.13.249:8080</div>
+
+    <br>Change the CCS_HOSTNAME to match the IP address or hostname of your server.
+
+    <br><br>Now, you can start the Canopy Cloud Service</br>
+
+    <div class=code>sudo /etc/init.d/canopy-cloud-service start</div>
+
+    To check that it is working, go to <div
+    class=icode>http://&lt;ip_address&gt;/me</div> in your web browser.  You
+    should see the following response:
+
+    <div class=code>{"result" : "error", "error_type" : "not_logged_in"}</div>
+
+    <br>If you see anything other than that, there was most likely a problem.  You
+    can view the log file by typing:
+
+    <div class=code>cat /var/log/canopy/ccs.log</div>
+
+</div>
+<br><br><br>
+<div style='background:#c0c0c0; min-width:960'>
+    <div class=center_channel>
+    <div class=w400>
+        <br>
+        Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+        <br><br><br>
+    </div>
+</div>
+
+</body>
+
+</html>
+
+
