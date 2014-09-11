@@ -1,7 +1,6 @@
-var _RELATIVE_PATH = (typeof v === "undefined") ? "" : RELATIVE_PATH;
-
 function RenderTopbar(page) {
     function writeLink(link, name, selected) {
+        var _RELATIVE_PATH = (typeof RELATIVE_PATH == "undefined") ? "" : RELATIVE_PATH;
         if (selected) {
             return "<div class='topbar_button w400'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
@@ -26,6 +25,7 @@ function RenderTopbar(page) {
 
 function RenderDevZoneMenu(page) {
     function writeLink(link, name, selected) {
+        var _RELATIVE_PATH = (typeof RELATIVE_PATH == "undefined") ? "" : RELATIVE_PATH;
         if (selected) {
             return "<div class='topbar_button w400'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
