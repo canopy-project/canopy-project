@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../canopy_project.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='../canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<!-- TOP NAVIGATION BAR -->
+<script>var RELATIVE_PATH = "../"; </script>
+<script>RenderTopbar("devzone");</script>
+
+<!-- SUB MENU -->
+<div style='min-width:1004px'>
+    <div class='topbar-outer'>
+        <div class=center_channel>
+        <div style='padding-top:2px;padding-bottom:2px;'>
+            <a href='../dz_cloud.html' class='w400'>Cloud</a> &rarr; 
+            <span class='w400'>Guide: Install Canopy Web Manager</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class=center_channel>
+    <br><div class='big w400'>Guide: Install Canopy Web Manager</div>
+    <br>The <b>Canopy Web Manager</b> is a web-based user interface for managing
+    Canopy-enabled devices:<br><br>
+    <center>
+        <img src='../images/canopy_screenshot.jpg' width=720></img>
+    </center>
+
+    <br><br>The <b>Canopy Web Manager</b> is easy to install because it
+    consists entirely of Javascript (.js) and HTML (.html) files.
+
+    <br><br><div class='big w400'>Step 1: Prerequisites</div><br>
+
+    You must first have a running <b>Canopy Cloud Service</b> server.  If you
+    haven't done so already, follow these guides to get <b>Canopy Cloud
+    Service</b> up and running:
+    <ul>
+        <li><a href='launch_ec2_instance.html'>Guide: Setup EC2 Instance</a></li>
+        <li><a href='install_ccs_ubuntu_1404.html'>Guide: Install CCS on Ubuntu 14.04 LTS</a></li>
+    </ul>
+
+    <br><div class='big w400'>Step 2: Get the Source</div><br>
+
+    The <b>Canopy Web Manager</b> is built using our <b>Canopy Javascript
+    Client Library</b>.  You must clone both repos:
+
+    <div class=code>git clone https://github.com/canopy-project/canopy-js-client
+git clone https://github.com/canopy-project/canopy-app</div>
+    
+    <br><div class='big w400'>Step 3: Configure the Canopy Web Manager</div><br>
+
+    In the <div class=icode>canopy-app/</div> directory create a file called
+    <div class=icode>canoweb.conf.js</div>.  Copy the following text into this
+    file and then make any appropriate changes:
+
+    <div class=code>/* Canopy Web Application Configuration File.
+ *
+ * DO NOT COMMIT THIS FILE TO GIT.
+ * This file differs for each deployment of the Canopy Web Application.
+ */
+var gCanopyWebAppConfiguration = {
+    autoRefresh: true,
+    cloudHost : "54.68.36.105",
+    cloudHTTPPort : 80,
+    cloudUseHTTPS : false,
+    javascriptClientURL: "/canopy-js-client/canopy_client.js"
+};
+    
+    </div>
+
+    The only change you should need to make is to the <div
+    class=icode>cloudHost</div> setting.  Set it to the IP address or hostname
+    of your server.
+
+    <br><br><div class='big w400'>Step 4: Enable Web Manager in the Canopy Cloud Service</div><br>
+
+    Using the text editor of your choice, edit the file <div class=icode>/etc/canopy/ccs-env.sh</div>.
+
+    <div class='code'>sudo vim /etc/canopy/ccs-env.sh</div>.
+
+    Add the following lines:
+
+    <div class='code'>CCS_WEB_MANAGER_PATH=/home/ubuntu/canopy-app
+CCS_JS_CLIENT_PATH=/home/ubuntu/canopy-js-client
+    </div>.
+    
+    <br><br><div class='big w400'>Step 5: Restart the Canopy Cloud Service</div><br>
+
+    Run:
+
+    <div class='code'>sudo /etc/init.d/canopy-cloud-service restart</div>
+
+    Now in your browser go to:
+
+    <div class='code'>http://&lt;ip-address-or-hostname&gt;/mgr</div>
+    
+    If everything worked, you should see a login page.
+
+</div>
+
+<br><br><br>
+<div style='background:#c0c0c0; min-width:960'>
+    <div class=center_channel>
+    <div class=w400>
+        <br>
+        Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+        <br><br><br>
+    </div>
+</div>
+
+</body>
+
+</html>
+
+
+
