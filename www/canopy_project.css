@@ -491,3 +491,8 @@ a.logo:hover
 .row_gray td {
     background: #f4f4f4;
 }
+
+.darkbottom a {
+    color: #ffffff;
+    text-decoration: underline;
+}
