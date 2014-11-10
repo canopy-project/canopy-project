@@ -24,13 +24,12 @@
             </div>
             <div style='position: relative'>
                 <div class=main_banner-text>
-                    Internet of Things<br>
-                    made simple.<br>
+                    The open cloud<br>for IoT.
                 </div>
                 <div class=main_banner-small-text>
-                    Monitor.  &nbsp;Control. &nbsp;Share.<br><br>
-                    Canopy is an open source IoT software platform that is
-                    exceptionally easy to use and develop for.
+                    Canopy brings the power<br>of the cloud to firmware.
+                    <bR>
+                    <br>And makes IoT applications<br>simple to develop.
                 </div>
             </div>
             <br><br>
@@ -40,15 +39,54 @@
 
 <!-- FEATURES SECTION -->
 <div class=features-outer>
+
     <div class=center_channel>
-        <h1>Beautiful Control. &nbsp;From Anywhere.</h1>
-        <table width=100%><tr><td width=240>
-        <img src=images/iphone-with-fan_240x123.jpg>
-        </td><td valign=top style='padding:32px'>
-            Canopy-enabled devices can be controlled from the web or your
-            phone.<br>At home or on the go.<br><br>Each device has a unique interface that manufacturers can customize to match the look-and-feel
-            of the real thing.
-        </td></tr></table>
+        <h1>Cloud Variables</h1>
+        <span style='font-size:24px'>
+            Canopy's <span class=hvy>Cloud Variables</span> synchronize variables
+            in firmware with variables in apps, using the cloud as a broker.  <i>This makes it easy to rapidly develop and deploy cloud-based IoT solutions.</i>
+        </span>
+    </div>
+
+    <br><div style='background:#f0f0f0'>
+        <div class=center_channel>
+            <table width=100%>
+                <tr>
+                    <td style="border-right:2px dashed #808080; padding:16px;"  valign=top width=50%><b>Embedded Code (Device Firmware)</b><br><br>
+                        <div style="font-size: 15px; background: black; border-radius:4px; padding:8px; font-family:monospace; color:#40ff40">
+                            #include &lt;canopy.h&gt;<br>
+                            ...<br>
+                            canopy_var_set_bool("toast_ready", true);
+                        </div>
+                        <br><br><a style='font-size:20px' href='developer_zone.html'><i>Learn more about coding with Cloud Variables</i></a>
+                    </td>
+                    <td width=50% style='padding:16px' valign=top><b>Application or Server Code</b><br><br>
+                        <div style="font-size: 15px; background: #c8c8f4; border-radius:4px; padding:8px; font-family:monospace; color:#202020">
+                            &lt;script src="canopy-client.js"&gt;&lt;/script&gt;<br>
+                            ...<br>
+                            canopy.device(id).var("toast_ready").onChange(<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;function(value, error) { alert(value); }<br>
+                            );
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br>
+    <div class=center_channel>
+        <span style='font-size:24px'>
+            <span class=hvy>Cloud Variables</span> are extremely flexible and
+            can be used for sensor data monitoring, remote configuration and
+            remote control.
+
+            <br><br>
+            The <span class=hvy>Canopy Cloud</span> automatically tracks the
+            historical values of each <span class=hvy>Cloud Variable</span>, so
+            you can generate plots and perform analytics.
+
+        </span>
     </div>
 
     <div class=center_channel>
@@ -101,21 +139,6 @@
     </div>
 
     <div class=center_channel>
-        <h1>Completely Open Source</h1>
-        <table width=100%><tr><td width=240>
-            <img src=images/shutterstock_178775597_freedom_h175.jpg style='border-radius:8px' width=210>
-        </td><td valign=top style='padding:32px'>
-            It's simple, really.  We believe that the Internet of Things, like the World
-            Wide Web, should be based on open software and royalty-free standards.
-
-            <br><br>That's why we've made all of our source code available
-            under the highly-permissive Apache License v2.0, and all of our
-            specifications and documentation available under the Creative
-            Commons Attribution 4.0 International License.
-        </td></tr></table>
-    </div>
-
-    <div class=center_channel>
         <h1>Free hosting.  Worry-free cloud.</h1>
         <table width=100%><tr><td width=240>
             <img src=images/shutterstock_90189298_cloud_215x155.jpg>
@@ -143,6 +166,8 @@
     <div class='center_channel w400'>
         <br>
         Twitter: <a target=_blank href=http://twitter.com/CanopyIOT>@CanopyIOT</a>
+
+        <br><br>The OSI logo trademark is the trademark of Open Source Initiative.  This site is not affiliated with or endorsed by the Open Source Initiative.
         <br><br><br>
     </div>
 </div>
