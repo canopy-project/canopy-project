@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="canopy_project.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div style='text-align: center; border-bottom: 1px solid #c0c0c0;'>
+    <div style='padding: 20px;'>
+        <div style='display:inline-block; margin-right:80px'>Home</div>
+        <div style='font-weight: 400; display:inline-block; margin-right:80px'>Developer Zone</div>
+        <div style='display:inline-block;'>Join</div>
+    </div>
+</div>
+<br>
+<table>
+    <tr>
+        <td valign=top>
+        <div style='display: inline-block; padding:40px; border-right: 1px solid #c0c0c0'>
+
+            Overview<br><br>
+
+            Guides<br>
+            <div style='padding-left: 20px; display: inline-block; font-size: 16px'>
+                Cloud Variable Basics<br>
+                Cloud Service Installation<br>
+            </div>
+            <br><br>
+
+            Examples<br><br>
+
+            Specifications<br><br>
+
+            Other Resources<br>
+            <br><br><br><br>
+        </div>
+        </td>
+        <td valign=top style='padding: 40px'>
+            <div style='margin-bottom:.5em; font-size: 40px'>Chapter 1: Introducing Cloud Variables</div>
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>1.1 What is a Cloud Variable?</div>
+
+            A Cloud Variable is a piece of data that is stored in the cloud and
+            is associated with a particular device.
+
+            <br><br>
+            Cloud Variables are designed to address some of the common
+            engineering challenges encountered when developing IoT devices and
+            applications:
+            <ul>
+                <li>Time-series sensor data storage in the cloud.</li>
+                <li>Device status reporting &amp; monitoring.</li>
+                <li>Remote device configuration.</li>
+                <li>Remote device control.</li>
+            </ul>
+
+            In many ways, a Cloud Variable is like a traditional variable in a
+            computer program.
+            Each Cloud Variable has a name, such as <div class=icode>temperature</div>.
+            Each has a datatype, such as <div class=icode>float32</div>.  Each
+            has a value, such as <div class=icode>98.7</div>.  Cloud Variables
+            may be members of structures (<div class=icode>gps.latitude</div>),
+            and the structures themselves are considered Cloud Variables (<div class=icode>gps</div>).  You can create arrays of Cloud Variables (<div class=icode>cpu_level[3]</div>) as well as associative arrays
+            (<div class=icode>weight['Johny']</div>).
+
+            <br><br>
+            In other ways, Cloud Variables are critically different from normal
+            programming variables.  First of all, Cloud Variables are stored
+            in a NoSQL database and are accessed using RESTful web-based
+            protocols.  This makes them several orders-of-magnitude slower than
+            normal variables, but also makes them persistent and accessible
+            from anywhere in world (or at least anywhere with an internet
+            connection).  A second difference is that the historical values for
+            each Cloud Variable are saved in the database and kept for some
+            time.  This makes them well-suited for storing
+            sensor data and other time-series data.  A third difference is that
+            each Cloud Variable has additional <b>metadata</b> associated with it
+            that may include input validation constraints (<div
+            class=icode>min-value : -50.0</div>), units (<div class='icode'>units : "degrees_c"</div>) and hints about usage for
+            third-party applications (<div class='icode'>numeric-display-hint : "scientific"</div>).
+
+            <br><br>
+
+            Developing a cloud-managed product is a complicated undertaking,
+            and Canopy Cloud Variables are just one piece of the puzzle.  That
+            said, Cloud Variables are an extremely useful abstraction that
+            can accelerate IoT product development dramatically.
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>1.2 Supported Languages and Platforms</div>
+
+            Canopy Cloud Variables are intended to be <b>agnostic</b> to
+            programming language, IDE, and hardware platform.  To achieve this,
+            we embrace web technologies (such as HTTP, REST, WebSockets, and
+            JSON) which are supported in nearly every programming language on
+            practically every hardware platform.
+            
+            <br><br>The reality, however, is slightly murkier.  Although you
+            <i>could</i> use our <b>HTTP REST API</b> directly, doing
+            so may involve a lot of code and may not have great performance.
+            You would <i>much rather</i> use a <b>Native Client
+            Library</b>.  The Native Client Libraries are easier to use and
+            have better performance because they use WebSockets to communicate
+            with the server.
+
+            <br><br>At this time, we have official support for the following
+            Native Client Libraries:
+
+            <ul>
+                <li><b>Embedded:</b> C Client Library (requires linux-based OS)</li>
+                <li><b>Application:</b> Javascript Client Library (in-browser only)</li>
+            </ul>
+
+            If you are a developer, one of the best ways to contribute
+            to the Canopy open source project is to develop a Native
+            Client Library for your favorite language.
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>1.3 The Players</div>
+
+            One more topic before we dive in: Cloud
+            Variables are used by different parties in different ways.  It is
+            important to understand who all the "players" are and how Cloud
+            Variables enable interoperability between them.
+
+            <br><br>
+            <b>Embedded developers</b>.  Embedded developers are the folks who
+            write "firmware" that runs on the IoT device's SoC or
+            microcontroller.  Embedded developers use Cloud Variables to report
+            device status and sensor readings to the cloud, and also to receive
+            remote control and configuration instructions.
+
+            <br><br>
+            <b>Application developers</b>.  Application developers are the
+            people who write mobile, web, desktop, and/or server applications
+            that remotely monitor and control IoT devices.  Application
+            developers may read and/or modify a device's Cloud Variables
+            provided they have appropriate credentials and permissions.
+
+            <br><br>
+            There are two types of application developer.  An <b>in-house
+            application developer</b> works for the same company that is
+            developing the IoT product.  A <b>third-party application
+            developer</b> is independent and does not work for that company.  Cloud Variables may be used by either
+            type of app developer, as long as the Cloud Variable's
+            permissions are configured to allow it.
+
+            <br><br>
+            <b>Cloud operations engineer</b>.  Cloud operations engineers setup
+            and maintain the server instances that run the Canopy Cloud
+            Service.  They are responsible for configuring and scaling the
+            Cloud Service and the Cassandra database (used by the Cloud
+            Service).  One option is to use our <b>free or premium hosting
+            services</b>, in which case you will not need any cloud operation
+            engineers.
+
+            <br><br>
+            <b>End user</b>.  The end user interacts with both the physical
+            device and the device's application(s), but does not directly use
+            (or even know about) Canopy or Cloud Variables.  Just like you
+            don't know (or care) whether Apache or Nginx is serving you this
+            web page.
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>1.4 "Hello IoT"</div>
+            Ok, enough talk: let's see Cloud Variables in action.
+
+            <br><br>
+            First, you need a type-4 UUID to identify your "device".  You can generate one from the linux
+            command-line with:
+            <div class=code>uuid -v4</div>
+            or you can use this one (which is dynamically generated each time this page is reloaded):
+
+            <div class=code><script>document.write('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+                        function(c) { var r = Math.random()*16|0, v = c == 'x'
+                        ? r : (r&0x3|0x8); return v.toString(16); }));</script></div>
+
+            Whenever the Canopy Cloud Service encounters a UUID for the first
+            time, it creates a new <b>device resource</b>.  The <b>device
+            resource</b> does not necessarily correspond to a real, physical IoT
+            device (although it typically does).  In this example, our "device"
+            will just be you sending some commands to the server with <div class=icode>curl.
+
+            <br><br>
+            Now that you have a UUID for your "device" (write it down!), you
+            can create a Cloud Variable by sending the following payload:
+
+            <div class=code>{
+    "vars" : {
+        "hello_iot" : 123.45
+    }
+}</div>
+
+            You can send this payload from the linux command-line with:
+
+            <div class=code>curl -d '{"vars" : { "hello_iot" : 123.45 } }' http://sandbox.canopy.link/di/&ltUUID&gt;</div>
+            Be sure to replace &lt;UUID&gt; with your UUID.
+
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>1.2 Getting Started Using CURL</div>
+            
+            The
+            device stores a <b>local copy</b> of the variable's metadata and value.
+            In parallel, the cloud stores a <b>remote copy</b>.  A
+            synchronization process updates both copies with the latest data.
+            <br><br>
+            Cloud Variables are stored by the Canopy Cloud Service using a
+            Cassandra database.
+    </tr>
+</table>
+
+<div style='padding: 30px; font-size: 15px; color:#ffffff; background:#404040; text-align:center'>
+    <div class='darkbottom' style='display: inline-block; text-align: left'>
+        <b>Twitter:</b> <a target=_blank href='http://twitter.com/CanopyIoT'>@CanopyIoT</a><br>
+        <b>Email:</b> info@canopy.link<br>
+        <b>Github:</b> <a target=_blank href='http://github.com/canopy-project'>http://github.com/canopy-project</a><br><br>
+        Copyright 2014 SimpleThings, Inc.
+    </div>
+</div>
+</body>
+</html>
