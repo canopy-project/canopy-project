@@ -179,11 +179,12 @@
             time, it creates a new <b>device resource</b>.  The <b>device
             resource</b> does not necessarily correspond to a real, physical IoT
             device (although it typically does).  In this example, our "device"
-            will just be you sending some commands to the server with <div class=icode>curl.
+            will just be you sending some commands to the server with <div class=icode>curl</div>.
 
             <br><br>
             Now that you have a UUID for your "device" (write it down!), you
-            can create a Cloud Variable by sending the following payload:
+            can create a Cloud Variable by sending the following payload with
+            HTTP POST:
 
             <div class=code>{
     "vars" : {
@@ -193,19 +194,92 @@
 
             You can send this payload from the linux command-line with:
 
-            <div class=code>curl -d '{"vars" : { "hello_iot" : 123.45 } }' http://sandbox.canopy.link/di/&ltUUID&gt;</div>
+            <div class=code>curl -d '{"vars" : { "hello_iot" : 123.45 } }' http://sandbox.canopy.link/di/&lt;UUID&gt;</div>
             Be sure to replace &lt;UUID&gt; with your UUID.
 
-
-            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>1.2 Getting Started Using CURL</div>
-            
-            The
-            device stores a <b>local copy</b> of the variable's metadata and value.
-            In parallel, the cloud stores a <b>remote copy</b>.  A
-            synchronization process updates both copies with the latest data.
             <br><br>
-            Cloud Variables are stored by the Canopy Cloud Service using a
-            Cassandra database.
+            If all goes well, you will recieve the following response:
+
+            <div class=code>200 OK
+{
+    "result" : "ok"
+}</div>
+
+            In handling your request, the server takes several actions:
+            <ol>
+                <li>Creates a new <b>device resource</b> (because that UUID had never been encountered before).</li>
+                <li>Creates a new Cloud Variable for the device named "hello_iot" (because that variable name has never been encountered before).</li>
+                <li>Configures the "hello_iot" Cloud Variable with default setting and with datatype <div class=icode>float32</div> (because the initial value is numeric).</li>
+                <li>Stores the value <div class=icode>123.45</div> along with a timestamp.
+            </ol>
+
+            By default, the newly created <b>device resource</b> is configured
+            with open (and insecure) permissions: Anyone knowing the UUID can
+            access the device.  We call this an <b>anonymous device</b>.  This
+            makes it easy to get started quickly, without needing to create a
+            Canopy account or to register the device.  In later chapters we
+            will discuss how to restrict access to certain individuals.  For
+            now, these lax permissions are convenient for demonstration
+            purposes.
+
+            <br><br>
+
+            You can now get the device's status with:
+
+            <div class=code>curl http://sandbox.canopy.link/api/&lt;UUID&gt;</div>
+
+            The response will look something like:
+
+            <div class=code>200 OK
+{
+    "result" : "ok,
+    "connection" : {
+        "ws_connected" : false,
+        "last_http_timestamp" : "2014-11-08T18:42:30"
+    },
+    "sddl" : {
+        "float32 hello_iot" : {},
+    }
+    "sddl_hash" : "de9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3",
+    "vars" : {
+        "hello_iot" : {
+            "t" : "2014-11-08T18:42:30",
+            "v" : 123.45
+        }
+    }
+}
+            </div>
+
+            We will go over the details of this response in a later chapter,
+            but for now the takeaway is that you can easily obtain status,
+            including the latest value of each Cloud Variable, using an HTTP
+            request.
+
+            <br><br>
+
+            There's one more great feature you should know
+            about at this point: the <b>Canopy Web Manager</b>.  The <b>Canopy Web
+            Manager</b> creates an administrative web page for each device.
+            From this admin page, you can easily monitor, control, configure,
+            and register the device.
+
+            <br><br>To access a device using the <b>Canopy Web Manager</b> just point your web browser to:
+
+            <div class=code>http://sandbox.canopy.link/device/&lt;UUID&gt;</div>
+
+            <b>SCREENSHOT HERE</b>
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>1.5 Next Steps</div>
+
+            In this chapter we learned about Cloud Variables and how they
+            can be created using the Canopy REST API from the command line.  We
+            also were briefly introduced to the Canopy Management Interface.
+
+            <br><br>But the real power and convenience of Canopy comes from
+            using our <b>Native Client Libraries</b>.  The next chapter
+            introduces Canopy's C Client Library for embedded
+            developers.  Then Chapter 3 introduces Canopy's Javascript Client
+            Library for web application developers.
+
     </tr>
 </table>
 

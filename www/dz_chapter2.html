@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Canopy - An Open Source Platform for the Internet of Things</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="canopy_project.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+<link href='canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div style='text-align: center; border-bottom: 1px solid #c0c0c0;'>
+    <div style='padding: 20px;'>
+        <div style='display:inline-block; margin-right:80px'>Home</div>
+        <div style='font-weight: 400; display:inline-block; margin-right:80px'>Developer Zone</div>
+        <div style='display:inline-block;'>Join</div>
+    </div>
+</div>
+<br>
+<table>
+    <tr>
+        <td valign=top>
+        <div style='display: inline-block; padding:40px; border-right: 1px solid #c0c0c0'>
+
+            Overview<br><br>
+
+            Guides<br>
+            <div style='padding-left: 20px; display: inline-block; font-size: 16px'>
+                Cloud Variable Basics<br>
+                Cloud Service Installation<br>
+            </div>
+            <br><br>
+
+            Examples<br><br>
+
+            Specifications<br><br>
+
+            Other Resources<br>
+            <br><br><br><br>
+        </div>
+        </td>
+        <td valign=top style='padding: 40px'>
+            <div style='margin-bottom:.5em; font-size: 40px'>Chapter 2: Cloud Variables in Embedded C</div>
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.1 Embedded Development using Canopy</div>
+
+            This chapter is for embedded developers working on firmware for
+            smart products.  We will see how Canopy's Cloud Variables make it easy
+            to add cloud-based remote control and monitoring capabilities to
+            your product.
+            
+            <br><br>This chapter focuses on <div class=icode>libcanopy</div> which is Canopy's Embedded C Native Client Library.
+
+            <br><br>The <div class=icode>libcanopy</div> library is a C library, conforming to the ANSI C99 standard.  All API entrypoints are declared in a single header file: <div class=icode>canopy.h</div>.
+
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.2 Prerequisites</div>
+
+            In order to use <div class=icode>libcanopy</div>, your device needs:
+
+            <ul>
+                <li>An SoC or microcontroller capable of running
+                compiled C code.</li>
+                <li>A linux-based operating system.</li>
+                <li>Internet connectivity, with the ability to
+                support HTTPS (via libcurl) and WebSockets (via libwebsockets).</li>
+            </ul>
+            
+            In the future we hope to relax some of these constraints.  For now,
+            if your product does not meet these requirements, all hope is not
+            lost.  You may still be able to use Cloud Variables by using our REST
+            API directly (See Chapter 4).
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.3 Downloading and Building</div>
+
+            The Canopy Embedded Development Kit (including <div
+            class=icode>libcanopy</div>) can be built from source.
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Installing Required Packages (Ubuntu 14.04)</div>
+
+            <div class=code>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev</div>
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Installing Repo</div>
+            The Canopy Embedded Development Kit uses Repo, which is a tool that
+            makes it easier to work with multiple git repositories.
+
+            <br><br>
+            Download Repo and put it somewhere in your PATH:
+            <div class=code>curl https://storage.googleapis.com/git-repo-downloads/repo &gt; repo
+chmod a+x repo
+sudo cp repo /usr/local/bin</div>
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Initializing a Repo client</div>
+            After installing Repo, set up your client to access the Canopy
+            Embedded Development Kit repository.
+
+            <br><br>1) Create a working directory.  You can call it anything
+            you like:
+            <div class=code>mkdir canopy_embedded
+cd canopy_embedded
+</div>
+
+            <br>2) Run <div class=icode>repo init</div> to initialize the
+            client repository.
+            <div class=code>repo init -u https://github.com/canopy-project/canopy-embedded-manifest</div>
+            To check out a branch other than "master", specify it with -b:
+            <div class=code>repo init -u https://github.com/canopy-project/canopy-embedded-manifest -b beta</div>
+            <br>
+            3) Use <div class=icode>repo sync</div> to download sources to your working directory:
+            <div class=code>repo sync</div>
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Initializing the Build Environment</div>
+            Canopy's build system expects certain environment variables to be
+            set, which are initialized with the <div class=icode>envsetup.sh</div> script.
+            <div class=code>source build/envsetup.sh</div>
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Building and Installing</div>
+            To build and install <div class=icode>libcanopy</div> and all other components of the CEDK, run:
+            <div class=code>cd build
+make
+sudo make install
+</div>
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.4 libcanopy Overview</div>
+
+            <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.5 Initializing libcanopy</div>
+
+            1) Include canopy.h:
+            <div class=code>#include &lt;canopy.h&gt;</div>
+
+            <br>2) Most of libcanopy's state is contained in a Canopy Context object.
+            Initialize libcanopy by creating a Context:
+
+            <div class=code>int main(int argc, const char *argv[])
+{
+    CanopyContext ctx;
+    CanopyResult result;
+
+    ctx = canopy_init_context();
+    if (!ctx)
+    {
+        fprintf(stderr, "Failed to initialize Canopy Context\n");
+        return -1;
+    }</div>
+
+        <br>3) Configure the device's UUID and some other common options:
+
+            <div class=code>    result = canopy_set_opt(ctx,
+            CANOPY_DEVICE_UUID, "c31a8ced-b9f1-4b0c-afe9-1afed3b0c21f",
+            CANOPY_SYNC_BLOCKING, true,
+            CANOPY_SYNC_TIMEOUT_MS, 10000);
+    if (result != CANOPY_SUCCESS)
+    {
+        fprintf(stderr, "Failed to configure libcanopy\n");
+        return -1;
+    }
+</div>
+
+
+        <br>4) When you're done, shutdown Canopy for a clean exit:
+
+            <div class=code>    canopy_shutdown_context(ctx);
+    canopy_shutdown_library();
+
+    return 0;
+}</div>
+    
+    </div>
+
+        <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.6 Creating Cloud Variables</div>
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Creating Simple Cloud Variables</div>
+
+        A Cloud Variable can be created using <div
+        class=icode>canopy_var_set</div> or <div
+        class=icode>canopy_var_config</div>.  A Cloud Variable is created
+        locally whenever a new name is encountered.
+
+        <div class=code>    canopy_var_set(ctx, "temperature", CANOPY_FLOAT32(43.0f));</div>
+
+        The first time this is called, a Cloud Variable named "temperature" is
+        created locally.  Because <div class=icode>CANOPY_FLOAT32(...)</div> is
+        used, the variable is given the datatype <div
+        class=icode>float32</div> and is assigned the value <div class=icode>43.0f</div>.
+
+        <br><br>The Cloud Variable "temperature" now exists locally, but
+        the cloud (or remote server) doesn't know about it yet.  For that to happen, we need to call <div class=icode>canopy_sync</div>:
+
+        <div class=code>    canopy_sync(ctx, NULL);</div>
+
+        The <div class=icode>canopy_sync</div> command causes libcanopy to
+        initiate communications with the cloud server.  Once connected,
+        libcanopy and the cloud server will exchange information about all
+        Cloud Variables that has changed since the previous communication.
+
+        <br><br>To create a Cloud Variable without setting its initial value, use:
+
+        <div class=code>    canopy_var_config(ctx, "humidity", 
+            CANOPY_VAR_DATATYPE, CANOPY_DATATYPE_FLOAT32
+    );</div>
+        
+        <br>Another option is to load an SDDL file using <div
+        class=icode>canopy_load_sddl</div>, which is the best way to create and configure many
+        Cloud Variables at once.
+
+        <div class=code>    canopy_load_sddl(ctx, "thermostat.sddl");</div>
+        We'll talk more about this last technique later on.
+
+
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Creating Structures</div>
+        You can create a structure using:
+        <div class=code>    canopy_var_set(ctx, 
+            "gps", CANOPY_STRUCT(
+                "latitude", CANOPY_FLOAT32(-381.41983),
+                "longitude", CANOPY_FLOAT32(74.4243)
+              )
+      );</div>
+
+        This will create three Cloud Variables: "gps", which is a structure, and "gps.latitude", and "gps.longitude", which are members.
+
+        You can even nest structures:
+
+        <div class=code>    canopy_var_set(ctx,
+            "outer", CANOPY_STRUCT(
+                "middle", CANOPY_STRUCT(
+                    CANOPY_FLOAT32("a", 3.0f),
+                    CANOPY_FLOAT64("b", 4.0),
+                    "inner", CANOPY_STRUCT(
+                        CANOPY_INT8("x", 1),
+                        CANOPY_UINT8("y", 2)
+                    )
+                )
+            )
+    );</div>
+
+        Also, you can add members to an existing structure at any time:
+
+        <div class=code>    # This adds "altitude" to the existing "gps" structure
+        canopy_var_set(ctx,
+                "gps", CANOPY_STRUCT(
+                    "altitude", CANOPY_FLOAT32(-381.41983),
+                )
+        );</div>
+
+        Structures can also be created using canopy_var_config, although it
+        takes a bit more work, because only a single Cloud Variable can be
+        configured at a time:
+
+        <div class=code>    canopy_var_config(ctx, "accelerometer", 
+            CANOPY_VAR_DATATYPE, CANOPY_DATATYPE_STRUCTURE);
+
+    canopy_var_config(ctx, "accelerometer.x",
+            CANOPY_VAR_DATAYTPE, CANOPY_DATATYPE_FLOAT64);
+
+    canopy_var_config(ctx, "accelerometer.y",
+            CANOPY_VAR_DATAYTPE, CANOPY_DATATYPE_FLOAT64);
+
+    canopy_var_config(ctx, "accelerometer.z",
+            CANOPY_VAR_DATAYTPE, CANOPY_DATATYPE_FLOAT64);
+
+        </div>
+
+</div>
+
+        <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.7 Creating Arrays of Cloud Variables</div>
+        You can create fixed-size arrays of Cloud Variables.  Each element of
+        the array has the same datatype, type qualifiers, and metadata.  This example shows the creation of an array of structures with length 4.
+
+        <div class=code>    canopy_var_set(ctx, 
+            "outlet", CANOPY_ARRAY(
+                CANOPY_STRUCT(
+                    "amperage", CANOPY_FLOAT32(0.0f),
+                    "voltage", CANOPY_FLOAT32(110.0f),
+                ),
+                CANOPY_STRUCT(
+                    "amperage", CANOPY_FLOAT32(0.0f),
+                    "voltage", CANOPY_FLOAT32(110.0f),
+                ),
+                CANOPY_STRUCT(
+                    "amperage", CANOPY_FLOAT32(4.3238f),
+                    "wattage", CANOPY_FLOAT32(110.0f),
+                ),
+                CANOPY_STRUCT(
+                    "amperage", CANOPY_FLOAT32(0.0f),
+                    "voltage", CANOPY_FLOAT32(110.0f),
+                ),
+            )
+        );</div>
+
+        <br>To create an array without initializing all of its values, use <div class=icode>canopy_var_config</div>:
+
+        <div class=code>    canopy_var_config(ctx, "outlet",
+            CANOPY_VAR_DATATYPE, CANOPY_DATATYPE_ARRAY,
+            CANOPY_VAR_ARRAY_SIZE, 4);
+
+    canopy_var_config(ctx, "outlet[]", 
+            CANOPY_VAR_DATATYPE, CANOPY_DATATYPE_STRUCT);
+            
+    canopy_var_config(ctx, "outlet[].amperage", 
+            CANOPY_VAR_DATATYPE, CANOPY_DATATYPE_FLOAT32);
+
+    canopy_var_config(ctx, "outlet[].voltage", 
+            CANOPY_VAR_DATATYPE, CANOPY_DATATYPE_FLOAT32);</div>
+
+
+        <div style='margin-top:1em; margin-bottom:.5em; font-size: 30px'>2.7 Configuring Cloud Variables</div>
+            Cloud Variables have a datatype, qualifiers, and metadata that can
+            all be configured at runtime using <div class=icode>canopy_var_config</div> or <div class=icode>canopy_load_config</div>.
+
+            <div style='border-bottom:1px solid #d0d0d0; margin-top:1em; margin-bottom:.5em; font-size: 25px'>Datatypes</div>
+
+            A Cloud Variable has one of the following datatypes:
+            <table border=1 cellspacing=0 cellpadding=8 style='font-family: monospace;'>
+                <tr>
+                    <td>Datatype</td>
+                    <td>Descritpion</td>
+                </tr>
+                <tr>
+                    <td>BOOL</td>
+                    <td>Boolean value (true/false)</td>
+                </tr>
+                <tr>
+                    <td>DATETIME</td>
+                    <td>Date &amp; Time</td>
+                </tr>
+                <tr>
+                    <td>FLOAT32</td>
+                    <td>32-bit floating point number</td>
+                </tr>
+                <tr>
+                    <td>FLOAT64</td>
+                    <td>32-bit floating point number</td>
+                </tr>
+                <tr>
+                    <td>INT8</td>
+                    <td>8-bit signed integer</td>
+                </tr>
+                <tr>
+                    <td>INT16</td>
+                    <td>16-bit signed integer</td>
+                </tr>
+                <tr>
+                    <td>INT32</td>
+                    <td>32-bit signed integer</td>
+                </tr>
+                <tr>
+                    <td>STRING</td>
+                    <td>UTF-8 string</td>
+                </tr>
+                <tr>
+                    <td>STRUCT</td>
+                    <td>Structure</td>
+                </tr>
+                <tr>
+                    <td>UINT8</td>
+                    <td>8-bit unsigned integer</td>
+                </tr>
+                <tr>
+                    <td>UINT16</td>
+                    <td>16-bit unsigned integer</td>
+                </tr>
+                <tr>
+                    <td>UINT32</td>
+                    <td>32-bit unsigned integer</td>
+                </tr>
+            </table>
+
+            <br>There are three ways to configure a Cloud Variable's datatype.
+
+            <br><br>1) Because Cloud Variables are created on-demand, you can
+            configure a Cloud Variable's datatype by simply assigning it a
+            value of the desired dataype.  (To do: mutable or immutable?) For
+            example:
+
+            <div class=icode>
+                canopy_var_config
+                
+            </div>
+
+        </div>
+</div>
+
+    </td>
+            
+    </tr>
+</table>
+
+<div style='padding: 30px; font-size: 15px; color:#ffffff; background:#404040; text-align:center'>
+    <div class='darkbottom' style='display: inline-block; text-align: left'>
+        <b>Twitter:</b> <a target=_blank href='http://twitter.com/CanopyIoT'>@CanopyIoT</a><br>
+
+        <b>Email:</b> info@canopy.link<br>
+        <b>Github:</b> <a target=_blank href='http://github.com/canopy-project'>http://github.com/canopy-project</a><br><br>
+        Copyright 2014 SimpleThings, Inc.
+    </div>
+</div>
+</body>
+</html>
