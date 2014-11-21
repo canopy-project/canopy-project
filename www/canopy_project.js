@@ -23,6 +23,52 @@ function RenderTopbar(page) {
         </div>");
 }
 
+function RenderFooter() {
+    document.write("\
+    <div class='bg-darkgray footer centered'>\
+        <div class='footer-inner'>\
+            <table cellpadding=0 cellspacing=0>\
+                <tr>\
+                    <td class=footer-item>Twitter</td>\
+                    <td align=left>\
+                        <a target=_blank href='http://twitter.com/CanopyIoT'>\
+                            @CanopyIoT\
+                        </a>\
+                    </td>\
+                </tr>\
+                <tr>\
+                    <td class=footer-item>Email</td>\
+                    <td align=left>\
+                        <a target=_blank href='mailto:info@canopy.link'>\
+                            info@canopy.link\
+                        </a>\
+                    </td>\
+                </tr>\
+                <tr>\
+                    <td class=footer-item>Github</td>\
+                    <td align=left>\
+                        <a target=_blank href='http://github.com/canopy-project'>\
+                            http://github.com/canopy-project</a>\
+                        </a>\
+                    </td>\
+                </tr>\
+                <tr>\
+                    <td class=footer-item>Forum</td>\
+                    <td align=left>\
+                        <a target=_blank href='http://canopy.lefora.com'>\
+                            http://canopy.lefora.com</a>\
+                        </a>\
+                    </td>\
+                </tr>\
+            </table>\
+\
+            <br>\
+            Copyright 2014 SimpleThings, Inc.\
+        </div>\
+    </div>\
+    ");
+}
+
 function RenderDevZoneMenu(page) {
     function writeLink(link, name, selected) {
         var _RELATIVE_PATH = (typeof RELATIVE_PATH == "undefined") ? "" : RELATIVE_PATH;

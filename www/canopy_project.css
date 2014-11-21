@@ -1,6 +1,6 @@
 a, a.visited
 {
-    color: #3060a0;
+    color: #204080;
     text-decoration: none;
 }
 
@@ -20,6 +20,57 @@ body {
     color: #000000;
 }
 
+.banner {
+    border-top: 1px solid #d0d0d0;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.big-code-example {
+    width: 650px;
+    font-family: monospace;
+    background: #000000;
+    font-weight: 800;
+    color: #30ff30;
+    display: inline-block;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 30px;
+    text-align:left;
+    white-space: pre
+}
+
+.big-http-caption {
+    display: inline-block;
+    text-align: left;
+    font-size: 16px;
+    width: 650px;
+}
+.big-http-request-example {
+    width: 650px;
+    font-family: monospace;
+    background: #d0d8fb;
+    font-weight: 400;
+    color: #000000;
+    display: inline-block;
+    border: 1px solid #d0d0d0;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align:left;
+    white-space: pre;
+}
+
+.bg-metal {
+    background: 
+        url(http://image.shutterstock.com/display_pic_with_logo/573547/207269542/stock-photo-white-metal-fabric-texture-for-background-207269542.jpg) 
+        fixed no-repeat center center; 
+    background-size: cover;
+}
+
+
 .bg-blue-grunge {
     background: 
         url(images/shutterstock_132396575_bottom_1920x946.jpg) 
@@ -29,10 +80,20 @@ body {
 
 .bg-blue-grunge-boundary {
     height:4px; 
+    background: rgba(128, 128, 128, 0.2);
+}
+
+.bg-blue-grunge-boundary-lower {
+    height:4px; 
     background: rgba(255, 255, 255, 0.6);
 }
 
 .bg-white {
+}
+
+.bg-darkblue {
+    background: #3060b0;
+    color: #ffffff;
 }
 
 .bg-darkgray {
@@ -46,6 +107,20 @@ body {
 
 .bg-darkgray a:hover {
     color: #a0d0ff;
+}
+
+.bg-lightgray {
+    background: #d0d0d0;
+}
+.canopy-diagram {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.caption {
+    font-size: 15px;
+    font-weight: 400;
+    color: #606060;
 }
 
 .centered {
@@ -136,6 +211,11 @@ body {
 .logo {
     font-family: "ABeeZee";
     font-size: 50pt;
+    color: #3060a0;
+}
+
+.logo-in-text {
+    font-family: "ABeeZee";
     color: #3060a0;
 }
 
