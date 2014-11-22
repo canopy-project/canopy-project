@@ -16,6 +16,7 @@ body {
     font-family: "Source Sans Pro", Helvetica,arial,freesans,clean,sans-serif;
     line-height: 1.33;
     font-weight: 300;
+    letter-spacing: 0.0px;
     font-size: 20px;
     color: #000000;
 }
@@ -24,6 +25,12 @@ body {
     border-top: 1px solid #d0d0d0;
     padding-top: 40px;
     padding-bottom: 40px;
+}
+
+.banner-thin {
+    border-top: 1px solid #d0d0d0;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .big-code-example {
@@ -38,7 +45,8 @@ body {
     border-radius: 8px;
     margin-top: 30px;
     text-align:left;
-    white-space: pre
+    white-space: pre;
+    letter-spacing: 0px;
 }
 
 .big-http-caption {
@@ -46,9 +54,11 @@ body {
     text-align: left;
     font-size: 16px;
     width: 650px;
+    letter-spacing: 0px;
 }
 .big-http-request-example {
     width: 650px;
+    letter-spacing: 0px;
     font-family: monospace;
     background: #d0d8fb;
     font-weight: 400;
@@ -112,6 +122,36 @@ body {
 .bg-lightgray {
     background: #d0d0d0;
 }
+
+.book {
+    padding: 20px;
+    background: #d8d8d8;
+    letter-spacing: 1.0px;
+}
+
+.book h4 {
+    font-size: 23px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color: #3060a0;
+}
+
+.book h5 {
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color: #c06030;
+}
+.book-content {
+    background: white;
+    font-size: 17px;
+    padding: 16px;
+    width: 800px;
+    border-radius: 8px;
+}
+
 .canopy-diagram {
     padding-top: 40px;
     padding-bottom: 20px;
@@ -230,6 +270,18 @@ body {
     text-align: center;
 }
 
+.toc {
+    font-size: 15px;
+    padding-top: 130px;
+    padding-right: 40px;
+}
+.toc-chapter {
+    font-size: 23px;
+}
+.toc-section {
+    padding-left:20px;
+}
+
 .topbar a {
     color: #000000;
 }
@@ -297,3 +349,17 @@ body {
     font-size: 40px;
 }
 
+h1 {
+    font-size: 50px;
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 300;
+}
+
+h3 {
+    font-size: 30px;
+    font-weight: 300;
+}

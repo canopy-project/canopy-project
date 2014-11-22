@@ -47,7 +47,7 @@
                             <div style='font-weight:400; font-size:30px;'>LEARN</div>
                             <div style='font-size:19px;'>The best resource for learning Canopy is, without a doubt:
                                 <ul>
-                                <li><a style='font-size:24px' href=book/1.html">The Canopy Book (Online)</a>
+                                <li><a style='font-size:24px' href=book/c1_1.html>The Canopy Book (Online)</a>
                                 </li>
                                 </ul>
                                 We recommend reading Chapter 1 and then skipping around to other chapters of interest.
@@ -89,7 +89,8 @@
         </div>
 
         <div>
-            <div class='big-code-example'>canopy_var_set_float32(ctx, "temperature", temperature);
+            <div class='big-code-example'>canopy_var_init(ctx, "out float32 temperature");
+canopy_var_set_float32(ctx, "temperature", temperature);
 canopy_sync(ctx);</div>
         </div>
 
@@ -115,8 +116,8 @@ canopy_sync(ctx);</div>
         </div>
 
         <div class='justified-block-1'>
-            It sounds simple, but we've put a lot effort into making sure this
-            all happens securely, efficiently, and scalably.
+            It sounds simple, but we've put a lot effort into making sure all
+            of this happens securely, efficiently, and scalably.
         </div><br>
 
         <div class='justified-block-1'>
