@@ -9,6 +9,14 @@ a:hover
     color: #50a0ff
 }
 
+code
+{
+    display: inline-block;
+    font-family: monospace;
+    color: #203050;
+    font-size: 14px;
+    letter-spacing: 0px;
+}
 
 body {
     margin: 0px;
@@ -141,7 +149,7 @@ body {
     font-size: 19px;
     font-weight: 400;
     margin-bottom: 0px;
-    margin-top: 0px;
+    margin-top: 15px;
     color: #c06030;
 }
 .book-content {
@@ -165,6 +173,44 @@ body {
 
 .centered {
     text-align: center;
+}
+
+.code
+{
+    font-family: monospace;
+    background: #dbdbdb;
+    color: #203050;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align:left;
+    white-space: pre;
+    letter-spacing: 0px;
+}
+
+.code-output
+{
+    font-family: monospace;
+    background: #dbdbdb;
+    color: #203050;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align:left;
+    white-space: pre;
+    letter-spacing: 0px;
+    max-height: 100px;
+    overflow: auto;
+}
+
+.disqussion {
+    margin-top: 30px;
+    border-top: 1px solid #a0a0a0;
+    padding-top: 30px;
 }
 
 .feature-cell-left {
