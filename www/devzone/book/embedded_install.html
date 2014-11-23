@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canopy - Developer Zone</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../canopy_project.js"></script>
+    <script src="toc.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class=main-outer>
+    <div class='bg-white centered'>
+        <script> 
+            var RELATIVE_PATH = "../../";
+            RenderTopbar("devzone");
+        </script>
+    </div>
+    <div class='bg-lightgray banner-thin centered' >
+        Developer Zone &rarr; The Canopy Book &rarr; Chapter 1
+    </div>
+
+    <div class='book'>
+        <table width=100%>
+            <tr>
+                <td width=1 valign=top nowrap style='padding-right:20px'>
+                    <div class=toc>
+                        <script>RenderToc("embedded_install.html");</script>
+                    </div>
+                </td>
+                <td valign=top>
+
+        <div class='book-content'>
+<h3>1.4 Getting Started: Embedded Installation</h3>
+
+<p>
+    The Canopy Embedded Development Kit ("EDK"), including
+    <code>libcanopy</code>, can be built from source.  The EDK uses
+    <code>repo</code>, which is a tool that makes it easier to work with
+    multiple git repositories.
+</p>
+<p>
+    App developers and others who won't be doing embedded development can skip
+    this section.
+</p>
+<h4>Prerequisites</h4>
+<h5>Installing Required Packages (Ubuntu 14.04)</h5>
+<div class=code>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev</div>
+
+<h5>Installing Repo</h5>
+
+<p>
+    Download <code>repo</code> and put it somewhere in your <code>PATH</code>:
+</p>
+<div class=code>curl https://storage.googleapis.com/git-repo-downloads/repo &gt; repo
+chmod a+x repo
+sudo cp repo /usr/local/bin</div>
+</p>
+
+<h4>Downloading the Source</h4>
+<h5>Initializing a Repo Client</h5>
+<p>
+    After installing <code>repo</code>, set up your client to access the Canopy
+    EDK repository.
+</p>
+<p>
+    1) Create a working directory.  You can call it anything you like:
+</p>
+<div class=code>mkdir canopy_edk
+cd canopy_edk</div>
+
+<p>
+    2) Run <code>repo init</code> to initialize the client repository.
+</p>
+<div class=code>repo init -u https://github.com/canopy-project/canopy-embedded-manifest</div>
+
+<p>
+    To check out a branch other than "master", specify it with -b:
+</p>
+<div class=code>repo init -u https://github.com/canopy-project/canopy-embedded-manifest -b beta</div>
+
+<p>
+    3) Use <code>repo sync</code> to download sources to your working directory:
+</p>
+<div class=code>repo sync</div>
+
+<h4>Building and Installing</h4>
+<h5>Initialize the Build Environment</h5>
+<p>
+    Canopy's build system expects certain environment variables to be set,
+    which are initialized with the <code>envsetup.sh</code> script.
+</p>
+<div class=code>source build/envsetup.sh</div>
+
+<h5>Building and Installing</h5>
+<p>
+    To build and install the Canopy EDK, run:
+</p>
+<div class=code>cd build
+make
+sudo make install
+</div>
+
+    <script>RenderNextPrevButtons("embedded_install.html");</script>
+
+<div class=disqussion id=disqus_thread></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'canopyiot'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+    <script>RenderFooter();</script>
+</div>
+</body>
+</html>
