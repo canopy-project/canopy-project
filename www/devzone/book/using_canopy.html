@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canopy - Developer Zone</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../canopy_project.js"></script>
+    <script src="toc.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="../../3rdparty/shjs/sh_main.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../3rdparty/shjs/sh_style.css">
+    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<script>
+var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+        function(c) { var r = Math.random()*16|0, v = c == 'x'
+        ? r : (r&0x3|0x8); return v.toString(16); });
+
+var secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/[x]/g,
+            function(c) { var r = Math.random()*16|0, v = r; return v.toString(16); });
+</script>
+<p>
+<body onload="sh_highlightDocument('../../3rdparty/shjs/', '.min.js');">
+<div class=main-outer>
+    <div class='bg-white centered'>
+        <script> 
+            var RELATIVE_PATH = "../../";
+            RenderTopbar("devzone");
+        </script>
+    </div>
+    <div class='bg-lightgray banner-thin centered' >
+        Developer Zone &rarr; The Canopy Book &rarr; Chapter 1
+    </div>
+
+    <div class='book'>
+        <table width=100%>
+            <tr>
+                <td width=1 valign=top nowrap style='padding-right:20px'>
+                    <div class=toc>
+                        <script>RenderToc("using_canopy.html");</script>
+                    </div>
+                </td>
+                <td valign=top>
+
+        <div class='book-content'>
+<h3>1.5 Getting Started: Using Canopy</h3>
+
+<p>
+    This section gives a first look at how Canopy can be used to achieve
+    cloud-based monitoring and control of a device.  The purpose of this
+    section is to give a sense for how Canopy works.  You are not meant to
+    follow these steps instructions step-by-step at this point, considering we
+    haven't even installed Canopy yet (that happens in the next section).
+</p>
+
+<h4>UUIDs and Secret Keys</h4>
+<p>
+    Every Canopy-enabled device must have a distinct <b>UUID</b> and a
+    <b>Secret Key</b>.
+</p>
+<p>
+    The <b>UUID</b> uniquely identifies the device, and may be shared
+    publically.  It must be a type-4 (random) UUID such as:
+</p>
+<div class=code><script>document.write(uuid);</script></div>
+<p>
+    The <b>Secret Key</b> is used to encrypt payloads coming from the device,
+    and must be kept secret.  Each device should have a different Secret Key.
+    This may be any string between 6 and 80 characters in length:
+</p>
+<div class=code>MySecretPassw0rd</div>
+<p>
+    Random Secret Keys are recommended:
+</p>
+<p>
+<div class=code><script>document.write(secret);</script></div>
+</p>
+
+<h4>Using libcanopy for Embedded Development</h4>
+<p>
+    To use <code>libcanopy</code>, there must be a C or C++ program running on
+    your device that you have source access to.  This may be part of the
+    device's existing firmware that you modify, or it may be a newly written
+    daemon program that you add to your device's firmware.
+</p>
+<p>
+    Although we use the term "embedded development", <code>libcanopy</code>
+    works on any linux-based machine.  Your "device" may be an appliance with
+    an ARM-based SoC, a Raspberry Pi or a Beagelbone, or even a desktop or
+    server.
+</p>
+<h5>Cloud Variables in C</h4>
+<p>
+    This code example shows a sample C program that uses libcanopy to report
+    temperature sensor readings to the cloud, and to recieve a "beep"
+    instruction from the cloud.
+</p>
+<pre class="sh_c code">#include &lt;canopy.h&gt;
+
+// Play beep sound
+static void DoBeep()
+{
+    // Your code for actually playing a beep sound goes here.
+    printf("BEEP!\n");
+}
+
+// Read temperature sensor
+static float ReadTemperature()
+{
+    // Your code for actually reading from a temperature sensor goes here.
+    retrun 98.6f;
+}
+
+int main(void)
+{
+    CanopyContext ctx;
+    bool doBeep = false;
+    long reportTemperatureTimer = 0;
+
+    // Initialize Canopy by creating a "context"
+    ctx = canopy_init_context();
+
+    // Configure the Device's UUID and Secret Key
+    canopy_set_opt(ctx,
+            CANOPY_DEVICE_UUID, "<script>document.write(uuid);</script>",
+            CANOPY_DEVICE_SECRET_KEY, "<script>document.write(secret);</script>");
+
+    // Initialize two cloud variables: "temperature" and "make_beep_sound".
+    canopy_var_init(ctx, "out float32 temperature");
+    canopy_var_init(ctx, "inout bool make_beep_sound");
+
+    // Run forever:
+    while (1)
+    {
+        // Sync with server, with 10-second timeout.
+        // This is where communication with the server takes place (the other
+        // canopy_* routines don't actually interact with the server).
+        // The first time this is called, the implementation opens a websocket
+        // connection with the server.
+        canopy_sync_blocking(ctx, 10000);
+
+        // Read the latest value of the cloud variable "make_beep_sound".
+        canopy_var_read_bool(ctx, "make_beep_sound", &beep);
+
+        // If it was set high, then beep:
+        if (beep)
+        {
+            DoBeep();
+
+            // Clear the "make_beep_sound" cloud variable after playing sound.
+            canopy_var_set_bool(ctx, "make_beep_sound", false)
+        }
+
+        // Report temperature every 60 seconds by updating the "temperature"
+        // cloud variable.
+        if (canopy_once_every(&reportTemperatureTimer, 60*CANOPY_SECONDS))
+        {
+            float temperature = ReadTemperature();
+
+            canopy_var_set_float32(ctx, "temperature", temperature);
+        }
+    }
+    
+    return 0;
+}
+</pre>
+
+<h4>The Canopy Cloud Service</h4>
+
+<h5>Changing Hosts</h5>
+<p>
+    By default, <code>libcanopy</code> connects to the Canopy Cloud Service
+    hosted at http://ccs.canopy.link.  This means you do not need to do any
+    work to configure or operate the cloud components of Canopy.
+</p>
+<p>
+    If you need to point to a different server that is running the Canopy Cloud
+    Service, you can configure it using:
+</p>
+<pre class="sh_c code">    canopy_set_opt(ctx, CANOPY_CLOUD_HOST, "myserver.com");</pre>
+
+<h5>Web Managment Interface</h5>
+<p>
+    Without doing anything else, your device can be monitored and controlled
+    through the <b>Canopy Web Management Interface</b>.  Just visit:
+</p>
+<div class='code'>http://ccs.canopy.link/device/&lt;UUID&gt;</div>
+For example:
+<p>
+    <div class='code'>http://ccs.canopy.link/device/<script>document.write(uuid);</script></div>
+</p>
+
+<h4>Using the Javascript Client for Application Development</h4>
+<p>
+    Using the <b>Javascript Client Library</b>, which is part of the
+    <b>Canopy ADK</b>, you can create your own javascript apps for monitoring
+    and controlling Canopy-enabled devices.
+</p>
+<pre class='sh_javascript code'>
+
+// Initialize Canopy Javascript Client
+var canopy = new CanopyClient({
+    cloudhost: "ccs.canopy.link",
+});
+
+canopy.onConnected(function() {
+    var myDevice = canopy.devices["<script>document.write(uuid)</script>"];
+
+    // Register a callback that get triggers each time the "temperature"
+    // Cloud Variable changes.
+    myDevice.var("temperature").onChange(function(var, timestamp, value) {
+        alert("Temperature at time ", timestamp, " is: ", value);
+    });
+
+    // When the button is pressed, tell device to make a "beep" sound by
+    // setting the "make_beep_sound" Cloud Variable to true.
+    jQuery("#beepBtn").on("click", function() {
+        myDevice.var("make_beep_sound").
+    });
+)
+</pre>
+
+<script>RenderNextPrevButtons("using_canopy.html");</script>
+
+<div class=disqussion id=disqus_thread></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'canopyiot'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            
+
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+    <script>RenderFooter();</script>
+</div>
+</body>
+</html>

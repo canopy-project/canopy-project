@@ -17,11 +17,15 @@ var items = [
         "link" : "c1_3.html"
     }, {
         "type" : "section",
-        "title" : "1.4: Embedded Installation",
+        "title" : "1.4: Using Canopy",
+        "link" : "using_canopy.html"
+    }, {
+        "type" : "section",
+        "title" : "1.5: Embedded Installation",
         "link" : "embedded_install.html"
     }, {
         "type" : "section",
-        "title" : "1.5: Server (Cloud) Installation",
+        "title" : "1.6: Server (Cloud) Installation",
         "link" : "cloud_install.html"
     }, {
         "type" : "chapter",

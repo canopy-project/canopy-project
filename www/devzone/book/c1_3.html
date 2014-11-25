@@ -45,7 +45,7 @@
 </p>
 <p>
     A cloud-enabled product needs software to run in several places: on the
-    device, in the cloud, and within the client-side "app".  Canopy contains
+    device, in the cloud, and within client-side applications.  Canopy contains
     sub-projects for each of these:
     <ul>
         <li><b>Canopy Embedded Development Kit (EDK)</b> software runs on the device.</li>
@@ -62,8 +62,9 @@
 <p>
     That said, we believe the best way to master Canopy is to understand all of
     the components and how they work together.  Throughout this guide, we
-    intermix our discussion to talk about all components.  Feel free to skip
-    past sections if you know they are not relevant to you.
+    intermix our discussion to talk about all components.  You can skip
+    past sections if you know they are not relevant to you, and sometimes will
+    we give recommendations letting you know that you can safely skip a section.
 </p>
 
 <h4>Canopy Features</h4>
@@ -88,11 +89,11 @@
 <p>
     Canopy has a built-in permission system with cloud-based <b>Account</b> and
     <b>Device</b> resources.  This permission system controls who can access
-    each Device's data.
+    each Device's data securely.
 </p>
 <h5>Protocols: REST (HTTP) and Websockets</h5>
 <p>
-    The <b>Canopy Cloud Service (CCS)</b> can be considered the core of Canopy.
+    The <b>Canopy Cloud Service (CCS)</b> is the core component of Canopy.
     The other components, namely the <b>EDK</b> and <b>ADK</b>, interact with
     the <b>CCS</b> through web-based protocols.
 </p>
@@ -160,15 +161,17 @@
 </p>
 <p>
     If you use our free or premium hosting solutions, we take care of operating
-    the <b>CCS</b> for you.
+    the <b>CCS</b> and Cassandra database for you.
 </p>
 <p>
-    The <b>Canopy CCS</b> is an open source project available on github:<br><a target=_blank href=http://github.com/canopy-project/canopy-cloud>http://github.com/canopy-project/canopy-cloud</a>.
+    The <b>Canopy Cloud Service</b> is an open source project available on
+    github:<br><a target=_blank
+    href=http://github.com/canopy-project/canopy-cloud>http://github.com/canopy-project/canopy-cloud</a>.
 </p>
 <h5>Canopy Application Development Kit</h5>
 <p>
     The <b>ADK</b> contains libraries for application developers, providing
-    language-specific bindings that are easier than using the REST API
+    language-specific bindings that are easier to use compared to using the REST API
     directly.
     <ul>
         <li><b>canopy.js</b> provides a Javascript wrapper around the <b>Canopy REST API</b>.
@@ -178,6 +181,8 @@
     Currently, only Javascript is supported, although we hope to add bindings
     for other languages soon.
 </p>
+<p>
+    The <b>Canopy ADK</b> is an open source project available on github:<br><a target=_blank href=http://github.com/canopy-project/canopy-js-client>http://github.com/canopy-project/canopy-js-client</a>.
 
 <p>
     <script>RenderNextPrevButtons("c1_3.html");</script>
