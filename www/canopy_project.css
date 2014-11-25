@@ -195,6 +195,7 @@ pre.sh_sourceCode {
     text-align:left;
     white-space: pre;
     letter-spacing: 0px;
+    overflow: auto;
 }
 
 .code-output

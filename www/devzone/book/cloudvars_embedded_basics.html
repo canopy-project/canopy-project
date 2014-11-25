@@ -3,13 +3,13 @@
 <script src=book.js></script>
 <script>
 var BOOK_CHAPTER = 2;
-var BOOK_SECTION_NAME = "Embedded Basics";
+var BOOK_SECTION_NAME = "libcanopy Basics";
 var BOOK_SECTION_LINK = "cloudvars_embedded_basics.html";
 RenderHead();
 RenderBodyStart();
 </script>
 
-<h3>2.2 Cloud Variables - Embedded Development Basics</h3>
+<h3>2.2 Cloud Variables - Cloud Variables with libcanopy</h3>
 
 <p>
     In this section we'll see Cloud Variables in action, using
@@ -137,19 +137,18 @@ int main(void) {
     object, which is why the <code>CANOPY_VAR_FLOAT(t)</code> call is needed.
 </p>
 <p>
-    The <code>canopy_var_set_*</code> routines such as
-    <code>canopy_var_set_float32</code> can be used instead and are slightly
-    more convenient:
+    Utility routines such as <code>canopy_var_set_float32</code> can be used
+    instead and are slightly more convenient:
 </p>
 <pre class='sh_c code'>
     result = canopy_var_set_float32(ctx, "temperature", t);
 </pre>
 
 <p>
-    The above code samples only change the <b>local value</b> of
-    <code>'temperature'</code> in device memory.  They do not actually
-    communicate with the cloud.  In fact, so far there has been no interaction
-    with the cloud server at all.  That happens next with
+    The above code only changes the <b>local value</b> of
+    <code>'temperature'</code> in device memory.  It does not actually
+    communicate with the cloud.  In fact, there has been no interaction
+    with the cloud server at all so far.  That happens next with
     <code>canopy_sync</code>.
 </p>
 <p>
@@ -184,8 +183,8 @@ int main(void) {
     </ul>
 </p>
 <p>
-    Subsequent calls to <code>canopy_sync_blocking</code> use the open WebSocket
-    connection and do much less work:
+    Subsequent calls to <code>canopy_sync_blocking</code> will use the open
+    WebSocket connection and do much less work:
     <ul>
         <li>The device sends the value of each Cloud Variable that changed
         locally since the previous <code>canopy_sync*</code> call.</li>
@@ -282,9 +281,8 @@ int main(void) {
     needed.
 </p>
 <p>
-    The <code>canopy_var_get_*</code> routines such as
-    <code>canopy_var_get_bool</code> can be used instead and are slightly more
-    convenient:
+    Utility routines such as <code>canopy_var_get_bool</code> can be used
+    instead and are slightly more convenient:
 </p>
 <pre class='sh_c code'>
     result = canopy_var_get_bool(ctx, "led_on", &amp;led);

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<script src=book.js></script>
+<script>
+var BOOK_CHAPTER = 2;
+var BOOK_SECTION_NAME = "";
+var BOOK_SECTION_LINK = "cloudvars_compiling_and_running.html";
+RenderHead();
+RenderBodyStart();
+</script>
+
+<h3>2.3 Cloud Variables - libcanopy: Compiling and Running</h3>
+
+<p>
+    A few notes on compiling and running programs that use
+    <code>libcanopy</code>.
+</p>
+<h4>Compiling</h4>
+<p>
+    You can compile your program with a normal C/C++ compiler, such as GCC.
+</p>
+<p>
+    When you installed <code>libcanopy</code> it should have copied
+    <code>canopy.h</code> to somewhere in your include path, such as
+    <code>/usr/local/include/canopy.h</code>.  If you haven't installed
+    <code>libcanopy</code> you will need to add the appropriate path to your
+    include path, with something like
+</p>
+<p>
+<pre class='code'>
+gcc -Wall -g -I~/canopy_edk/libcanopy/include -C example.c -o example.o
+</pre>
+</p>
+
+<h4>Linking</h4>
+<p>
+    You must link your program with the following shared libraries:
+    <ul>
+        <li><code>libcanopy</code></li>
+        <li><code>libsddl</code></li>
+        <li><code>libred-canopy</code></li>
+        <li><code>libwebsockets-canopy</code> or <code>libwebsockets</code></li>
+        <li><code>libcurl</code></li>
+    </ul>
+</p>
+<p>
+    Some of the libraries that <code>libcanopy</code> depends on, such as
+    <code>libwebsockets</code> are included in the EDK repo.  The EDK build
+    system will append <code>-canopy</code> to the library object file name (for
+    example <code>libwebsockets-canopy</code>) in order to prevent collisions
+    with other versions of those libraries that may already be installed on
+    your system.
+</p>
+<pre class='code'>
+gcc -Wall -g -lred-canopy -lcanopy -lsddl -lcurl -lwebsockets-canopy example.o -o example
+</pre>
+<p>
+    If you haven't installed <code>libcanopy</code>, you may need to add the
+    appropriate directory(ies) to the library path.  For example:
+</p>
+<p>
+<pre class='code'>
+gcc -Wall -g -L~/canopy_edk/build/_out/lib -lred-canopy -lcanopy -lsddl -lcurl -lwebsockets-canopy example.o -o example
+</pre>
+</p>
+
+<h4>Running</h4>
+<p>
+    If you've installed <code>libcanopy</code>, you should be able to just run
+    your program, for example, with:
+</p>
+<pre class='code'>
+./example
+</pre>
+<p>
+    You may need to add the appropriate path to <code>LD_LIBRARY_PATH</code> or
+    <code>DYLD_LIBRARY_PATH</code>:
+</p>
+<pre class='code'>
+LD_LIBRARY_PATH=~/canopy_edk/build_out/lib ./example
+</pre>
+
+<script>RenderBodyFooter();</script>
+</html>

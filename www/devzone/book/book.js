@@ -37,8 +37,12 @@ var items = [
         "link" : "cloudvars_about.html"
     }, {
         "type" : "section",
-        "title" : "2.2 Embedded Development Basics",
+        "title" : "2.2 Cloud Variables with libcanopy",
         "link" : "cloudvars_embedded_basics.html"
+    }, {
+        "type" : "section",
+        "title" : "2.3 libcanopy: Compiling and Running",
+        "link" : "cloudvars_compiling_and_running.html"
     }
 ];
 
