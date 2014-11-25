@@ -1,268 +1,91 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>Canopy - Developer Zone</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../canopy_project.js"></script>
-    <script src="toc.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
-    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>
-</head>
-
-<body>
-<div class=main-outer>
-    <div class='bg-white centered'>
-        <script> 
-            var RELATIVE_PATH = "../../";
-            RenderTopbar("devzone");
-        </script>
-    </div>
-    <div class='bg-lightgray banner-thin centered' >
-        Developer Zone &rarr; The Canopy Book &rarr; Chapter 1
-    </div>
-
-    <div class='book'>
-        <table width=100%>
-            <tr>
-                <td width=1 valign=top nowrap style='padding-right:20px'>
-                    <div class=toc>
-                        <script>RenderToc("cloud_install.html");</script>
-                    </div>
-                </td>
-                <td valign=top>
-
-        <div class='book-content'>
-
-<h3>1.5 Getting Started: Server (Cloud) Installation</h3>
-<p>
-    This section contains instructions for installing the Canopy Cloud Service
-    (CCS) from source on a fresh Ubuntu 14.04 LTS machine.  This is typically
-    installed on a cloud server, such as a VM from AWS.
-</p>
-<h4>Hosting</h4>
-<p>
-    The Canopy team provides free and premium hosting of the Canopy Cloud Service.
-    If you plan on using our hosted services (which we recommend) you can
-    skip this section.
-</p>
-<p>
-    If instead you plan to install and operate the Canopy Cloud Service
-    yourself, then read on.
-</p>
-
-<h4>Installing Dependencies</h4>
-<p>
-    Canopy requires Cassandra, Oracle Java 1.7, and Go-lang in order to run.
-</p>
-
-<h5>Install Cassandra</h5>
-<p>
-    Using the text editor of your choice, edit
-    <code>/etc/apt/sources.list.d/cassandra.sources.list</code>:
-</p>
-<div class=code>sudo vim /etc/apt/sources.list.d/cassandra.sources.list</div>
-<p>
-    Add the following line:
-</p>
-<div class=code>deb http://debian.datastax.com/community stable main</div>
-
-<p>
-    Save and exit.  Then run:
-</p>
-<div class=code>curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install -y cassandra=2.0.7</div>
-
-
-<h5>Install Oracle Java 1.7</h5>
-<p>
-    Run:
-</p>
-<div class=code>sudo apt-get install -y python-software-properties
-sudo add-apt-repository ppa:webupd8team/java</div>
-
-<p>
-    Press ENTER when prompted.  The run:
-</p>
-<div class=code>sudo apt-get update
-sudo apt-get install -y oracle-java7-installer</div>
-
-<p>
-    When prompted, press ENTER.  Then select "Yes" and press ENTER.
-</p>
-
-<h5>Install Go-lang</h5>
-<p>
-    Run:
-</p>
-<div class=code>sudo apt-get install -y golang git make mercurial</div>
-
-<h4>Installing Canopy Cloud Service</h4>
-<p>
-    Clone the repository:
-</p>
-<div class=code>git clone https://github.com/canopy-project/canopy-cloud</div>
-<p>
-    Build the project:
-</p>
-<div class=code>cd canopy-cloud
-make</div>
-
-<p>
-    You should see this output:
-</p>
-    <div class=code-output>make -C src/canopy go_get_deps
-make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
-mkdir -p ~/.canopy/golang
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.net/websocket
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gocql/gocql
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/sessions
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/context
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/mux
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/sendgrid/sendgrid-go
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.crypto/bcrypt
-make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
-make -C src/canopy all
-make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
-mkdir -p ~/.canopy/golang
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy-cloud-service.go canopy_cloud.go canopy_json.go
-mkdir -p build/
-mv canopy-cloud-service build/
-mkdir -p ~/.canopy/golang
-GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy_cmd.go
-mkdir -p build/
-mv canopy_cmd build/canodevtool
-make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
-    </div>
-
-<p>
-    Install it:
-</p>
-
-<div class=code>sudo make install</div>
-
-<p>
-    You should see this output:
-</p>
-
-<div class=code-output>src/canopy install
-make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
-cp build/canopy-cloud-service build/canodevtool /usr/local/bin
-cp ../../scripts/canopy-cloud-service /etc/init.d
-mkdir -p /etc/canopy
-cp ../../scripts/ccs-env.sh /etc/canopy
-../../scripts/create-canopy-group-user.sh
-id: canopy: no such user
-Adding group `canopy' (GID 114) ...
-Done.
-id: canopy: no such user
-Adding system user `canopy' (UID 108) ...
-Adding new user `canopy' (UID 108) with group `canopy' ...
-Not creating home directory `/home/canopy'.
-mkdir -p /var/log/canopy
-touch /var/log/canopy/ccs.log
-touch /var/log/canopy/ccs-errors.log
-chown canopy /var/log/canopy
-chgrp canopy /var/log/canopy
-chown canopy /var/log/canopy/ccs.log
-chgrp canopy /var/log/canopy/ccs.log
-chown canopy /var/log/canopy/ccs-errors.log
-chgrp canopy /var/log/canopy/ccs-errors.log
-make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
-    </div>
-
-<p>
-    Start Cassandra running:
-</p>
-<div class=code>sudo cassandra</div>
-<p>
-    You should see a bunch of text scroll, ending with:
-</p>
-
-<div class=code-output>INFO 17:24:59,576 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-3-Data.db (114 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=91604)
-INFO 17:24:59,644 CFS(Keyspace='system', ColumnFamily='local') liveRatio is 27.44988344988345 (just-counted was 3.515151515151515).  calculation took 5ms for 257 cells
-INFO 17:24:59,644 Enqueuing flush of Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
-INFO 17:24:59,645 Writing Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
-INFO 17:24:59,677 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-4-Data.db (5275 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=103603)
-INFO 17:24:59,693 Compacting [SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-1-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-3-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-4-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-2-Data.db')]
-INFO 17:24:59,780 Node localhost/127.0.0.1 state jump to normal
-</div>
-
-<p>
-    Press ENTER to return to the command-line.
-</p>
-
-<p>
-    Create the database:
-</p>
-<div class=code>canodevtool create-db</div>
-
-<p>Don't worry if there are errors.  You should see this output:
-
-<div class=code-output>Error opening file /var/log/canopy/ccs.log:  open /var/log/canopy/ccs.log: permission denied
-Falling back to STDOUT for logging
-WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched input '(' expecting ')'</div>
-
-
-<h4>Configuring and Running</h4>
-<h5>Configuring CCS </h5>
-One last step before running the Canopy Cloud Service.  We must configure it.
-Edit the file <code>/etc/canopy/ccs-env.sh</code>
-
-<div class=code>CCS_ALLOW_ORIGIN=http://devel.canopy.link
-CCS_HOSTNAME=54.68.36.105
-CCS_DEFAULT_PROXY_TARGET=http://74.93.13.249:8080</div>
-
-<p>
-    Change the <code>CCS_HOSTNAME</code> to match the IP address or hostname of your server.
-</p>
-
-<h5>Starting the Canopy Cloud Service</h5>
-
-<p>Now, you can start the Canopy Cloud Service</p>
-
-<div class=code>sudo /etc/init.d/canopy-cloud-service start</div>
-
-To check that it is working, go to <code>http://&lt;ip_address&gt;/api/info</code> in your web browser.  You
-should see something like the following response:
-
-<div class=code>{
-    "service-name" : "Canopy Cloud Service",
-    "version" : "0.9.0-beta"
-}</div>
-
-<p>If you see anything other than that, there was most likely a problem.  You
-can view the log file by typing:
-
-<div class=code>cat /var/log/canopy/ccs.log</div>
-
-    <script>RenderNextPrevButtons("cloud_install.html");</script>
-
-<div class=disqussion id=disqus_thread></div>
-<script type="text/javascript">
-/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-var disqus_shortname = 'canopyiot'; // required: replace example with your forum shortname
-
-/* * * DON'T EDIT BELOW THIS LINE * * */
-(function() {
- var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
- dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
- (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
- })();
+<script src=book.js></script>
+<script>
+var BOOK_CHAPTER = 2;
+var BOOK_SECTION_NAME = "About Cloud Variables";
+var BOOK_SECTION_LINK = "cloudvars_about.html";
+RenderHead();
+RenderBodyStart();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            
 
+<h3>2.1 Cloud Variables - About Cloud Variables</h3>
 
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
+<p>
+    In this chapter we'll see how Cloud Variables make it easy to add
+    cloud-based remote control and monitoring capabilities to your product.
+</p>
 
+<h4>What is a Cloud Variable?</h4>
+<p>
+    A Cloud Variable is a piece of data that is stored in the cloud and is
+    associated with a particular device.
+</p>
+<p>
+    Cloud Variables simplify the development of smart products by helping with:
+    <ul>
+        <li>Time-series sensor data storage in the cloud.</li>
+        <li>Device status reporting &amp; monitoring.</li>
+        <li>Remote device configuration.</li>
+        <li>Remote device control.</li>
+    </ul>
+</p>
 
-    <script>RenderFooter();</script>
-</div>
-</body>
+<p>
+    In many ways, a Cloud Variable is like a traditional variable in a computer
+    program.  Each Cloud Variable has a name, such as <code>temperature</code>.
+    Each has a datatype, such as <code>float32</code>.  Each has a value, such
+    as <code>98.7</code>.  Cloud Variables may be members of structures
+    (<code>gps.latitude</code>), and the structures themselves are considered
+    Cloud Variables (<code>gps</code>).  You can create arrays of Cloud
+    Variables (<code>cpu_level[3]</code>) as well as associative arrays
+    (<code>weight['Johny']</code>).
+</p>
+<p>
+    In other ways, Cloud Variables are critically different from normal
+    programming variables.  First of all, Cloud Variables are stored in a NoSQL
+    database and are accessed using RESTful web-based protocols.  This makes
+    them several orders-of-magnitude slower than normal variables, but also
+    makes them persistent and accessible from anywhere in world (or at least
+    anywhere with an internet connection).  A second difference is that the
+    historical values for each Cloud Variable are saved in the database and
+    kept for some time.  This makes them well-suited for storing sensor data
+    and other time-series data.  A third difference is that each Cloud Variable
+    has additional <b>metadata</b> associated with it that may include input
+    validation constraints (<code>min-value : -50.0</code>), units
+    (<code>units : "degrees_c"</code>) and hints about usage for
+    third-party applications (<code>numeric-display-hint :
+    "scientific"</code>).
+</p>
+
+<h4>Supported Languages and Platforms</h4>
+<p>
+    Canopy Cloud Variables are intended to be <b>agnostic</b> to programming
+    language, IDE, and hardware platform.  To achieve this, we embrace web
+    technologies (such as HTTP, REST, WebSockets, and JSON) which are supported
+    in nearly every programming language on practically every hardware
+    platform.
+</p>
+<p>
+    The reality, however, is slightly murkier.  Although you <i>could</i> use
+    our <b>HTTP REST API</b> directly, doing so may involve a lot of code and
+    may not have great performance.  It is better to use a <b>Native Client
+    Library</b>.  The Native Client Libraries are easier to use and have better
+    performance because they use WebSockets to communicate with the server.
+</p>
+<p>
+    At this time, we have official support for the following Native Client
+    Libraries:
+
+    <ul>
+        <li><b>Embedded:</b> C Client Library (requires linux-based OS)</li>
+        <li><b>Application:</b> Javascript Client Library (in-browser only)</li>
+    </ul>
+
+    If you are a developer, one of the best ways to contribute to the Canopy
+    open source project is to develop a Native Client Library for your favorite
+    language.
+</p>
+
+<script>RenderBodyFooter();</script>
 </html>

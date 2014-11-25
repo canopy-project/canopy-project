@@ -33,15 +33,15 @@ var items = [
         "link" : null
     }, {
         "type" : "section",
-        "title" : "2.1: What Are They?",
-        "link" : "c2_1.html"
+        "title" : "2.1: About Cloud Variables",
+        "link" : "cloudvars_about.html"
     }
 ];
 
 function RenderToc(page) {
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        if (item.link == page) {
+        if (item.link == BOOK_SECTION_LINK) {
             document.write("<div class=toc-" + item.type + "><b><a href='" + item.link + "'>" + item.title + "</a></b></div>");
         } 
         else if (item.link != null) {

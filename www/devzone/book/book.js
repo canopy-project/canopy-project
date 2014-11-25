@@ -33,8 +33,12 @@ var items = [
         "link" : null
     }, {
         "type" : "section",
-        "title" : "2.1: What Are They?",
-        "link" : "c2_1.html"
+        "title" : "2.1: About Cloud Variables",
+        "link" : "cloudvars_about.html"
+    }, {
+        "type" : "section",
+        "title" : "2.2 Embedded Development Basics",
+        "link" : "cloudvars_embedded_basics.html"
     }
 ];
 
@@ -44,7 +48,6 @@ function RenderHead() {
     <title>Canopy - Developer Zone</title>\
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>\
     <script src='../../canopy_project.js'></script>\
-    <script src='toc.js'></script>\
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>\
     <script type='text/javascript' src='../../3rdparty/shjs/sh_main.min.js'></script>\
     <link type='text/css' rel='stylesheet' href='../../3rdparty/shjs/sh_style.css'>\
@@ -84,7 +87,7 @@ function RenderBodyStart() {
 function RenderToc(page) {
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        if (item.link == page) {
+        if (item.link == BOOK_SECTION_LINK) {
             document.write("<div class=toc-" + item.type + "><b><a href='" + item.link + "'>" + item.title + "</a></b></div>");
         } 
         else if (item.link != null) {
@@ -99,7 +102,7 @@ function RenderToc(page) {
 function RenderNextPrevButtons(page) {
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        if (item.link == page) {
+        if (item.link == BOOK_SECTION_LINK) {
             if (i > 1) {
                 document.write("<a href='" + items[i-1].link + "'>Prev</a> | ");
             }

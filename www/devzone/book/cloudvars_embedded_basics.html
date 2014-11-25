@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<script src=book.js></script>
+<script>
+var BOOK_CHAPTER = 2;
+var BOOK_SECTION_NAME = "Embedded Basics";
+var BOOK_SECTION_LINK = "cloudvars_embedded_basics.html";
+RenderHead();
+RenderBodyStart();
+</script>
+
+<h3>2.2 Cloud Variables - Embedded Development Basics</h3>
+
+<p>
+    In this section we'll see Cloud Variables in action, using
+    <code>libcanopy</code> in a C program.
+</p>
+
+<h4>Initializing libcanopy and Cloud Variables</h4>
+<p>
+    To use <code>libcanopy</code> you must include the header file:
+</p>
+<pre class='sh_c code'>#include &lt;canopy.h&gt;</pre>
+<p>
+    Initialize <code>libcanopy</code> by creating a Canopy Context with <code>canopy_init_context</code>:
+</p>
+<pre class='sh_c code'>
+int main(void) {
+    CanopyContext ctx;
+
+    ctx = canopy_init_context();
+    if (!ctx) {
+        canopy_write_error(NULL, stderr, "Failed to create context.");
+        return -1;
+    }
+</pre>
+<p>
+    The <code>canopy_init_context</code> routine will return <code>NULL</code>
+    if an error occurred.  You can use <code>canopy_write_error</code> to
+    output details about any errors that may have occurred, along with your own
+    message about the error.
+</p>
+<p>
+    Configure the Context using <code>canopy_set_opt</code>:
+</p>
+<pre class='sh_c code'>
+    CanopyResultEnum result;
+
+    result = canopy_set_opt(ctx,
+        CANOPY_DEVICE_UUID, "<script>RenderUUID()</script>",
+        CANOPY_DEVICE_SECRET_KEY, "<script>RenderSecretKey()</script>"
+    );
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to configure context");
+        return -1;
+    }
+</pre>
+<p> 
+    Replace the UUID and Secret Key above with those for your device.  In
+    production, you should read these from a file or environment variable (more
+    on that later).  The <code>canopy_set_opt</code> routine takes an arbitrary
+    number of KEY, VALUE parameter pairs.
+</p>
+<p>
+    Next, initialize a Cloud Variable with <code>canopy_var_init</code>:
+</p>
+<pre class='sh_c code'>
+    result = canopy_var_init(ctx, "out float32 temperature");
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to init cloud var 'temperature'.");
+        return -1;
+    }
+</pre>
+<p>
+    The second parameter to <code>canopy_var_init</code> is the <b>Cloud
+    Variable Declaration</b>.  This configures the variable's
+    <b>direction</b>, <b>datatype</b> and <b>name</b>.
+</p>
+<p>
+    The <b>direction</b> dictates who can modify the variable's value.  It must be one of:
+    <ul>
+        <li><code>in</code> - Only the cloud/app can modify.  Useful for
+        receiving remote contol instructions.
+        </li>
+        <li><code>out</code> - Only the device can modify.  Useful for reporting sensor data.</li>
+        <li><code>inout</code> - Both the device and cloud/app can modify.
+        Useful for device properties that can be changed both remotely and
+        within firmware.</li>
+    </ul>
+</p>
+<p>
+    The <b>datatype</b> dictates the datatype of the Cloud Variable's value.
+    It must be one of:
+    <ul>
+        <li><code>bool</code></li>
+        <li><code>datetime</code></li>
+        <li><code>float32</code></li>
+        <li><code>float64</code></li>
+        <li><code>int8</code></li>
+        <li><code>int16</code></li>
+        <li><code>int32</code></li>
+        <li><code>string</code></li>
+        <li><code>uint8</code></li>
+        <li><code>uint16</code></li>
+        <li><code>uint32</code></li>
+        <li><code>struct</code></li>
+        <li><code>tuple</code></li>
+    </ul>
+</p>
+<p>
+    We'll talk more about the various datatypes later.
+</p>
+<p>
+    The <b>name</b> is a name of your choosing for the Cloud Variable.  By
+    convention, these are all lowercase with underscore(_) as a word seperator.  For example <code>"master_on_off"</code>.
+</p>
+
+<h5>Reporting to the Cloud</h5>
+<p>
+    You can change the value of a Cloud Variable using
+    <code>canopy_var_set</code>:
+</p>
+<pre class='sh_c code'>
+    // Your code for reading temperature sensor goes here.
+    float t = ReadTemperature();
+
+    // Set the Cloud Variable's local value
+    result = canopy_var_set(ctx, "temperature", CANOPY_VALUE_FLOAT32(t));
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Error setting 'temperature' to %f.", t);
+        return -1;
+    }
+</pre>
+<p>
+    The <code>canopy_var_set</code> routine is generic and works for any
+    datatype.  The second parameter must be a <code>CanopyVarValue</code>
+    object, which is why the <code>CANOPY_VAR_FLOAT(t)</code> call is needed.
+</p>
+<p>
+    The <code>canopy_var_set_*</code> routines such as
+    <code>canopy_var_set_float32</code> can be used instead and are slightly
+    more convenient:
+</p>
+<pre class='sh_c code'>
+    result = canopy_var_set_float32(ctx, "temperature", t);
+</pre>
+
+<p>
+    The above code samples only change the <b>local value</b> of
+    <code>'temperature'</code> in device memory.  They do not actually
+    communicate with the cloud.  In fact, so far there has been no interaction
+    with the cloud server at all.  That happens next with
+    <code>canopy_sync</code>.
+</p>
+<p>
+    To report the value of <code>'temperature'</code> to the <b>Canopy Cloud Service (CCS)</b>, you must
+    call <code>canopy_sync</code> or <code>canopy_sync_blocking</code>:
+</p>
+<pre class='sh_c code'>
+    // Synchronize with the cloud (10-second timeout)
+    result = canopy_sync_blocking(ctx, 10*CANOPY_SECONDS);
+    if (result == CANOPY_ERROR_TIMED_OUT) {
+        // Operation timed out
+    } else if (result != CANOPY_SUCCESS) {
+        // Other error occurred
+    }
+</pre>
+<p>
+    The <code>canopy_sync_blocking</code> routine communicates with the
+    <b>CCS</b> using either WebSockets (default) or HTTP/REST.  Because this is
+    the first time <code>canopy_sync_blocking</code> has been called, a whole
+    bunch of stuff happens:
+    
+    <ul>
+        <li>A WebSocket connection is opened to <code>ccs.canopy.link</code>.</li>
+        <li>A handshake with the server occurs.</li>
+        <li>Metadata for the <code>'temperature'</code> Cloud Variable is sent to the cloud.</li>
+        <li>The latest value of <code>'temperature'</code> is sent to the cloud.
+        <li>The <b>CCS</b> creates a new <b>Device</b>
+        resource (if this is the first time the UUID has been encountered).</li>
+        <li>The <b>CCS</b> creates a Cloud Variable
+        <code>temperature</code> (if this is the first time that variable name
+        has been reported by this device), and stores its value in the database.</li>
+    </ul>
+</p>
+<p>
+    Subsequent calls to <code>canopy_sync_blocking</code> use the open WebSocket
+    connection and do much less work:
+    <ul>
+        <li>The device sends the value of each Cloud Variable that changed
+        locally since the previous <code>canopy_sync*</code> call.</li>
+        <li>The device receives updated values for each Cloud Variable that
+        changed remotely since the previous <code>canopy_sync*</code> call.</li>
+    </ul>
+</p>
+<p>
+    Typically, <code>canopy_sync_blocking</code> is called repeatedly in your
+    program's main loop.  Whenever your program isn't doing anything else, it is
+    good practice to call <code>canopy_sync_blocking</code>.
+</p>
+<p>
+    You can use the <code>canopy_once_every</code> helper routine to
+    periodically read and report sensor data.
+</p>
+
+<pre class='sh_c code'>
+    while (1) {
+        long reportTimer = 0;
+
+        // Synchronize with the cloud
+        result = canopy_sync_blocking(ctx, 10*CANOPY_SECONDS);
+        if (result == CANOPY_ERROR_TIMED_OUT) {
+            // Communication with cloud failed.  Wait a few seconds, then try
+            // again.
+            canopy_write_error(ctx, stderr, "Error syncing");
+            sleep(10);
+            continue;
+        }
+
+        // Report temperature every 60 seconds
+        if (canopy_once_every(&amp;reportTimer, 60*CANOPY_SECONDS)) {
+            // Your code for reading temperature sensor goes here.
+            float t = ReadTemperature();
+
+            // Update the Cloud Variable's local value
+            result = canopy_var_set_float32(ctx, "temperature", t);
+            if (result != CANOPY_SUCCESS) {
+                canopy_write_error(ctx, stderr, "Error setting 'temperature' to %f.", t);
+                return -1;
+            }
+        }
+    }
+</pre>
+
+<h4>Obtaining data from the Cloud</h4>
+<h5>Using canopy_get_var</h5>
+<p>
+    Cloud Variables make it easy to obtain data from the cloud.  The first step
+    is to initialize a Cloud Variable with <code>in</code> or
+    <code>inout</code> direction.  For example, we can create an
+    <code>in</code> variable called <code>led_on</code> that can be remotely
+    controlled through the cloud.
+</p>
+<pre class='sh_c code'>
+    result = canopy_var_init("in bool led_on");
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Error initializing variable 'led_on'.");
+        return -1;
+    }
+</pre>
+<p>
+    You can then use <code>canopy_sync_blocking</code> to fetch the latest
+    value from the cloud into the local copy.
+</p>
+<pre class='sh_c code'>
+    result = canopy_sync_blocking(ctx, 10*CANOPY_SECONDS);
+</pre>
+<p>
+    Finally, read the local copy using <code>canopy_var_get</code>:
+</p>
+<pre class='sh_c code'>
+    bool led = false;
+
+    // Read the value of the "led_on" cloud variable
+    result = canopy_var_get(ctx, "led_on", CANOPY_READ_BOOL(&amp;led));
+    if (result == CANOPY_ERROR_VARIABLE_NOT_SET) {
+        // This cloud variable has never been set.
+        // 'led' will not be modified, meaning the default of 'false' gets used.
+    } else if (result != CANOPY_ERROR_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Error reading variable 'led_on'.");
+        return -1;
+    }
+
+    // Your code for turning on/off the LED goes here:
+    SetLED(led);
+</pre>
+
+<p>
+    The <code>canopy_var_get</code> routine is generic and works for any
+    datatype.  The second parameter must be a <code>CanopyVarReader</code>
+    object, which is why the <code>CANOPY_READ_BOOL(&amp;led)</code> call is
+    needed.
+</p>
+<p>
+    The <code>canopy_var_get_*</code> routines such as
+    <code>canopy_var_get_bool</code> can be used instead and are slightly more
+    convenient:
+</p>
+<pre class='sh_c code'>
+    result = canopy_var_get_bool(ctx, "led_on", &amp;led);
+</pre>
+
+<h5>Obtaining Data From The Cloud Using Callbacks</h5>
+<p>
+    You can also register a callback that gets triggered whenever a Cloud
+    Variable changes.
+</p>
+<pre class='sh_c code'>
+    result = canopy_var_on_change(ctx, 'led_on', HandleLEDChange, NULL);
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Error registering callback for 'led_on'");
+        return -1;
+    }
+</pre>
+<p>
+    The third parameter, <code>HandleLEDChange</code>, is a function pointer to
+    a routine such as:
+</p>
+<pre class='sh_c code'>
+static int HandleLEDChange(CanopyContext ctx, const char *varName, void *userData) {
+    bool led;
+    result = canopy_var_get_bool(ctx, "led_on", &amp;led);
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Error reading variable 'led_on'.");
+        return -1;
+    }
+
+    // Your code for turning on/off the LED goes here:
+    SetLED(led);
+
+    return 0;
+}
+</pre>
+<p>
+    The last parameter <code>userData</code> will match the last parameter
+    passed to <code>canopy_var_on_change</code> allowing you to pass arbitrary
+    data to the callback routine.
+</p>
+<p>
+    Registered callbacks only get triggered during the execution of
+    <code>canopy_sync</code> and <code>canopy_sync_blocking</code>, so be sure
+    to sync often.
+</p>
+
+<h4>Putting It All Together</h4>
+
+Here is a complete example:
+
+
+
+<pre class='sh_c code'>
+#include &lt;canopy.h&gt;
+#include &lt;unistd.h&gt;
+
+static void SetLED(bool onOff) {
+    // Your code for turning on/off the LED goes here
+    if (onOff) {
+        printf("LED turned on\n");
+    } else {
+        printf("LED turned off\n");
+    }
+}
+
+static float ReadTemperature() {
+    // Your code for reading temperature sensor goes here
+    return 98.7f;
+}
+
+static int HandleLEDChange(CanopyContext ctx, const char *varName, void *userData) {
+    bool led;
+    result = canopy_var_get_bool(ctx, "led_on", &amp;led);
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Error reading variable 'led_on'.");
+        return -1;
+    }
+
+    SetLED(led);
+
+    return 0;
+}
+
+int main(void) {
+    CanopyContext ctx;
+    CanopyResultEnum result;
+
+    ctx = canopy_init_context();
+    if (!ctx) {
+        canopy_write_error(ctx, stderr, "Failed to create context.");
+        return -1;
+    }
+
+    result = canopy_set_opt(ctx,
+        CANOPY_DEVICE_UUID, "<script>RenderUUID()</script>",
+        CANOPY_DEVICE_SECRET_KEY, "<script>RenderSecretKey()</script>"
+    );
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to configure context");
+        return -1;
+    }
+
+    result = canopy_var_init(ctx, "out float32 temperature");
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to init cloud var 'temperature'.");
+        return -1;
+    }
+
+    result = canopy_var_init(ctx, "in bool led_on");
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to init cloud var 'led_on'.");
+        return -1;
+    }
+
+    result = canopy_var_on_change(ctx, 'led_on', HandleLEDChange, NULL);
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Error registering callback for 'led_on'");
+        return -1;
+    }
+
+    // Loop forever, syncing as often as possible
+    while (1) {
+        long reportTimer = 0;
+
+        // Synchronize with the cloud
+        result = canopy_sync_blocking(ctx, 10*CANOPY_SECONDS);
+        if (result == CANOPY_ERROR_TIMED_OUT) {
+            // Communication with cloud failed.  Wait a few seconds, then try
+            // again.
+            canopy_write_error(ctx, stderr, "Error syncing");
+            sleep(10);
+            continue;
+        }
+
+        // Report temperature every 60 seconds
+        if (canopy_once_every(&amp;reportTimer, 60*CANOPY_SECONDS)) {
+            float t = ReadTemperature();
+
+            // Update the Cloud Variable's local value
+            result = canopy_var_set_float32(ctx, "temperature", t);
+            if (result != CANOPY_SUCCESS) {
+                canopy_write_error(ctx, stderr, "Error setting 'temperature' to %f.", t);
+                return -1;
+            }
+        }
+    }
+
+    return 0;
+}
+</pre>
+
+<script>RenderBodyFooter();</script>
+</html>
