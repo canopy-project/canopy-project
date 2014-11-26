@@ -17,9 +17,115 @@ RenderBodyStart();
     API</b>.  This allows you to use Cloud Variables from practically any
     language and platform.
 </p>
+<h4>REST - Device Endpoints</h4>
+<p>
+    Every device has a dedicated HTTP REST endpoint.  The device's UUID is part
+    of URL.  For example:
+</p>
+<pre class=code>
+https://ccs.canopy.link/api/device/<script>RenderUUID();</script>
+</pre>
+</p>
 
-<h3>Reporting</h3>
+<h4>Authentication</h4>
+<p>
+    All requests must use HTTP Basic Auth with the device's UUID as the
+    username and the device's Secret Key as the password.  For example, if
+    you're using <code>curl</code> from the command line:
+</p>
 
+<pre class=code>
+curl --user <script>RenderUUID()</script>:<script>RenderSecretKey()</script> https://ccs.canopy.link/di/<script>RenderUUID()</script>&nbsp;
+</pre>
+
+
+<h4>Initializing Cloud Variables</h4>
+<p>
+    You can initialize a Cloud Variable with a <code>POST</code> to the
+    device's endpoint:
+</p>
+
+<pre class=code>
+POST /di/device/&lt;UUID&gt;
+
+{
+    "sddl" : {
+        "out float32 temperature" : { },
+        "inout bool led_on" : { }
+    }
+}
+</pre>
+<p>
+    The <code>"device-secret-key"</code> field must be your device's Secret Key.  Since
+    the Secret Key is part of the payload, you should always use
+    <code>https</code> to prevent the Secret Key from being snooped.
+</p>
+<p>
+    The <code>"sddl"</code> field contains configuration data for the device's
+    cloud variables.  You can set additional properties like so:
+</p>
+<p><pre class=code>
+    "sddl" : {
+        "out float32 temperature" : {
+            "min-value" : -100.0f,
+            "max-value" : 150.0f,
+            "units" : "degrees_c"
+        }
+        ...
+    }
+</pre></p>
+
+<h4>Reporting Data to the Cloud</h4>
+
+<p>
+    To report data to the cloud, POST to the device's endpoint with
+    <code>"vars"</code> object in the payload:
+</p>
+
+<p><pre class=code>
+POST /di/device/&lt;UUID&gt;
+
+{
+    "device-secret-key" : "<script>RenderSecretKey()</script>",
+    "vars" : {
+        "temperature" : 98.7
+    }
+}
+</pre></p>
+
+<h4>Obtaining Data from the Cloud</h4>
+<p>
+    You can obtain data from the cloud with a <code>GET</code> request.
+</p>
+
+<pre class=code>
+GET https://ccs.canopy.link/di/device/&lt;UUID&gt;
+</pre>
+
+The response will look something like this:
+<pre class='code'>
+{
+    "result" : "ok",
+    "connection" : {
+        "ws_connected" : false,
+        "last_http_timestamp" : "2014-11-08T18:42:30"
+    },
+    "sddl" : {
+        "out float32 temperature" : { },
+        "in bool led_on" : { },
+    }
+    "vars" : {
+        "temperature" : {
+            "t" : "2014-11-08T18:42:30",
+            "v" : 98.7
+        },
+        "led_on" : {
+            "t" : "2014-11-08T19:38:21",
+            "v" : true
+        }
+    }
+}
+</pre>
 
 <script>RenderBodyFooter();</script>
 </html>
