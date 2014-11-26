@@ -31,9 +31,11 @@ body {
 
 pre.sh_sourceCode {
   background-color: #f0f0f0;
+  box-shadow: 1px 1px 3px #a0a0a0;
   color: black;
   font-style: normal;
   font-weight: normal;
+  padding-right: 16px;
 }
 
 .banner {
@@ -119,6 +121,13 @@ pre.sh_sourceCode {
 .bg-darkblue {
     background: #3060b0;
     color: #ffffff;
+    font-weight: 400;
+}
+
+.bg-darkblue a {
+    background: #3060b0;
+    color: #ffffff;
+    font-weight: 400;
 }
 
 .bg-darkgray {
@@ -140,7 +149,7 @@ pre.sh_sourceCode {
 
 .book {
     padding: 20px;
-    background: #d8d8d8;
+    background: #f4f4f0;
     letter-spacing: 1.0px;
 }
 
@@ -162,9 +171,11 @@ pre.sh_sourceCode {
 .book-content {
     background: white;
     font-size: 17px;
-    padding: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
     width: 800px;
     border-radius: 8px;
+    border: 1px solid #d0d0d0;
 }
 
 .canopy-diagram {
@@ -185,9 +196,11 @@ pre.sh_sourceCode {
 .code
 {
     font-family: monospace;
-    background: #dbdbdb;
-    color: #203050;
+    background-color: #f0f0f0;
+    box-shadow: 1px 1px 3px #a0a0a0;
+    color: black;
     padding: 8px;
+    padding-right: 16px;
     font-size: 14px;
     border-radius: 4px;
     margin-top: 10px;
@@ -326,7 +339,7 @@ pre.sh_sourceCode {
 
 .toc {
     font-size: 15px;
-    padding-top: 130px;
+    padding-top: 60px;
     padding-right: 40px;
 }
 .toc-chapter {
@@ -334,6 +347,10 @@ pre.sh_sourceCode {
 }
 .toc-section {
     padding-left:20px;
+}
+.toc-selected, .toc-selected a {
+    font-weight: 400;
+    color: black;
 }
 
 .topbar a {
@@ -402,6 +419,10 @@ pre.sh_sourceCode {
 .l {
     font-size: 40px;
 }
+.ml {
+    font-size: 30px;
+}
+
 
 h1 {
     font-size: 50px;

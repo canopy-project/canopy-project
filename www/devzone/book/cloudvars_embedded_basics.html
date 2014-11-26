@@ -115,7 +115,7 @@ int main(void) {
     convention, these are all lowercase with underscore(_) as a word seperator.  For example <code>"master_on_off"</code>.
 </p>
 
-<h5>Reporting to the Cloud</h5>
+<h4>Reporting to the Cloud</h4>
 <p>
     You can change the value of a Cloud Variable using
     <code>canopy_var_set</code>:
@@ -202,7 +202,7 @@ int main(void) {
     periodically read and report sensor data.
 </p>
 
-<pre class='sh_c code'>
+<p><pre class='sh_c code'>
     while (1) {
         long reportTimer = 0;
 
@@ -229,9 +229,9 @@ int main(void) {
             }
         }
     }
-</pre>
+</pre></p>
 
-<h4>Obtaining data from the Cloud</h4>
+<h4>Obtaining Data From The Cloud</h4>
 <h5>Using canopy_get_var</h5>
 <p>
     Cloud Variables make it easy to obtain data from the cloud.  The first step
@@ -284,9 +284,9 @@ int main(void) {
     Utility routines such as <code>canopy_var_get_bool</code> can be used
     instead and are slightly more convenient:
 </p>
-<pre class='sh_c code'>
+<p><pre class='sh_c code'>
     result = canopy_var_get_bool(ctx, "led_on", &amp;led);
-</pre>
+</pre></p>
 
 <h5>Obtaining Data From The Cloud Using Callbacks</h5>
 <p>

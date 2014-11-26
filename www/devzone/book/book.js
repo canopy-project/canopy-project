@@ -5,27 +5,27 @@ var items = [
         "link" : null
     }, {
         "type" : "section",
-        "title" : "1.1: About Cloud-Enabled Devices",
+        "title" : "1.1 About Cloud-Enabled Devices",
         "link" : "c1_1.html"
     }, {
         "type" : "section",
-        "title" : "1.2: About Canopy",
+        "title" : "1.2 About Canopy",
         "link" : "c1_2.html"
     }, {
         "type" : "section",
-        "title" : "1.3: Canopy Basics",
+        "title" : "1.3 Canopy Basics",
         "link" : "c1_3.html"
     }, {
         "type" : "section",
-        "title" : "1.4: Using Canopy",
+        "title" : "1.4 Using Canopy",
         "link" : "using_canopy.html"
     }, {
         "type" : "section",
-        "title" : "1.5: Embedded Installation",
+        "title" : "1.5 Embedded Installation",
         "link" : "embedded_install.html"
     }, {
         "type" : "section",
-        "title" : "1.6: Server (Cloud) Installation",
+        "title" : "1.6 Server (Cloud) Installation",
         "link" : "cloud_install.html"
     }, {
         "type" : "chapter",
@@ -33,7 +33,7 @@ var items = [
         "link" : null
     }, {
         "type" : "section",
-        "title" : "2.1: About Cloud Variables",
+        "title" : "2.1 About Cloud Variables",
         "link" : "cloudvars_about.html"
     }, {
         "type" : "section",
@@ -58,13 +58,14 @@ function RenderHead() {
     <script src='../../canopy_project.js'></script>\
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>\
     <script type='text/javascript' src='../../3rdparty/shjs/sh_main.min.js'></script>\
-    <link type='text/css' rel='stylesheet' href='../../3rdparty/shjs/sh_style.css'>\
+    <link type='text/css' rel='stylesheet' href='../../3rdparty/shjs/sh_style_greg.css'>\
     <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>\
 </head>\
     ");
 }
 
 function RenderBodyStart() {
+    var item = GetTocItem(BOOK_SECTION_LINK);
     document.write("\
 <body onload=\"sh_highlightDocument('../../3rdparty/shjs/', '.min.js');\">\
 <div class=main-outer>\
@@ -74,8 +75,8 @@ function RenderBodyStart() {
             RenderTopbar('devzone');\
         </script>\
     </div>\
-    <div class='bg-lightgray banner-thin centered' >\
-        Developer Zone &rarr; The Canopy Book &rarr; Chapter 1\
+    <div class='bg-darkblue banner-thin centered' >\
+        <a href=../index.html>Developer Zone</a> &rarr; <span class=ml>Mastering Canopy (Online)</span> &rarr; " + item.title + "\
     </div>\
 \
     <div class='book'>\
@@ -92,11 +93,21 @@ function RenderBodyStart() {
     ");
 }
 
+function GetTocItem(page) {
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (item.link == BOOK_SECTION_LINK) {
+            return item;
+        } 
+    }
+    return null;
+}
+
 function RenderToc(page) {
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
         if (item.link == BOOK_SECTION_LINK) {
-            document.write("<div class=toc-" + item.type + "><b><a href='" + item.link + "'>" + item.title + "</a></b></div>");
+            document.write("<div class='toc-selected toc-" + item.type + "'><a href='" + item.link + "'>" + item.title + "</a></div>");
         } 
         else if (item.link != null) {
             document.write("<div class=toc-" + item.type + "><a href='" + item.link + "'>" + item.title + "</a></div>");
