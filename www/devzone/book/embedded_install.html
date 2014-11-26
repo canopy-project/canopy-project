@@ -1,38 +1,14 @@
 <!DOCTYPE html>
 <html>
+<script src=book.js></script>
+<script>
+var BOOK_CHAPTER = 2;
+var BOOK_SECTION_NAME = "";
+var BOOK_SECTION_LINK = "embedded_install.html";
+RenderHead();
+RenderBodyStart();
+</script>
 
-<head>
-    <title>Canopy - Developer Zone</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../../canopy_project.js"></script>
-    <script src="toc.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
-    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>
-</head>
-
-<body>
-<div class=main-outer>
-    <div class='bg-white centered'>
-        <script> 
-            var RELATIVE_PATH = "../../";
-            RenderTopbar("devzone");
-        </script>
-    </div>
-    <div class='bg-lightgray banner-thin centered' >
-        Developer Zone &rarr; The Canopy Book &rarr; Chapter 1
-    </div>
-
-    <div class='book'>
-        <table width=100%>
-            <tr>
-                <td width=1 valign=top nowrap style='padding-right:20px'>
-                    <div class=toc>
-                        <script>RenderToc("embedded_install.html");</script>
-                    </div>
-                </td>
-                <td valign=top>
-
-        <div class='book-content'>
 <h3>1.4 Getting Started: Embedded Installation</h3>
 
 <p>
@@ -103,32 +79,7 @@ make
 sudo make install
 </div>
 
-    <script>RenderNextPrevButtons("embedded_install.html");</script>
+<script>RenderNextPrevButtons("embedded_install.html");</script>
 
-<div class=disqussion id=disqus_thread></div>
-<script type="text/javascript">
-/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-var disqus_shortname = 'canopyiot'; // required: replace example with your forum shortname
-
-/* * * DON'T EDIT BELOW THIS LINE * * */
-(function() {
- var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
- dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
- (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
- })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            
-
-
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-
-    <script>RenderFooter();</script>
-</div>
-</body>
+<script>RenderBodyFooter();</script>
 </html>

@@ -43,6 +43,10 @@ var items = [
         "type" : "section",
         "title" : "2.3 libcanopy: Compiling and Running",
         "link" : "cloudvars_compiling_and_running.html"
+    }, {
+        "type" : "section",
+        "title" : "2.4 Cloud Variables with Device REST API",
+        "link" : "cloudvars_device_rest_api.html"
     }
 ];
 
