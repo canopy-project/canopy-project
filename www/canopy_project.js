@@ -14,13 +14,15 @@ function RenderTopbar(page) {
                 <div class='topbar-middle-part'>"
                     + writeLink("index.html", "Home", (page == "home"))
                     + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
-                    + writeLink("support_us.html", "Services", (page == "supportus")) + "\
+                    + writeLink("services.html", "Services", (page == "services")) + "\
                 </div>\
                 <div class='topbar-right-part'>\
                     <div class='topbar-login'>LOGIN</div>\
                 </div>\
             </div>\
-        </div>");
+        </div>\
+        <div style='height:38px;'>&nbsp;</div>\
+        ");
 }
 
 function RenderFooter() {
@@ -91,6 +93,3 @@ function RenderDevZoneMenu(page) {
     </div>\
 </div>");
 }
-
-$(document).ready(function() {
-});
