@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<script src=book.js></script>
+<script>
+var BOOK_CHAPTER = 2;
+var BOOK_SECTION_NAME = "";
+var BOOK_SECTION_LINK = "notify_about.html";
+RenderHead();
+RenderBodyStart();
+</script>
+
+<h3>3.1 Cloud Notifications - About Cloud Notifications</h3>
+<p>
+    In this chapter we will see how Cloud Notifications make it easy to send
+    messages to the device's user from within firmware.
+</p>
+
+<h4>How Cloud Notifications Work</h4>
+<p>
+    The Canopy Cloud Service has a fully-featured account and permission system
+    that associates one or more user accounts with each device.  Most devices
+    have a primary user, called the "device owner".  The device owner may
+    provide an email address, phone number, and other contact information to
+    the Canopy Cloud Service, using our Device Manager or via your application.
+</p>
+<p>
+    Using the <code>libcanopy</code> firmware library, your embedded software
+    can send messages to the registered device owner and/or other users.  These
+    messages are first sent to the Canopy Cloud Service, which then uses
+    services such as SendGrid and Twilio to deliver the notification.
+</p>
+
+<h4>Setup</h4>
+<p>
+    Before using Canopy's Cloud Notification feature, you must have the
+    Embedded Developer Kit (EDK) installed on your device.  See <a class=w400 href='embedded_install.html'>Getting Started: Embedded Installation</a> for instructions.
+</p>
+
+<h4>Sending Notifications from C/C++</h4>
+<h5>Initializing libcanopy</h5>
+<p>
+    The first step is to include and initialize <code>libcanopy</code>.
+</p>
+<pre class='sh_c code'>
+#include &lt;canopy.h&gt;
+
+int main(void) {
+    CanopyContext ctx;
+    CanopyResultEnum result;
+
+    ctx = canopy_init_context();
+    if (!ctx) {
+        canopy_write_error(NULL, stderr, "Failed to create context.");
+        return -1;
+    }
+
+    result = canopy_set_opt(ctx,
+        CANOPY_DEVICE_UUID, "<script>RenderUUID()</script>",
+        CANOPY_DEVICE_SECRET_KEY, "<script>RenderSecretKey()</script>"
+    );
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to configure context");
+        return -1;
+    }
+</pre>
+<p>This process is discussed in more detail in <a class=w400 href='cloudvars_embedded_basics.html'>Cloud Variables - Cloud Variables with libcanopy</a>.
+<h5>Sending Text Messages</h5>
+<p>
+    To send a text message to the device owner, use:
+</p>
+<pre class='sh_c code'>
+    result = canopy_notify_sms(ctx, "Your laundry is done");
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to queue text message");
+        return -1;
+    }
+</pre>
+<p>The above code simply queues the notification locally.  It does not actually
+send the text message, or interact with the cloud.  For that, you need to sync:
+<pre class='sh_c code'>
+    // Synchronize with the cloud (10-second timeout)
+    result = canopy_sync_blocking(ctx, 10*CANOPY_SECONDS);
+    if (result == CANOPY_ERROR_TIMED_OUT) {
+        // Operation timed out
+    } else if (result != CANOPY_SUCCESS) {
+        // Other error occurred
+    }
+</pre>
+<p>The synchronization process is discussed in more detail in <a class=w400
+href='cloudvars_embedded_basics.html'>Cloud Variables - Cloud Variables with
+libcanopy</a>.
+</p>
+<h5>Sending Email</h5>
+<p>
+    To send an email, use:
+</p>
+<pre class='sh_c code'>
+    result = canopy_notify_email(ctx, 
+        CANOPY_EMAIL_SUBJECT, "Your laundry is finished",
+        CANOPY_EMAIL_BODY, "Come and get it!"
+    );
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to queue email message");
+        return -1;
+    }
+</pre>
+<p>
+    Again, be sure to sync:
+</p>
+<p><pre class='sh_c code'>
+    result = canopy_sync_blocking(ctx, 10*CANOPY_SECONDS);
+</pre></p>
+
+<h5>Sending a Canopy Message</h5>
+<p>A Canopy Message is a message that gets stored in the cloud database by the
+Canopy Cloud Service.  Applications can write custom code to deliver these
+notifications in-app.
+</p>
+<p>
+    To send an Canopy Message, use:
+</p>
+<pre class='sh_c code'>
+    result = canopy_notify_message(ctx, 
+        CANOPY_MESSAGE_SUBJECT, "Your laundry is finished",
+        CANOPY_MESSAGE_BODY, "Come and get it!"
+    );
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to queue Canopy message");
+        return -1;
+    }
+</pre>
+<p>
+    Again, be sure to sync:
+</p>
+<p><pre class='sh_c code'>
+    result = canopy_sync_blocking(ctx, 10*CANOPY_SECONDS);
+</pre></p>
+
+<script>RenderBodyFooter();</script>
+</html>
