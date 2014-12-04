@@ -10,119 +10,198 @@
 
 <body>
 <div class=main-outer>
+    <script> RenderTopbar("home"); </script>
+    <center class=bg-blue-grunge ><table width=800>
+        <tr>
+            <td valign=center>
+                <img class=frontpage-cloudplug-img src=images/cloudplug.png></img>
+            </td>
+            <td valign=center>
+                <div class="logo frontpage-logo-spacing">Canopy</div>
+                <div class='ml' style='margin-top:15px'>The open cloud for connected products</div>
 
-    <!-- The "Front Page" Section -->
-    <div class='bg-blue-grunge centered'>
-        <script> RenderTopbar("home"); </script>
+                <div class=''><Br>
+                    Open source cloud platform for the Internet of Things,<br> plus free hosting to get you started.
+                </div>
+            </td>
+        </tr>
+    </table></center>
+    <div style='border-bottom: 1px solid #d0d0d0'></div>
 
-        <div class=bg-blue-grunge-boundary></div>
+    <div class=centered>
+        <div class='xl' style='margin:50px'>Features</div>
+        <div style='text-align:left; display:inline-block; max-width:1024px; padding-right:20px; padding-left:20px;'>
 
-        <div class="logo frontpage-logo-spacing">Canopy</div>
-
-        <div class='frontpage-subtext'>The open cloud for IoT</div>
-
-        <div class='frontpage-sub-subtext'>
-            Open source cloud infrastructure for IoT<br> plus free hosting to
-            get you started.
+            <table width=100%>
+                <tr>
+                    <td width=50% valign=top style='padding-right:30px'>
+                        <div style='font-weight:400; font-size:24px; color:#3060b0;'>
+                            CLOUD VARIABLES
+                        </div>
+                        <div class=code>canopy_var_set_float32(ctx, "humidity", x);</div>
+                        <div style='font-size:16px; text-align:justify'>
+                            Canopy's <i>Cloud Variables</i> can be accessed in
+                            firmware, but are stored in the cloud and tracked
+                            over time.  Cloud Variables make it easy to add
+                            cloud-based remote control and monitoring
+                            to your device.
+                            <br><a href='devzone/book/cloudvars_about.html' class=w400>Learn more</a>
+                        </div>
+                    </td>
+                    <td width=50% valign=top style='padding-left:30px'>
+                        <div style='font-weight:400; font-size:24px; color:#3060b0;'>
+                            CLOUD NOTIFICATIONS
+                        </div>
+                        <div class=code>canopy_notify_sms(ctx, "Your laundry is ready");</div>
+                        <div style='font-size:16px; text-align:justify'>
+                            Canopy's <i>Cloud Notifications</i> let
+                            you send messages to the user from within firmware.
+                            Send SMS, email, or in-app notifications.
+                            <br><a href='devzone/index.html' class=w400>Learn more</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-
-        <img class=frontpage-cloudplug-img src=images/cloudplug.png></img>
-        <div class=bg-blue-grunge-boundary-lower></div>
     </div>
 
-    <!-- The "Cloud Variables Snippet" Section -->
-    <div class='bg-white centered' style='margin-top:30px'>
-        <div class=xl>Cloud Variables</div>
-        <div class='justified-block-1'>
-            Cloud Variables can be accessed in firmware but are stored in the
-            cloud. They simplify the development of smart products and
-            applications. <a href='devzone/index.html' class=w400>Get started...</a>
+    <div class=centered>
+        <div class='xl' style='margin-top:50px; margin-bottom:50px;'>Open Source Components</div>
+        <div style='text-align:left; display:inline-block; max-width:1200px; padding-right:20px; padding-left:20px;'>
+            <table width=100%><tr>
+                <td width=33% valign=top>
+                    <div class=feature-cell-left>
+                        <div class=feature-title style='color:#3060b0'>Embedded Development Kit</div>
+                        <div class=feature-text>Firmware libraries for
+                        cloud-enabled devices.
+                        <br><a href='devzone/index.html' class=w400>Learn more</a></div>
+                    </div>
+                </td>
+                <td width=33% valign=top>
+                    <div class=feature-cell-middle>
+                        <div class=feature-title style='color:#3060b0'>Canopy Cloud Service</div>
+                        <div class=feature-text>Secure IoT server software designed for
+                        scale.
+                        <br><a href='devzone/index.html' class=w400>Learn more</a></div>
+                        </div>
+                    </div>
+                </td>
+                <td width=33% valign=top>
+                    <div class=feature-cell-right>
+                        <div class=feature-title style='color:#3060b0'>Application Development Kit</div>
+                        <div class=feature-text>Libraries for building IoT apps.
+                        <br><a href='devzone/index.html' class=w400>Learn more</a></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style='padding-top: 50px' width=33% valign=top>
+                    <div class=feature-cell-left>
+                        <div class=feature-title style='color:#3060b0'>Device Manager</div>
+                        <div class=feature-text>Web console for device makers.
+                        <br><a href='devzone/index.html' class=w400>Learn more</a></div>
+                        </div>
+                    </div>
+                </td>
+                <td width=33% valign=top>
+                    <div class=feature-cell-middle>
+                    </div>
+                </td>
+                <td width=33% valign=top>
+                    <div class=feature-cell-right>
+                    </div>
+                </td>
+            </tr>
+            </table>
         </div>
     </div>
 
     <!-- The "Features" Section -->
-    <div class='bg-white centered' style='margin-top:40px'>
-        <div class=l>Features</div>
+    <div class=centered>
+        <div class='xl' style='margin:50px'>Advantages</div>
+        <div style='text-align:left; display:inline-block; max-width:1200px; padding-right:20px; padding-left:20px;'>
 
-        <table class=features-table width=100% border=0>
-            <tr>
-                <td width=30% valign=top>
-                    <div class='feature-cell-left'>
-                        <div class=feature-title>100% OPEN SOURCE</div>
-                        <div class=feature-text>
-                            We believe that royalty-free protocols and open
-                            source software are prerequisites for innovation
-                            and interoperability in the IoT space.  All source
-                            code is available on GitHub under the Apache v2
-                            License.  All specifications and documentation are
-                            published under a Creative Commons license.
+            <table class=features-table width=100% border=0>
+                <tr>
+                    <td width=30% valign=top>
+                        <div class='feature-cell-left'>
+                            <div class=feature-title>100% OPEN SOURCE</div>
+                            <div class=feature-text>
+                                We believe that royalty-free protocols and open
+                                source software are prerequisites for innovation
+                                and interoperability in the IoT space.  All source
+                                code is available on GitHub under the Apache v2
+                                License.  All specifications and documentation are
+                                published under a Creative Commons license.
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td width=30% valign=top>
-                    <div class='feature-cell-middle'>
-                        <div class=feature-title>HARDWARE AGNOSTIC</div>
-                        <div class=feature-text>
-                            Canopy Cloud Variables are stored in the cloud and
-                            accessed using web-based protocols.  As long as
-                            your device can connect to the Internet you can use
-                            Cloud Variables.  In addition, we are working with
-                            several HW vendors to make sure that Canopy works
-                            seamlessly on a variety of hardware platforms.
+                    </td>
+                    <td width=30% valign=top>
+                        <div class='feature-cell-middle'>
+                            <div class=feature-title>HARDWARE AGNOSTIC</div>
+                            <div class=feature-text>
+                                Canopy Cloud Variables are stored in the cloud and
+                                accessed using web-based protocols.  As long as
+                                your device can connect to the Internet you can use
+                                Cloud Variables.  In addition, we are working with
+                                several HW vendors to make sure that Canopy works
+                                seamlessly on a variety of hardware platforms.
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td width=30% valign=top>
-                    <div class='feature-cell-right'>
-                        <div class=feature-title>LANGUAGE AGNOSTIC</div>
-                        <div class=feature-text>
-                            Canopy is based on RESTful HTTP and Websocket
-                            protocols, so it can be used from nearly any
-                            programming language.  We are working on native
-                            client libraries that make development of firmware
-                            and IoT applications using Canopy even simpler.
+                    </td>
+                    <td width=30% valign=top>
+                        <div class='feature-cell-right'>
+                            <div class=feature-title>LANGUAGE AGNOSTIC</div>
+                            <div class=feature-text>
+                                Canopy is based on RESTful HTTP and Websocket
+                                protocols, so it can be used from nearly any
+                                programming language.  We are working on native
+                                client libraries that make development of firmware
+                                and IoT applications using Canopy even simpler.
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td style='padding-top: 50px' width=30% valign=top>
-                    <div class='feature-cell-left'>
-                        <div class=feature-title>RUNS ANYWHERE</div>
-                        <div class=feature-text>
-                            Canopy's server-side component (the "Canopy Cloud
-                            Service") is open source and runs anywhere,
-                            including the public cloud, private cloud, hybrid
-                            cloud, LAN, or even on your laptop.
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding-top: 50px' width=30% valign=top>
+                        <div class='feature-cell-left'>
+                            <div class=feature-title>RUNS ANYWHERE</div>
+                            <div class=feature-text>
+                                Canopy's server-side component (the "Canopy Cloud
+                                Service") is open source and runs anywhere,
+                                including the public cloud, private cloud, hybrid
+                                cloud, LAN, or even on your laptop.
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style='padding-top: 50px' width=30% valign=top>
-                    <div class='feature-cell-middle'>
-                        <div class=feature-title>HOSTING</div>
-                        <div class=feature-text>
-                            Free or paid.  Get up and running quickly with our
-                            free hosting.  For light usage, we will host your
-                            Cloud Variables for free on our servers.  For heavy
-                            commercial usage, you can upgrade to our premium
-                            hosting service.
+                    </td>
+                    <td style='padding-top: 50px' width=30% valign=top>
+                        <div class='feature-cell-middle'>
+                            <div class=feature-title>HOSTING</div>
+                            <div class=feature-text>
+                                Free or paid.  Get up and running quickly with our
+                                free hosting.  For light usage, we will host your
+                                Cloud Variables for free on our servers.  For heavy
+                                commercial usage, you can upgrade to our premium
+                                hosting service.
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td style='padding-top: 50px' width=30% valign=top>
-                    <div class='feature-cell-right'>
-                        <div class=feature-title>POWERFUL</div>
-                        <div class=feature-text>
-                            Cloud Variables are more than just variables.  They
-                            are tracked and monitored over time by the server.
-                            They are perfect for IoT sensor data storage,
-                            remote control and remote configuration.
+                    </td>
+                    <td style='padding-top: 50px' width=30% valign=top>
+                        <div class='feature-cell-right'>
+                            <div class=feature-title>POWERFUL</div>
+                            <div class=feature-text>
+                                Cloud Variables are more than just variables.  They
+                                are tracked and monitored over time by the server.
+                                They are perfect for IoT sensor data storage,
+                                remote control and remote configuration.
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
 
+        </div>
         <br><br>
     </div>
 

@@ -47,6 +47,14 @@ var items = [
         "type" : "section",
         "title" : "2.4 Cloud Variables with Device REST API",
         "link" : "cloudvars_device_rest_api.html"
+    }, {
+        "type" : "chapter",
+        "title" : "Chapter 3: Cloud Notifications",
+        "link" : null
+    }, {
+        "type" : "section",
+        "title" : "3.1 About Cloud Notifications",
+        "link" : "notify_about.html"
     }
 ];
 
