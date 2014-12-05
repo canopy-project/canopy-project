@@ -103,7 +103,8 @@ pre.sh_sourceCode {
 
 .bg-blue-grunge {
     background: linear-gradient(#f8f8f8, #c0c0c0); /* Standard syntax */
-    background: linear-gradient(#f8f8f8, #c0c0c0); /* Standard syntax */
+    background: linear-gradient(#204080, #102040); /* Standard syntax */
+    color: #ffffff;
     /*background: url(images/shutterstock_132396575_background.jpg) ;
         fixed no-repeat center center; 
     background-size: cover;*/
@@ -196,6 +197,13 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
     border: 1px solid #d0d0d0;
 }
 
+.bottom_aligner {
+    display: inline-block;
+    height: 100%;
+    vertical-align: bottom;
+    width: 0px;
+}
+
 .canopy-diagram {
     padding-top: 40px;
     padding-bottom: 20px;
@@ -219,14 +227,13 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
     color: black;
     padding: 8px;
     padding-right: 16px;
-    font-size: 14px;
     border-radius: 4px;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align:left;
     white-space: pre;
-    letter-spacing: 0px;
     overflow: auto;
+    font-size: 14px;
 }
 
 .code-output
@@ -253,20 +260,17 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
 }
 
 .feature-cell-left {
-    display:inline-block; 
     padding-right:30px; 
     text-align:left;
 }
 
 .feature-cell-middle {
-    display:inline-block; 
     padding-left:15px; 
     padding-right:15px; 
     text-align:left;
 }
 
 .feature-cell-right {
-    display:inline-block; 
     padding-left:30px; 
     text-align:left;
 }
@@ -356,7 +360,7 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
 .logo {
     font-family: "ABeeZee";
     font-size: 50pt;
-    color: #3060a0;
+    color: #3060b0;
 }
 
 .logo-in-text {
@@ -372,11 +376,22 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
     position:fixed;
     width: 100%;
     z-index: 800;
-    padding-top: 6px; 
-    padding-bottom: 3px; 
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.90);
+    background: linear-gradient(rgba(255, 255, 255, .98), rgba(255, 255, 255, 0.85)); /* Standard syntax */
+    color: #ffffff;
     text-align: center;
     border-bottom: 1px solid #d8d8d8;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .topbar {
+        position: absolute;
+    }
+}
+.topbar-logo {
+    font-family: "ABeeZee";
+    font-size: 28px;
+    color: #3060b0;
 }
 
 .toc {
@@ -396,6 +411,11 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
     color: black;
 }
 
+.topbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .topbar a {
     color: #000000;
 }
@@ -411,34 +431,39 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
 
 .topbar-inner {
     display: inline-block;
-    min-width: 800px;
-    width: 100%;
+    width:100%;
+    max-width:800px;
 }
 
 .topbar-left-part {
-    display: inline-block;
+    float:left;
+    padding-left:10px;
+    width:120px;
 }
 
 .topbar-middle-part {
+    padding-top:6px;
     display: inline-block;
-    padding-left: 110px;
 }
 
 .topbar-right-part {
-    display: inline-block;
+    float: right;
+    text-align:right;
+    padding-right:10px;
+    width:120px;
 }
 
 .topbar-login {
     display: inline-block;
-    position: relative;
-    top: -4px;
     font-size: 16px;
-    margin-right: 40px;
+    margin-top: 4px;
     font-weight: 400;
-    padding: 2px;
+    padding: 4px;
     border-radius: 2px;
     border: 1px solid #3060b0;
     box-shadow: 1px 1px 2px #808080;
+    color:#000000;
+    background:#f0f4fb;
 }
 
 .w200 {

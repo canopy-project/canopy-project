@@ -12,7 +12,7 @@ function RenderTopbar(page) {
         "<div class='topbar'>\
             <div class='topbar-inner'>\
                 <div class='topbar-left-part'>\
-                    <div class='logo' style='padding-left:30px;font-size:28px'>Canopy</div>\
+                    <div class='topbar-logo'>Canopy</div>\
                 </div>\
                 <div class='topbar-middle-part'>"
                     + writeLink("index.html", "Home", (page == "home"))
@@ -24,7 +24,7 @@ function RenderTopbar(page) {
                 </div>\
             </div>\
         </div>\
-        <div style='height:38px;'>&nbsp;</div>\
+        <div style='height:58px;'>&nbsp;</div>\
         ");
 }
 

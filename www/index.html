@@ -10,16 +10,18 @@
 
 <body>
 <div class=main-outer>
+    <!--center><div style='width:800px; background:#800080; height:4px;'></div></center>
+    <center><div style='width:1400px; background:#ff0000; height:4px;'></div></center-->
     <script> RenderTopbar("home"); </script>
-    <center class=bg-blue-grunge ><table width=800>
+    <center class=bg-blue-grunge style='padding-top:20px; padding-bottom:30px' ><table width=800>
         <tr>
-            <td valign=center>
-                <img class=frontpage-cloudplug-img src=http://thumb7.shutterstock.com/display_pic_with_logo/827527/104651009/stock-photo-raster-version-circuit-board-computer-cloud-background-104651009.jpg></img>
+            <td valign=bottom>
+                <img style='position: relative; top:12px;' class=frontpage-cloudplug-img src=images/cloud_circuit_h256.png></img>
             </td>
             <td valign=center>
-                <div class='ml' style=''>The open cloud for IoT</div>
+                <div class='l' style=''>The open cloud for IoT</div>
 
-                <div class=''><Br>
+                <div class='' style='font-size:20px'><Br>
                     Open source cloud platform for the Internet of Things,<br> plus free hosting to get you started.
                 </div>
             </td>
@@ -27,6 +29,7 @@
     </table></center>
     <div style='border-bottom: 1px solid #d0d0d0'></div>
 
+    <div style='height:20px; background: linear-gradient(#d0d0d0, #ffffff);'></div>
     <div class=centered>
         <div class='xl' style='padding-top:30px'>Overview</div>
         <div class='justified-block-1' style='text-align:center'>
@@ -42,72 +45,74 @@
         </div>
     </div>
 
+    <div style='margin-top:60px; margin-bottom:20px; height:20px; background: linear-gradient(#d0d0d0, #ffffff);'></div>
     <div class=centered>
-        <div class='xl' style='margin:50px; margin-top:70px'>Software Features</div>
-        <div style='text-align:left; display:inline-block; max-width:1024px; padding-right:20px; padding-left:20px;'>
-
-            <table width=100%>
-                <tr>
-                    <td width=50% valign=top style='padding-right:30px'>
-                        <div style='font-weight:400; font-size:24px; color:#3060b0;'>
-                            CLOUD VARIABLES
-                        </div>
-                        <div class=code>canopy_var_set_float32(ctx, "humidity", x);</div>
-                        <div style='font-size:16px; text-align:justify'>
-                            Canopy's <i>Cloud Variables</i> can be accessed in
-                            firmware, but are stored in the cloud and tracked
-                            over time.  Cloud Variables make it easy to add
-                            cloud-based remote control and monitoring
-                            to your device.
-                            <br><a href='devzone/book/cloudvars_about.html' class=w400>Learn more</a>
-                        </div>
-                    </td>
-                    <td width=50% valign=top style='padding-left:30px'>
-                        <div style='font-weight:400; font-size:24px; color:#3060b0;'>
-                            CLOUD NOTIFICATIONS
-                        </div>
-                        <div class=code>canopy_notify_sms(ctx, "Your laundry is ready");</div>
-                        <div style='font-size:16px; text-align:justify'>
-                            Canopy's <i>Cloud Notifications</i> let
-                            you send messages to the user from within firmware.
-                            Send SMS, email, or in-app notifications.
-                            <br><a href='devzone/index.html' class=w400>Learn more</a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+        <div class='xl' style='margin-top:70px'>Software Features</div>
+        <div style='text-align:center; display:inline-block; max-width:1024px; padding-right:20px; padding-left:20px;'>
+            <div style='display:inline-block; width:450px; text-align:left; vertical-align: top; padding-left:20px; padding-right:20px; padding-top:50px;'>
+                <div style='font-weight:400; font-size:24px; color:#3060b0;'>
+                    CLOUD VARIABLES
+                </div>
+                <div class=code style='overflow:visible'>canopy_var_set_float32(ctx, "humidity", x);</div>
+                <div style='width:450px; font-size:16px; text-align:justify'>
+                    Canopy's <i>Cloud Variables</i> can be accessed in
+                    firmware, but are stored in the cloud and tracked
+                    over time.  Cloud Variables make it easy to add
+                    cloud-based remote control and monitoring
+                    to your device.
+                    <br><a href='devzone/book/cloudvars_about.html' class=w400>Learn more</a>
+                </div>
+            </div>
+            <div style='display:inline-block; width:450px; text-align:left; padding-top:50px; padding-left:20px; padding-right:20px;'>
+                <div style='font-weight:400; font-size:24px; color:#3060b0;'>
+                    CLOUD NOTIFICATIONS
+                </div>
+                <div class=code style='overflow:visible'>canopy_notify_sms(ctx, "Your laundry is ready");</div>
+                <div style='width:450px; font-size:16px; text-align:justify'>
+                    Canopy's <i>Cloud Notifications</i> let
+                    you send messages to the user from within firmware.
+                    Send SMS, email, or in-app notifications.
+                    <br><a href='devzone/index.html' class=w400>Learn more</a>
+                </div>
+            </div>
         </div>
             <br><br><br>These features help you add remote control, monitoring, and notifications to your product.<br><br><br>
     </div>
 
+    <div style='margin-top:60px; margin-bottom:20px; height:20px; background: linear-gradient(#d0d0d0, #ffffff);'></div>
     <div class=centered>
         <div class='xl' style='margin-top:50px; margin-bottom:50px;'>Open Source Components</div>
         <div style='text-align:left; display:inline-block; max-width:1200px; padding-right:20px; padding-left:20px;'>
-            <table width=100%><tr>
+            <table width=100% border=0><tr>
                 <td width=33% valign=top>
-                    <div class=feature-cell-left>
-                        <img src='images/shutterstock_82034455_fan_h175.jpg'>
+                    <div style='position:relative; top:150px' class=feature-cell-left>
+                        <div class='centered'><img src='images/shutterstock_82034455_fan_h175.jpg'></div>
                         <div class=feature-title style='color:#3060b0'>Embedded Development Kit</div>
                         <div class=feature-text>Firmware libraries for
-                        cloud-enabled devices.
+                        cloud-enabled devices.  Includes
+                        <code>libcanopy</code> which is a C/C++ library that
+                        brings cloud capabilities to embedded firmware.
                         <br><a href='devzone/index.html' class=w400>Learn more</a></div>
                     </div>
                 </td>
                 <td width=33% valign=top>
                     <div class=feature-cell-middle>
-                        <img src='images/shutterstock_90189298_cloud_h175.jpg'>
+                        <div class='centered'><img src='images/shutterstock_90189298_cloud_h175.jpg'></div>
                         <div class=feature-title style='color:#3060b0'>Canopy Cloud Service</div>
                         <div class=feature-text>Secure IoT server software designed for
-                        scale.
+                        scale.  The server is written in golang and uses
+                        Cassandra for data storage.
                         <br><a href='devzone/index.html' class=w400>Learn more</a></div>
                         </div>
                     </div>
                 </td>
                 <td width=33% valign=top>
-                    <div class=feature-cell-right>
-                    <div style='height:175px'><img src=images/iphone-with-fan_240x123.jpg></div>
+                    <div style='position:relative; top:150px' class=feature-cell-right>
+                    <div class='centered' style='height:175px'><div class=bottom_aligner></div><img src=images/iphone-with-fan_240x123.jpg></div>
                         <div class=feature-title style='color:#3060b0'>Application Development Kit</div>
-                        <div class=feature-text>Libraries for building IoT apps.
+                        <div class=feature-text>Libraries for building IoT
+                        apps.  Includes <code>canopy.js</code> which provides
+                        Javascript bindings for Canopy-based applications.
                         <br><a href='devzone/index.html' class=w400>Learn more</a></div>
                         </div>
                     </div>
@@ -118,11 +123,13 @@
                     <div class=feature-cell-left>
                     </div>
                 </td>
-                <td width=33% style='padding-top:50px' valign=top>
+                <td width=33% style='padding-top:100px' valign=top>
                     <div class=feature-cell-middle>
-                        <img src=images/canopy_screenshot.jpg height=175>
+                        <div class='centered'><img style='border:1px solid #b0b0b0' src=images/canopy_screenshot.jpg height=175></div>
                         <div class=feature-title style='color:#3060b0'>Device Manager</div>
                         <div class=feature-text>Web console for device makers.
+                        Helps you manage your devices throughout the
+                        development, production, and release of your product.
                         <br><a href='devzone/index.html' class=w400>Learn more</a></div>
                         </div>
                     </div>
@@ -136,6 +143,7 @@
         </div>
     </div>
 
+    <div style='margin-top:60px; margin-bottom:20px; height:20px; background: linear-gradient(#d0d0d0, #ffffff);'></div>
     <!-- The "Features" Section -->
     <div class=centered>
         <div class='xl' style='margin:50px'>Advantages</div>
