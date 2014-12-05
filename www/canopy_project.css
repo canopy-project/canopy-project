@@ -103,6 +103,10 @@ pre.sh_sourceCode {
 
 .bg-blue-grunge {
     background: linear-gradient(#f8f8f8, #c0c0c0); /* Standard syntax */
+    background: linear-gradient(#f8f8f8, #c0c0c0); /* Standard syntax */
+    /*background: url(images/shutterstock_132396575_background.jpg) ;
+        fixed no-repeat center center; 
+    background-size: cover;*/
 }
 
 .bg-blue-grunge-boundary {
@@ -421,18 +425,16 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
 }
 
 .topbar-right-part {
-    float: right;
+    display: inline-block;
 }
 
 .topbar-login {
     display: inline-block;
     position: relative;
-    top: -2px;
+    top: -4px;
     font-size: 16px;
     margin-right: 40px;
-    font-weight: 800;
-    background: #4080d0;
-    color: #ffffff;
+    font-weight: 400;
     padding: 2px;
     border-radius: 2px;
     border: 1px solid #3060b0;

@@ -11,13 +11,16 @@ function RenderTopbar(page) {
     document.write(
         "<div class='topbar'>\
             <div class='topbar-inner'>\
+                <div class='topbar-left-part'>\
+                    <div class='logo' style='padding-left:30px;font-size:28px'>Canopy</div>\
+                </div>\
                 <div class='topbar-middle-part'>"
                     + writeLink("index.html", "Home", (page == "home"))
                     + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
                     + writeLink("services.html", "Services", (page == "services")) + "\
                 </div>\
                 <div class='topbar-right-part'>\
-                    <div class='topbar-login'>LOGIN</div>\
+                    <div class='topbar-login'>Login</div>\
                 </div>\
             </div>\
         </div>\
