@@ -31,7 +31,7 @@ function RenderTopbar(page) {
 function RenderFooter() {
     document.write("\
     <div class='bg-darkgray footer centered'>\
-        <div class='footer-inner'>\
+        <div style='display:inline-block; text-align:left'>\
             <table cellpadding=0 cellspacing=0>\
                 <tr>\
                     <td class=footer-item>Twitter</td>\
@@ -66,9 +66,13 @@ function RenderFooter() {
                     </td>\
                 </tr>\
             </table>\
+        </div><br>\
 \
+        <div class='footer-inner'>\
             <br>\
-            Copyright 2014 SimpleThings, Inc.\
+            Copyright 2014 SimpleThings, Inc.<br><br>\
+\
+            <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/4.0/88x31.png' /></a><br />Except where otherwise noted, this site is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'><u>Creative Commons Attribution 4.0 International License</u></a>.\
         </div>\
     </div>\
     ");

@@ -136,7 +136,7 @@ int main(void)
 <h5>Changing Hosts</h5>
 <p>
     By default, <code>libcanopy</code> connects to the Canopy Cloud Service
-    hosted at http://ccs.canopy.link.  This means you do not need to do any
+    hosted at <code>http://sandbox.canopy.link</code>.  This means you do not need to do any
     work to configure or operate the cloud components of Canopy.
 </p>
 <p>
@@ -150,10 +150,10 @@ int main(void)
     Without doing anything else, your device can be monitored and controlled
     through the <b>Canopy Web Management Interface</b>.  Just visit:
 </p>
-<div class='code'>http://ccs.canopy.link/device/&lt;UUID&gt;</div>
+<div class='code'>http://sandbox.canopy.link/device/&lt;UUID&gt;</div>
 For example:
 <p>
-    <div class='code'>http://ccs.canopy.link/device/<script>RenderUUID();</script></div>
+    <div class='code'>http://sandbox.canopy.link/device/<script>RenderUUID();</script></div>
 </p>
 
 <h4>Using the Javascript Client for Application Development</h4>
@@ -166,7 +166,7 @@ For example:
 
 // Initialize Canopy Javascript Client
 var canopy = new CanopyClient({
-    cloudhost: "ccs.canopy.link",
+    "cloud-host" : "ccs.canopy.link",
 });
 
 canopy.onConnected(function() {

@@ -140,11 +140,11 @@ function RenderNextPrevButtons(page) {
         if (item.link == BOOK_SECTION_LINK) {
             if (i > 1) {
                 var j = (items[i-1].link == null) ? i-2 : i-1;
-                document.write("<a href='" + items[j].link + "'>Prev</a> | ");
+                document.write("<a class='w400' href='" + items[j].link + "'>Prev</a> | ");
             }
             if (i < items.length - 1) {
                 var j = (items[i+1].link == null) ? i+2 : i+1;
-                document.write("<a href='" + items[j].link + "'>Next</a>");
+                document.write("<a class='w400' href='" + items[j].link + "'>Next</a>");
             }
         } 
     }
