@@ -4,83 +4,167 @@
 <head>
     <title>Canopy - An Open Source Platform for the Internet of Things</title>
     <script src="canopy_project.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
     <link href='canopy_project.css' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
+<div id='pricing_popup' style='font-size: 17px; display:none; position: fixed; left:0px; width:100%; top: 0px; height:100%; background:rgba(140, 140, 140, 0.9);'>&nbsp;
+    <div class=centered>
+        <div style='display:inline-block; width: 640px; position: relative; top: 100px; width:800; border:1px solid #a0a0a0; text-align:left; background:#ffffff; border-radius:4px; padding:20px;'>
+            <div id=closebtn style='cursor:pointer; font-weight:400; color: #800000; float:right'>CLOSE</div>
+            <script>
+$(function() {
+    $("#closebtn").on("click", function() {
+        $("#pricing_popup").fadeOut();
+    });
+    $("#pricingbtn").on("click", function() {
+        $("#pricing_popup").fadeIn();
+    });
+});
+</script>
+            <div class='ml'>Hosted Enterprise Pricing</div>
+            <p>
+                Monthly pricing is based on a baseline fee per device, plus a
+                combined storage fee, plus a combined data transfer fee.
+            </p>
+            <table cellspacing=0 cellpadding=6>
+                <tr>
+                    <td style='border-bottom: 1px solid #808080'>
+                        <b>Fee</b>
+                    </td>
+                    <td style='border-bottom: 1px solid #808080'>
+                        <b>Cost (Yearly)</b>
+                    </td>
+                    <td style='border-bottom: 1px solid #808080'>
+                        <b>Cost (Monthly)</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <b>Baseline Fee</b>
+                    </td>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <span style='color: #008000'><b>$0.75</b> per device</span>
+                    </td>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <span style='color: #008000'><b>$0.0625</b> per device</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <b>Data Storage Fee</b>
+                    </td>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <span style='color: #008000'><b>$0.12</b> per MB</span>
+                    </td>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <span style='color: #008000'><b>$0.01</b> per MB</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <b>Data Transfer Fee</b>
+                    </td>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <span style='color: #008000'><b>$0.12</b> per Mbit</span>
+                    </td>
+                    <td style='border-bottom: 1px solid #d0d0d0'>
+                        <span style='color: #008000'><b>$0.01</b> per Mbit</span>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                For example, if you have 10,000 devices that use a combined 3GB
+                of storage, and transfer a combined 15 Gbit of data each month,
+                the total yearly fee will be:
+            </p>
+            <code>10000&times;$0.75 + 3000&times;$0.12 + 15000&times;$0.12 = $9360.00</code> 
+            <p>
+                Which is ~<b>$0.93/device/year</b> or ~<b>$0.08/device/month.</b>
+            </p>
+        </div>
+    </div>
+</div>
+
 <div class=main-outer>
 
-    <!-- The "Front Page" Section -->
-    <div class='centered'>
+    <script> RenderTopbar("services"); </script>
 
-        <script> RenderTopbar("services"); </script>
-
-        <div style='padding-top:40px; padding-bottom:40px'>
-            <div class='bg-datacenter hosting-title'>Hosting</div>
+    <div style='height:20px; background: linear-gradient(#d0d0d0, #ffffff);'></div>
+    <div class=centered>
+        <div class='xl' style='padding-top:30px'>Hosting</div>
+        <div class='centered' style='padding-top:30px'>
+            <img src='images/cloud_hosting_h256.png'><br>
         </div>
-        <table class='hosting-boxes-table' width=100%>
-            <tr>
-                <td width=33% valign=top>
-                <div class='hosting-boxes-cell' style='margin-top: 40px'>
-                    <div class='feature-title' style='text-align:left; color:black; font-size:28px;'>FREE (SANDBOX)</div>
-                    <div class='feature-text' style='text-align:left; color:black; font-size:18px;'>
-                        We host a free "sandbox" deployment of the <b>Canopy Cloud
-                        Service</b> for learning Canopy and developing
-                        smart products.
+        <div class='ml centered' style='padding-top:30px'>
+            Our hosted solutions let you not worry about the cloud.
+        </div>
+        <div style='display:inline-block; max-width:1200px;'>
+            <table class='hosting-boxes-table' style='padding-top:60px' width=100%>
+                <tr>
+                    <td width=33% valign=top>
+                    <div class='hosting-boxes-cell'>
+                        <div class='feature-title' style='text-align:left; color:#408020; font-size:28px;'>FREE (SANDBOX)</div>
+                        <div class='feature-text' style='text-align:left; color:black; font-size:18px;'>
+                            We host a free "sandbox" deployment of the <b>Canopy Cloud
+                            Service</b> for learning Canopy and developing
+                            smart products.
+                        <ul>
+                            <li>No account or sign-in needed.</li>
+                            <li>Unlimited devices.</li>
+                            <li>Less performance &amp; reliability compared to FREE (ENTERPRISE).</li>
+                        </ul>
+
+                        Just point your devices to <code>sandbox.canopy.link</code>.
+                        <br><br><a style='font-weight:400' target=_blank href='devzone/book/using_hosted_server.html#sandbox'>Instructions here</a>.
+
+                    </div>
+                    </div>
+                </div>
+            </td><td width=33% valign=top>
+                <div class='hosting-boxes-cell'>
+                    <div style='text-align:left; color:#408020; font-size:28px;'><b>FREE (ENTERPRISE)</b></div>
+                    <div style='text-align:left; color:black; font-size:18px;'>
+                    Commercial-grade reliability and performance, with access to
+                    all of our enterprise features.
                     <ul>
-                        <li>No account or sign-in needed.</li>
-                        <li>Unlimited devices.</li>
-                        <li>Less performance &amp; reliability compared to FREE (ENTERPRISE).</li>
+                        <li>Manage up to 10 devices.</li>
+                        <li>1MB of cloud data storage per device.</li>
+                        <li>1,000 unthrottled daily transactions per device.</li>
+                        <li>Production-ready performance and reliability.</li>
                     </ul>
 
-                    Just point your devices to <code>sandbox.canopy.link</code>.
-                    <br><br><a style='font-weight:400' href='..'>Instructions here</a>.
-
+                    Point your devices to <code>ccs.canopy.link</code>.<br><br><a style='font-weight:400' target=_blank href='devzone/book/using_hosted_server.html#ccs'>Instructions here</a>.
+                    </div>
                 </div>
-                </div>
-            </div>
-        </td><td width=33% valign=top>
-            <div class='hosting-boxes-cell' style='margin-top:40px'>
-                <div style='text-align:left; color:black; font-size:28px;'><b>FREE (ENTERPRISE)</b></div>
-                <div style='text-align:left; color:black; font-size:18px;'>
-                Commercial-grade reliability and performance, with access to
-                all of our enterprise features.
-                <ul>
-                    <li>Manage up to 10 devices.</li>
-                    <li>1MB of cloud data storage per device.</li>
-                    <li>1,000 unthrottled daily transactions per device.</li>
-                    <li>Production-ready performance and reliability.</li>
-                </ul>
+            </td><td width=33% valign=top style='border-right:0px solid #a0a0a0'>
+                <div class='hosting-boxes-cell'>
+                    <div style='text-align:left; color:#3060a0; font-size:28px;'><b>PREMIUM (ENTERPRISE)</b></div>
+                    <div style='text-align:left; color:black; font-size:18px;'>
+                        The best cloud solution for shipping products.  Flexible
+                        pricing depends on how many devices and how much data and
+                        bandwidth you need.
 
-                Point your devices to <code>ccs.canopy.link</code>.<br><br><a style='font-weight:400' href='..'>Instructions here</a>.
-                </div>
-            </div>
-        </td><td width=33% valign=top>
-            <div class='hosting-boxes-cell'>
-                <div style='text-align:left; color:black; font-size:28px;'><b>PREMIUM (ENTERPRISE)</b></div>
-                <div style='text-align:left; color:black; font-size:18px;'>
-                    The best cloud solution for shipping products.  Flexible
-                    pricing depends on how many devices and how much data and
-                    bandwidth you need.
+                        <br><br><b>As low as $0.75/device/year</b>
 
-                    <br><br><b>As low as $0.75/device/year</b>
-
-                    <br><br><a style='font-weight:400' href..>Pricing here</a>.
-                    <br><a style='font-weight:400' href..>Instructions here</a>.
+                        <br><br><a id='pricingbtn' style='font-weight:400' href='javascript:(void)0;'>Pricing here</a>.
+                        <br><a style='font-weight:400' target=_blank href=devzone/book/using_hosted_server.html#ccs>Instructions here</a>.
+                    </div>
                 </div>
-            </div>
-        <br><div class=hosting-boxes-cell>
-                <div style='text-align:left; color:black; font-size:28px;'><b>DEDICATED DEPLOYMENT</b></div>
-                <div style='text-align:left; color:black; font-size:18px;'>
-                    Need a fully-managed dedicated deployment? We can operate a
-                    dedicated instance of Canopy in our datacenter or
-                    yours.
+            <br><div class=hosting-boxes-cell>
+                    <div style='text-align:left; color:#3060a0; font-size:28px;'><b>DEDICATED DEPLOYMENT</b></div>
+                    <div style='text-align:left; color:black; font-size:18px;'>
+                        Need a fully-managed dedicated deployment? We can operate a
+                        dedicated instance of Canopy in our datacenter or
+                        yours.
 
-                    <br><br><b>Contact us today for a free quote.</b>
+                        <br><br><b><a href='mailto:info@canopy.link'>Contact us</a> today for a free quote.</b>
+                    </div>
                 </div>
-            </div>
-        </td></tr></table>
+            </td></tr></table>
+        </div>
 
         <br><br><br><br>
         <div class=bg-blue-grunge-boundary-lower></div>
@@ -88,11 +172,13 @@
     </div>
 
     <!-- The "Cloud Variables Snippet" Section -->
-    <div class='centered'>
-        <div style='padding-top:40px; padding-bottom:40px'>
-            <div class='bg-work hosting-title' style='color:#000000'>Projects</div>
-        </div>
-        <br><div class='justified-block-1' style='background:rgba(255, 255, 255, 0.9); border: 4px solid #404040; padding:30px; border-radius:2px;'>
+    <div style='height:20px; background: linear-gradient(#d0d0d0, #ffffff);'></div>
+    <div class=centered>
+        <div class='xl' style='padding-top:30px'>Projects</div>
+    </div>
+    <div class=centered><br>
+        <img src='images/shutterstock_156257867_work_team_1920x1200.jpg' width=480 style='border: 1px solid #a0a0a0; box-shadow: 4px 4px 4px #a0a0a0'>
+        <br><div class='justified-block-1' style='background:rgba(255, 255, 255, 0.9); padding:20px; border-radius:2px;'>
             Our team knows IoT.  We've built and shipped cloud-controlled
             products for consumers and businesses.
             <br><br>
@@ -104,11 +190,13 @@
             <br><br>
             <b>Team with us today!</b><br><br>Email inquiries to <a href='mailto:info@canopy.link'>info@canopy.link</a>
         </div>
+    </div>
 
-    <br><br><br><br><br><br>
+    <br><br>
 
     <script>RenderFooter();</script>
 
     </div>
+
 </body>
 </html>

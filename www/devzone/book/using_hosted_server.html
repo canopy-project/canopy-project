@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<script src=book.js></script>
+<script>
+var BOOK_CHAPTER = 2;
+var BOOK_SECTION_NAME = "About Cloud Variables";
+var BOOK_SECTION_LINK = "using_hosted_server.html";
+RenderHead();
+RenderBodyStart();
+</script>
+
+<h3>1.8 Getting Starting - Selecting Cloud Server</h3>
+
+<p>
+    In this section we'll show you how to point your devices and applications
+    to the Canopy Cloud Service server of your choice.
+</p>
+<h4>Hosted Service</h4>
+<h5>Hosted Deployments</h5>
+<p>
+    The Canopy team offers free and premium hosted deployments of the Canopy
+    Cloud Service.
+
+    <ul>
+        <li><code>sandbox.canopy.link</code> - Free development sandbox.</li>
+        <li><code>ccs.canopy.link</code> - Production-ready deployment with free &amp; premium offerings.</li>
+    </ul>
+</p>
+
+<h4>Configuring Cloud Server</h4>
+<p>
+    You can configure Canopy libraries to communicate with any running instance
+    of the Canopy Cloud Service.
+</p>
+<h5>Embedded (libcanopy) Server Selection</h5>
+<p>
+    To point device firmware to a particular server, add this to
+    the beginning of your program (before <code>canopy_sync</code>) is called:
+</p>
+<p><pre class='sh_c code'>
+    canopy_set_opt(ctx, CANOPY_CLOUD_HOST, "mycanopyserver.com");
+</pre></p>
+<p>
+    If your server is running on non-standard ports, you can use:
+</p>
+<p><pre class='sh_c code'>
+    canopy_set_opt(ctx, 
+        CANOPY_CLOUD_HOST, "mycanopyserver.com",
+        CANOPY_HTTP_PORT, "8080",
+        CANOPY_HTTPS_PORT, "8081",
+        CANOPY_WS_PORT, "1234",
+        CANOPY_WSS_PORT, "9090",
+    );
+</pre></p>
+
+<h5>Application (canopy.js) Server Selection</h5>
+<p>
+    To point your Javascript application to a particular server, use the
+    following initialization code:
+</p>
+<p><pre class='sh_js code'>
+// Initialize Canopy Javascript Client
+var canopy = new CanopyClient({
+     "cloud-host": "mycanopyserver.com",
+});
+</pre></p>
+
+If the server is running on non-standard ports, use:
+<p><pre class='sh_c code'>
+// Initialize Canopy Javascript Client
+var canopy = new CanopyClient({
+     "cloud-host": "mycanopyserver.com",
+     "http-port" : 8080,
+     "https-port" : 8081, <a name=sandbox></a>
+     "ws-port" : 1234,
+     "wss-port" : 9090
+});
+</pre></p>
+<h4>Using sandbox.canopy.link</h4>
+<p>
+    By default the server <code>sandbox.canopy.link</code> is used by all Canopy libraries.
+    Without configuring anything, you can remotely manage your Canopy-enabled
+    devices by going to: <a
+    href='http://sandbox.canopy.link'>http://sandbox.canopy.link</a>
+</p>
+<h5>Explicitly Pointing libcanopy To sandbox.canopy.link</h5>
+<p>
+    If for some reason you would like to explicitly configure your software to
+    point to <code>sandbox.canopy.link</code>, you can configure
+    <code>libcanopy</code> with the following code (although it is unnecessary because <code>sandbox.canopy.link</code> is used by default).
+</p>
+<pre class='sh_c code'>
+    canopy_set_opt(ctx, CANOPY_CLOUD_HOST, "sandbox.canopy.link");
+</pre>
+<p>
+    This option must be configured before the first call to
+    <code>canopy_sync</code>.  For example:
+</p>
+<p><pre class='sh_c code'>
+#include &lt;canopy.h&gt;
+
+int main(void) {
+    CanopyContext ctx;
+    CanopyResultEnum result;
+
+    ctx = canopy_init_context();
+    if (!ctx) {
+        canopy_write_error(ctx, stderr, "Failed to create context.");
+        return -1;
+    }
+
+    result = canopy_set_opt(ctx,
+        CANOPY_CLOUD_HOST, "sandbox.canopy.link",
+        CANOPY_DEVICE_UUID, "<script>RenderUUID()</script>",
+        CANOPY_DEVICE_SECRET_KEY, "<script>RenderSecretKey()</script>"
+    );
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to configure context");
+        return -1;
+    }
+
+    ...
+</pre></p>
+
+<h5>Explicitly Pointing canopy.js To sandbox.canopy.link</h5>
+<p>
+    Likewise, you can explicitly point <code>canopy.js</code> to <code>sandbox.canopy.link</code>
+    with the following code.  Again, this is unnecessary because <code>sandbox.canopy.link</code> is used by default.
+</p>
+<p><pre class='sh_c code'>
+// Initialize Canopy Javascript Client
+var canopy = new CanopyClient({<a name='ccs'></a>
+     "cloud-host": "sandbox.canopy.link",
+});
+</pre></p>
+
+<h4>Using ccs.canopy.link</h4>
+<p>
+    The Canopy team operates a deployment of the Canopy Cloud Service on the
+    <code>ccs.canopy.link</code> domain.  This is a production-ready
+    deployment that is free for limited usage, with upgrades available
+    for heavy usage.
+</p>
+<h5>Creating an Account on ccs.canopy.link</h5>
+<p>
+    The <code>ccs.canopy.link</code>
+    deployment requires that you create a <i>Device Maker Account</i> before
+    your devices and applications can use it.
+</p>
+<p>
+    To create an account, go to:
+    <a target=_blank href='http://ccs.canopy.link'>http://ccs.canopy.link</a>
+</p>
+
+<h5>Generating Device IDs</h5>
+<p>
+    The <code>ccs.canopy.link</code> deployment requires that each device has a
+    pre-registered UUID and Secret Key.  You can generate and register these
+    values by going to: <a target=_blank
+    href='http://ccs.canopy.link/mgr/gen_devices'>http://ccs.canopy.link/mgr/gen_devices</a>
+</p>
+
+<h5>Embedded Development: Pointing libcanopy to ccs.canopy.link</h5>
+<p>
+    To point <code>libcanopy</code> to <code>ccs.canopy.link</code>, set the <code>CANOPY_CLOUD_HOST</code> option appropriately:
+</p>
+<pre class='sh_c code'>
+    canopy_set_opt(ctx, CANOPY_CLOUD_HOST, "ccs.canopy.link");
+</pre>
+<p>
+    This option must be configured before the first call to
+    <code>canopy_sync</code>.  For example:
+</p>
+<p><pre class='sh_c code'>
+#include &lt;canopy.h&gt;
+
+int main(void) {
+    CanopyContext ctx;
+    CanopyResultEnum result;
+
+    ctx = canopy_init_context();
+    if (!ctx) {
+        canopy_write_error(ctx, stderr, "Failed to create context.");
+        return -1;
+    }
+
+    result = canopy_set_opt(ctx,
+        CANOPY_CLOUD_HOST, "ccs.canopy.link",
+        CANOPY_DEVICE_UUID, "<script>RenderUUID()</script>",
+        CANOPY_DEVICE_SECRET_KEY, "<script>RenderSecretKey()</script>"
+    );
+    if (result != CANOPY_SUCCESS) {
+        canopy_write_error(ctx, stderr, "Failed to configure context");
+        return -1;
+    }
+
+    ...
+</pre></p>
+<p>
+    The <code>CANOPY_DEVICE_UUID</code> and <code>CANOPY_DEVICE_SECRET_KEY</code>
+    values must match the pre-registered values for your device.
+</p>
+
+<h5>Application Development: Pointing canopy.js to ccs.canopy.link</h5>
+<p>
+    To point your application using <code>canopy.js</code> to
+    <code>ccs.canopy.link</code>, use the following initialization code:
+</p>
+<p><pre class='sh_c code'>
+// Initialize Canopy Javascript Client
+var canopy = new CanopyClient({
+     "cloud-host": "ccs.canopy.link",
+});
+</pre></p>
+<script>RenderBodyFooter();</script>
+</html>

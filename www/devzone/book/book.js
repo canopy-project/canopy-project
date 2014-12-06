@@ -28,6 +28,14 @@ var items = [
         "title" : "1.6 Server (Cloud) Installation",
         "link" : "cloud_install.html"
     }, {
+        "type" : "section",
+        "title" : "1.7 Javascript Application Setup",
+        "link" : "app_js_install.html"
+    }, {
+        "type" : "section",
+        "title" : "1.8 Selecting Cloud Server",
+        "link" : "using_hosted_server.html"
+    }, {
         "type" : "chapter",
         "title" : "Chapter 2: Cloud Variables",
         "link" : null
@@ -131,10 +139,12 @@ function RenderNextPrevButtons(page) {
         var item = items[i];
         if (item.link == BOOK_SECTION_LINK) {
             if (i > 1) {
-                document.write("<a href='" + items[i-1].link + "'>Prev</a> | ");
+                var j = (items[i-1].link == null) ? i-2 : i-1;
+                document.write("<a href='" + items[j].link + "'>Prev</a> | ");
             }
             if (i < items.length - 1) {
-                document.write("<a href='" + items[i+1].link + "'>Next</a>");
+                var j = (items[i+1].link == null) ? i+2 : i+1;
+                document.write("<a href='" + items[j].link + "'>Next</a>");
             }
         } 
     }

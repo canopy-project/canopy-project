@@ -58,10 +58,12 @@ function RenderNextPrevButtons(page) {
         var item = items[i];
         if (item.link == page) {
             if (i > 1) {
-                document.write("<a href='" + items[i-1].link + "'>Prev</a> | ");
+                var j = (items[i-1].link == null) ? i-2 : i-1;
+                document.write("<a href='" + items[j].link + "'>Prev</a> | ");
             }
             if (i < items.length - 1) {
-                document.write("<a href='" + items[i+1].link + "'>Next</a>");
+                var j = (items[i+1].link == null) ? i+2 : i+1;
+                document.write("<a href='" + items[j].link + "'>Next</a>");
             }
         } 
     }

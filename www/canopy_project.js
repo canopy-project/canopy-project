@@ -20,7 +20,7 @@ function RenderTopbar(page) {
                     + writeLink("services.html", "Services", (page == "services")) + "\
                 </div>\
                 <div class='topbar-right-part'>\
-                    <div class='topbar-login'>Login</div>\
+                    <a target='_blank' href='http://app.canopy.link'><div class='topbar-login'>Login</div></a>\
                 </div>\
             </div>\
         </div>\
