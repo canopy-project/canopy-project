@@ -25,18 +25,6 @@
                     "email" : &lt;EMAIL&gt;
                 }
             </code>
-            <tbl>
-                <row>
-                    <cell header="1">URL</cell>
-                    <cell header="1">Operations</cell>
-                    <cell header="1">Description</cell>
-                </row>
-                <row>
-                    <cell>api/lorem</cell>
-                    <cell>GET</cell>
-                    <cell>Get junk text</cell>
-                </row>
-            </tbl>
         </subsection>
     </section>
 

@@ -1,0 +1,775 @@
+<html>
+<head>
+    <title>Canopy - Developer Zone - REST API</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../canopy_project.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>
+    <link href='hammock-custom.css' rel='stylesheet' type='text/css'>
+<script>
+function get_scroll_y() {
+    return window.pageYOffset || document.body.scrollTop || document.html.scrollTop;
+}
+function get_element_scroll_y(id) {
+    return document.getElementById(id).offsetTop;
+}
+
+function update_scroll() {
+    var y = get_scroll_y();
+
+        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_accounts').style.fontWeight = '';document.getElementById('toc_accounts').style.backgroundColor = '';document.getElementById('toc_create_an_account').style.fontWeight = '';document.getElementById('toc_create_an_account').style.backgroundColor = '';document.getElementById('toc_get_current_account').style.fontWeight = '';document.getElementById('toc_get_current_account').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_account-linked_devices').style.fontWeight = '';document.getElementById('toc_create_account-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device').style.fontWeight = '';document.getElementById('toc_update_device').style.backgroundColor = '';document.getElementById('toc_synchronization').style.fontWeight = '';document.getElementById('toc_synchronization').style.backgroundColor = '';document.getElementById('toc_track_account_resources').style.fontWeight = '';document.getElementById('toc_track_account_resources').style.backgroundColor = '';document.getElementById('toc_track_device_resources').style.fontWeight = '';document.getElementById('toc_track_device_resources').style.backgroundColor = '';document.getElementById('toc_track_historic_cloud_variable_data').style.fontWeight = '';document.getElementById('toc_track_historic_cloud_variable_data').style.backgroundColor = '';
+    if (0) {
+    }
+    
+            else if (y + 32 > get_element_scroll_y('track_historic_cloud_variable_data')) {
+                document.getElementById('toc_track_historic_cloud_variable_data').style.fontWeight = "bold";
+                document.getElementById('toc_track_historic_cloud_variable_data').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('track_device_resources')) {
+                document.getElementById('toc_track_device_resources').style.fontWeight = "bold";
+                document.getElementById('toc_track_device_resources').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('track_account_resources')) {
+                document.getElementById('toc_track_account_resources').style.fontWeight = "bold";
+                document.getElementById('toc_track_account_resources').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('synchronization')) {
+                document.getElementById('toc_synchronization').style.fontWeight = "bold";
+                document.getElementById('toc_synchronization').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('update_device')) {
+                document.getElementById('toc_update_device').style.fontWeight = "bold";
+                document.getElementById('toc_update_device').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('get_historical_cloud_var_data')) {
+                document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = "bold";
+                document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('get_single_device')) {
+                document.getElementById('toc_get_single_device').style.fontWeight = "bold";
+                document.getElementById('toc_get_single_device').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('list_devices')) {
+                document.getElementById('toc_list_devices').style.fontWeight = "bold";
+                document.getElementById('toc_list_devices').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('create_anonymous_device')) {
+                document.getElementById('toc_create_anonymous_device').style.fontWeight = "bold";
+                document.getElementById('toc_create_anonymous_device').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('create_account-linked_devices')) {
+                document.getElementById('toc_create_account-linked_devices').style.fontWeight = "bold";
+                document.getElementById('toc_create_account-linked_devices').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('devices')) {
+                document.getElementById('toc_devices').style.fontWeight = "bold";
+                document.getElementById('toc_devices').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('get_current_account')) {
+                document.getElementById('toc_get_current_account').style.fontWeight = "bold";
+                document.getElementById('toc_get_current_account').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('create_an_account')) {
+                document.getElementById('toc_create_an_account').style.fontWeight = "bold";
+                document.getElementById('toc_create_an_account').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('accounts')) {
+                document.getElementById('toc_accounts').style.fontWeight = "bold";
+                document.getElementById('toc_accounts').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('basic_auth_for_devices')) {
+                document.getElementById('toc_basic_auth_for_devices').style.fontWeight = "bold";
+                document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('basic_auth_for_users')) {
+                document.getElementById('toc_basic_auth_for_users').style.fontWeight = "bold";
+                document.getElementById('toc_basic_auth_for_users').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('session-based_auth_logout')) {
+                document.getElementById('toc_session-based_auth_logout').style.fontWeight = "bold";
+                document.getElementById('toc_session-based_auth_logout').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('session-based_auth_login')) {
+                document.getElementById('toc_session-based_auth_login').style.fontWeight = "bold";
+                document.getElementById('toc_session-based_auth_login').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('authentication')) {
+                document.getElementById('toc_authentication').style.fontWeight = "bold";
+                document.getElementById('toc_authentication').style.backgroundColor = "#d0d0d0";
+            }
+            
+}
+window.onload = function() {
+    window.addEventListener("scroll", update_scroll);
+}
+</script>
+
+</head>
+<body>
+<div class=main-outer>
+    <div class='bg-white centered'>
+        <script> 
+            var RELATIVE_PATH = "../../";
+            RenderTopbar("devzone");
+        </script>
+    </div>
+
+    <div class='bg-lightgray banner-thin centered' >
+        <div class='l'>
+            <span class='logo-in-text' style='color:#ffffff'>Canopy</span> REST API
+        </div>
+    </div>
+</div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Contents</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_accounts' class='hammock-toc-chapter'><a href='#accounts'>Accounts</a></div><div id='toc_create_an_account' class='hammock-toc-section'><a href='#create_an_account'>Create an Account</a></div><div id='toc_get_current_account' class='hammock-toc-section'><a href='#get_current_account'>Get Current Account</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_account-linked_devices' class='hammock-toc-section'><a href='#create_account-linked_devices'>Create Account-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device' class='hammock-toc-section'><a href='#update_device'>Update Device</a></div><div id='toc_synchronization' class='hammock-toc-chapter'><a href='#synchronization'>Synchronization</a></div><div id='toc_track_account_resources' class='hammock-toc-section'><a href='#track_account_resources'>Track Account Resources</a></div><div id='toc_track_device_resources' class='hammock-toc-section'><a href='#track_device_resources'>Track Device Resources</a></div><div id='toc_track_historic_cloud_variable_data' class='hammock-toc-section'><a href='#track_historic_cloud_variable_data'>Track Historic Cloud Variable Data</a></div></div>
+    <div class=hammock-doc-outer>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=authentication name=authentication></a>
+                <div class=hammock-chapter-title>
+                    Authentication
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    Two types of authentication are supported: <b>BASIC AUTH</b> and <b>Session-based AUTH</b>.
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=session-based_auth_login name=session-based_auth_login></a>
+            <div class=hammock-section-title>
+                Session-based AUTH Login
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>POST /api/login
+{
+    "username" : &lt;USERNAME_OR_EMAIL&gt;,
+    "password" : &lt;PASSWORD&gt;
+}</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            Header:
+            <div class=hammock-code>Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;</div>
+            Body:
+            <div class=hammock-code>{
+    "result" : "ok",
+    "username" : &lt;USERNAME&gt;
+    "email" : &lt;EMAIL&gt;
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=session-based_auth_logout name=session-based_auth_logout></a>
+            <div class=hammock-section-title>
+                Session-based AUTH Logout
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>POST /api/logout</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>{
+    "result" : "ok",
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=basic_auth_for_users name=basic_auth_for_users></a>
+            <div class=hammock-section-title>
+                BASIC AUTH for Users
+            </div>
+            <div class=hammock-section-contents>
+                
+        To use <b>BASIC AUTH</b>, include the Base64-encoded "username:password" in
+        every request.  For example, if your username is "fry" and your
+        password is "PlanetExpress", include the following header with your
+        request:
+
+        <div class=hammock-code>Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</div>
+    
+            </div>
+        </div>
+
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=basic_auth_for_devices name=basic_auth_for_devices></a>
+            <div class=hammock-section-title>
+                BASIC AUTH for Devices
+            </div>
+            <div class=hammock-section-contents>
+                
+        Canopy REST API requests can be made by both human users and IoT
+        devices.  When an IoT device is making the request:
+        <ul><li>The device's <b>UUID</b> is the username.</li>
+            <li>The device's <b>Secret Key</b> is the password.</li>
+        </ul>
+
+        For example:
+        <div class=hammock-code>For a device with:
+
+    - UUID: d5c827d2-1ba7-4da6-b87b-0864f0969fa8
+    - Secret Key: 00ae8a3ba42fa86765c885da90a7fcaec9898acb13fc2e00
+
+You would:
+
+    Base64Encode("d5c827d2-1ba7-4da6-b87b-0864f0969fa8:00ae8a3ba42fa86765c885da90a7fcaec9898acb13fc2e00")
+
+And then send this header:
+
+    Authorization: Basic ZDVjODI3ZDItMWJhNy00ZGE2LWI4N2ItMDg2NGYwOTY5ZmE4OjAwYWU4YTNiYTQyZmE4Njc2NWM4
+    ODVkYTkwYTdmY2FlYzk4OThhY2IxM2ZjMmUwMA==</div>
+    
+            </div>
+        </div>
+
+
+                </div>
+            </div>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=accounts name=accounts></a>
+                <div class=hammock-chapter-title>
+                    Accounts
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=create_an_account name=create_an_account></a>
+            <div class=hammock-section-title>
+                Create an Account
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>POST /api/create_account
+{
+    "username" : &lt;USERNAME&gt;,
+    "email" : &lt;EMAIL&gt;,
+    "password" : &lt;PASSWORD&gt;,
+}</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>{
+    "result" : "ok",
+    "username" : &lt;USERNAME&gt;,
+    "email" : &lt;EMAIL&gt;,
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=get_current_account name=get_current_account></a>
+            <div class=hammock-section-title>
+                Get Current Account
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>GET /api/me</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>{
+    "result" : "ok",
+    "username" : &lt;USERNAME&gt;,
+    "email" : &lt;EMAIL&gt;,
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+                </div>
+            </div>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=devices name=devices></a>
+                <div class=hammock-chapter-title>
+                    Devices
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=create_account-linked_devices name=create_account-linked_devices></a>
+            <div class=hammock-section-title>
+                Create Account-Linked Devices
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            To create one or more new devices from a User Account:
+            <div class=hammock-code>POST /api/create_devices
+{
+    "quanitity" : &lt;QUANITITY&gt;
+    "friendly_names" : [&lt;FRIENDLY_NAME&gt;, ...]
+}</div>
+            This will create a new device resource and associate it with the
+            current User Account.  This will also automatically assign a UUID
+            and Secret Key to each new device resource.
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>{
+    "result" : "ok",
+    "devices" : [ {
+        "friendly_name" : &lt;FRIENDLY_NAME&gt;
+        "device_id" : &lt;UUID&gt;
+        "device_secret_key" : &lt;DEVICE_SECRET_KEY&gt;
+    }, ... ]
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=create_anonymous_device name=create_anonymous_device></a>
+            <div class=hammock-section-title>
+                Create Anonymous Device
+            </div>
+            <div class=hammock-section-contents>
+                
+        Some deployments of the Canopy Cloud Service allow devices to be
+        created that are not associated with any User account.  These are
+        called "anonymous devices".
+
+        Each anonymous device has a user-assigned Secret Key that is used to
+        restrict access.
+
+        Anonymous devices are automatically created by the
+        <span class=hammock-icode>/api/sync</span> endpoint.  When <span class=hammock-icode>/api/sync</span>
+        encounters a new Device UUID in the BASIC AUTH header, it will create a
+        new anonymous device.
+    
+            </div>
+        </div>
+
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=list_devices name=list_devices></a>
+            <div class=hammock-section-title>
+                List Devices
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            To obtain a list of all devices the current Account has access to:
+            <div class=hammock-code>GET /api/me/devices</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>{
+    "result" : "ok",
+    "devices" : [ {
+        "device_id" : &lt;UUID&gt;,
+        "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+        "connected" : &lt;CONNECTED&gt;,
+        "sddl" : { &lt;SDDL&gt; },
+        "vars" : { &lt;VARS&gt; },
+    }, ...  ]
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=get_single_device name=get_single_device></a>
+            <div class=hammock-section-title>
+                Get Single Device
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            To obtain information about a single device:
+            <div class=hammock-code>GET /api/device/&lt;UUID&gt;</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>{
+    "result" : "ok",
+    "device_id" : &lt;UUID&gt;,
+    "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+    "connected" : &lt;CONNECTED&gt;,
+    "sddl" : { &lt;SDDL&gt; },
+    "vars" : { &lt;VARS&gt; },
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=get_historical_cloud_var_data name=get_historical_cloud_var_data></a>
+            <div class=hammock-section-title>
+                Get Historical Cloud Var Data
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=update_device name=update_device></a>
+            <div class=hammock-section-title>
+                Update Device
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+                </div>
+            </div>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=synchronization name=synchronization></a>
+                <div class=hammock-chapter-title>
+                    Synchronization
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    The "synchronization" mechanism allows multiple resources to be tracked and
+    updated efficiently with a single API request.  Tracked resources can
+    include accounts, devices, and cloud variables.  If using Session-based
+    AUTH, the list of tracked resources will be remembered across requests.
+
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=track_account_resources name=track_account_resources></a>
+            <div class=hammock-section-title>
+                Track Account Resources
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>POST api/sync
+{
+    ...
+    "track-accounts" : [&lt;USERNAME&gt;, ...]
+    ...
+}</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            The response will include basic information about each device that
+            the tracked accounts have access to.
+            <div class=hammock-code>{
+    ...
+    "accounts" : {
+        &lt;USERNAME&gt; : {
+            "devices" : [ &lt;DEVICE_UUID&gt;, ... ]
+        }
+    },
+    "devices" : {
+        &lt;DEVICE_UUID&gt; :  {
+            "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+            "connected" : &lt;CONNECTED&gt;,
+            "sddl_hash" : &lt;SDDL_HASH&gt;,
+        }
+    },
+    "sddl" : {
+        &lt;SDDL_HASH&gt; : {
+            &lt;SDDL&gt;
+        }
+    }
+    ...
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=track_device_resources name=track_device_resources></a>
+            <div class=hammock-section-title>
+                Track Device Resources
+            </div>
+            <div class=hammock-section-contents>
+                
+        <div class=hammock-code>POST api/sync
+{
+    ...
+    "track-devices" : [&lt;DEVICE_UUID&gt;, ...]
+    ...
+}</div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            Detailed information about tracked devices, including Cloud
+            Variable values, will be included in the response.
+            <div class=hammock-code>{
+    ...
+    "devices" : {
+        &lt;DEVICE_UUID&gt; :  {
+            "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+            "connected" : &lt;CONNECTED&gt;,
+            "sddl_hash" : &lt;SDDL_HASH&gt;,
+            "vars" : &lt;VARS&gt;,
+            "notifs" : &lt;NOTIFICATIONS&gt;,
+        }
+    },
+    "sddl" : {
+        &lt;SDDL_HASH&gt; : {
+            &lt;SDDL&gt;
+        }
+    }
+    ...
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=track_historic_cloud_variable_data name=track_historic_cloud_variable_data></a>
+            <div class=hammock-section-title>
+                Track Historic Cloud Variable Data
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>POST api/sync
+{
+    ...
+    "track-vars" : ["UUID:gps[0].longitude", ...]
+    ...
+}</div>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class=hammock-code>{
+    "devices" : {
+        &lt;DEVICE_UUID&gt; : {
+            "vars" : {
+                "gps" : [ {
+                    "longitude" : {
+                        "t" : RFC3339DATE,
+                        "v" : CURRENT_VALUE,
+                        "history" : [
+                            &lt;HISTORIC_SAMPLES&lt;
+                        ]
+                    }
+                }, ... ]
+            }
+        }
+    }
+}</div>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+
+                </div>
+            </div>
+
+</div>
+    <script> 
+        RenderFooter();
+    </script>
+</body>
+</html>
+
