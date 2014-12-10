@@ -1,0 +1,179 @@
+<doc logo="" title="Lorem Ipsum">
+
+<chapter title="Installation">
+    <p>
+        The Canopy C/C++ Client is part of the Canopy Embedded Development Kit (EDK).
+        The EDK uses <icode>repo</icode>, which is a tool that makes it easier
+        to work with multiple git repositories.
+    </p>
+    <section title='Prerequisites'>
+        <subsection title='Installing Required Packages (Ubuntu 14.04)'>
+            <code>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev</code>
+        </subsection>
+        <subsection title='Installing Repo'>
+            <p>
+                Download <icode>repo</icode> and put it somewhere in your <icode>PATH</icode>:
+            </p>
+            <code>
+                curl https://storage.googleapis.com/git-repo-downloads/repo &gt; repo
+                chmod a+x repo
+                sudo cp repo /usr/local/bin
+            </code>
+        </subsection>
+    </section>
+    <section title='Downloading the Source'>
+        <subsection title='Initializing a Repo Client'>
+            <p>
+                After installing <icode>repo</icode>, set up your client to access the Canopy
+                EDK repository.
+            </p>
+            <p>
+                1) Create a working directory.  You can call it anything you like:
+            </p>
+            <code>
+                mkdir canopy_edk
+                cd canopy_edk
+            </code>
+            <p>
+                2) Run <icode>repo init</icode> to initialize the client repository.
+            </p>
+            <code>
+                repo init -u https://github.com/canopy-project/canopy-embedded-manifest
+            </code>
+            <p>
+                To check out a branch other than "master", specify it with -b:
+            </p>
+            <code>
+                repo init -u https://github.com/canopy-project/canopy-embedded-manifest -b beta
+            </code>
+            <p>
+                3) Use <icode>repo sync</icode> to download sources to your working directory:
+            </p>
+            <code>
+                repo sync
+            </code>
+        </subsection>
+    </section>
+    <section title='Building and Installing libcanopy'>
+        <subsection title='Initializing the Build Environment'>
+            <p>
+                Canopy's build system expects certain environment variables to
+                be set, which are initialized with the <icode>envsetup.sh</icode>
+                script.
+            </p>
+            <code>
+                source build/envsetup.sh
+            </code>
+        </subsection>
+        <subsection title='Building and Installing'>
+            <p>
+                To build and install the Canopy EDK, run:
+            </p>
+            <code>
+                cd build
+                make
+                sudo make install
+            </code>
+        </subsection>
+    </section>
+</chapter>
+<chapter title='The Basics'>
+    <section title='A Simple Example'>
+        This simple program initializes <icode>libcanopy</icode> and posts some
+        data
+        to the cloud.  Error checking is omitted for clarity.
+        <code syntax="c">
+            #include &lt;canopy.h&gt;
+
+            int main(void) {
+                CanopyContext ctx;
+                float32 humidity = 0.0;
+
+                ctx = canopy_init_context();
+
+                canopy_set_opt(
+                    CANOPY_CLOUD_HOST, "sandbox.canopy.link",
+                    CANOPY_DEVICE_UUID, &lt;YOUR UUID HERE&gt;
+                    CANOPY_DEVICE_SECRET_KEY, &lt;YOUR SECRET KEY HERE&gt;
+                );
+
+                canopy_var_init(ctx, "out float32 humidity");
+
+                // Your sensor-reading code goes here.
+                //humidity = ReadHumiditySensor();
+
+                canopy_var_set_float32(ctx, "humidity", humidity);
+
+                canopy_sync_blocking(ctx, 10000);
+
+                return 0;
+            }
+        </code>
+    </section>
+    <section title='Compiling and Running'>
+        <subsection title='Compiling'>
+            <p>
+                You can compile your program with a normal C/C++ compiler, such as GCC.
+            </p>
+            <p>
+                When you installed <icode>libcanopy</icode> it should have copied
+                <icode>canopy.h</icode> to somewhere in your include path, such as
+                <icode>/usr/local/include/canopy.h</icode>.  If
+                <code>libcanopy</code> is not in your path you will need to add
+                it with something like:
+            </p>
+            <code>
+                gcc -Wall -g -I~/canopy_edk/libcanopy/include -C example.c -o example.o
+            </code>
+        </subsection>
+        <subsection title='Linking'>
+            <p>
+                You must link your program with the following shared libraries:
+                <ul>
+                    <li><icode>libcanopy</icode></li>
+                    <li><icode>libsddl</icode></li>
+                    <li><icode>libred-canopy</icode></li>
+                    <li><icode>libwebsockets-canopy</icode> or <icode>libwebsockets</icode></li>
+                    <li><icode>libcurl</icode></li>
+                </ul>
+            </p>
+            <p>
+                Some of the libraries that <icode>libcanopy</icode> depends on, such as
+                <icode>libwebsockets</icode> are included in the EDK repo.  The EDK build
+                system will append <icode>-canopy</icode> to the library object file name (for
+                example <icode>libwebsockets-canopy</icode>) in order to prevent collisions
+                with other versions of those libraries that may already be installed on
+                your system.
+            </p>
+            <code>
+                gcc -Wall -g -lred-canopy -lcanopy -lsddl -lcurl -lwebsockets-canopy example.o -o example
+            </code>
+            <p>
+                If you haven't installed <icode>libcanopy</icode>, you may need to add the
+                appropriate directory(ies) to the library path.  For example:
+            </p>
+            <code>
+            gcc -Wall -g -L~/canopy_edk/build/_out/lib -lred-canopy -lcanopy -lsddl -lcurl -lwebsockets-canopy example.o -o example
+            </code>
+        </subsection>
+        <subsection title='Running'>
+            <p>
+                If you've installed <icode>libcanopy</icode>, you should be able to just run
+                your program, for example, with:
+            </p>
+            <code>
+                ./example
+            </code>
+            <p>
+                You may need to add the appropriate path to <icode>LD_LIBRARY_PATH</icode> or
+                <icode>DYLD_LIBRARY_PATH</icode>:
+            </p>
+            <code>
+                LD_LIBRARY_PATH=~/canopy_edk/build/_out/lib ./example
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+</doc>
+

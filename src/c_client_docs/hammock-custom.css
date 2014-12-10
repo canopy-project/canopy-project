@@ -1,0 +1,187 @@
+a {
+    color: #3060b0;
+}
+
+body {
+}
+
+.hammock-a-name {
+    position: relative;
+    top: -40px;
+}
+
+.hammock-chapter-contents {
+    padding-top: 1em;
+    font-size: 17px;
+    letter-spacing: 0px;
+}
+
+.hammock-chapter-outer {
+    max-width: 960px;
+    min-width: 500px;
+    border-bottom: 5px solid #a0a0a0;
+    padding: 16px;
+    padding-top: 0px;
+}
+
+.hammock-chapter-title {
+    font-size: 35px;
+    padding-top: 1em;
+}
+
+.hammock-code{
+    font-family: monospace;
+    background-color: #f8f8f0 !important;
+    box-shadow: 1px 1px 3px #808080;
+    color: black;
+    padding: 12px;
+    padding-right: 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align:left;
+    white-space: pre;
+    overflow: auto;
+    font-size: 14px;
+    letter-spacing: 0px;
+}
+
+.hammock-doc-header {
+    text-align: center;
+}
+
+.hammock-doc-outer {
+    margin-left: 300px;
+}
+
+.hammock-icode{
+    font-family: monospace;
+    display: inline-block;
+    color: #102040;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0px;
+}
+
+.hammock-interpret-error{
+    color: #800000;
+    font-size: 16px;
+    font-weight: bold;
+    background: #ffff00;
+}
+
+.hammock-section-contents {
+    padding-top: 1em;
+}
+
+.hammock-section-outer {
+    padding-bottom:2em;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.hammock-section-title {
+    font-size: 23px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color: #3060a0;
+    padding-top: 1em;
+}
+
+.hammock-subsection-outer {
+}
+
+.hammock-subsection-contents {
+    padding-top: 1em;
+}
+
+.hammock-subsection-title {
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    color: #c06030;
+    padding-top: 1em;
+}
+
+.hammock-subsubsection-contents {
+}
+
+.hammock-subsubsection-outer {
+}
+
+.hammock-subsubsection-title {
+    color: #505050;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 1em;
+    padding-bottom: 1em;
+}
+
+table.hammock-tbl {
+    border-top: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+    width: 100%;
+    line-height: 1.3333;
+    font-size: 15px;
+    font-family: monospace; 
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.hammock-tbl tr:nth-child(even) {
+    background: #f0f0f0;
+}
+.hammock-tbl tr:nth-child(odd) {
+    background: #f8f8f8;
+}
+.hammock-tbl td {
+    border-bottom: 1px solid #c0c0c0;
+    border-right: 1px solid #c0c0c0;
+    padding: 12px;
+    vertical-align: top;
+    text-align:left;
+}
+
+
+td.hammock-tbl-header{
+    background: #d0d0f0;
+    font-weight: bold;
+}
+
+.hammock-toc-chapter {
+    margin-top: 16px;
+    font-size:18px;
+    border-radius: 3px;
+}
+
+.hammock-toc-chapter a, .hammock-toc-section a {
+    color: #3060b0;
+    text-decoration: none;
+}
+
+.hammock-toc-outer {
+    position: fixed;
+    width: 250;
+    overflow: auto;
+    top: 92px;
+    left: 8px;
+    font-size: 14px;
+    padding: 16px;
+    padding-top: 12px;
+    font-weight: 400;
+    white-space: nowrap;
+    background:rgba(240, 240, 240, 0.8)
+}
+
+.hammock-toc-section {
+    padding-left :2em;
+    border-radius: 3px;
+}
+
+.hammock-toc-subsection {
+}
+
+.hammock-toc-title {
+    font-size: 28px;
+}
+
