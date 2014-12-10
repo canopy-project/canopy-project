@@ -3,36 +3,47 @@ a {
 }
 
 body {
-    line-height: 1.3333;
-    font-family: sans-serif; 
-    font-size: 15px;
+}
+
+.hammock-a-name {
+    position: relative;
+    top: -40px;
 }
 
 .hammock-chapter-contents {
     padding-top: 1em;
+    font-size: 17px;
+    letter-spacing: 0px;
 }
 
 .hammock-chapter-outer {
-    max-width: 1004px;
-    min-width: 700px;
-    border-bottom: 2px solid #a0a0a0;
-    padding-bottom: 6em;
+    max-width: 960px;
+    min-width: 500px;
+    border-bottom: 5px solid #a0a0a0;
+    padding: 16px;
+    padding-top: 0px;
 }
 
 .hammock-chapter-title {
-    color: #3060b0;
-    font-size: 28px;
+    font-size: 35px;
     padding-top: 1em;
 }
 
 .hammock-code{
-    white-space:pre;
     font-family: monospace;
-    background: #f0f0f0;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    padding: 12px;
+    background-color: #f0f0f0;
+    box-shadow: 1px 1px 3px #a0a0a0;
+    color: black;
+    padding: 8px;
+    padding-right: 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align:left;
+    white-space: pre;
     overflow: auto;
+    font-size: 14px;
+    letter-spacing: 0px;
 }
 
 .hammock-doc-header {
@@ -41,7 +52,6 @@ body {
 
 .hammock-doc-outer {
     margin-left: 300px;
-    padding-top: 32px;
 }
 
 .hammock-icode{
@@ -69,8 +79,11 @@ body {
 }
 
 .hammock-section-title {
-    color: #3060b0;
-    font-size: 24px;
+    font-size: 23px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    color: #3060a0;
     padding-top: 1em;
 }
 
@@ -82,9 +95,10 @@ body {
 }
 
 .hammock-subsection-title {
-    color: #505050;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 0px;
+    color: #c06030;
     padding-top: 1em;
 }
 
@@ -148,14 +162,14 @@ td.hammock-tbl-header{
     position: fixed;
     width: 250;
     overflow: auto;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
+    top: 92px;
+    left: 8px;
     font-size: 14px;
-    background: #f8f8f8;
-    border-right: 1px solid #a0a0a0;
     padding: 16px;
+    padding-top: 12px;
+    font-weight: 400;
     white-space: nowrap;
+    background:rgba(240, 240, 240, 0.8)
 }
 
 .hammock-toc-section {
