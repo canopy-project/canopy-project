@@ -1,0 +1,194 @@
+<doc logo="" title="Lorem Ipsum">
+<chapter title="Authentication">
+    Two types of authentication are supported: <b>BASIC AUTH</b> and <b>Session-based AUTH</b>.
+    <section title="Session-based AUTH Login">
+        <subsection title="Request">
+            <code>
+                POST /api/login
+                {
+                    "username" : &lt;USERNAME_OR_EMAIL&gt;,
+                    "password" : &lt;PASSWORD&gt;
+                }
+            </code>
+        </subsection>
+        <subsection title="Response">
+            Header:
+            <code>
+                Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;
+            </code>
+            Body:
+            <code>
+                {
+                    "result" : "ok",
+                    "username" : &lt;USERNAME&gt;
+                    "email" : &lt;EMAIL&gt;
+                }
+            </code>
+            <tbl>
+                <row>
+                    <cell header="1">URL</cell>
+                    <cell header="1">Operations</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell>api/lorem</cell>
+                    <cell>GET</cell>
+                    <cell>Get junk text</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title="Session-based AUTH Logout">
+        <subsection title="Request">
+            <code> POST /api/logout </code>
+        </subsection>
+        <subsection title="Response">
+            <code>
+                {
+                    "result" : "ok",
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title="BASIC AUTH for Users">
+        To use <b>BASIC AUTH</b>, include the Base64-encoded "username:password" in
+        every request.  For example, if your username is "fry" and your
+        password is "PlanetExpress", include the following header with your
+        request:
+
+        <code>
+            Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+        </code>
+    </section>
+
+    <section title="BASIC AUTH for Devices">
+        Canopy REST API requests can be made by both human users and IoT
+        devices.  When an IoT device is making the request:
+        <ul>
+            <li>The device's <b>UUID</b> is the username.</li>
+            <li>The device's <b>Secret Key</b> is the password.</li>
+        </ul>
+
+        For example:
+        <code>
+        For a device with:
+
+            - UUID: d5c827d2-1ba7-4da6-b87b-0864f0969fa8
+            - Secret Key: 00ae8a3ba42fa86765c885da90a7fcaec9898acb13fc2e00
+
+        You would:
+
+            Base64Encode("d5c827d2-1ba7-4da6-b87b-0864f0969fa8:00ae8a3ba42fa86765c885da90a7fcaec9898acb13fc2e00")
+
+        And then send this header:
+
+            Authorization: Basic ZDVjODI3ZDItMWJhNy00ZGE2LWI4N2ItMDg2NGYwOTY5ZmE4OjAwYWU4YTNiYTQyZmE4Njc2NWM4
+            ODVkYTkwYTdmY2FlYzk4OThhY2IxM2ZjMmUwMA==
+        </code>
+    </section>
+
+</chapter>
+
+<chapter title="Accounts">
+    <section title="Create an Account">
+        <subsection title="Request">
+            <code>
+                POST /api/create_account
+                {
+                    "username" : &lt;USERNAME&gt;,
+                    "email" : &lt;EMAIL&gt;,
+                    "password" : &lt;PASSWORD&gt;,
+                }
+            </code>
+        </subsection>
+        <subsection title="Response">
+            <code>
+                {
+                    "result" : "ok",
+                    "username" : &lt;USERNAME&gt;,
+                    "email" : &lt;EMAIL&gt;,
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title="Get Current Account">
+        <subsection title="Request">
+            <code>
+                GET /api/me
+            </code>
+        </subsection>
+        <subsection title="Response">
+            <code>
+                {
+                    "result" : "ok",
+                    "username" : &lt;USERNAME&gt;,
+                    "email" : &lt;EMAIL&gt;,
+                }
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title="Devices">
+    <section title="List Devices">
+        <subsection title="Request">
+            To obtain a list of all devices the current Account has access to:
+            <code>
+                GET /api/me/devices
+            </code>
+        </subsection>
+        <subsection title="Response">
+            <code>
+                {
+                    "result" : "ok",
+                    "devices" : [ {
+                        "device_id" : &lt;UUID&gt;,
+                        "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                        "connected" : &lt;CONNECTED&gt;,
+                        "sddl" : { &lt;SDDL&gt; },
+                        "vars" : { &lt;VARS&gt; },
+                    }, ...  ]
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title="Get Single Device">
+        <subsection title="Request">
+            To obtain information about a single device:
+            <code>
+                GET /api/device/&lt;UUID&gt;
+            </code>
+        </subsection>
+        <subsection title="Response">
+            <code>
+                {
+                    "result" : "ok",
+                    "device_id" : &lt;UUID&gt;,
+                    "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                    "connected" : &lt;CONNECTED&gt;,
+                    "sddl" : { &lt;SDDL&gt; },
+                    "vars" : { &lt;VARS&gt; },
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title="Get Historical Cloud Var Data">
+        <subsection title="Request">
+            <code>
+                GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;
+            </code>
+        </subsection>
+    </section>
+    <section title="Update Device">
+        <subsection title="Request">
+            <code>
+                GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+</doc>
+
