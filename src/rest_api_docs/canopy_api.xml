@@ -1,4 +1,5 @@
 <doc logo="" title="Lorem Ipsum">
+
 <chapter title="Authentication">
     Two types of authentication are supported: <b>BASIC AUTH</b> and <b>Session-based AUTH</b>.
     <section title="Session-based AUTH Login">
@@ -132,6 +133,47 @@
 </chapter>
 
 <chapter title="Devices">
+    <section title="Create Account-Linked Devices">
+        <subsection title="Request">
+            To create one or more new devices from a User Account:
+            <code>
+                POST /api/create_devices
+                {
+                    "quanitity" : &lt;QUANITITY&gt;
+                    "friendly_names" : [&lt;FRIENDLY_NAME&gt;, ...]
+                }
+            </code>
+            This will create a new device resource and associate it with the
+            current User Account.  This will also automatically assign a UUID
+            and Secret Key to each new device resource.
+        </subsection>
+        <subsection title="Response">
+            <code>
+                {
+                    "result" : "ok",
+                    "devices" : [ {
+                        "friendly_name" : &lt;FRIENDLY_NAME&gt;
+                        "device_id" : &lt;UUID&gt;
+                        "device_secret_key" : &lt;DEVICE_SECRET_KEY&gt;
+                    }, ... ]
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title="Create Anonymous Device">
+        Some deployments of the Canopy Cloud Service allow devices to be
+        created that are not associated with any User account.  These are
+        called "anonymous devices".
+
+        Each anonymous device has a user-assigned Secret Key that is used to
+        restrict access.
+
+        Anonymous devices are automatically created by the
+        <icode>/api/sync</icode> endpoint.  When <icode>/api/sync</icode>
+        encounters a new Device UUID in the BASIC AUTH header, it will create a
+        new anonymous device.
+    </section>
+
     <section title="List Devices">
         <subsection title="Request">
             To obtain a list of all devices the current Account has access to:
@@ -188,6 +230,121 @@
             </code>
         </subsection>
     </section>
+</chapter>
+
+<chapter title="Synchronization">
+    The "synchronization" mechanism allows multiple resources to be tracked and
+    updated efficiently with a single API request.  Tracked resources can
+    include accounts, devices, and cloud variables.  If using Session-based
+    AUTH, the list of tracked resources will be remembered across requests.
+
+    <section title="Track Account Resources">
+        <subsection title="Request">
+            <code>
+                POST api/sync
+                {
+                    ...
+                    "track-accounts" : [&lt;USERNAME&gt;, ...]
+                    ...
+                }
+            </code>
+        </subsection>
+        <subsection title="Response">
+            The response will include basic information about each device that
+            the tracked accounts have access to.
+            <code>
+                {
+                    ...
+                    "accounts" : {
+                        &lt;USERNAME&gt; : {
+                            "devices" : [ &lt;DEVICE_UUID&gt;, ... ]
+                        }
+                    },
+                    "devices" : {
+                        &lt;DEVICE_UUID&gt; :  {
+                            "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                            "connected" : &lt;CONNECTED&gt;,
+                            "sddl_hash" : &lt;SDDL_HASH&gt;,
+                        }
+                    },
+                    "sddl" : {
+                        &lt;SDDL_HASH&gt; : {
+                            &lt;SDDL&gt;
+                        }
+                    }
+                    ...
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title="Track Device Resources">
+        <code>
+            POST api/sync
+            {
+                ...
+                "track-devices" : [&lt;DEVICE_UUID&gt;, ...]
+                ...
+            }
+        </code>
+        <subsection title="Response">
+            Detailed information about tracked devices, including Cloud
+            Variable values, will be included in the response.
+            <code>
+                {
+                    ...
+                    "devices" : {
+                        &lt;DEVICE_UUID&gt; :  {
+                            "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                            "connected" : &lt;CONNECTED&gt;,
+                            "sddl_hash" : &lt;SDDL_HASH&gt;,
+                            "vars" : &lt;VARS&gt;,
+                            "notifs" : &lt;NOTIFICATIONS&gt;,
+                        }
+                    },
+                    "sddl" : {
+                        &lt;SDDL_HASH&gt; : {
+                            &lt;SDDL&gt;
+                        }
+                    }
+                    ...
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title="Track Historic Cloud Variable Data">
+        <subsection title='Request'>
+            <code>
+                POST api/sync
+                {
+                    ...
+                    "track-vars" : ["UUID:gps[0].longitude", ...]
+                    ...
+                }
+            </code>
+        </subsection>
+        <subsection title='Response'>
+            <code>
+                {
+                    "devices" : {
+                        &lt;DEVICE_UUID&gt; : {
+                            "vars" : {
+                                "gps" : [ {
+                                    "longitude" : {
+                                        "t" : RFC3339DATE,
+                                        "v" : CURRENT_VALUE,
+                                        "history" : [
+                                            &lt;HISTORIC_SAMPLES&lt;
+                                        ]
+                                    }
+                                }, ... ]
+                            }
+                        }
+                    }
+                }
+            </code>
+        </subsection>
+    </section>
+
 </chapter>
 
 </doc>
