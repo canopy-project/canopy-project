@@ -1,0 +1,197 @@
+<doc logo="" toc_title="Canopy Server" title="Canopy Server">
+
+<chapter title='Configuration'>
+    <section title='Config Priority'>
+        <p>
+            The Canopy Server's configuration is read from one or more config
+            files.  Config settings can be overridden with environment
+            variables and command-line parameters.
+        </p>
+        <p>
+            This table shows the ordering in which configuration is read:
+        </p>
+        <tbl>
+            <row>
+                <cell header='1'>
+                    Config Source
+                </cell>
+                <cell header='1'>
+                    Order
+                </cell>
+            </row>
+            <row>
+                <cell><icode>Compiled Defaults</icode></cell>
+                <cell>1 - Lowest priority (read first)</cell>
+            </row>
+            <row>
+                <cell><icode>/etc/canopy/server.conf</icode></cell>
+                <cell>2</cell>
+            </row>
+            <row>
+                <cell><icode>$HOME/.canopy/server.conf</icode></cell>
+                <cell>3</cell>
+            </row>
+            <row>
+                <cell><icode>$CANOPY_SERVER_CONFIG_FILE</icode></cell>
+                <cell>4</cell>
+            </row>
+            <row>
+                <cell><icode>Environment Variables</icode></cell>
+                <cell>5</cell>
+            </row>
+            <row>
+                <cell><icode>Command-line Parameters</icode></cell>
+                <cell>6 - Highest priority (read last)</cell>
+            </row>
+        </tbl>
+    </section>
+    <section title='Configuration Settings'>
+        <tbl>
+            <row>
+                <cell header='1'>
+                    JSON Key
+                </cell>
+                <cell header='1'>
+                    Environment Variable
+                </cell>
+                <cell header='1'>
+                    Command-line Option
+                </cell>
+                <cell header='1'>
+                    Description
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"allow-origin"</icode></cell>
+                <cell nowrap='1'><icode>CCS_ALLOW_ORIGIN</icode></cell>
+                <cell nowrap='1'><icode>--allow-origin=</icode></cell>
+                <cell>
+                    Domains to include in the "allow-origin" header of HTTP
+                    responses.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"forward-other-hosts"</icode></cell>
+                <cell nowrap='1'><icode>CCS_FORWARD_OTHER_HOSTS</icode></cell>
+                <cell nowrap='1'><icode>--forward-other-hosts=</icode></cell>
+                <cell>
+                    The Canopy Server includes a proxy server that forwards
+                    along all HTTP requests to other hostnames.  This specifies
+                    the destination URL for these requests.  If
+                    <icode>""</icode> then forwarding will be disabled.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"hostname"</icode></cell>
+                <cell nowrap='1'><icode>CCS_HOSTNAME</icode></cell>
+                <cell nowrap='1'><icode>--hostname=</icode></cell>
+                <cell>
+                    Virtual hostname for Canopy Server.  This option is
+                    required.  HTTP requests to other hosts will be forwarded
+                    to the <icode>"forward-other-hosts"</icode>.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"http-port"</icode></cell>
+                <cell nowrap='1'><icode>CCS_HTTP_PORT</icode></cell>
+                <cell nowrap='1'><icode>--http-port=</icode></cell>
+                <cell>
+                    HTTP port to listen on.
+                    <p>
+                        <b>Default:</b> <icode>80</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"js-client-path"</icode></cell>
+                <cell nowrap='1'><icode>CCS_JS_CLIENT_PATH</icode></cell>
+                <cell nowrap='1'><icode>--js-client-path=</icode></cell>
+                <cell>
+                    Local filesystem path to the <icode>canopy-js-client/</icode>
+                    project.
+                    This must be configured to enable the Canopy Device
+                    Manager.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"log-file"</icode></cell>
+                <cell nowrap='1'><icode>CCS_LOG_FILE</icode></cell>
+                <cell nowrap='1'><icode>--log-file=</icode></cell>
+                <cell>
+                    Location of log file on local filesystem.
+                    <p>
+                        <b>Default:</b> <icode>"/var/log/canopy/canopy-server.log"</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"web-manager-path"</icode></cell>
+                <cell nowrap='1'><icode>CCS_WEB_MANAGER_PATH</icode></cell>
+                <cell nowrap='1'><icode>--web-manager-path=</icode></cell>
+                <cell>
+                    Local filesystem path to the <icode>canopy-app/</icode>
+                    project.
+                    This must be configured to enable the Canopy Device
+                    Manager.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+        </tbl>
+    </section>
+    <section title='Config File Example'>
+        <code>
+            {
+                "allow-origin" : "sandbox.canopy.link myiotapp.com",
+                "forward-other-hosts" : "http://canopy.link",
+                "http-port" : 80,
+                "hostname" : "sandbox.canopy.link",
+                "web-manager-path" : "/home/ubuntu/canopy-app",
+                "js-client-path" : "/home/ubuntu/canopy-js-client",
+            }
+        </code>
+    </section>
+    <section title='Environment Override Example'>
+        For example, to run the Canopy Server as a non-root user, you might use:
+        <code>
+            CCS_HTTP_PORT=8080 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server
+        </code>
+    </section>
+    <section title='Command-line Override Example'>
+        An alternative way to run the Canopy Server as a non-root user is:
+        <code>
+            /usr/local/bin/canopy/canopy-server --http-port=8080 --log-file="ccs.log"
+        </code>
+    </section>
+    <section title='Checking the Configuration'>
+        <p>
+            You can check the configuration of a running Canopy Server using
+            the <icode>/api/info</icode> endpoint.  For example:
+        </p>
+        <code>
+            http://sandbox.canopy.link/api/info
+        </code>
+        <p>
+            Additionally, the log file may contain a dump of all configuration
+            settings when the server starts up:
+        </p>
+        <code>
+            tail -f /var/log/canopy-server.log
+        </code>
+    </section>
+</chapter>
+
+</doc>

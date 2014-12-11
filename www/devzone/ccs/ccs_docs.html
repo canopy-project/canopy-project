@@ -1,0 +1,345 @@
+<html>
+<head>
+    <title>Canopy - Developer Zone - Cloud Server</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../canopy_project.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>
+    <script type='text/javascript' src='../../3rdparty/shjs/sh_main.min.js'></script>
+    <link type='text/css' rel='stylesheet' href='../../3rdparty/shjs/sh_style_greg.css'>
+    <link href='hammock-custom.css' rel='stylesheet' type='text/css'>
+<script>
+function get_scroll_y() {
+    return window.pageYOffset || document.body.scrollTop || document.html.scrollTop;
+}
+function get_element_scroll_y(id) {
+    return document.getElementById(id).offsetTop;
+}
+
+function update_scroll() {
+    var y = get_scroll_y();
+
+        document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';
+    if (0) {
+    }
+    
+            else if (y + 32 > get_element_scroll_y('checking_the_configuration')) {
+                document.getElementById('toc_checking_the_configuration').style.fontWeight = "bold";
+                document.getElementById('toc_checking_the_configuration').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('command-line_override_example')) {
+                document.getElementById('toc_command-line_override_example').style.fontWeight = "bold";
+                document.getElementById('toc_command-line_override_example').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('environment_override_example')) {
+                document.getElementById('toc_environment_override_example').style.fontWeight = "bold";
+                document.getElementById('toc_environment_override_example').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('config_file_example')) {
+                document.getElementById('toc_config_file_example').style.fontWeight = "bold";
+                document.getElementById('toc_config_file_example').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('configuration_settings')) {
+                document.getElementById('toc_configuration_settings').style.fontWeight = "bold";
+                document.getElementById('toc_configuration_settings').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('config_priority')) {
+                document.getElementById('toc_config_priority').style.fontWeight = "bold";
+                document.getElementById('toc_config_priority').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('configuration')) {
+                document.getElementById('toc_configuration').style.fontWeight = "bold";
+                document.getElementById('toc_configuration').style.backgroundColor = "#d0d0d0";
+            }
+            
+}
+window.onload = function() {
+    window.addEventListener("scroll", update_scroll);
+}
+</script>
+
+    <script>
+    $(function() {
+        sh_highlightDocument('../../3rdparty/shjs/', '.min.js');
+    });
+    </script>
+</head>
+<!--body onload="sh_highlightDocument('../../3rdparty/shjs/', '.min.js');"-->
+<body>
+<div class=main-outer>
+    <div class='bg-white centered'>
+        <script> 
+            var RELATIVE_PATH = "../../";
+            RenderTopbar("devzone");
+        </script>
+    </div>
+
+    <div class='bg-lightgray banner-thin centered' >
+        <div class='l'>
+            <span class='logo-in-text' style='color:#ffffff'>Canopy</span> Server
+        </div>
+    </div>
+</div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div></div>
+    <div class=hammock-doc-outer>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=configuration name=configuration></a>
+                <div class=hammock-chapter-title>
+                    Configuration
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=config_priority name=config_priority></a>
+            <div class=hammock-section-title>
+                Config Priority
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            The Canopy Server's configuration is read from one or more config
+            files.  Config settings can be overridden with environment
+            variables and command-line parameters.
+        </p>
+        <p>
+            This table shows the ordering in which configuration is read:
+        </p>
+        <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+            <tr>
+                <td  class=hammock-tbl-header>
+                    Config Source
+                </td>
+                <td  class=hammock-tbl-header>
+                    Order
+                </td>
+            </tr>
+            <tr>
+                <td ><span class=hammock-icode>Compiled Defaults</span></td>
+                <td >1 - Lowest priority (read first)</td>
+            </tr>
+            <tr>
+                <td ><span class=hammock-icode>/etc/canopy/server.conf</span></td>
+                <td >2</td>
+            </tr>
+            <tr>
+                <td ><span class=hammock-icode>$HOME/.canopy/server.conf</span></td>
+                <td >3</td>
+            </tr>
+            <tr>
+                <td ><span class=hammock-icode>$CANOPY_SERVER_CONFIG_FILE</span></td>
+                <td >4</td>
+            </tr>
+            <tr>
+                <td ><span class=hammock-icode>Environment Variables</span></td>
+                <td >5</td>
+            </tr>
+            <tr>
+                <td ><span class=hammock-icode>Command-line Parameters</span></td>
+                <td >6 - Highest priority (read last)</td>
+            </tr>
+        </table>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=configuration_settings name=configuration_settings></a>
+            <div class=hammock-section-title>
+                Configuration Settings
+            </div>
+            <div class=hammock-section-contents>
+                
+        <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+            <tr>
+                <td  class=hammock-tbl-header>
+                    JSON Key
+                </td>
+                <td  class=hammock-tbl-header>
+                    Environment Variable
+                </td>
+                <td  class=hammock-tbl-header>
+                    Command-line Option
+                </td>
+                <td  class=hammock-tbl-header>
+                    Description
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"allow-origin"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_ALLOW_ORIGIN</span></td>
+                <td nowrap><span class=hammock-icode>--allow-origin=</span></td>
+                <td >
+                    Domains to include in the "allow-origin" header of HTTP
+                    responses.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"forward-other-hosts"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_FORWARD_OTHER_HOSTS</span></td>
+                <td nowrap><span class=hammock-icode>--forward-other-hosts=</span></td>
+                <td >
+                    The Canopy Server includes a proxy server that forwards
+                    along all HTTP requests to other hostnames.  This specifies
+                    the destination URL for these requests.  If
+                    <span class=hammock-icode>""</span> then forwarding will be disabled.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"hostname"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_HOSTNAME</span></td>
+                <td nowrap><span class=hammock-icode>--hostname=</span></td>
+                <td >
+                    Virtual hostname for Canopy Server.  This option is
+                    required.  HTTP requests to other hosts will be forwarded
+                    to the <span class=hammock-icode>"forward-other-hosts"</span>.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"http-port"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_HTTP_PORT</span></td>
+                <td nowrap><span class=hammock-icode>--http-port=</span></td>
+                <td >
+                    HTTP port to listen on.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>80</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"js-client-path"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_JS_CLIENT_PATH</span></td>
+                <td nowrap><span class=hammock-icode>--js-client-path=</span></td>
+                <td >
+                    Local filesystem path to the <span class=hammock-icode>canopy-js-client/</span>
+                    project.
+                    This must be configured to enable the Canopy Device
+                    Manager.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"log-file"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_LOG_FILE</span></td>
+                <td nowrap><span class=hammock-icode>--log-file=</span></td>
+                <td >
+                    Location of log file on local filesystem.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>"/var/log/canopy/canopy-server.log"</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"web-manager-path"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_WEB_MANAGER_PATH</span></td>
+                <td nowrap><span class=hammock-icode>--web-manager-path=</span></td>
+                <td >
+                    Local filesystem path to the <span class=hammock-icode>canopy-app/</span>
+                    project.
+                    This must be configured to enable the Canopy Device
+                    Manager.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+        </table>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=config_file_example name=config_file_example></a>
+            <div class=hammock-section-title>
+                Config File Example
+            </div>
+            <div class=hammock-section-contents>
+                
+        <pre class='hammock-code'>{
+    "allow-origin" : "sandbox.canopy.link myiotapp.com",
+    "forward-other-hosts" : "http://canopy.link",
+    "http-port" : 80,
+    "hostname" : "sandbox.canopy.link",
+    "web-manager-path" : "/home/ubuntu/canopy-app",
+    "js-client-path" : "/home/ubuntu/canopy-js-client",
+}</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=environment_override_example name=environment_override_example></a>
+            <div class=hammock-section-title>
+                Environment Override Example
+            </div>
+            <div class=hammock-section-contents>
+                
+        For example, to run the Canopy Server as a non-root user, you might use:
+        <pre class='hammock-code'>CCS_HTTP_PORT=8080 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=command-line_override_example name=command-line_override_example></a>
+            <div class=hammock-section-title>
+                Command-line Override Example
+            </div>
+            <div class=hammock-section-contents>
+                
+        An alternative way to run the Canopy Server as a non-root user is:
+        <pre class='hammock-code'>/usr/local/bin/canopy/canopy-server --http-port=8080 --log-file="ccs.log"</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=checking_the_configuration name=checking_the_configuration></a>
+            <div class=hammock-section-title>
+                Checking the Configuration
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            You can check the configuration of a running Canopy Server using
+            the <span class=hammock-icode>/api/info</span> endpoint.  For example:
+        </p>
+        <pre class='hammock-code'>http://sandbox.canopy.link/api/info</pre>
+        <p>
+            Additionally, the log file may contain a dump of all configuration
+            settings when the server starts up:
+        </p>
+        <pre class='hammock-code'>tail -f /var/log/canopy-server.log</pre>
+    
+            </div>
+        </div>
+
+                </div>
+            </div>
+
+</div>
+    <script> 
+        RenderFooter();
+    </script>
+</body>
+</html>
+
