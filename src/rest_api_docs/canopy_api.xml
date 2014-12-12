@@ -1,16 +1,28 @@
-<doc logo="" title="Lorem Ipsum">
+<doc logo="" toc_title="Canopy REST API" title="Lorem Ipsum">
 
 <chapter title="Authentication">
     Two types of authentication are supported: <b>BASIC AUTH</b> and <b>Session-based AUTH</b>.
     <section title="Session-based AUTH Login">
         <subsection title="Request">
-            <code>
-                POST /api/login
-                {
-                    "username" : &lt;USERNAME_OR_EMAIL&gt;,
-                    "password" : &lt;PASSWORD&gt;
-                }
-            </code>
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    POST /api/login
+                    {
+                        "username" : &lt;USERNAME_OR_EMAIL&gt;,
+                        "password" : &lt;PASSWORD&gt;
+                    }
+                </mc_item>
+                <mc_item title="Example" syntax='javascript'>
+                    POST /api/login
+                    {
+                        "username" : "leela",
+                        "password" : "P1anetExpre55"
+                    }
+                </mc_item>
+                <mc_item title="curl" syntax='javascript'>
+                    curl -d '{ { "username" : "leela", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/login
+                </mc_item>
+            </multicode>
         </subsection>
         <subsection title="Response">
             Header:
@@ -18,7 +30,7 @@
                 Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;
             </code>
             Body:
-            <code>
+            <code syntax='javascript'>
                 {
                     "result" : "ok",
                     "username" : &lt;USERNAME&gt;
@@ -33,7 +45,7 @@
             <code> POST /api/logout </code>
         </subsection>
         <subsection title="Response">
-            <code>
+            <code syntax='javascript'>
                 {
                     "result" : "ok",
                 }
@@ -80,10 +92,10 @@
 
 </chapter>
 
-<chapter title="Accounts">
-    <section title="Create an Account">
+<chapter title="User Accounts">
+    <section title="Create a User Account">
         <subsection title="Request">
-            <code>
+            <code syntax='javascript'>
                 POST /api/create_account
                 {
                     "username" : &lt;USERNAME&gt;,
@@ -93,7 +105,7 @@
             </code>
         </subsection>
         <subsection title="Response">
-            <code>
+            <code syntax='javascript'>
                 {
                     "result" : "ok",
                     "username" : &lt;USERNAME&gt;,
@@ -102,14 +114,14 @@
             </code>
         </subsection>
     </section>
-    <section title="Get Current Account">
+    <section title="Get Current User Account">
         <subsection title="Request">
             <code>
                 GET /api/me
             </code>
         </subsection>
         <subsection title="Response">
-            <code>
+            <code syntax='javascript'>
                 {
                     "result" : "ok",
                     "username" : &lt;USERNAME&gt;,
@@ -124,7 +136,7 @@
     <section title="Create Account-Linked Devices">
         <subsection title="Request">
             To create one or more new devices from a User Account:
-            <code>
+            <code syntax='javascript'>
                 POST /api/create_devices
                 {
                     "quanitity" : &lt;QUANITITY&gt;
@@ -136,7 +148,7 @@
             and Secret Key to each new device resource.
         </subsection>
         <subsection title="Response">
-            <code>
+            <code syntax='javascript'>
                 {
                     "result" : "ok",
                     "devices" : [ {
@@ -170,7 +182,7 @@
             </code>
         </subsection>
         <subsection title="Response">
-            <code>
+            <code syntax='javascript'>
                 {
                     "result" : "ok",
                     "devices" : [ {
@@ -192,7 +204,7 @@
             </code>
         </subsection>
         <subsection title="Response">
-            <code>
+            <code syntax='javascript'>
                 {
                     "result" : "ok",
                     "device_id" : &lt;UUID&gt;,
@@ -211,12 +223,104 @@
             </code>
         </subsection>
     </section>
-    <section title="Update Device">
+    <section title="Update Device Properties">
         <subsection title="Request">
-            <code>
-                GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;
+            To update device properties:
+            <code syntax='javascript'>
+                POST /api/device/&lt;UUID&gt;
+                {
+                    "friendly_name" : &lt;NEW_FRIENDLY_NAME&gt;,
+                    "location_note" : &lt;NEW_LOCATION_NOTE&gt;,
+                }
             </code>
+            <p>
+                All fields are optional and omitted fields will be left
+                unchanged.
+            </p>
+            <p>
+                This may be combined with Add/Update Cloud Var Metadata
+                and Update Cloud Var Values into a single request.
+            </p>
         </subsection>
+    </section>
+
+    <section title="Add/Update Cloud Var Metadata">
+        <subsection title="Request">
+            <p>
+                To add a new cloud variable, or update an existing cloud
+                variable's metadata, use:
+            </p>
+            <code syntax='javascript'>
+                POST /api/device/&lt;UUID&gt;
+                {
+                    "sddl" : {
+                        &lt;VAR_DECL&gt; : &lt;VAR_PROPERTIES&gt;,
+                        ...
+                    }
+                }
+            </code>
+            <p>
+                This may be combined with Add/Update Cloud Var Metadata
+                and Update Cloud Var Values into a single request.
+            </p>
+            <p>
+                To fully replace the list of cloud variables, add
+                <icode>"full-replacement" : true</icode> to the request.
+                <code>
+                    POST /api/device/&lt;UUID&gt;
+                    {
+                        "sddl" : {
+                            "full-replacement" : true,
+                            &lt;VAR_DECL&gt; : &lt;VAR_PROPERTIES&gt;,
+                            ...
+                        }
+                    }
+                </code>
+            </p>
+        </subsection>
+    </section>
+    <section title='Update Cloud Var Value'>
+        <p>
+            To update Cloud Variable values, use:
+        </p>
+        <code syntax='javascript'>
+            POST /api/device/&lt;UUID&gt;
+            {
+                "vars" : {
+                    &lt;VAR_NAME&gt; : &lt;NEW_VALUE&gt;,
+                    ...
+                }
+            }
+        </code>
+        <p>
+            This will automatically create a cloud variable for each
+            newly-encountered var, unless the device's
+            <icode>"auto-var-creation"</icode> property is set to
+            <icode>false</icode>.  See Automatic Cloud Variable Creation.
+        </p>
+        <p>
+            This request may be made by either a User Account or a Device
+            Account.  The Cloud Variable's <icode>direction</icode>
+            property controls who can modify it:
+        </p>
+        <tbl>
+            <row>
+                <cell header='1'>Direction</cell>
+                <cell header='1'>Who Can Modify Value</cell>
+            </row>
+            <row>
+                <cell><icode>in</icode></cell>
+                <cell>User Account</cell>
+            </row>
+            <row>
+                <cell><icode>out</icode></cell>
+                <cell>Device Account</cell>
+            </row>
+            <row>
+                <cell><icode>inout</icode></cell>
+                <cell>User or Device Account</cell>
+            </row>
+        </tbl>
     </section>
 </chapter>
 
@@ -228,7 +332,7 @@
 
     <section title="Track Account Resources">
         <subsection title="Request">
-            <code>
+            <code syntax='javascript'>
                 POST api/sync
                 {
                     ...
@@ -240,7 +344,7 @@
         <subsection title="Response">
             The response will include basic information about each device that
             the tracked accounts have access to.
-            <code>
+            <code syntax='javascript'>
                 {
                     ...
                     "accounts" : {

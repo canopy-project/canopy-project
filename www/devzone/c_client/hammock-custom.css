@@ -33,6 +33,7 @@ body {
     font-family: monospace;
     background-color: #f8f8f0 !important;
     box-shadow: 1px 1px 3px #808080;
+    border: 1px solid #c0c0c0;
     color: black;
     padding: 12px;
     padding-right: 16px;
@@ -44,6 +45,41 @@ body {
     overflow: auto;
     font-size: 14px;
     letter-spacing: 0px;
+}
+
+.hammock-multicode-outer {
+}
+
+.hammock-multicode-selected {
+    padding-bottom: 0px;
+    border-bottom: 2px solid #ff8000;
+}
+
+.hammock-multicode-bar {
+    background: #404040;
+    border-radius:3px;
+    color: #ffffff;
+    font-weight: 400;
+    position: relative;
+    top: 12px;
+}
+
+.hammock-multicode-tab {
+    font-size: 15px;
+    margin-right: 40px;
+    margin-left: 10px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 2px;
+    padding-bottom: 0px;
+}
+
+.hammock-multicode-tab:hover {
+    font-size: 15px;
+    margin-right: 40px;
+    margin-left: 10px;
+    display: inline-block;
+    color: #80b0d0;
 }
 
 .hammock-output{
@@ -186,13 +222,12 @@ td.hammock-tbl-header{
     position: fixed;
     width: 250;
     overflow: auto;
-    top: 112px;
+    top: 94px;
     left: 8px;
     font-size: 14px;
     padding: 16px;
     padding-top: 12px;
     font-weight: 400;
-    line-height: 1.0;
     white-space: nowrap;
 }
 
