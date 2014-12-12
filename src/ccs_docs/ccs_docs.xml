@@ -416,6 +416,19 @@
                 </cell>
             </row>
             <row>
+                <cell nowrap='1'><icode>"production-secret"</icode></cell>
+                <cell nowrap='1'><icode>CCS_PRODUCTION_SECRET</icode></cell>
+                <cell nowrap='1'><icode>--production-secret=</icode></cell>
+                <cell>
+                    Secure secret string that must not be made public and
+                    should be different for every server.  This is used to
+                    secure session cookies.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
                 <cell nowrap='1'><icode>"web-manager-path"</icode></cell>
                 <cell nowrap='1'><icode>CCS_WEB_MANAGER_PATH</icode></cell>
                 <cell nowrap='1'><icode>--web-manager-path=</icode></cell>
@@ -439,8 +452,9 @@
                 "forward-other-hosts" : "http://canopy.link",
                 "http-port" : 80,
                 "hostname" : "sandbox.canopy.link",
-                "web-manager-path" : "/home/ubuntu/canopy-app",
                 "js-client-path" : "/home/ubuntu/canopy-js-client",
+                "production-secret" : "my production secret",
+                "web-manager-path" : "/home/ubuntu/canopy-app",
             }
         </code>
     </section>

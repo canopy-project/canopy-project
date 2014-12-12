@@ -637,6 +637,19 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                 </td>
             </tr>
             <tr>
+                <td nowrap><span class=hammock-icode>"production-secret"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_PRODUCTION_SECRET</span></td>
+                <td nowrap><span class=hammock-icode>--production-secret=</span></td>
+                <td >
+                    Secure secret string that must not be made public and
+                    should be different for every server.  This is used to
+                    secure session cookies.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
                 <td nowrap><span class=hammock-icode>"web-manager-path"</span></td>
                 <td nowrap><span class=hammock-icode>CCS_WEB_MANAGER_PATH</span></td>
                 <td nowrap><span class=hammock-icode>--web-manager-path=</span></td>
@@ -668,8 +681,9 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
     "forward-other-hosts" : "http://canopy.link",
     "http-port" : 80,
     "hostname" : "sandbox.canopy.link",
-    "web-manager-path" : "/home/ubuntu/canopy-app",
     "js-client-path" : "/home/ubuntu/canopy-js-client",
+    "production-secret" : "my production secret",
+    "web-manager-path" : "/home/ubuntu/canopy-app",
 }</pre>
     
             </div>
