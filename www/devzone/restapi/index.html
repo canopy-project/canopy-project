@@ -165,11 +165,11 @@ window.onload = function() {
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>POST /api/login
+            <pre class='hammock-code'>POST /api/login
 {
     "username" : &lt;USERNAME_OR_EMAIL&gt;,
     "password" : &lt;PASSWORD&gt;
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -181,13 +181,13 @@ window.onload = function() {
             <div class=hammock-subsection-contents>
                 
             Header:
-            <div class=hammock-code>Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;</div>
+            <pre class='hammock-code'>Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;</pre>
             Body:
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "result" : "ok",
     "username" : &lt;USERNAME&gt;
     "email" : &lt;EMAIL&gt;
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -210,7 +210,7 @@ window.onload = function() {
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>POST /api/logout</div>
+            <pre class='hammock-code'>POST /api/logout</pre>
         
             </div>
         </div>
@@ -221,9 +221,9 @@ window.onload = function() {
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "result" : "ok",
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -244,7 +244,7 @@ window.onload = function() {
         password is "PlanetExpress", include the following header with your
         request:
 
-        <div class=hammock-code>Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</div>
+        <pre class='hammock-code'>Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</pre>
     
             </div>
         </div>
@@ -264,7 +264,7 @@ window.onload = function() {
         </ul>
 
         For example:
-        <div class=hammock-code>For a device with:
+        <pre class='hammock-code'>For a device with:
 
     - UUID: d5c827d2-1ba7-4da6-b87b-0864f0969fa8
     - Secret Key: 00ae8a3ba42fa86765c885da90a7fcaec9898acb13fc2e00
@@ -276,7 +276,7 @@ You would:
 And then send this header:
 
     Authorization: Basic ZDVjODI3ZDItMWJhNy00ZGE2LWI4N2ItMDg2NGYwOTY5ZmE4OjAwYWU4YTNiYTQyZmE4Njc2NWM4
-    ODVkYTkwYTdmY2FlYzk4OThhY2IxM2ZjMmUwMA==</div>
+    ODVkYTkwYTdmY2FlYzk4OThhY2IxM2ZjMmUwMA==</pre>
     
             </div>
         </div>
@@ -308,12 +308,12 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>POST /api/create_account
+            <pre class='hammock-code'>POST /api/create_account
 {
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
     "password" : &lt;PASSWORD&gt;,
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -324,11 +324,11 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "result" : "ok",
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -350,7 +350,7 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>GET /api/me</div>
+            <pre class='hammock-code'>GET /api/me</pre>
         
             </div>
         </div>
@@ -361,11 +361,11 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "result" : "ok",
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -400,11 +400,11 @@ And then send this header:
             <div class=hammock-subsection-contents>
                 
             To create one or more new devices from a User Account:
-            <div class=hammock-code>POST /api/create_devices
+            <pre class='hammock-code'>POST /api/create_devices
 {
     "quanitity" : &lt;QUANITITY&gt;
     "friendly_names" : [&lt;FRIENDLY_NAME&gt;, ...]
-}</div>
+}</pre>
             This will create a new device resource and associate it with the
             current User Account.  This will also automatically assign a UUID
             and Secret Key to each new device resource.
@@ -418,14 +418,14 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "result" : "ok",
     "devices" : [ {
         "friendly_name" : &lt;FRIENDLY_NAME&gt;
         "device_id" : &lt;UUID&gt;
         "device_secret_key" : &lt;DEVICE_SECRET_KEY&gt;
     }, ... ]
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -471,7 +471,7 @@ And then send this header:
             <div class=hammock-subsection-contents>
                 
             To obtain a list of all devices the current Account has access to:
-            <div class=hammock-code>GET /api/me/devices</div>
+            <pre class='hammock-code'>GET /api/me/devices</pre>
         
             </div>
         </div>
@@ -482,7 +482,7 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "result" : "ok",
     "devices" : [ {
         "device_id" : &lt;UUID&gt;,
@@ -491,7 +491,7 @@ And then send this header:
         "sddl" : { &lt;SDDL&gt; },
         "vars" : { &lt;VARS&gt; },
     }, ...  ]
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -514,7 +514,7 @@ And then send this header:
             <div class=hammock-subsection-contents>
                 
             To obtain information about a single device:
-            <div class=hammock-code>GET /api/device/&lt;UUID&gt;</div>
+            <pre class='hammock-code'>GET /api/device/&lt;UUID&gt;</pre>
         
             </div>
         </div>
@@ -525,14 +525,14 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "result" : "ok",
     "device_id" : &lt;UUID&gt;,
     "friendly_name" : &lt;FRIENDLY_NAME&gt;,
     "connected" : &lt;CONNECTED&gt;,
     "sddl" : { &lt;SDDL&gt; },
     "vars" : { &lt;VARS&gt; },
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -554,7 +554,7 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;</div>
+            <pre class='hammock-code'>GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;</pre>
         
             </div>
         </div>
@@ -576,7 +576,7 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;</div>
+            <pre class='hammock-code'>GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;</pre>
         
             </div>
         </div>
@@ -615,12 +615,12 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>POST api/sync
+            <pre class='hammock-code'>POST api/sync
 {
     ...
     "track-accounts" : [&lt;USERNAME&gt;, ...]
     ...
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -633,7 +633,7 @@ And then send this header:
                 
             The response will include basic information about each device that
             the tracked accounts have access to.
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     ...
     "accounts" : {
         &lt;USERNAME&gt; : {
@@ -653,7 +653,7 @@ And then send this header:
         }
     }
     ...
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -668,12 +668,12 @@ And then send this header:
             </div>
             <div class=hammock-section-contents>
                 
-        <div class=hammock-code>POST api/sync
+        <pre class='hammock-code'>POST api/sync
 {
     ...
     "track-devices" : [&lt;DEVICE_UUID&gt;, ...]
     ...
-}</div>
+}</pre>
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
@@ -683,7 +683,7 @@ And then send this header:
                 
             Detailed information about tracked devices, including Cloud
             Variable values, will be included in the response.
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     ...
     "devices" : {
         &lt;DEVICE_UUID&gt; :  {
@@ -700,7 +700,7 @@ And then send this header:
         }
     }
     ...
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -722,12 +722,12 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>POST api/sync
+            <pre class='hammock-code'>POST api/sync
 {
     ...
     "track-vars" : ["UUID:gps[0].longitude", ...]
     ...
-}</div>
+}</pre>
         
             </div>
         </div>
@@ -738,7 +738,7 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class=hammock-code>{
+            <pre class='hammock-code'>{
     "devices" : {
         &lt;DEVICE_UUID&gt; : {
             "vars" : {
@@ -754,7 +754,7 @@ And then send this header:
             }
         }
     }
-}</div>
+}</pre>
         
             </div>
         </div>

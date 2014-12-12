@@ -21,19 +21,11 @@ var items = [
         "link" : "using_canopy.html"
     }, {
         "type" : "section",
-        "title" : "1.5 Embedded Installation",
-        "link" : "embedded_install.html"
-    }, {
-        "type" : "section",
-        "title" : "1.6 Server (Cloud) Installation",
-        "link" : "cloud_install.html"
-    }, {
-        "type" : "section",
-        "title" : "1.7 Javascript Application Setup",
+        "title" : "1.5 Javascript Application Setup",
         "link" : "app_js_install.html"
     }, {
         "type" : "section",
-        "title" : "1.8 Selecting Cloud Server",
+        "title" : "1.6 Selecting Cloud Server",
         "link" : "using_hosted_server.html"
     }, {
         "type" : "chapter",

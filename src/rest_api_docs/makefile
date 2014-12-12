@@ -1,6 +1,7 @@
 .PHONY: install
 install: all
-	cp out/canopy_api.html hammock-custom.css ../../www/devzone/restapi
+	cp out/canopy_api.html ../../www/devzone/restapi/index.html
+	cp ../common/hammock-custom.css ../../www/devzone/restapi/
 
 .PHONY: all
 all:

@@ -1,6 +1,7 @@
 .PHONY: install
 install: all
-	cp out/canopy_c_client.html hammock-custom.css ../../www/devzone/c_client
+	cp out/canopy_c_client.html ../../www/devzone/c_client/index.html
+	cp ../common/hammock-custom.css ../../www/devzone/c_client/
 
 .PHONY: all
 all:

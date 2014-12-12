@@ -46,6 +46,24 @@ body {
     letter-spacing: 0px;
 }
 
+.hammock-output{
+    font-family: monospace;
+    background-color: #f0f0f0 !important;
+    box-shadow: 1px 1px 3px #808080;
+    color: black;
+    padding: 12px;
+    padding-right: 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align:left;
+    white-space: pre;
+    overflow: auto;
+    font-size: 14px;
+    letter-spacing: 0px;
+    max-height: 100px;
+}
+
 .hammock-code a:hover {
     color: #000000;
     text-decoration: underline;

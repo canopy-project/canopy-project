@@ -31,10 +31,10 @@ body {
 
 .hammock-code{
     font-family: monospace;
-    background-color: #f0f0f0;
-    box-shadow: 1px 1px 3px #a0a0a0;
+    background-color: #f8f8f0 !important;
+    box-shadow: 1px 1px 3px #808080;
     color: black;
-    padding: 8px;
+    padding: 12px;
     padding-right: 16px;
     border-radius: 4px;
     margin-top: 10px;
@@ -44,6 +44,29 @@ body {
     overflow: auto;
     font-size: 14px;
     letter-spacing: 0px;
+}
+
+.hammock-output{
+    font-family: monospace;
+    background-color: #f0f0f0 !important;
+    box-shadow: 1px 1px 3px #808080;
+    color: black;
+    padding: 12px;
+    padding-right: 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align:left;
+    white-space: pre;
+    overflow: auto;
+    font-size: 14px;
+    letter-spacing: 0px;
+    max-height: 100px;
+}
+
+.hammock-code a:hover {
+    color: #000000;
+    text-decoration: underline;
 }
 
 .hammock-doc-header {
@@ -57,9 +80,10 @@ body {
 .hammock-icode{
     font-family: monospace;
     display: inline-block;
-    background: #f0f0f0;
-    padding: 4px;
-    border-radius: 3px;
+    color: #102040;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0px;
 }
 
 .hammock-interpret-error{
@@ -79,7 +103,7 @@ body {
 }
 
 .hammock-section-title {
-    font-size: 23px;
+    font-size: 28px;
     font-weight: 400;
     margin-bottom: 0px;
     margin-top: 0px;
@@ -162,14 +186,14 @@ td.hammock-tbl-header{
     position: fixed;
     width: 250;
     overflow: auto;
-    top: 92px;
+    top: 112px;
     left: 8px;
     font-size: 14px;
     padding: 16px;
     padding-top: 12px;
     font-weight: 400;
+    line-height: 1.0;
     white-space: nowrap;
-    background:rgba(240, 240, 240, 0.8)
 }
 
 .hammock-toc-section {
@@ -182,5 +206,6 @@ td.hammock-tbl-header{
 
 .hammock-toc-title {
     font-size: 28px;
+    color: #404040
 }
 
