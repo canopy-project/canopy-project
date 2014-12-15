@@ -21,7 +21,7 @@ function get_element_scroll_y(id) {
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_user_accounts').style.fontWeight = '';document.getElementById('toc_user_accounts').style.backgroundColor = '';document.getElementById('toc_create_a_user_account').style.fontWeight = '';document.getElementById('toc_create_a_user_account').style.backgroundColor = '';document.getElementById('toc_get_current_user_account').style.fontWeight = '';document.getElementById('toc_get_current_user_account').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_account-linked_devices').style.fontWeight = '';document.getElementById('toc_create_account-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';document.getElementById('toc_add/update_cloud_var_metadata').style.fontWeight = '';document.getElementById('toc_add/update_cloud_var_metadata').style.backgroundColor = '';document.getElementById('toc_update_cloud_var_value').style.fontWeight = '';document.getElementById('toc_update_cloud_var_value').style.backgroundColor = '';document.getElementById('toc_synchronization').style.fontWeight = '';document.getElementById('toc_synchronization').style.backgroundColor = '';document.getElementById('toc_track_account_resources').style.fontWeight = '';document.getElementById('toc_track_account_resources').style.backgroundColor = '';document.getElementById('toc_track_device_resources').style.fontWeight = '';document.getElementById('toc_track_device_resources').style.backgroundColor = '';document.getElementById('toc_track_historic_cloud_variable_data').style.fontWeight = '';document.getElementById('toc_track_historic_cloud_variable_data').style.backgroundColor = '';
+        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_account_model').style.fontWeight = '';document.getElementById('toc_account_model').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_user_accounts').style.fontWeight = '';document.getElementById('toc_user_accounts').style.backgroundColor = '';document.getElementById('toc_create_a_user_account').style.fontWeight = '';document.getElementById('toc_create_a_user_account').style.backgroundColor = '';document.getElementById('toc_get_current_user_account').style.fontWeight = '';document.getElementById('toc_get_current_user_account').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_account-linked_devices').style.fontWeight = '';document.getElementById('toc_create_account-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';document.getElementById('toc_add/update_cloud_var_metadata').style.fontWeight = '';document.getElementById('toc_add/update_cloud_var_metadata').style.backgroundColor = '';document.getElementById('toc_update_cloud_var_value').style.fontWeight = '';document.getElementById('toc_update_cloud_var_value').style.backgroundColor = '';document.getElementById('toc_synchronization').style.fontWeight = '';document.getElementById('toc_synchronization').style.backgroundColor = '';document.getElementById('toc_track_account_resources').style.fontWeight = '';document.getElementById('toc_track_account_resources').style.backgroundColor = '';document.getElementById('toc_track_device_resources').style.fontWeight = '';document.getElementById('toc_track_device_resources').style.backgroundColor = '';document.getElementById('toc_track_historic_cloud_variable_data').style.fontWeight = '';document.getElementById('toc_track_historic_cloud_variable_data').style.backgroundColor = '';
     if (0) {
     }
     
@@ -125,6 +125,11 @@ function update_scroll() {
                 document.getElementById('toc_session-based_auth_login').style.backgroundColor = "#d0d0d0";
             }
             
+            else if (y + 32 > get_element_scroll_y('account_model')) {
+                document.getElementById('toc_account_model').style.fontWeight = "bold";
+                document.getElementById('toc_account_model').style.backgroundColor = "#d0d0d0";
+            }
+            
             else if (y + 32 > get_element_scroll_y('authentication')) {
                 document.getElementById('toc_authentication').style.fontWeight = "bold";
                 document.getElementById('toc_authentication').style.backgroundColor = "#d0d0d0";
@@ -158,7 +163,7 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_user_accounts' class='hammock-toc-chapter'><a href='#user_accounts'>User Accounts</a></div><div id='toc_create_a_user_account' class='hammock-toc-section'><a href='#create_a_user_account'>Create a User Account</a></div><div id='toc_get_current_user_account' class='hammock-toc-section'><a href='#get_current_user_account'>Get Current User Account</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_account-linked_devices' class='hammock-toc-section'><a href='#create_account-linked_devices'>Create Account-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_add/update_cloud_var_metadata' class='hammock-toc-section'><a href='#add/update_cloud_var_metadata'>Add/Update Cloud Var Metadata</a></div><div id='toc_update_cloud_var_value' class='hammock-toc-section'><a href='#update_cloud_var_value'>Update Cloud Var Value</a></div><div id='toc_synchronization' class='hammock-toc-chapter'><a href='#synchronization'>Synchronization</a></div><div id='toc_track_account_resources' class='hammock-toc-section'><a href='#track_account_resources'>Track Account Resources</a></div><div id='toc_track_device_resources' class='hammock-toc-section'><a href='#track_device_resources'>Track Device Resources</a></div><div id='toc_track_historic_cloud_variable_data' class='hammock-toc-section'><a href='#track_historic_cloud_variable_data'>Track Historic Cloud Variable Data</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_account_model' class='hammock-toc-section'><a href='#account_model'>Account Model</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_user_accounts' class='hammock-toc-chapter'><a href='#user_accounts'>User Accounts</a></div><div id='toc_create_a_user_account' class='hammock-toc-section'><a href='#create_a_user_account'>Create a User Account</a></div><div id='toc_get_current_user_account' class='hammock-toc-section'><a href='#get_current_user_account'>Get Current User Account</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_account-linked_devices' class='hammock-toc-section'><a href='#create_account-linked_devices'>Create Account-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_add/update_cloud_var_metadata' class='hammock-toc-section'><a href='#add/update_cloud_var_metadata'>Add/Update Cloud Var Metadata</a></div><div id='toc_update_cloud_var_value' class='hammock-toc-section'><a href='#update_cloud_var_value'>Update Cloud Var Value</a></div><div id='toc_synchronization' class='hammock-toc-chapter'><a href='#synchronization'>Synchronization</a></div><div id='toc_track_account_resources' class='hammock-toc-section'><a href='#track_account_resources'>Track Account Resources</a></div><div id='toc_track_device_resources' class='hammock-toc-section'><a href='#track_device_resources'>Track Device Resources</a></div><div id='toc_track_historic_cloud_variable_data' class='hammock-toc-section'><a href='#track_historic_cloud_variable_data'>Track Historic Cloud Variable Data</a></div></div>
     <div class=hammock-doc-outer>
 
 
@@ -169,7 +174,101 @@ window.onload = function() {
                 </div>
                 <div class=hammock-chapter-contents>
                     
-    Two types of authentication are supported: <b>BASIC AUTH</b> and <b>Session-based AUTH</b>.
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=account_model name=account_model></a>
+            <div class=hammock-section-title>
+                Account Model
+            </div>
+            <div class=hammock-section-contents>
+                
+        The Canopy REST API is used by both humans and IoT devices.  There are
+        two types of accounts:
+
+        <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+            <tr>
+                <td nowrap class=hammock-tbl-header>Account Type</td>
+                <td nowrap class=hammock-tbl-header>Description</td>
+            </tr>
+            <tr>
+                <td nowrap><b>User Account</b></td>
+                <td >A human.  This may be an <b>end user</b> or a
+                <b>device maker</b>.</td>
+            </tr>
+            <tr>
+                <td nowrap><b>Device Account</b></td>
+                <td >An IoT device.  This account gets created
+                automatically whenever a new device resource is generated on
+                the server.  See <a href=#create_account-linked_devices>C<!---->r<!---->e<!---->a<!---->t<!---->e<!----> <!---->A<!---->c<!---->c<!---->o<!---->u<!---->n<!---->t<!---->-<!---->L<!---->i<!---->n<!---->k<!---->e<!---->d<!----> <!---->D<!---->e<!---->v<!---->i<!---->c<!---->e<!---->s<!----></a> and Create
+                Anonymous Device.
+                </td>
+            </tr>
+        </table>
+
+        Every User Account has some relationship with every device resource.
+
+        <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+            <tr>
+                <td  class=hammock-tbl-header>User-Device Relationship</td>
+                <td  class=hammock-tbl-header>Description</td>
+            </tr>
+            <tr>
+                <td ><b>No Access</b></td>
+                <td >User cannot access the device.</td>
+            </tr>
+            <tr>
+                <td ><b>End User</b></td>
+                <td >User can interact with the device as an end user.</td>
+            </tr>
+            <tr>
+                <td ><b>Device Maker</b></td>
+                <td >User can manage the device from an inventory standpoint,
+                but may not directly control or monitor it without permission from the end user.</td>
+            </tr>
+            <tr>
+                <td ><b>Device Maker + End User</b></td>
+                <td >User can do everything with the device.</td>
+            </tr>
+        </table>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Methods of Authentication
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            Two types of authentication are supported: <b>BASIC AUTH</b> and
+            <b>Session-based AUTH</b>.
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Account Type</td>
+                    <td  class=hammock-tbl-header>HTTP BASIC AUTH</td>
+                    <td  class=hammock-tbl-header>Session-based AUTH</td>
+                    <td  class=hammock-tbl-header>Username</td>
+                    <td  class=hammock-tbl-header>Password</td>
+                </tr>
+                <tr>
+                    <td ><b>User Account</b></td>
+                    <td ><b>Yes</b></td>
+                    <td ><b>Yes</b></td>
+                    <td >Chosen by user</td>
+                    <td >Chosen by user</td>
+                </tr>
+                <tr>
+                    <td ><b>Device Account</b></td>
+                    <td ><b>Yes</b></td>
+                    <td >No</td>
+                    <td >Device UUID</td>
+                    <td >Device Secret Key</td>
+                </tr>
+            </table>
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
     
         <div class=hammock-section-outer>
             <a class=hammock-a-name id=session-based_auth_login name=session-based_auth_login></a>
@@ -185,7 +284,7 @@ window.onload = function() {
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab0 class='hammock-multicode-tab'>REST</div><div id=mctab1 class='hammock-multicode-tab'>Example</div><div id=mctab2 class='hammock-multicode-tab'>curl</div></div><div id=mc0 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/login
+            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab0 class='hammock-multicode-tab'>REST</div><div id=mctab1 class='hammock-multicode-tab'>EXAMPLE</div><div id=mctab2 class='hammock-multicode-tab'>CURL</div></div><div id=mc0 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/login
 {
     "username" : &lt;USERNAME_OR_EMAIL&gt;,
     "password" : &lt;PASSWORD&gt;
@@ -195,7 +294,7 @@ window.onload = function() {
     "username" : "leela",
     "password" : "P1anetExpre55"
 }</pre></div>
-                <div id=mc2 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -d '{ { "username" : "leela", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/login</pre></div>
+                <div id=mc2 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -c canopy.cookies -d '{ "username" : "leela", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/login</pre></div>
             </div><script>$("#mctab0").on('click', function() {$("#mc0").show();$("#mctab0").toggleClass('hammock-multicode-selected', 0==0);$("#mc1").hide();$("#mctab1").toggleClass('hammock-multicode-selected', 0==1);$("#mc2").hide();$("#mctab2").toggleClass('hammock-multicode-selected', 0==2);});$("#mctab0").toggleClass('hammock-multicode-selected', 1);$("#mctab1").on('click', function() {$("#mc0").hide();$("#mctab0").toggleClass('hammock-multicode-selected', 1==0);$("#mc1").show();$("#mctab1").toggleClass('hammock-multicode-selected', 1==1);$("#mc2").hide();$("#mctab2").toggleClass('hammock-multicode-selected', 1==2);});$("#mc1").hide();$("#mctab2").on('click', function() {$("#mc0").hide();$("#mctab0").toggleClass('hammock-multicode-selected', 2==0);$("#mc1").hide();$("#mctab1").toggleClass('hammock-multicode-selected', 2==1);$("#mc2").show();$("#mctab2").toggleClass('hammock-multicode-selected', 2==2);});$("#mc2").hide();</script>
         
             </div>
@@ -210,11 +309,19 @@ window.onload = function() {
             Header:
             <pre class='hammock-code'>Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;</pre>
             Body:
-            <pre class='hammock-code sh_javascript'>{
+            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab3 class='hammock-multicode-tab'>REST</div><div id=mctab4 class='hammock-multicode-tab'>EXAMPLE</div></div><div id=mc3 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>200 OK
+{
     "result" : "ok",
-    "username" : &lt;USERNAME&gt;
+    "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;
-}</pre>
+}</pre></div>
+                <div id=mc4 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>200 OK
+{
+    "result" : "ok",
+    "username" : "leela",
+    "email" : "leela@planetexpress.com"
+}</pre></div>
+            </div><script>$("#mctab3").on('click', function() {$("#mc3").show();$("#mctab3").toggleClass('hammock-multicode-selected', 3==3);$("#mc4").hide();$("#mctab4").toggleClass('hammock-multicode-selected', 3==4);});$("#mctab3").toggleClass('hammock-multicode-selected', 1);$("#mctab4").on('click', function() {$("#mc3").hide();$("#mctab3").toggleClass('hammock-multicode-selected', 4==3);$("#mc4").show();$("#mctab4").toggleClass('hammock-multicode-selected', 4==4);});$("#mc4").hide();</script>
         
             </div>
         </div>
@@ -249,7 +356,7 @@ window.onload = function() {
             <div class=hammock-subsection-contents>
                 
             <pre class='hammock-code sh_javascript'>{
-    "result" : "ok",
+    "result" : "ok"
 }</pre>
         
             </div>
@@ -266,12 +373,28 @@ window.onload = function() {
             </div>
             <div class=hammock-section-contents>
                 
-        To use <b>BASIC AUTH</b>, include the Base64-encoded "username:password" in
-        every request.  For example, if your username is "fry" and your
-        password is "PlanetExpress", include the following header with your
-        request:
+        <p>
+            To use <b>BASIC AUTH</b>, include the Base64-encoded
+            "username:password" in every request.  For example, if your
+            username is "leela" and your password is "P1anetExpre55", include
+            the following header with your request:
+        </p>
 
-        <pre class='hammock-code'>Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</pre>
+        <pre class='hammock-code'>Authorization: Basic bGVlbGE6UDFhbmV0RXhwcmU1NQ==</pre>
+
+        <p>
+            Most HTTP libraries and tools can handle BASIC AUTH for you.  For
+            example:
+        </p>
+        <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab5 class='hammock-multicode-tab'>CURL</div><div id=mctab6 class='hammock-multicode-tab'>JQUERY</div><div id=mctab7 class='hammock-multicode-tab'>PYTHON</div></div><div id=mc5 class=hammock-multicode-item><pre class='hammock-code'>curl -u leela:P1anetExpre55</pre></div>
+            <div id=mc6 class=hammock-multicode-item><pre class='hammock-code'>$.ajax({
+    username : "leela",
+    password : "P1anetExpre55",
+    ...
+});</pre></div>
+            <div id=mc7 class=hammock-multicode-item><pre class='hammock-code'>from requests.auth import HTTPBasicAuth
+requests.get(url, auth=HTTPBasicAuth('leela', 'P1anetExpre55'))</pre></div>
+        </div><script>$("#mctab5").on('click', function() {$("#mc5").show();$("#mctab5").toggleClass('hammock-multicode-selected', 5==5);$("#mc6").hide();$("#mctab6").toggleClass('hammock-multicode-selected', 5==6);$("#mc7").hide();$("#mctab7").toggleClass('hammock-multicode-selected', 5==7);});$("#mctab5").toggleClass('hammock-multicode-selected', 1);$("#mctab6").on('click', function() {$("#mc5").hide();$("#mctab5").toggleClass('hammock-multicode-selected', 6==5);$("#mc6").show();$("#mctab6").toggleClass('hammock-multicode-selected', 6==6);$("#mc7").hide();$("#mctab7").toggleClass('hammock-multicode-selected', 6==7);});$("#mc6").hide();$("#mctab7").on('click', function() {$("#mc5").hide();$("#mctab5").toggleClass('hammock-multicode-selected', 7==5);$("#mc6").hide();$("#mctab6").toggleClass('hammock-multicode-selected', 7==6);$("#mc7").show();$("#mctab7").toggleClass('hammock-multicode-selected', 7==7);});$("#mc7").hide();</script>
     
             </div>
         </div>

@@ -1,7 +1,84 @@
 <doc logo="" toc_title="Canopy REST API" title="Lorem Ipsum">
 
 <chapter title="Authentication">
-    Two types of authentication are supported: <b>BASIC AUTH</b> and <b>Session-based AUTH</b>.
+    <section title="Account Model">
+        The Canopy REST API is used by both humans and IoT devices.  There are
+        two types of accounts:
+
+        <tbl>
+            <row>
+                <cell nowrap='1' header='1'>Account Type</cell>
+                <cell nowrap='1' header='1'>Description</cell>
+            </row>
+            <row>
+                <cell nowrap='1'><b>User Account</b></cell>
+                <cell>A human.  This may be an <b>end user</b> or a
+                <b>device maker</b>.</cell>
+            </row>
+            <row>
+                <cell nowrap='1'><b>Device Account</b></cell>
+                <cell>An IoT device.  This account gets created
+                automatically whenever a new device resource is generated on
+                the server.  See Create Account-Linked Devices and Create
+                Anonymous Device.
+                </cell>
+            </row>
+        </tbl>
+
+        Every User Account has some relationship with every device resource.
+
+        <tbl>
+            <row>
+                <cell header='1'>User-Device Relationship</cell>
+                <cell header='1'>Description</cell>
+            </row>
+            <row>
+                <cell><b>No Access</b></cell>
+                <cell>User cannot access the device.</cell>
+            </row>
+            <row>
+                <cell><b>End User</b></cell>
+                <cell>User can interact with the device as an end user.</cell>
+            </row>
+            <row>
+                <cell><b>Device Maker</b></cell>
+                <cell>User can manage the device from an inventory standpoint,
+                but may not directly control or monitor it without permission from the end user.</cell>
+            </row>
+            <row>
+                <cell><b>Device Maker + End User</b></cell>
+                <cell>User can do everything with the device.</cell>
+            </row>
+        </tbl>
+        <subsection title='Methods of Authentication'>
+            Two types of authentication are supported: <b>BASIC AUTH</b> and
+            <b>Session-based AUTH</b>.
+            <tbl>
+                <row>
+                    <cell header='1'>Account Type</cell>
+                    <cell header='1'>HTTP BASIC AUTH</cell>
+                    <cell header='1'>Session-based AUTH</cell>
+                    <cell header='1'>Username</cell>
+                    <cell header='1'>Password</cell>
+                </row>
+                <row>
+                    <cell><b>User Account</b></cell>
+                    <cell><b>Yes</b></cell>
+                    <cell><b>Yes</b></cell>
+                    <cell>Chosen by user</cell>
+                    <cell>Chosen by user</cell>
+                </row>
+                <row>
+                    <cell><b>Device Account</b></cell>
+                    <cell><b>Yes</b></cell>
+                    <cell>No</cell>
+                    <cell>Device UUID</cell>
+                    <cell>Device Secret Key</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
     <section title="Session-based AUTH Login">
         <subsection title="Request">
             <multicode>
@@ -12,15 +89,15 @@
                         "password" : &lt;PASSWORD&gt;
                     }
                 </mc_item>
-                <mc_item title="Example" syntax='javascript'>
+                <mc_item title="EXAMPLE" syntax='javascript'>
                     POST /api/login
                     {
                         "username" : "leela",
                         "password" : "P1anetExpre55"
                     }
                 </mc_item>
-                <mc_item title="curl" syntax='javascript'>
-                    curl -d '{ { "username" : "leela", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/login
+                <mc_item title="CURL" syntax='javascript'>
+                    curl -c canopy.cookies -d '{ "username" : "leela", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/login
                 </mc_item>
             </multicode>
         </subsection>
@@ -30,13 +107,24 @@
                 Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;
             </code>
             Body:
-            <code syntax='javascript'>
-                {
-                    "result" : "ok",
-                    "username" : &lt;USERNAME&gt;
-                    "email" : &lt;EMAIL&gt;
-                }
-            </code>
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                        "username" : &lt;USERNAME&gt;,
+                        "email" : &lt;EMAIL&gt;
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                        "username" : "leela",
+                        "email" : "leela@planetexpress.com"
+                    }
+                </mc_item>
+            </multicode>
         </subsection>
     </section>
 
@@ -47,21 +135,44 @@
         <subsection title="Response">
             <code syntax='javascript'>
                 {
-                    "result" : "ok",
+                    "result" : "ok"
                 }
             </code>
         </subsection>
     </section>
 
     <section title="BASIC AUTH for Users">
-        To use <b>BASIC AUTH</b>, include the Base64-encoded "username:password" in
-        every request.  For example, if your username is "fry" and your
-        password is "PlanetExpress", include the following header with your
-        request:
+        <p>
+            To use <b>BASIC AUTH</b>, include the Base64-encoded
+            "username:password" in every request.  For example, if your
+            username is "leela" and your password is "P1anetExpre55", include
+            the following header with your request:
+        </p>
 
         <code>
-            Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+            Authorization: Basic bGVlbGE6UDFhbmV0RXhwcmU1NQ==
         </code>
+
+        <p>
+            Most HTTP libraries and tools can handle BASIC AUTH for you.  For
+            example:
+        </p>
+        <multicode>
+            <mc_item title="CURL">
+                curl -u leela:P1anetExpre55
+            </mc_item>
+            <mc_item title="JQUERY">
+                $.ajax({
+                    username : "leela",
+                    password : "P1anetExpre55",
+                    ...
+                });
+            </mc_item>
+            <mc_item title="PYTHON">
+                from requests.auth import HTTPBasicAuth
+                requests.get(url, auth=HTTPBasicAuth('leela', 'P1anetExpre55'))
+            </mc_item>
+        </multicode>
     </section>
 
     <section title="BASIC AUTH for Devices">
