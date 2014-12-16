@@ -458,12 +458,50 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <pre class='hammock-code sh_javascript'>POST /api/create_account
+            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab8 class='hammock-multicode-tab'>REST</div><div id=mctab9 class='hammock-multicode-tab'>EXAMPLE</div><div id=mctab10 class='hammock-multicode-tab'>CURL</div></div><div id=mc8 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_account
 {
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
-    "password" : &lt;PASSWORD&gt;,
-}</pre>
+    "password" : &lt;PASSWORD&gt;
+}</pre></div>
+                <div id=mc9 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_account
+{
+    "username" : "leela",
+    "email" : "leela@planetexpress.com",
+    "password" : "P1anetExpre55"
+}</pre></div>
+                <div id=mc10 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -d '{ "username" : "leela", "email": "leela@planetexpress.com", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/create_account</pre></div>
+            </div><script>$("#mctab8").on('click', function() {$("#mc8").show();$("#mctab8").toggleClass('hammock-multicode-selected', 8==8);$("#mc9").hide();$("#mctab9").toggleClass('hammock-multicode-selected', 8==9);$("#mc10").hide();$("#mctab10").toggleClass('hammock-multicode-selected', 8==10);});$("#mctab8").toggleClass('hammock-multicode-selected', 1);$("#mctab9").on('click', function() {$("#mc8").hide();$("#mctab8").toggleClass('hammock-multicode-selected', 9==8);$("#mc9").show();$("#mctab9").toggleClass('hammock-multicode-selected', 9==9);$("#mc10").hide();$("#mctab10").toggleClass('hammock-multicode-selected', 9==10);});$("#mc9").hide();$("#mctab10").on('click', function() {$("#mc8").hide();$("#mctab8").toggleClass('hammock-multicode-selected', 10==8);$("#mc9").hide();$("#mctab9").toggleClass('hammock-multicode-selected', 10==9);$("#mc10").show();$("#mctab10").toggleClass('hammock-multicode-selected', 10==10);});$("#mc10").hide();</script>
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Field</td>
+                    <td  class=hammock-tbl-header>Validation</td>
+                </tr>
+                <tr>
+                    <td ><span class=hammock-icode>"username"</span></td>
+                    <td >string
+                        <ul><li>5-24 characters</li>
+                            <li>Characters a-z, A-Z, 0-9 and underscore(_) allowed.</li>
+                            <li>Must start with a letter</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><span class=hammock-icode>"email"</span></td>
+                    <td >string
+                        <ul><li>Must be a valid email address.</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><span class=hammock-icode>"password"</span></td>
+                    <td >string
+                        <ul><li>6-120 characters</li>
+                            <li>All characters allowed</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -474,11 +512,19 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <pre class='hammock-code sh_javascript'>{
-    "result" : "ok",
-    "username" : &lt;USERNAME&gt;,
+            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab11 class='hammock-multicode-tab'>REST</div><div id=mctab12 class='hammock-multicode-tab'>EXAMPLE</div></div><div id=mc11 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>200 OK
+{
     "email" : &lt;EMAIL&gt;,
-}</pre>
+    "result" : "ok",
+    "username" : &lt;USERNAME&gt;
+}</pre></div>
+                <div id=mc12 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>200 OK
+{
+    "email" : "leela@planetexpress.com",
+    "result" : "ok",
+    "username" : "leela",
+}</pre></div>
+            </div><script>$("#mctab11").on('click', function() {$("#mc11").show();$("#mctab11").toggleClass('hammock-multicode-selected', 11==11);$("#mc12").hide();$("#mctab12").toggleClass('hammock-multicode-selected', 11==12);});$("#mctab11").toggleClass('hammock-multicode-selected', 1);$("#mctab12").on('click', function() {$("#mc11").hide();$("#mctab11").toggleClass('hammock-multicode-selected', 12==11);$("#mc12").show();$("#mctab12").toggleClass('hammock-multicode-selected', 12==12);});$("#mc12").hide();</script>
         
             </div>
         </div>

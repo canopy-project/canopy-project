@@ -575,6 +575,24 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                 </td>
             </tr>
             <tr>
+                <td nowrap><span class=hammock-icode>"email-service"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_EMAIL_SERVICE</span></td>
+                <td nowrap><span class=hammock-icode>--email-service=</span></td>
+                <td >
+                    Selects external service to use for sending email.  Valid
+                    options are:
+                    <ul><li><span class=hammock-icode>"none"</span> - Do not send email.</li>
+                        <li><span class=hammock-icode>"sendgrid"</span> - Use SendGrid to send email.</li>
+                    </ul>
+                    If <span class=hammock-icode>"sendgrid"</span>, then you must also set
+                    <span class=hammock-icode>"sendgrid-username"</span> and
+                    <span class=hammock-icode>"sendgrid-secret-key"</span>.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>"none"</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
                 <td nowrap><span class=hammock-icode>"forward-other-hosts"</span></td>
                 <td nowrap><span class=hammock-icode>CCS_FORWARD_OTHER_HOSTS</span></td>
                 <td nowrap><span class=hammock-icode>--forward-other-hosts=</span></td>
@@ -651,6 +669,33 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                 </td>
             </tr>
             <tr>
+                <td nowrap><span class=hammock-icode>"sendgrid-secret-key"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_SENDGRID_SECRET_KEY</span></td>
+                <td nowrap><span class=hammock-icode>--sendgrid-secret-key=</span></td>
+                <td >
+                    Secure secret key provided by SendGrid.  This must not be
+                    made public and should be different for every server.  This
+                    is required if <span class=hammock-icode>"email-service"</span> is
+                    <span class=hammock-icode>"sendgrid"</span>.  Otherwise it is ignored.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"sendgrid-username"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_SENDGRID_USERNAME</span></td>
+                <td nowrap><span class=hammock-icode>--sendgrid-secret-key=</span></td>
+                <td >
+                    Username of SendGrid account, used for sending emails.
+                    This is required if <span class=hammock-icode>"email-service"</span> is
+                    <span class=hammock-icode>"sendgrid"</span>.  Otherwise it is ignored.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
                 <td nowrap><span class=hammock-icode>"web-manager-path"</span></td>
                 <td nowrap><span class=hammock-icode>CCS_WEB_MANAGER_PATH</span></td>
                 <td nowrap><span class=hammock-icode>--web-manager-path=</span></td>
@@ -679,11 +724,14 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
         <pre class='hammock-code'>{
     "allow-anon-devices" : false,
     "allow-origin" : "sandbox.canopy.link myiotapp.com",
+    "email-service" : "sendgrid",
     "forward-other-hosts" : "http://canopy.link",
     "http-port" : 80,
     "hostname" : "sandbox.canopy.link",
     "js-client-path" : "/home/ubuntu/canopy-js-client",
     "production-secret" : "my production secret",
+    "sendgrid-secret-key" : "ljP)48-1x*CL@0iA#",
+    "sendgrid-username" : "mysendgridusername",
     "web-manager-path" : "/home/ubuntu/canopy-app",
 }</pre>
     

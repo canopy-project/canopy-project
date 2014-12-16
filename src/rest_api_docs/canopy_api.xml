@@ -206,23 +206,80 @@
 <chapter title="User Accounts">
     <section title="Create a User Account">
         <subsection title="Request">
-            <code syntax='javascript'>
-                POST /api/create_account
-                {
-                    "username" : &lt;USERNAME&gt;,
-                    "email" : &lt;EMAIL&gt;,
-                    "password" : &lt;PASSWORD&gt;,
-                }
-            </code>
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    POST /api/create_account
+                    {
+                        "username" : &lt;USERNAME&gt;,
+                        "email" : &lt;EMAIL&gt;,
+                        "password" : &lt;PASSWORD&gt;
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    POST /api/create_account
+                    {
+                        "username" : "leela",
+                        "email" : "leela@planetexpress.com",
+                        "password" : "P1anetExpre55"
+                    }
+                </mc_item>
+                <mc_item title="CURL" syntax='javascript'>
+                    curl -d '{ "username" : "leela", "email": "leela@planetexpress.com", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/create_account
+                </mc_item>
+            </multicode>
+            <tbl>
+                <row>
+                    <cell header='1'>Field</cell>
+                    <cell header='1'>Validation</cell>
+                </row>
+                <row>
+                    <cell><icode>"username"</icode></cell>
+                    <cell>string
+                        <ul>
+                            <li>5-24 characters</li>
+                            <li>Characters a-z, A-Z, 0-9 and underscore(_) allowed.</li>
+                            <li>Must start with a letter</li>
+                        </ul>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>"email"</icode></cell>
+                    <cell>string
+                        <ul>
+                            <li>Must be a valid email address.</li>
+                        </ul>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>"password"</icode></cell>
+                    <cell>string
+                        <ul>
+                            <li>6-120 characters</li>
+                            <li>All characters allowed</li>
+                        </ul>
+                    </cell>
+                </row>
+            </tbl>
         </subsection>
         <subsection title="Response">
-            <code syntax='javascript'>
-                {
-                    "result" : "ok",
-                    "username" : &lt;USERNAME&gt;,
-                    "email" : &lt;EMAIL&gt;,
-                }
-            </code>
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "email" : &lt;EMAIL&gt;,
+                        "result" : "ok",
+                        "username" : &lt;USERNAME&gt;
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    200 OK
+                    {
+                        "email" : "leela@planetexpress.com",
+                        "result" : "ok",
+                        "username" : "leela",
+                    }
+                </mc_item>
+            </multicode>
         </subsection>
     </section>
     <section title="Get Current User Account">

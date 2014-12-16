@@ -8,7 +8,7 @@
     </p>
     <section title='Prerequisites'>
         <subsection title='Installing Required Packages (Ubuntu 14.04)'>
-            <code>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev libcurl4-openssl-dev</code>
+            <code>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev curl libcurl4-openssl-dev</code>
         </subsection>
         <subsection title='Installing Repo'>
             <p>

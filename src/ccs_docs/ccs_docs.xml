@@ -353,6 +353,25 @@
                 </cell>
             </row>
             <row>
+                <cell nowrap='1'><icode>"email-service"</icode></cell>
+                <cell nowrap='1'><icode>CCS_EMAIL_SERVICE</icode></cell>
+                <cell nowrap='1'><icode>--email-service=</icode></cell>
+                <cell>
+                    Selects external service to use for sending email.  Valid
+                    options are:
+                    <ul>
+                        <li><icode>"none"</icode> - Do not send email.</li>
+                        <li><icode>"sendgrid"</icode> - Use SendGrid to send email.</li>
+                    </ul>
+                    If <icode>"sendgrid"</icode>, then you must also set
+                    <icode>"sendgrid-username"</icode> and
+                    <icode>"sendgrid-secret-key"</icode>.
+                    <p>
+                        <b>Default:</b> <icode>"none"</icode>
+                    </p>
+                </cell>
+            </row>
+            <row>
                 <cell nowrap='1'><icode>"forward-other-hosts"</icode></cell>
                 <cell nowrap='1'><icode>CCS_FORWARD_OTHER_HOSTS</icode></cell>
                 <cell nowrap='1'><icode>--forward-other-hosts=</icode></cell>
@@ -429,6 +448,33 @@
                 </cell>
             </row>
             <row>
+                <cell nowrap='1'><icode>"sendgrid-secret-key"</icode></cell>
+                <cell nowrap='1'><icode>CCS_SENDGRID_SECRET_KEY</icode></cell>
+                <cell nowrap='1'><icode>--sendgrid-secret-key=</icode></cell>
+                <cell>
+                    Secure secret key provided by SendGrid.  This must not be
+                    made public and should be different for every server.  This
+                    is required if <icode>"email-service"</icode> is
+                    <icode>"sendgrid"</icode>.  Otherwise it is ignored.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"sendgrid-username"</icode></cell>
+                <cell nowrap='1'><icode>CCS_SENDGRID_USERNAME</icode></cell>
+                <cell nowrap='1'><icode>--sendgrid-secret-key=</icode></cell>
+                <cell>
+                    Username of SendGrid account, used for sending emails.
+                    This is required if <icode>"email-service"</icode> is
+                    <icode>"sendgrid"</icode>.  Otherwise it is ignored.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
                 <cell nowrap='1'><icode>"web-manager-path"</icode></cell>
                 <cell nowrap='1'><icode>CCS_WEB_MANAGER_PATH</icode></cell>
                 <cell nowrap='1'><icode>--web-manager-path=</icode></cell>
@@ -449,11 +495,14 @@
             {
                 "allow-anon-devices" : false,
                 "allow-origin" : "sandbox.canopy.link myiotapp.com",
+                "email-service" : "sendgrid",
                 "forward-other-hosts" : "http://canopy.link",
                 "http-port" : 80,
                 "hostname" : "sandbox.canopy.link",
                 "js-client-path" : "/home/ubuntu/canopy-js-client",
                 "production-secret" : "my production secret",
+                "sendgrid-secret-key" : "ljP)48-1x*CL@0iA#",
+                "sendgrid-username" : "mysendgridusername",
                 "web-manager-path" : "/home/ubuntu/canopy-app",
             }
         </code>
