@@ -356,7 +356,11 @@
                     "devices" : [ {
                         "device_id" : &lt;UUID&gt;,
                         "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-                        "connected" : &lt;CONNECTED&gt;,
+                        "status" : {
+                            "oper_status" : &lt;OPER_STATUS&gt;,
+                            "ws_connected" : &lt;WS_CONNECTED&gt;,
+                            "last_seen" : &lt;LAST_SEEN&gt;,
+                        },
                         "sddl" : { &lt;SDDL&gt; },
                         "vars" : { &lt;VARS&gt; },
                     }, ...  ]
@@ -377,7 +381,11 @@
                     "result" : "ok",
                     "device_id" : &lt;UUID&gt;,
                     "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-                    "connected" : &lt;CONNECTED&gt;,
+                    "status" : {
+                        "oper_status" : &lt;OPER_STATUS&gt;,
+                        "ws_connected" : &lt;WS_CONNECTED&gt;,
+                        "last_seen" : &lt;LAST_SEEN&gt;,
+                    },
                     "sddl" : { &lt;SDDL&gt; },
                     "vars" : { &lt;VARS&gt; },
                 }
