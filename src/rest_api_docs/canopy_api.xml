@@ -266,6 +266,7 @@
                 <mc_item title="REST" syntax='javascript'>
                     200 OK
                     {
+                        "activated" : false,
                         "email" : &lt;EMAIL&gt;,
                         "result" : "ok",
                         "username" : &lt;USERNAME&gt;
@@ -274,6 +275,7 @@
                 <mc_item title="EXAMPLE" syntax='javascript'>
                     200 OK
                     {
+                        "activated" : false,
                         "email" : "leela@planetexpress.com",
                         "result" : "ok",
                         "username" : "leela",
@@ -287,6 +289,31 @@
             <code>
                 GET /api/me
             </code>
+        </subsection>
+        <subsection title="Response">
+            <code syntax='javascript'>
+                {
+                    "result" : "ok",
+                    "activated" : &lt;ACTIVATED&gt;,
+                    "username" : &lt;USERNAME&gt;,
+                    "email" : &lt;EMAIL&gt;,
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title="Update Account Profile">
+        <subsection title="Request">
+            <code>
+                POST /api/me
+                {
+                    "email" : &lt;NEW_EMAIL&gt;,
+                    "old_password" : &lt;OLD_PASSWORD&gt;,
+                    "new_password" : &lt;NEW_PASSWORD&gt;
+                }
+            </code>
+            All fields are optional, although if <icode>"new_password"</icode>
+            is provided then <icode>"old_password"</icode> must be provided as
+            well.  Omitted fields will not be modified.
         </subsection>
         <subsection title="Response">
             <code syntax='javascript'>
@@ -356,10 +383,10 @@
                     "devices" : [ {
                         "device_id" : &lt;UUID&gt;,
                         "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                        "labels" : [ &lt;LABELS&gt; ],
                         "status" : {
-                            "oper_status" : &lt;OPER_STATUS&gt;,
                             "ws_connected" : &lt;WS_CONNECTED&gt;,
-                            "last_seen" : &lt;LAST_SEEN&gt;,
+                            "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
                         },
                         "sddl" : { &lt;SDDL&gt; },
                         "vars" : { &lt;VARS&gt; },
@@ -381,10 +408,10 @@
                     "result" : "ok",
                     "device_id" : &lt;UUID&gt;,
                     "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                    "labels" : [ &lt;LABELS&gt; ],
                     "status" : {
-                        "oper_status" : &lt;OPER_STATUS&gt;,
                         "ws_connected" : &lt;WS_CONNECTED&gt;,
-                        "last_seen" : &lt;LAST_SEEN&gt;,
+                        "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
                     },
                     "sddl" : { &lt;SDDL&gt; },
                     "vars" : { &lt;VARS&gt; },
@@ -406,12 +433,18 @@
                 POST /api/device/&lt;UUID&gt;
                 {
                     "friendly_name" : &lt;NEW_FRIENDLY_NAME&gt;,
-                    "location_note" : &lt;NEW_LOCATION_NOTE&gt;,
+                    "labels" : [ &lt;NEW_LABELS&gt; ],
+                    "location_note" : &lt;NEW_LOCATION_NOTE&gt;
                 }
             </code>
             <p>
                 All fields are optional and omitted fields will be left
                 unchanged.
+            </p>
+            <p>
+                If <icode>"labels"</icode> is provided, then all labels and
+                collections for this device will be replaced with the new set
+                of labels and collections.
             </p>
             <p>
                 This may be combined with Add/Update Cloud Var Metadata
@@ -498,6 +531,44 @@
             </row>
         </tbl>
     </section>
+</chapter>
+
+<chapter title="Labels and Collections">
+    <subsection title='Labels'>
+        <p>
+            A User may assign one or more Labels to each Device resource.  A Label
+            is a string used for grouping Devices.  Examples might
+            include:
+            <code>
+                "lightbulb"
+                "Customer Returns"
+                "July 12 Production Run"
+            </code>
+        </p>
+        <p>
+            Each device has two sets of labels: those assigned by the Device
+            Maker and those assigned by the End User.
+        </p>
+    </subsection>
+    <subsection title='Collections'>
+        <p>
+            Collections are a special type of label.  A collection is a string
+            that contains a colon (<icode>:</icode>) and provide a means to
+            group related labels.  Collections have the the following form:
+            <code>"COLLECTION NAME: VALUE"</code>
+            Examples might include:
+            <code>
+                "Product Category: lightbulb"
+                "Return Status: Waiting to Recieve"
+                "Production Run: July 12, 2014"
+            </code>
+
+            Within a Collection, each Device is allowed a single value.
+            For example, a Device cannot be assigned both <icode>"Product
+            Category: lightbulb"</icode> and <icode>"Product Category:
+            toaster"</icode>.
+        </p>
+    </subsection>
 </chapter>
 
 <chapter title="Synchronization">
