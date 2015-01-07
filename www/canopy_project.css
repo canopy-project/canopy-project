@@ -33,6 +33,21 @@ td {
     font-weight: 300;
 }
 
+.pretty_table{
+    border-top: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    background: #d8d8d8;
+    margin: 20px;
+}
+
+.pretty_table td {
+    text-align: left;
+    border-bottom: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    background: #d8d8d8;
+    padding: 12px;
+}
+
 pre.sh_sourceCode {
   background-color: #f0f0f0;
   box-shadow: 1px 1px 3px #a0a0a0;

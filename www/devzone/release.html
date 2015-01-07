@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canopy - Developer Zone</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../canopy_project.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='../canopy_project.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class=main-outer>
+    <div class='bg-white centered'>
+        <script> 
+            var RELATIVE_PATH = "../";
+            RenderTopbar("devzone");
+        </script>
+    </div>
+
+    <div class='bg-lightgray banner-thin centered' >
+        <div class='l'>
+            Release Package Downloads
+        </div>
+    </div>
+    <div class=hr-gradient></div>
+    <div class='bg-light-gray centered' style='; padding-top:20px; padding-bottom:40px;'>
+        <div class='l'>Canopy Embedded Development Kit</div>
+        <div style='display:inline-block; max-width:1200px;'>
+            Latest Release: 0.9.0-beta (Jan 6, 2015)
+
+            <table cellspacing=0 cellpadding=0 border=0 class=pretty_table>
+                <tr>
+                    <td><b></b></td>
+                    <td><b>Source Package</b></td>
+                    <td><b>Linux x86 64-bit Binary Package</b></td>
+                </tr>
+                <tr>
+                    <td>Canopy EDK</td>
+                    <td><a href="http://code.canopy.link/edk/0.9.0/canopy-edk-0.9.0-src-tgz" target="_blank" onclick="ga('send', 'event', 'download', 'edk', this.href)">canopy-edk-0.9.0-src.tgz</a></td>
+                    <td><a href="http://code.canopy.link/edk/0.9.0/canopy-edk-0.9.0-x86_64.tgz" target="_blank" onclick="ga('send', 'event', 'download', 'edk', this.href)">canopy-edk-0.9.0-x86_64.tgz</a></td>
+                </tr>
+            </table>
+        </div>
+        <br><br>
+
+        <div class='l'>Canopy Application Development Kit</div>
+        <div style='display:inline-block; max-width:1200px;'>
+            Latest Release: 0.9.0-beta (Jan 6, 2015)
+
+            <table cellspacing=0 cellpadding=0 border=0 class=pretty_table>
+                <tr>
+                    <td><b></b></td>
+                    <td><b>Source</b></td>
+                </tr>
+                <tr>
+                    <td>Javascript Client</td>
+                    <td><a href="http://code.canopy.link/adk/js/0.9.0/canopy.js" target="_blank" onclick="ga('send', 'event', 'download', 'adk', this.href)">canopy.js</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>RenderFooter();</script>
+</div>
+</body>
+</html>
+
+
+<!--
+<a href=”pdfs/my-file.pdf” target=”_blank” onclick=”_gaq.push(['_trackEvent','Download','PDF',this.href]);”>Download my file</a>
+-->
