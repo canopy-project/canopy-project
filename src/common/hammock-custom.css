@@ -220,7 +220,7 @@ td.hammock-tbl-header{
 
 .hammock-toc-outer {
     position: fixed;
-    width: 250;
+    width: 240px;
     overflow: auto;
     top: 94px;
     left: 8px;
@@ -229,6 +229,9 @@ td.hammock-tbl-header{
     padding-top: 12px;
     font-weight: 400;
     white-space: nowrap;
+    background: rgba(208, 208, 208, 0.6);
+    overflow: hidden;
+    border-radius: 3px;
 }
 
 .hammock-toc-section {
@@ -241,6 +244,6 @@ td.hammock-tbl-header{
 
 .hammock-toc-title {
     font-size: 28px;
-    color: #404040
+    color: #404040;
 }
 
