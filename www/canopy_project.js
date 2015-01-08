@@ -59,6 +59,14 @@ function RenderFooter() {
                     </td>\
                 </tr>\
                 <tr>\
+                    <td class=footer-item>Gitter (Chat)</td>\
+                    <td align=left>\
+                        <a target=_blank href='http://gitter.im/canopy-project/chat'>\
+                            http://gitter.im/canopy-project/chat</a>\
+                        </a>\
+                    </td>\
+                </tr>\
+                <tr>\
                     <td class=footer-item>Forum</td>\
                     <td align=left>\
                         <a target=_blank href='http://canopy.lefora.com'>\
@@ -71,7 +79,7 @@ function RenderFooter() {
 \
         <div class='footer-inner'>\
             <br>\
-            Copyright 2014 SimpleThings, Inc.<br><br>\
+            <span style='font-size: 13px'>Copyright &copy; 2014 - 2015 SimpleThings, Inc.</span><br><br>\
 \
             <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/4.0/88x31.png' /></a><br />Except where otherwise noted, this site is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'><u>Creative Commons Attribution 4.0 International License</u></a>.\
         </div>\
