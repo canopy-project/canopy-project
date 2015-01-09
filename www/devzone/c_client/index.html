@@ -193,11 +193,10 @@ window.onload = function() {
                 </div>
                 <div class=hammock-chapter-contents>
                     
-    <p>
-        The Canopy C/C++ Client is part of the Canopy Embedded Development Kit (EDK).
-        The EDK uses <span class=hammock-icode>repo</span>, which is a tool that makes it easier
-        to work with multiple git repositories.
-    </p>
+    The Canopy C/C++ Client is part of the Canopy Embedded Development Kit (EDK).
+    The EDK uses <span class=hammock-icode>repo</span>, which is a tool that makes it easier
+    to work with multiple git repositories.
+
     
         <div class=hammock-section-outer>
             <a class=hammock-a-name id=prerequisites name=prerequisites></a>
@@ -213,7 +212,7 @@ window.onload = function() {
             </div>
             <div class=hammock-subsection-contents>
                 
-            <pre class='hammock-code'>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev curl libcurl4-openssl-dev</pre>
+            <pre class='hammock-code'>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev curl libcurl4-openssl-dev dialog</pre>
         
             </div>
         </div>
@@ -293,12 +292,22 @@ cd canopy_edk</pre>
             </div>
             <div class=hammock-subsection-contents>
                 
-            <p>
-                Canopy's build system expects certain environment variables to
-                be set, which are initialized with the <span class=hammock-icode>envsetup.sh</span>
-                script.
-            </p>
-            <pre class='hammock-code'>source build/envsetup.sh</pre>
+            Canopy's build system expects certain environment variables to
+            be set, which are initialized with the <span class=hammock-icode>envsetup.sh</span>
+            script.  Use this script to select the target platform and
+            build flavor (i.e. debug or release).
+
+            <p></p>For example, from the <span class=hammock-icode>build/</span> directory:
+
+            <pre class='hammock-code'>source envsetup.sh linux-default debug</pre>
+            
+            If you have <span class=hammock-icode>dialog</span> installed on your system, you can
+            interactively configure your build by simply running:
+            <pre class='hammock-code'>source envsetup.sh</pre>
+
+            If you do not have <span class=hammock-icode>dialog</span> installed, the
+            <span class=hammock-icode>envsetup.sh</span> script will simply list the available
+            options.
         
             </div>
         </div>
@@ -310,10 +319,9 @@ cd canopy_edk</pre>
             <div class=hammock-subsection-contents>
                 
             <p>
-                To build and install the Canopy EDK, run:
+                To build and install the Canopy EDK, from <span class=hammock-icode>build/</span> run:
             </p>
-            <pre class='hammock-code'>cd build
-make
+            <pre class='hammock-code'>make
 sudo make install</pre>
         
             </div>

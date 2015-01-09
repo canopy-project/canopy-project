@@ -1,14 +1,13 @@
 <doc logo="" toc_title="C/C++ Client" title="Lorem Ipsum">
 
 <chapter title="Installation">
-    <p>
-        The Canopy C/C++ Client is part of the Canopy Embedded Development Kit (EDK).
-        The EDK uses <icode>repo</icode>, which is a tool that makes it easier
-        to work with multiple git repositories.
-    </p>
+    The Canopy C/C++ Client is part of the Canopy Embedded Development Kit (EDK).
+    The EDK uses <icode>repo</icode>, which is a tool that makes it easier
+    to work with multiple git repositories.
+
     <section title='Prerequisites'>
         <subsection title='Installing Required Packages (Ubuntu 14.04)'>
-            <code>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev curl libcurl4-openssl-dev</code>
+            <code>sudo apt-get install g++ git rpm cmake zlib1g-dev libssl-dev curl libcurl4-openssl-dev dialog</code>
         </subsection>
         <subsection title='Installing Repo'>
             <p>
@@ -56,21 +55,32 @@
     </section>
     <section title='Building and Installing libcanopy'>
         <subsection title='Initializing the Build Environment'>
-            <p>
-                Canopy's build system expects certain environment variables to
-                be set, which are initialized with the <icode>envsetup.sh</icode>
-                script.
-            </p>
+            Canopy's build system expects certain environment variables to
+            be set, which are initialized with the <icode>envsetup.sh</icode>
+            script.  Use this script to select the target platform and
+            build flavor (i.e. debug or release).
+
+            <p/>For example, from the <icode>build/</icode> directory:
+
             <code>
-                source build/envsetup.sh
+                source envsetup.sh linux-default debug
             </code>
+            
+            If you have <icode>dialog</icode> installed on your system, you can
+            interactively configure your build by simply running:
+            <code>
+                source envsetup.sh
+            </code>
+
+            If you do not have <icode>dialog</icode> installed, the
+            <icode>envsetup.sh</icode> script will simply list the available
+            options.
         </subsection>
         <subsection title='Building and Installing'>
             <p>
-                To build and install the Canopy EDK, run:
+                To build and install the Canopy EDK, from <icode>build/</icode> run:
             </p>
             <code>
-                cd build
                 make
                 sudo make install
             </code>

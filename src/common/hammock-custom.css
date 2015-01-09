@@ -13,16 +13,19 @@ body {
 .hammock-chapter-contents {
     font-size: 17px;
     letter-spacing: 0px;
-    padding-left:16px;
+    margin-top: 16px;
 }
 
 .hammock-chapter-outer {
     max-width: 960px;
     min-width: 500px;
-    border-bottom: 5px solid #a0a0a0;
+    border-bottom: 2px solid #c0c0c0;
+    padding-bottom: 48px;
+    padding-left:16px;
 }
 
 .hammock-chapter-title {
+    margin-top: 32px;
     font-size: 35px;
 }
 
@@ -35,8 +38,8 @@ body {
     padding: 12px;
     padding-right: 16px;
     border-radius: 4px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align:left;
     white-space: pre;
     overflow: auto;
@@ -45,6 +48,10 @@ body {
 }
 
 .hammock-multicode-outer {
+}
+
+.hammock-multicode-outer .hammock-code{
+    margin-top: 10px;
 }
 
 .hammock-multicode-selected {
@@ -87,8 +94,8 @@ body {
     padding: 12px;
     padding-right: 16px;
     border-radius: 4px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     text-align:left;
     white-space: pre;
     overflow: auto;
@@ -127,28 +134,36 @@ body {
 }
 
 .hammock-section-contents {
+    margin-top: 16px;
 }
 
 .hammock-section-outer {
-    border-bottom: 1px solid #d0d0d0;
 }
 
 .hammock-section-title {
     font-size: 28px;
     font-weight: 400;
     color: #3060a0;
+    margin-top: 32px;
+    border-top:1px solid #d0d0d0;
+}
+
+.hammock-chapter-contents .hammock-section-title{
+    border-top:none;
 }
 
 .hammock-subsection-outer {
 }
 
 .hammock-subsection-contents {
+    margin-top: 16px;
 }
 
 .hammock-subsection-title {
     font-size: 19px;
     font-weight: 400;
     color: #c06030;
+    margin-top: 16px;
 }
 
 .hammock-subsubsection-contents {
