@@ -23,17 +23,35 @@
         padding-right: 10px;
     }
 }
-
 /*   When very narrow, tighten things up a bit */
 @media (max-width : 440px) {
     .idx_main_banner_img {
         margin-top:0px; 
         margin-bottom:0px;
     }
-    .idx_main_banner_text {
-        text-align: left;
-    }
     .idx_main_banner_text .l {
         font-size: 30px;
+    }
+}
+
+/* Overview Section Responsive Design */
+/*   Scale things down below certain size */
+@media (max-width : 820px) {
+    .idx_overview_img {
+        padding-top: 30px;
+        padding-bottom: 0px;
+    }
+    .idx_overview_img img {
+        width: 100%;
+        max-width: 800px;
+    }
+}
+/*   Hide diagram when very narrow */
+@media (max-width : 512px) {
+    .idx_overview_img {
+        display: none;
+    }
+    .idx_overview_img_alt {
+        display: block;
     }
 }
