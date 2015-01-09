@@ -34,6 +34,7 @@
 
 .idx_overview {
     text-align: center;
+    margin-top: 30px;
 }
 .idx_overview_text {
     display: inline-block;
@@ -54,4 +55,43 @@
     margin-top: 30px;
     font-weight: 400;
     display: none;
+}
+
+.idx_swfeatures {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+.idx_swfeatures .code {
+}
+.idx_swfeatures_list {
+    text-align: center;
+    display: block;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.idx_swfeatures_item {
+    display:inline-block;
+    min-width:450px;
+    text-align:left;
+    vertical-align: top;
+    padding-left:16px;
+    padding-right:16px;
+    padding-top:30px;
+}
+.idx_swfeatures_item_text {
+    font-size: 16px;
+    text-align: justify;
+    max-width: 450px;
+}
+.idx_swfeatures_text {
+    display: inline-block;
+    text-align: center;
+    max-width: 480px;
+    font-size: 22px;
+    margin-top: 30px;
+    padding-left: 16px;
+    padding-right: 16px;
 }

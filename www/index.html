@@ -36,7 +36,7 @@
     <div class=hr-gradient></div>
 
     <div class=idx_overview>
-        <div class='xl' style='padding-top:30px'>Overview</div>
+        <div class='xl'>Overview</div>
         <div class='idx_overview_text'>
             Canopy simplifies the IoT cloud by acting as a cloud relay
             between IoT devices and applications.
@@ -53,16 +53,16 @@
         </div>
     </div>
 
-    <!--div style='margin-top:60px; margin-bottom:20px' class=hr-gradient></div>
-    <div class=centered>
-        <div class='xl' style='margin-top:70px'>Software Features</div>
-        <div style='text-align:center; display:inline-block; max-width:1024px; padding-right:20px; padding-left:20px;'>
-            <div style='display:inline-block; width:450px; text-align:left; vertical-align: top; padding-left:20px; padding-right:20px; padding-top:50px;'>
+    <div style='margin-top:60px; margin-bottom:20px' class=hr-gradient></div>
+    <div class=idx_swfeatures>
+        <div class='xl'>Software Features</div>
+        <div class=idx_swfeatures_list>
+            <div class=idx_swfeatures_item>
                 <div style='font-weight:400; font-size:24px; color:#3060b0;'>
                     CLOUD VARIABLES
                 </div>
-                <div class=code style='overflow:visible'>canopy_var_set_float32(ctx, "humidity", x);</div>
-                <div style='width:450px; font-size:16px; text-align:justify'>
+                <div class=code>canopy_var_set_float32(ctx, "humidity", x);</div>
+                <div class=idx_swfeatures_item_text>
                     Canopy's <i>Cloud Variables</i> can be accessed in
                     firmware, but are stored in the cloud and tracked
                     over time.  Cloud Variables make it easy to add
@@ -71,12 +71,12 @@
                     <br><a target="_blank" href='devzone/book/cloudvars_about.html' class=w400>Learn more</a>
                 </div>
             </div>
-            <div style='display:inline-block; width:450px; text-align:left; padding-top:50px; padding-left:20px; padding-right:20px;'>
+            <div class=idx_swfeatures_item>
                 <div style='font-weight:400; font-size:24px; color:#3060b0;'>
                     CLOUD NOTIFICATIONS
                 </div>
-                <div class=code style='overflow:visible'>canopy_notify_sms(ctx, "Your laundry is ready");</div>
-                <div style='width:450px; font-size:16px; text-align:justify'>
+                <div class=code>canopy_notify_sms(ctx, "Your laundry is ready");</div>
+                <div class=idx_swfeatures_item_text>
                     Canopy's <i>Cloud Notifications</i> let
                     you send messages to the user from within firmware.
                     Send SMS, email, or in-app notifications.
@@ -84,10 +84,13 @@
                 </div>
             </div>
         </div>
-            <br><br><br>These features help you add remote control, monitoring, and notifications to your product.<br><br><br>
+        <div class='idx_swfeatures_text'>
+            These features help you add remote control, monitoring, and
+            notifications to your product.
+        </div>
     </div>
 
-    <div style='margin-top:60px; margin-bottom:20px' class=hr-gradient></div>
+    <!--div style='margin-top:60px; margin-bottom:20px' class=hr-gradient></div>
     <div class=centered>
         <div class='xl' style='margin-top:50px; margin-bottom:50px;'>Open Source Components</div>
         <div style='text-align:left; display:inline-block; max-width:1200px; padding-right:20px; padding-left:20px;'>

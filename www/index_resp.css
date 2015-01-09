@@ -55,3 +55,31 @@
         display: block;
     }
 }
+
+/* SW Features Responsive Design*/
+@media (max-width : 532px) {
+    .idx_swfeatures {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .idx_swfeatures .xl {
+        text-align: left;
+        margin-left: 16px;
+        font-size: 35px;
+    }
+    .idx_swfeatures_list {
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .idx_swfeatures_item {
+        display: block;
+        min-width: 0px;
+    }
+    .idx_swfeatures .code {
+        font-size: 12px;
+    }
+    .idx_swfeatures_text {
+        text-align: left;
+    }
+}
