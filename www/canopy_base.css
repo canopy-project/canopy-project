@@ -1,0 +1,83 @@
+a, a.visited
+{
+    color: #204080;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: #50a0ff
+}
+
+code
+{
+    display: inline-block;
+    font-family: monospace;
+    color: #203050;
+    font-size: 14px;
+    letter-spacing: 0px;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Source Sans Pro", Helvetica,arial,freesans,clean,sans-serif;
+    line-height: 1.33;
+    font-weight: 300;
+    letter-spacing: 0.0px;
+    font-size: 20px;
+    color: #000000;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 300;
+}
+
+h3 {
+    font-size: 30px;
+    font-weight: 300;
+}
+
+td {
+    font-family: "Source Sans Pro", Helvetica,arial,freesans,clean,sans-serif;
+    font-weight: 300;
+}
+
+.w200 {
+    font-weight: 200;
+}
+.w300 {
+    font-weight: 300;
+}
+.w400 {
+    font-weight: 400;
+}
+.w800 {
+    font-weight: 800;
+}
+
+.xxl {
+    font-size: 60px;
+}
+.xl {
+    font-size: 50px;
+}
+.l {
+    font-size: 40px;
+}
+.ml {
+    font-size: 30px;
+}
+.s {
+    font-size: 16px;
+}
+.xs {
+    font-size: 13px;
+}
+
