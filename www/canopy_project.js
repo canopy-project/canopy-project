@@ -17,8 +17,7 @@ function RenderTopbar(page) {
             + writeLink("services.html", "Services", (page == "services")) + "\
             <div class='proj_topbar_login'><a target='_blank' href='http://sandbox.canopy.link'>Login</a></div>\
         </div>\
-        <div class='proj_topbar_spacer'>&nbsp;</div>\
-        ");
+        <div class='proj_topbar_spacer'>&nbsp;</div>");
 }
 
 function RenderFooter() {

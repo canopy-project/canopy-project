@@ -1,3 +1,12 @@
+.proj_bg_blue_gradient {
+    background: #204080;
+    background: -webkit-linear-gradient(#204080, #102040);
+    background: -o-linear-gradient(#204080, #102040);
+    background: -moz-linear-gradient(#204080, #102040);
+    background: linear-gradient(#204080, #102040);
+    color: #ffffff;
+}
+
 .proj_topbar {
     position:fixed;
     width: 100%;
@@ -42,6 +51,10 @@
     box-shadow: 1px 1px 2px #808080;
     color:#000000;
     background:#f0f4fb;
+}
+.proj_topbar_login a:hover {
+    background:#ffffff;
+    color:#3060b0;
 }
 .proj_topbar_logo {
     float:left;
@@ -136,19 +149,6 @@ pre.sh_sourceCode {
     background: url(http://image.shutterstock.com/display_pic_with_logo/573547/207269542/stock-photo-white-metal-fabric-texture-for-background-207269542.jpg) ;
         fixed no-repeat center center; 
     background-size: cover;
-}
-
-
-.bg-blue-gradient {
-    background: #204080;
-    background: -webkit-linear-gradient(#204080, #102040);
-    background: -o-linear-gradient(#204080, #102040);
-    background: -moz-linear-gradient(#204080, #102040);
-    background: linear-gradient(#204080, #102040);
-    color: #ffffff;
-    /*background: url(images/shutterstock_132396575_background.jpg) ;
-        fixed no-repeat center center; 
-    background-size: cover;*/
 }
 
 .bg-blue-grunge-boundary {
@@ -355,14 +355,6 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
     font-weight: 400;
 }
 
-.frontpage-cloudplug-img {
-    margin-top:20px; 
-    filter: alpha(opacity=80); 
-    opacity:0.8;
-    width: 240px;
-    margin-bottom:20px;
-}
-
 .frontpage-logo-spacing {
 }
 
@@ -415,18 +407,6 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
 .logo-in-text {
     font-family: "ABeeZee";
     color: #3060a0;
-}
-
-.main-outer {
-    min-width: 800px;
-    display:inline-block;
-    width: 100%;
-}
-
-.topbar-logo {
-    font-family: "ABeeZee";
-    font-size: 28px;
-    color: #3060b0;
 }
 
 .toc {

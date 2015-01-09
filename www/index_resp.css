@@ -1,0 +1,39 @@
+
+/* Main Banner Responsive Design */
+
+/*   Put image and text on separate lines */
+@media (max-width : 850px) {
+    .idx_main_banner {
+        white-space: normal;
+    }
+    .idx_main_banner_img {
+        display: block;
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .idx_main_banner_img img{
+        position: static;
+        top:0px;;
+    }
+    .idx_main_banner_text {
+        width: auto;
+        max-width: 440px;
+        text-align: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/*   When very narrow, tighten things up a bit */
+@media (max-width : 440px) {
+    .idx_main_banner_img {
+        margin-top:0px; 
+        margin-bottom:0px;
+    }
+    .idx_main_banner_text {
+        text-align: left;
+    }
+    .idx_main_banner_text .l {
+        font-size: 30px;
+    }
+}
