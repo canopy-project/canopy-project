@@ -95,3 +95,33 @@
     padding-left: 16px;
     padding-right: 16px;
 }
+
+.idx_oss {
+    text-align: center;
+    margin-top: 70px;
+}
+.idx_oss_list {
+    display: inline-block;
+    max-width: 1400px;
+}
+.idx_oss_item {
+    vertical-align: top;
+    display: inline-block;
+    width: 27%;
+    padding: 20px;
+    margin: 8px;
+    text-align: left;
+}
+.idx_oss_item_offset {
+    position: relative;
+    top: 250px;
+}
+.idx_oss_item_title {
+    font-weight: 400;
+    color: #3060b0;
+    font-size: 24px;
+}
+.idx_oss_item_text {
+    text-align: justify;
+    font-size: 16px;
+}

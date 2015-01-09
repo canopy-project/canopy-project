@@ -83,3 +83,64 @@
         text-align: left;
     }
 }
+
+/* Open Source Components Responsive Design*/
+@media (max-width : 1080px) {
+    .idx_oss_item {
+        display: inline-block;
+        width: 100%;
+        min-width: 250px;
+        max-width: 380px;
+        padding-top: 20px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: 16px;
+        margin-right: 16px;
+        vertical-align: top;
+    }
+    .idx_oss_item .centered {
+        text-align: left;
+    }
+    .idx_oss_item_offset {
+        position: static;
+        top: 0px;
+    }
+}
+@media (max-width : 512px) {
+    .idx_oss_item {
+        display: block;
+        width: 90%;
+        min-width: 0px;
+        max-width: 100%;
+        padding-top: 20px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-left: 16px;
+        margin-right: 16px;
+        vertical-align: top;
+    }
+    .idx_oss_item .centered {
+        text-align: left;
+    }
+    .idx_oss_item_offset {
+        position: static;
+        top: 0px;
+    }
+    .idx_oss .xl {
+        text-align: left;
+        margin-left: 16px;
+        font-size: 35px;
+    }
+    .idx_oss_item_title {
+        font-size: 22px;
+    }
+    .idx_oss_item_text {
+        text-align: left;
+    }
+    .idx_oss {
+        margin-top: 30px;
+    }
+}
+
