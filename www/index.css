@@ -103,6 +103,7 @@
 .idx_oss_list {
     display: inline-block;
     max-width: 1400px;
+    padding-top: 30px;
 }
 .idx_oss_item {
     vertical-align: top;
@@ -114,7 +115,7 @@
 }
 .idx_oss_item_offset {
     position: relative;
-    top: 250px;
+    top: 150px;
 }
 .idx_oss_item_title {
     font-weight: 400;
@@ -124,4 +125,32 @@
 .idx_oss_item_text {
     text-align: justify;
     font-size: 16px;
+}
+.idx_oss_text {
+    display: inline-block;
+    text-align: center;
+    font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.idx_advantages {
+    text-align: center;
+    margin-top: 70px;
+}
+.idx_advantages_list {
+    vertical-align: top;
+    display: inline-block;
+    max-width: 1400px;
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+.idx_advantages_item {
+    vertical-align: top;
+    text-align: left;
+    display: inline-block;
+    max-width: 350px;
+    padding: 16px;
 }

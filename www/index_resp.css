@@ -144,3 +144,8 @@
     }
 }
 
+@media (max-width : 395px) {
+    .idx_advantages_item .feature-text {
+        text-align: left;
+    }
+}

@@ -11,11 +11,13 @@ function RenderTopbar(page) {
     }
     document.write(
         "<div class='proj_topbar'>\
-            <div class='proj_topbar_logo'>Canopy</div>\
-            " + writeLink("index.html", "Home", (page == "home"))
-            + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
-            + writeLink("services.html", "Services", (page == "services")) + "\
-            <div class='proj_topbar_login'><a target='_blank' href='http://sandbox.canopy.link'>Login</a></div>\
+            <div class='proj_topbar_inner'>\
+                <div class='proj_topbar_logo'>Canopy</div>\
+                " + writeLink("index.html", "Home", (page == "home"))
+                + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
+                + writeLink("services.html", "Services", (page == "services")) + "\
+                <div class='proj_topbar_login'><a target='_blank' href='http://sandbox.canopy.link'>Login</a></div>\
+            </div>\
         </div>\
         <div class='proj_topbar_spacer'>&nbsp;</div>");
 }
