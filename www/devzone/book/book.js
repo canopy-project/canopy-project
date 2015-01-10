@@ -63,6 +63,7 @@ function RenderHead() {
 <head>\
     <title>Canopy - Developer Zone</title>\
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>\
+    <script src='../../canopy_project.js'></script>\
     <link href='../../canopy_base.css' rel='stylesheet' type='text/css'>\
     <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>\
     <link href='../../canopy_project_resp.css' rel='stylesheet' type='text/css'>\
