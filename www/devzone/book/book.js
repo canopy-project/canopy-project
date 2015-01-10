@@ -64,6 +64,9 @@ function RenderHead() {
     <title>Canopy - Developer Zone</title>\
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>\
     <script src='../../canopy_project.js'></script>\
+    <link href='../../canopy_base.css' rel='stylesheet' type='text/css'>\
+    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>\
+    <link href='../../canopy_project_resp.css' rel='stylesheet' type='text/css'>\
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>\
     <script type='text/javascript' src='../../3rdparty/shjs/sh_main.min.js'></script>\
     <link type='text/css' rel='stylesheet' href='../../3rdparty/shjs/sh_style_greg.css'>\

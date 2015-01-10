@@ -3,30 +3,23 @@ function RenderTopbar(page) {
     function writeLink(link, name, selected) {
         var _RELATIVE_PATH = (typeof RELATIVE_PATH == "undefined") ? "" : RELATIVE_PATH;
         if (selected) {
-            return "<div class='topbar-button w400'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
+            return "<div class='proj_topbar_item w400'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
         else {
-            return "<div class='topbar-button'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
+            return "<div class='proj_topbar_item'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
     }
     document.write(
-        "<div class='topbar'>\
-            <div class='topbar-inner'>\
-                <div class='topbar-left-part'>\
-                    <div class='topbar-logo'>Canopy</div>\
-                </div>\
-                <div class='topbar-middle-part'>"
-                    + writeLink("index.html", "Home", (page == "home"))
-                    + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
-                    + writeLink("services.html", "Services", (page == "services")) + "\
-                </div>\
-                <div class='topbar-right-part'>\
-                    <a target='_blank' href='http://sandbox.canopy.link'><div class='topbar-login'>Login</div></a>\
-                </div>\
+        "<div class='proj_topbar'>\
+            <div class='proj_topbar_inner'>\
+                <div class='proj_topbar_logo'>Canopy</div>\
+                " + writeLink("index.html", "Home", (page == "home"))
+                + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
+                + writeLink("services.html", "Services", (page == "services")) + "\
+                <div class='proj_topbar_login'><a target='_blank' href='http://sandbox.canopy.link'>Login</a></div>\
             </div>\
         </div>\
-        <div style='height:58px;'>&nbsp;</div>\
-        ");
+        <div class='proj_topbar_spacer'>&nbsp;</div>");
 }
 
 function RenderFooter() {
