@@ -28,6 +28,11 @@
 .proj_topbar a:hover {
     color: #3060b0;
 }
+.proj_topbar_inner {
+    display: inline-block;
+    width: 100%;
+    max-width: 1200px;
+}
 .proj_topbar_list {
     display: inline;
 }

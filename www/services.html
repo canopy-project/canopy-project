@@ -9,6 +9,8 @@
     <link href='canopy_base.css' rel='stylesheet' type='text/css'>
     <link href='canopy_project.css' rel='stylesheet' type='text/css'>
     <link href='canopy_project_resp.css' rel='stylesheet' type='text/css'>
+    <link href='services.css' rel='stylesheet' type='text/css'>
+    <link href='services_resp.css' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -103,66 +105,53 @@ $(function() {
     <script> RenderTopbar("services"); </script>
 
     <div class=hr-gradient></div>
-    <div class=centered>
-        <div class='xl' style='padding-top:30px'>Hosting</div>
-        <div class='centered' style='padding-top:30px'>
-            <img src='images/cloud_hosting_h256.png'><br>
+
+    <div class=services_hosting>
+        <div class='services_hosting_title'>Hosting</div>
+        <div class='services_hosting_img'>
+            <img src='images/cloud_hosting_h256.png'>
         </div>
-        <div class='ml centered' style='display:inline-block; max-width:700px; padding-top:20px'>
+        <div class='services_hosting_text'>
             Our hosted solutions in 250 carrier-grade data centers in 50
             countries let you not worry about the cloud.
-        </div>
-        <div style='display:inline-block; max-width:1200px;'>
-            <table class='hosting-boxes-table' style='padding-top:40px' width=100%>
-                <tr>
-                    <td width=33% valign=top>
-                    <div class='hosting-boxes-cell'>
-                        <div class='feature-title' style='text-align:left; color:#408020; font-size:28px; font-weight:800'>FREE</div>
-                        <div class='feature-text' style='text-align:left; color:black; font-size:18px;'>
-                            Get started today pushing data to the cloud:
-                        <ul>
-                            <li>No account or sign-in needed for public devices.</li>
-                            <li>Manage up to 10 private devices.</li>
-                        </ul>
+        </div><br>
+        <div class='services_hosting_list'>
+            <div class='services_hosting_item'>
+                <div class='services_hosting_item_inner'>
+                    <div class='feature-title' style='text-align:left; color:#408020; font-size:28px; font-weight:800'>FREE</div>
+                        Get started today pushing data to the cloud:
+                    <ul>
+                        <li>No account or sign-in needed for public devices.</li>
+                        <li>Manage up to 10 private devices.</li>
+                    </ul>
 
-                        Just point your devices to <code>sandbox.canopy.link</code>.
-                        <br><br><a style='font-weight:400' target=_blank href='devzone/book/using_hosted_server.html#sandbox'>Instructions here</a>.
-
-                    </div>
-                    </div>
+                    Just point your devices to <code>sandbox.canopy.link</code>.
+                    <br><br><a style='font-weight:400' target=_blank href='devzone/book/using_hosted_server.html#sandbox'>Instructions here</a>.
                 </div>
-            </td><td width=33% valign=top>
-                <div class='hosting-boxes-cell'>
+            </div><div class='services_hosting_item services_hosting_item_middle'>
+                <div class='services_hosting_item_inner'>
                     <div style='text-align:left; color:#3060a0; font-size:28px; font-weight:800'>PRO</div>
-                    <div style='text-align:left; color:black; font-size:18px;'>
-                        Commercial-grade reliability and performance, with
-                        access to all of our enterprise features.  The best
-                        cloud solution for shipping products.
-                        <br><br>Flexible pricing
-                        depends on how many devices and how much data and
-                        bandwidth you need.
+                    Commercial-grade reliability and performance, with
+                    access to all of our enterprise features.  The best
+                    cloud solution for shipping products.
+                    <br><br>Flexible pricing
+                    depends on how many devices and how much data and
+                    bandwidth you need.
 
-                        <br><br><b>As low as $0.75/device/year</b>
+                    <br><br><b>As low as $0.75/device/year</b>
 
-                        <br><br><a id='pricingbtn' style='font-weight:400' href='javascript:(void)0;'>Pricing here</a>.
-                        <br><a style='font-weight:400' target=_blank href=devzone/book/using_hosted_server.html#ccs>Instructions here</a>.
-                    </div>
+                    <br><br><a id='pricingbtn' style='font-weight:400' href='javascript:(void)0;'>Pricing here</a>.
+                    <br><a style='font-weight:400' target=_blank href=devzone/book/using_hosted_server.html#ccs>Instructions here</a>.
                 </div>
-            </td><td width=33% valign=top style='border-right:0px solid #a0a0a0'>
-                <div class='hosting-boxes-cell'>
+            </div><div class='services_hosting_item'>
+                <div class='services_hosting_item_inner'>
                     <div style='text-align:left; color:#7030a0; font-size:28px; font-weight:800'>ENTERPRISE</div>
-                    <div style='text-align:left; color:black; font-size:18px;'>
-                        Need a fully-managed dedicated deployment? We can operate a
-                        dedicated instance of Canopy in one or more of our cloud data centers around the world.
+                    Need a fully-managed dedicated deployment? We can operate a
+                    dedicated instance of Canopy in one or more of our cloud data centers around the world.
 
-                        <br><br><b><a href='mailto:info@canopy.link'>Contact us</a> today for a free quote.</b>
-                    </div>
+                    <br><br><b><a href='mailto:info@canopy.link'>Contact us</a> today for a free quote.</b>
                 </div>
-            </td></tr></table>
-        </div>
-
-        <br><br><br><br>
-        <div class=bg-blue-grunge-boundary-lower></div>
+            </div>
         </div>
     </div>
 

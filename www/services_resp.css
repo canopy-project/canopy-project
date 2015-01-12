@@ -1,0 +1,41 @@
+@media (max-width : 420px) {
+
+    .services_hosting_img {
+        padding-top: 15px;
+        padding-bottom: 5px;
+    }
+    .services_hosting_img img {
+        width: 80%;
+    }
+    .services_hosting_title {
+        padding-top: 10px;
+        font-size: 40px;
+    }
+    .services_hosting_text {
+        padding-top: 10px;
+        font-size: 20px;
+        text-align: left;
+    }
+}
+
+@media (max-width : 700px) {
+    .services_hosting {
+        padding-bottom: 30px;
+    }
+    .services_hosting_list {
+        display: block;
+        width: 100%;
+        padding-top: 10px;
+    }
+    .services_hosting_item {
+        display: block;
+        width: 100%;
+    }
+    .services_hosting_item_middle {
+        border-top: 1px solid #d0d0d0;
+        border-bottom: 1px solid #d0d0d0;
+    }
+    .services_hosting_item_inner {
+        padding: 16px;
+    }
+}

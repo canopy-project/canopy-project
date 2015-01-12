@@ -1,0 +1,40 @@
+.services_hosting {
+    text-align: center;
+    padding-bottom: 80px;
+}
+.services_hosting_img {
+    padding-top: 30px;
+    padding-bottom: 15px;
+}
+.services_hosting_list {
+    display: inline-block;
+    width: 90%;
+    max-width: 1200px;
+    padding-top: 40px;
+}
+.services_hosting_item {
+    display: inline-block;
+    width: 33%;
+    text-align: left;
+    vertical-align: top;
+    font-size: 18px;
+}
+.services_hosting_item_inner{
+    padding: 24px;
+}
+.services_hosting_item_middle {
+    border-left: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+}
+.services_hosting_text {
+    display: inline-block;
+    max-width: 700px;
+    padding-top: 20px;
+    font-size: 30px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.services_hosting_title {
+    padding-top: 30px;
+    font-size: 50px;
+}
