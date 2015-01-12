@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="initial-scale=1.0">
     <title>Canopy - Developer Zone</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../canopy_project.js"></script>
@@ -9,6 +10,8 @@
     <link href='../canopy_base.css' rel='stylesheet' type='text/css'>
     <link href='../canopy_project.css' rel='stylesheet' type='text/css'>
     <link href='../canopy_project_resp.css' rel='stylesheet' type='text/css'>
+    <link href='index.css' rel='stylesheet' type='text/css'>
+    <link href='index_resp.css' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -20,96 +23,87 @@
         </script>
     </div>
 
-    <div class='bg-lightgray banner centered' >
-        <div class='l'>
+    <div class='bg-lightgray' >
+        <div class='devzone_title'>
             <span class='logo-in-text' style='color:#ffffff'>Canopy</span> Developer Zone
         </div>
     </div>
     <div class=hr-gradient></div>
-    <div class='bg-light-gray centered' style='; padding-top:60px; padding-bottom:40px;'>
-        <div class='xl'>Resources</div>
-        <div style='display:inline-block; max-width:1200px;'>
-            <table style='padding-top:60px; padding-bottom:60px;' width=100% border=0>
-                <tr>
-                    <td width=33% align=center valign=top style='border-right: 1px solid #d0d0d0'>
-                        <div style='display:inline-block; padding-left:20px; padding-right:20px; text-align:left;'>
-                            <div style='font-weight:400; font-size:30px;'>DOWNLOAD</div>
-                            <div style='font-size:19px;'>These guides will get you started:
-                                <ul>
-                                    <li><a href=c_client/>Embedded Download &amp; Install Guide</a></li>
-                                    <li><a href=ccs/#installation>Server Download &amp; Install Guide</a></li>
-                                    <li><a href=book/app_js_install.html>JS App Download &amp; Install Guide</a></li>
-                                </ul>
-                                Source and binary release packages are available for download here:
-                                <br><a href=release.html>Release Package Download Page</a></li></ul>
-                            <p>
-                                Canopy consists of several Git repositories.  You can explore
-                                them all here: <a target=_blank href=http://github.com/canopy-project>github.com/canopy-project</a>
-                            </p>
-                            </div>
-                        </div>
-                    </td>
-                    <td width=33% align=center valign=top style='border-right: 1px solid #d0d0d0'>
-                        <div style='display:inline-block; padding-left:20px; padding-right:20px; text-align:left;'>
-                            <div style='font-weight:400; font-size:30px;'>LEARN</div>
-                            <div style='font-size:19px;'>Online resources for learning Canopy:
-                                <ul>
-                                <li><a href=book/c1_1.html>Mastering Canopy (Online)</a>
-                                <li><a href=restapi/>Canopy REST API</a>
-                                <li><a href=ccs/>Canopy Server</a>
-                                </li>
-                                </ul>
-                                We recommend reading the first couple sections of <b>Mastering Canopy</b> and then skipping around to other sections of interest.
-                            </div>
-                        </div>
-                    </td>
-                    <td width=33% align=center valign=top>
-                        <div style='display:inline-block; padding-left:20px; padding-right:20px; text-align:left;'>
-                            <div style='font-weight:400; font-size:30px;'>GET HELP</div>
-                            <div style='font-size:19px;'>To the core
-                            developers, Canopy is not a job, but a passion.  We are excited
-                            to work closely with Canopy users to bring IoT products to
-                            life.  We answer questions quickly and are always happy to help!
 
-                            <br><br>Don't be shy!  Reach us with your questions:
-                            <ul>
-                                <li><b>Community Forum:</b> <a target=_blank href='http://canopy.lefora.com'>canopy.lefora.com</a></li>
-                                <li><b>Twitter:</b> <a target=_blank href='http://twitter.com/CanopyIoT'>@CanopyIoT</a></li>
-                                <li><b>Chat:</b> <a target=_blank href='http://gitter.im/canopy-project/chat'>gitter.im/canopy-project/chat</a></liv>
-                                <li><b>Email:</b> <a target=_blank href='mailto:info@canopy.link'>info@canopy.link</a></li>
-                            </ul>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+    <div class='devzone_resources'>
+        <div class='devzone_resources_title'>Resources</div>
+        <div class='devzone_resources_list'>
+            <div class='devzone_resources_item devzone_resources_item_left'>
+                <div class='devzone_resources_item_inner'>
+                    <div style='font-weight:400; font-size:30px;'>DOWNLOAD</div>
+                    These guides will get you started:
+                        <ul>
+                            <li><a href=c_client/>Embedded Download &amp; Install Guide</a></li>
+                            <li><a href=ccs/#installation>Server Download &amp; Install Guide</a></li>
+                            <li><a href=book/app_js_install.html>JS App Download &amp; Install Guide</a></li>
+                        </ul>
+                        Source and binary release packages are available for download here:
+                        <br><a href=release.html>Release Package Download Page</a></li></ul>
+                    <p>
+                        Canopy consists of several Git repositories.  You can explore
+                        them all here: <a target=_blank href=http://github.com/canopy-project>github.com/canopy-project</a>
+                    </p>
+                </div>
+            </div><div class='devzone_resources_item devzone_resources_item_middle'>
+                <div class='devzone_resources_item_inner'>
+                    <div style='font-weight:400; font-size:30px;'>LEARN</div>
+                    Online resources for learning Canopy:
+                    <ul>
+                    <li><a href=book/c1_1.html>Mastering Canopy (Online)</a>
+                    <li><a href=restapi/>Canopy REST API</a>
+                    <li><a href=ccs/>Canopy Server</a>
+                    </li>
+                    </ul>
+                    We recommend reading the first couple sections of <b>Mastering Canopy</b> and then skipping around to other sections of interest.
+                </div>
+            </div><div class='devzone_resources_item devzone_resources_item_right'>
+                <div class='devzone_resources_item_inner'>
+                    <div style='font-weight:400; font-size:30px;'>GET HELP</div>
+                    To the core
+                    developers, Canopy is not a job, but a passion.  We are excited
+                    to work closely with Canopy users to bring IoT products to
+                    life.  We answer questions quickly and are always happy to help!
+
+                    <br><br>Don't be shy!  Reach us with your questions:
+                    <ul>
+                        <li><b>Community Forum:</b> <a target=_blank href='http://canopy.lefora.com'>canopy.lefora.com</a></li>
+                        <li><b>Twitter:</b> <a target=_blank href='http://twitter.com/CanopyIoT'>@CanopyIoT</a></li>
+                        <li><b>Chat:</b> <a target=_blank href='http://gitter.im/canopy-project/chat'>gitter.im/canopy-project/chat</a></liv>
+                        <li><b>Email:</b> <a target=_blank href='mailto:info@canopy.link'>info@canopy.link</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class=hr-gradient></div>
 
-        <div class='xl' style='padding-top:30px'>Overview</div>
+        <div class='devzone_overview'>
+            <div class='xl'>Overview</div>
 
-        <div class='justified-block-1'>
-            Canopy's <b>Cloud Variables</b> allow firmware developers to
-            initialize and access state that is stored in the cloud.
-        </div>
+            <div class='devzone_overview_text'>
+                Canopy's <b>Cloud Variables</b> allow firmware developers to
+                initialize and access state that is stored in the cloud.
+            </div><br>
 
-        <div>
-            <div class='big-code-example'>canopy_var_init(ctx, "out float32 temperature");
+            <div class='devzone_overview_big_code'>canopy_var_init(ctx, "out float32 temperature");
 canopy_var_set_float32(ctx, "temperature", temperature);
-canopy_sync(ctx);</div>
-        </div>
+canopy_sync(ctx);</div><br>
 
-        <div class='justified-block-1'>
-            These <b>Cloud Variables</b> can then be accessed anywhere on the web by
-            your application (or third-party apps) using Canopy's REST API.
-        </div>
+            <div class='devzone_overview_text'>
+                These <b>Cloud Variables</b> can then be accessed anywhere on the web by
+                your application (or third-party apps) using Canopy's REST API.
+            </div><br><br>
 
-        <div style='padding-top:40px'>
-            <div class=big-http-caption>Request:</div><br>
-            <div class='big-http-request-example'>GET http://canopy.link/device/&lt;UUID&gt;</div><br>
-            <div class=big-http-caption>Response:</div><br>
-            <div class='big-http-request-example'>{
+            <div class='devzone_overview_caption'>Request:</div><br>
+            <div class='devzone_overview_big_request_example'>GET http://cloud.canopy.link/api/device/&lt;UUID&gt;</div><br>
+            <div class='devzone_overview_caption'>Response:</div><br>
+            <div class='devzone_overview_big_request_example'>{
     "result" : "ok, 
     ...
     "vars" : { 
@@ -118,15 +112,14 @@ canopy_sync(ctx);</div>
             "v" : 87.45 
         } 
     }
-}</div>
-        </div>
+}</div><br>
 
-        <div class='justified-block-1'>
+        <div class='devzone_overview_text'>
             It sounds simple, but we've put a lot effort into making sure all
             of this happens securely, efficiently, and scalably.
         </div><br>
 
-        <div class='justified-block-1'>
+        <div class='devzone_overview_text'>
             To learn more check out <a target=_blank href='book/c1_1.html'>Mastering Canopy (Online)</a>.
         </div>
     </div>

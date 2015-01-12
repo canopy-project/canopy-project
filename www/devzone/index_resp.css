@@ -1,0 +1,79 @@
+@media (max-width: 540px) {
+    .devzone_title {
+        font-size: 32px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+@media (max-width: 360px) {
+    .devzone_title .logo-in-text {
+        display: none;
+    }
+
+}
+@media (max-width: 540px) {
+    .devzone_resources li {
+        font-size: 15px;
+    }
+    .devzone_resources {
+        padding-top: 20px;
+        padding-bottom: 10px;
+        text-align: left;
+    }
+    .devzone_resources_title {
+        font-size: 40px;
+    }
+}
+@media (max-width : 800px) {
+    .devzone_resources {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        text-align: left;
+    }
+    .devzone_resources_title {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 16px;
+    }
+    .devzone_resources_list {
+        display: block;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .devzone_resources_item {
+        display: block;
+        width: 100%;
+    }
+    .devzone_resources_item_middle {
+        border-top: 1px solid #d0d0d0;
+        border-bottom: 1px solid #d0d0d0;
+    }
+    .devzone_resources_item_inner {
+        padding: 16px;;
+    }
+}
+
+
+@media (max-width : 680px) {
+    .devzone_overview {
+        text-align: left;
+    }
+    .devzone_overview .xl {
+        padding-left: 16px;
+    }
+    .devzone_overview li {
+        font-size: 14px;
+    }
+    .devzone_overview_text {
+        text-align: left;
+        width: auto;
+        font-size: 18px;
+    }
+    .devzone_overview_big_code {
+        font-size: 13px;
+    }
+    .devzone_overview_big_request_example {
+        font-size: 13px;
+    }
+}
