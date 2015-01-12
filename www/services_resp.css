@@ -39,3 +39,26 @@
         padding: 16px;
     }
 }
+
+@media (min-width: 640px) and (max-width : 780px) {
+    .services_support_title {
+        padding-top: 40px;
+        padding-bottom: 10px;
+        font-size: 32px;
+    }
+}
+@media (max-width : 640px) {
+    .services_support_title {
+        padding-top: 30px;
+        padding-bottom: 00px;
+        font-size: 28px;
+        text-align: left;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .services_support_text {
+        display: block;
+        text-align: left;
+        width: auto;
+        margin-top: 10px;
+}

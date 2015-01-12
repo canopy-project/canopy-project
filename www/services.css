@@ -38,3 +38,30 @@
     padding-top: 30px;
     font-size: 50px;
 }
+
+.services_support {
+    text-align: center;
+}
+.services_support img{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 480px;
+    border: 1px solid #a0a0a0;
+    box-shadow: 4px 4px 4px #a0a0a0;
+}
+.services_support_text {
+    display: inline-block;
+    text-align: justify;
+    width: 90%;
+    max-width: 680px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 22px;
+    margin-top: 30px;
+}
+.services_support_title {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-size: 40px;
+}
