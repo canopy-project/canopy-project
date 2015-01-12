@@ -1,7 +1,7 @@
 
 function RenderTopbar(page) {
+    var _RELATIVE_PATH = (typeof RELATIVE_PATH == "undefined") ? "" : RELATIVE_PATH;
     function writeLink(link, name, selected) {
-        var _RELATIVE_PATH = (typeof RELATIVE_PATH == "undefined") ? "" : RELATIVE_PATH;
         if (selected) {
             return "<div class='proj_topbar_item w400'><a href=" + _RELATIVE_PATH + link + ">" + name + "</a></div>";
         }
@@ -12,14 +12,35 @@ function RenderTopbar(page) {
     document.write(
         "<div class='proj_topbar'>\
             <div class='proj_topbar_inner'>\
+                <div class='proj_topbar_menu_btn'>\
+                    <img id=topbar_menu_btn src='" + _RELATIVE_PATH + "images/dryicons_polygon/32x32/servers.png'>\
+                </div>\
                 <div class='proj_topbar_logo'>Canopy</div>\
-                " + writeLink("index.html", "Home", (page == "home"))
-                + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
-                + writeLink("services.html", "Services", (page == "services")) + "\
                 <div class='proj_topbar_login'><a target='_blank' href='http://sandbox.canopy.link'>Login</a></div>\
+                <div id='topbar_menu' class='proj_topbar_list'>\
+                    " + writeLink("index.html", "Home", (page == "home"))
+                    + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
+                    + writeLink("services.html", "Services", (page == "services")) + "\
+                </div>\
+                <div id='topbar_menu_mobile' class='proj_topbar_menu_mobile'>\
+                    " + writeLink("index.html", "Home", (page == "home"))
+                    + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))
+                    + writeLink("services.html", "Services", (page == "services")) + "\
+                </div>\
             </div>\
         </div>\
         <div class='proj_topbar_spacer'>&nbsp;</div>");
+
+    $(function() {
+        $("#topbar_menu_btn").on("click", function() {
+            if ($("#topbar_menu_mobile").is(":visible")) {
+                $("#topbar_menu_mobile").slideUp();
+            }
+            else {
+                $("#topbar_menu_mobile").slideDown();
+            }
+        });
+    });
 }
 
 function RenderFooter() {
