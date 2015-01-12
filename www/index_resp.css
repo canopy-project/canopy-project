@@ -54,6 +54,9 @@
     .idx_overview_img_alt {
         display: block;
     }
+    .idx_overview_text{
+        text-align: left;
+    }
 }
 
 /* SW Features Responsive Design*/

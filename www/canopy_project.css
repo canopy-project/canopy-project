@@ -28,10 +28,25 @@
 .proj_topbar a:hover {
     color: #3060b0;
 }
-.proj_topbar_inner {
-    display: inline-block;
-    width: 100%;
-    max-width: 1040px;
+.proj_topbar_list {
+    display: inline;
+}
+.proj_topbar_menu_btn {
+    display: none;
+    width: 33%;
+    text-align: left;
+    vertical-align:top;
+}
+.proj_topbar_menu_btn img{
+    margin-left: 16px;
+    position: relative;
+    top: 4px;
+}
+.proj_topbar_menu_mobile {
+    display: none;
+}
+.proj_topbar_menu_mobile .proj_topbar_item{
+    display: none;
 }
 .proj_topbar_item {
     display: inline-block;
@@ -430,55 +445,4 @@ background: url(images/shutterstock_156257867_work_team_1920x1200.jpg) no-repeat
 .toc-selected, .toc-selected a {
     font-weight: 400;
     color: black;
-}
-
-.topbar a {
-    color: #000000;
-}
-.topbar a:hover {
-    color: #3060b0;
-}
-
-.topbar-button {
-    display: inline-block;
-    padding-left: 40px;
-    padding-right: 40px;
-}
-
-.topbar-inner {
-    display: inline-block;
-    width:100%;
-    max-width:1024px;
-}
-
-.topbar-left-part {
-    float:left;
-    padding-left:10px;
-    width:120px;
-}
-
-
-.topbar-right-part {
-    float: right;
-    text-align:right;
-    padding-right:10px;
-    width:120px;
-}
-
-.topbar-login {
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 4px;
-    font-weight: 400;
-    padding: 4px;
-    border-radius: 3px;
-    border: 1px solid #3060b0;
-    box-shadow: 1px 1px 2px #808080;
-    color:#000000;
-    background:#f0f4fb;
-}
-
-.topbar-login:hover {
-    background:#ffffff;
-    color:#3060b0;
 }
