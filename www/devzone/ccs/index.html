@@ -558,7 +558,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                 <td >
                     If <span class=hammock-icode>true</span>, allow anonymous devices to post
                     data to the server.  If <span class=hammock-icode>false</span>, require that
-                    every device has an associate User Account.
+                    every device has an associated User Account.
                     <p>
                         <b>Default:</b> <span class=hammock-icode>true</span>
                     </p>
@@ -591,6 +591,35 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                     <span class=hammock-icode>"sendgrid-secret-key"</span>.
                     <p>
                         <b>Default:</b> <span class=hammock-icode>"none"</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"enable-http"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_ENABLE_HTTP</span></td>
+                <td nowrap><span class=hammock-icode>--enable-http=</span></td>
+                <td >
+                    Serve the Canopy REST API over HTTP.
+                    <p>
+                        <b>Warning:</b> Enabling this option makes Canopy
+                        vulnerable to a number of attacks, including password
+                        snooping, man-in-the-middle attacks, and more.  This
+                        option should only be used if Canopy is deployed on a
+                        secured LAN and you know what you're doing!
+                    </p>
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>false</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"enable-https"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_ENABLE_HTTPS</span></td>
+                <td nowrap><span class=hammock-icode>--enable-https=</span></td>
+                <td >
+                    Serve the Canopy REST API over HTTPS.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>true</span>
                     </p>
                 </td>
             </tr>
@@ -629,6 +658,45 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                     HTTP port to listen on.
                     <p>
                         <b>Default:</b> <span class=hammock-icode>80</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"https-cert-file"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_HTTPS_CERT_FILE</span></td>
+                <td nowrap><span class=hammock-icode>--https-cert-file=</span></td>
+                <td >
+                    Filename of HTTPS certificate file on local file system.
+                    For example: <span class=hammock-icode>"/etc/canopy/cert.pem"</span>.
+                    This is mandatory if <span class=hammock-icode>"enable-https"</span> is
+                    <span class=hammock-icode>true</span>.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"https-port"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_HTTPS_PORT</span></td>
+                <td nowrap><span class=hammock-icode>--https-port=</span></td>
+                <td >
+                    HTTPS port to listen on.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>443</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"https-priv-key-file"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_HTTPS_PRIV_KEY_FILE</span></td>
+                <td nowrap><span class=hammock-icode>--http-priv-key-file=</span></td>
+                <td >
+                    Filename of HTTPS private key file on local file system.
+                    For example: <span class=hammock-icode>"/etc/canopy/key.pem"</span>.
+                    This is mandatory if <span class=hammock-icode>"enable-https"</span> is
+                    <span class=hammock-icode>true</span>.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
                     </p>
                 </td>
             </tr>
@@ -727,8 +795,13 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
     "allow-anon-devices" : false,
     "allow-origin" : "sandbox.canopy.link myiotapp.com",
     "email-service" : "sendgrid",
+    "enable-http" : false,
+    "enable-https" : true,
     "forward-other-hosts" : "http://canopy.link",
     "http-port" : 80,
+    "https-cert-file" : "/etc/canopy/cert.pem",
+    "https-port" : 443,
+    "https-priv-key-file" : "/etc/canopy/key.pem",
     "hostname" : "sandbox.canopy.link",
     "js-client-path" : "/home/ubuntu/canopy-js-client",
     "production-secret" : "my production secret",
@@ -782,7 +855,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
         </p>
         <p>
             Additionally, the log file may contain a dump of all configuration
-            settings when the server starts up:
+            settings (except passwords) when the server starts up:
         </p>
         <pre class='hammock-code'>tail -f /var/log/canopy-server.log</pre>
     

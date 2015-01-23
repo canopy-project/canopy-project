@@ -334,7 +334,7 @@
                 <cell>
                     If <icode>true</icode>, allow anonymous devices to post
                     data to the server.  If <icode>false</icode>, require that
-                    every device has an associate User Account.
+                    every device has an associated User Account.
                     <p>
                         <b>Default:</b> <icode>true</icode>
                     </p>
@@ -368,6 +368,35 @@
                     <icode>"sendgrid-secret-key"</icode>.
                     <p>
                         <b>Default:</b> <icode>"none"</icode>
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"enable-http"</icode></cell>
+                <cell nowrap='1'><icode>CCS_ENABLE_HTTP</icode></cell>
+                <cell nowrap='1'><icode>--enable-http=</icode></cell>
+                <cell>
+                    Serve the Canopy REST API over HTTP.
+                    <p>
+                        <b>Warning:</b> Enabling this option makes Canopy
+                        vulnerable to a number of attacks, including password
+                        snooping, man-in-the-middle attacks, and more.  This
+                        option should only be used if Canopy is deployed on a
+                        secured LAN and you know what you're doing!
+                    </p>
+                    <p>
+                        <b>Default:</b> <icode>false</icode>
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"enable-https"</icode></cell>
+                <cell nowrap='1'><icode>CCS_ENABLE_HTTPS</icode></cell>
+                <cell nowrap='1'><icode>--enable-https=</icode></cell>
+                <cell>
+                    Serve the Canopy REST API over HTTPS.
+                    <p>
+                        <b>Default:</b> <icode>true</icode>
                     </p>
                 </cell>
             </row>
@@ -406,6 +435,45 @@
                     HTTP port to listen on.
                     <p>
                         <b>Default:</b> <icode>80</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"https-cert-file"</icode></cell>
+                <cell nowrap='1'><icode>CCS_HTTPS_CERT_FILE</icode></cell>
+                <cell nowrap='1'><icode>--https-cert-file=</icode></cell>
+                <cell>
+                    Filename of HTTPS certificate file on local file system.
+                    For example: <icode>"/etc/canopy/cert.pem"</icode>.
+                    This is mandatory if <icode>"enable-https"</icode> is
+                    <icode>true</icode>.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"https-port"</icode></cell>
+                <cell nowrap='1'><icode>CCS_HTTPS_PORT</icode></cell>
+                <cell nowrap='1'><icode>--https-port=</icode></cell>
+                <cell>
+                    HTTPS port to listen on.
+                    <p>
+                        <b>Default:</b> <icode>443</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"https-priv-key-file"</icode></cell>
+                <cell nowrap='1'><icode>CCS_HTTPS_PRIV_KEY_FILE</icode></cell>
+                <cell nowrap='1'><icode>--http-priv-key-file=</icode></cell>
+                <cell>
+                    Filename of HTTPS private key file on local file system.
+                    For example: <icode>"/etc/canopy/key.pem"</icode>.
+                    This is mandatory if <icode>"enable-https"</icode> is
+                    <icode>true</icode>.
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
                     </p>
                 </cell>
             </row>
@@ -496,8 +564,13 @@
                 "allow-anon-devices" : false,
                 "allow-origin" : "sandbox.canopy.link myiotapp.com",
                 "email-service" : "sendgrid",
+                "enable-http" : false,
+                "enable-https" : true,
                 "forward-other-hosts" : "http://canopy.link",
                 "http-port" : 80,
+                "https-cert-file" : "/etc/canopy/cert.pem",
+                "https-port" : 443,
+                "https-priv-key-file" : "/etc/canopy/key.pem",
                 "hostname" : "sandbox.canopy.link",
                 "js-client-path" : "/home/ubuntu/canopy-js-client",
                 "production-secret" : "my production secret",
@@ -529,7 +602,7 @@
         </p>
         <p>
             Additionally, the log file may contain a dump of all configuration
-            settings when the server starts up:
+            settings (except passwords) when the server starts up:
         </p>
         <code>
             tail -f /var/log/canopy-server.log
