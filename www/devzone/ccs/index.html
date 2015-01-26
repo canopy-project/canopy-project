@@ -22,10 +22,15 @@ function get_element_scroll_y(id) {
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';
+        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = '';
     if (0) {
     }
     
+            else if (y + 32 > get_element_scroll_y('ssl_setup_-_self-signed_certificate')) {
+                document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = "bold";
+                document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = "#d0d0d0";
+            }
+            
             else if (y + 32 > get_element_scroll_y('checking_the_configuration')) {
                 document.getElementById('toc_checking_the_configuration').style.fontWeight = "bold";
                 document.getElementById('toc_checking_the_configuration').style.backgroundColor = "#d0d0d0";
@@ -119,7 +124,7 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div><div id='toc_ssl_setup_-_self-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_self-signed_certificate'>SSL Setup - Self-signed Certificate</a></div></div>
     <div class=hammock-doc-outer>
 
             <div class=hammock-chapter-outer>
@@ -858,6 +863,26 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             settings (except passwords) when the server starts up:
         </p>
         <pre class='hammock-code'>tail -f /var/log/canopy-server.log</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=ssl_setup_-_self-signed_certificate name=ssl_setup_-_self-signed_certificate></a>
+            <div class=hammock-section-title>
+                SSL Setup - Self-signed Certificate
+            </div>
+            <div class=hammock-section-contents>
+                
+        This command creates a 2048-bit private key (key.pem) and a self-signed
+        certificate (cert.pem)
+        <pre class='hammock-code'>openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365
+-out cert.pem</pre>
+        <p>
+            Place these files somewhere secure on your server.  Perhaps:
+        </p>
+        <pre class='hammock-code'>sudo mv key.pem /etc/canopy/key.pem
+sudo mv cert.pem /etc/canopy/cert.pem</pre>
     
             </div>
         </div>

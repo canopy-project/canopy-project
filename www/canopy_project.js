@@ -16,7 +16,7 @@ function RenderTopbar(page) {
                     <img id=topbar_menu_btn src='" + _RELATIVE_PATH + "images/dryicons_polygon/32x32/servers.png'>\
                 </div>\
                 <div class='proj_topbar_logo'>Canopy</div>\
-                <div class='proj_topbar_login'><a target='_blank' href='http://sandbox.canopy.link'>Login</a></div>\
+                <div class='proj_topbar_login'><a target='_blank' href='https://sandbox.canopy.link'>Login</a></div>\
                 <div id='topbar_menu' class='proj_topbar_list'>\
                     " + writeLink("index.html", "Home", (page == "home"))
                     + writeLink("devzone/index.html", "Developer Zone", (page == "devzone"))

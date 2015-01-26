@@ -608,6 +608,20 @@
             tail -f /var/log/canopy-server.log
         </code>
     </section>
+    <section title='SSL Setup - Self-signed Certificate'>
+        This command creates a 2048-bit private key (key.pem) and a self-signed
+        certificate (cert.pem)
+        <code>
+        openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out cert.pem
+        </code>
+        <p>
+            Place these files somewhere secure on your server.  Perhaps:
+        </p>
+        <code>
+            sudo mv key.pem /etc/canopy/key.pem
+            sudo mv cert.pem /etc/canopy/cert.pem
+        </code>
+    </section>
 </chapter>
 
 </doc>
