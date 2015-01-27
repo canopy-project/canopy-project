@@ -10,6 +10,25 @@ and improved guidance for developers creating Canopy client libraries for
 additional languages.
 
 
+Note About Asynchronous Operations
+-------------------------------------------------------------------------------
+
+Most operations that the Client performs involve HTTP or WebSocket transactions
+that may take some time.  We handle these operations differently in C as
+compared to Javascript because:
+
+ - It is easy to block the current thread in C, but callbacks are difficult.
+ - Callbacks are easy in Javascript, but it is difficult to block the current
+ thread.
+
+
+For languages that support blocking, most operations will block until the
+operation completes or times out.
+
+For languages that work better with callbacks, most operations will accept a
+callback parameter.
+
+
 Public Objects
 -------------------------------------------------------------------------------
 
@@ -38,7 +57,7 @@ DEVICE
 
     Represents a phsyical device.
 
-DEVICE LIST
+DEVICE QUERY
 
     Represents a collection of devices.
 
@@ -52,11 +71,14 @@ CLOUD VARIABLE
 CLIENT METHODS
 -------------------------------------------------------------------------------
 
+    CanopyInitClient -      Initialization
+    Devices -               Get list of all devices you have access to.
+
 ### CLIENT Initialization
 
 The `CanopyInitClient` routine creates a new CLIENT object and initializes it
 based on the provided configuration settings.  Does not communicate with the
-server.  Returns NULL if initialization failed.
+server.  Returns `null` if initialization failed.
 
 Javascript:
 
@@ -86,4 +108,104 @@ Python:
     })
 
 
+The following initialization options are supported:
 
+| Option                | Type             | Default                    |
+|-----------------------|------------------|----------------------------|
+| "auth-username"       | string or null   | null                       |
+| "auth-password"       | string or null   | null                       |
+| "auth-device-id"      | string or null   | null                       |
+| "auth-device-secret"  | string or null   | null                       |
+| "auth-type"           | string           | "basic"                    |
+| "server"              | string           | "sandbox.canopy.link"      |
+| "http-port"           | int              | 80                         |
+| "https-port"          | int              | 443                        |
+| "use-https"           | bool             | true                       |
+
+
+The `"auth-username"` and `"auth-password"` options must be provided to access
+the REST API as a User Account.  The `"auth-device-id"` and
+`"auth-device-secret"` options must be provided to access the REST API as a
+Device Account.
+
+
+
+### List Devices
+
+The Client's .Devices method returns a DEVICE QUERY object that includes all
+devices that the authenticated User has access to.
+
+Javascript:
+
+    // Create query that gets all devices
+    devices = canopy.devices();
+
+    // Create a filtered device query
+    devices = canopy.devices({ "connected" : true });
+
+    // Filter an existing device query
+    filtered = devices.filter({ "connected" : true });
+
+    // Count devices (ASYNC).
+    canopy.devices().count(function(cnt) { alert(cnt); });
+
+    // Fetch a particular device object by index (ASYNC)
+    canopy.devices().get(0, function(dev) { alert(dev.uuid()) });
+
+    // Fetch a particular device object by UUID (ASYNC)
+    canopy.devices().get("984802...", function(dev) { alert(dev.uuid()) });
+
+    // Fetch multiple device objects by range (ASYNC)
+    canopy.devices().range(0, 10, function(devs) {  alert(devs.length) });
+
+
+
+C:
+
+    // Create query that selects all devices.
+    CanopyDeviceQuery dq = canopy_devices(canopy); 
+
+    // Create a filtered device query.
+    CanopyDeviceQuery dq = canopy_devices(canopy, CANOPY_DEVICE_CONNECTED, true); 
+
+    // Filter an existing device query
+    canopy_device_query_filter(dq, CANOPY_DEVICE_CONNECTED, true); 
+
+    // Count devices (BLOCKING).
+    cnt = canopy_device_query_count(dq);
+
+    // Fetch a particular device object (BLOCKING).
+    CanopyDevice device = canopy_device_query_get(dq, 0);
+
+    // Fetch a particular device object (BLOCKING).
+    CanopyDevice device = canopy_device_query_range(dq, 0);
+
+    // Free device query when finished.
+    canopy_device_query_free(dq);
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+Notes:
+
+    CanopyClient canopy = canopy_init_client(
+        CANOPY_SERVER, "sandbox.canopy.link",
+        CANOPY_AUTH_DEVICE_ID, "782073280",
+        CANOPY_AUTH_DEVICE_SECRET, "3920372903790",
+        CANOPY_HTTP_PORT, 8080,
+        CANOPY_HTTPS_PORT, 443,
+        CANOPY_USE_HTTPS, true
+    );
+
+    CanopyDevice device = canopy_lookup_device(canopy, NULL);
+    canopy_device_wait_for_ready(device, -1);
+
+    canopy.Device()
+
+
+    canopy.Devices();
