@@ -22,10 +22,15 @@ function get_element_scroll_y(id) {
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = '';
+        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.backgroundColor = '';
     if (0) {
     }
     
+            else if (y + 32 > get_element_scroll_y('ssl_setup_-_ca-signed_certificate')) {
+                document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.fontWeight = "bold";
+                document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.backgroundColor = "#d0d0d0";
+            }
+            
             else if (y + 32 > get_element_scroll_y('ssl_setup_-_self-signed_certificate')) {
                 document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = "bold";
                 document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = "#d0d0d0";
@@ -124,7 +129,7 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div><div id='toc_ssl_setup_-_self-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_self-signed_certificate'>SSL Setup - Self-signed Certificate</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div><div id='toc_ssl_setup_-_self-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_self-signed_certificate'>SSL Setup - Self-signed Certificate</a></div><div id='toc_ssl_setup_-_ca-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_ca-signed_certificate'>SSL Setup - CA-signed Certificate</a></div></div>
     <div class=hammock-doc-outer>
 
             <div class=hammock-chapter-outer>
@@ -449,7 +454,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
 
             <p>
                 To check that it is working, go to
-                <span class=hammock-icode>http://&lt;ip_address&gt;/api/info</span> in your web
+                <span class=hammock-icode>https://&lt;ip_address&gt;/api/info</span> in your web
                 browser.  You should see something like the following response:
             </p>
             <pre class='hammock-code'>{
@@ -731,6 +736,41 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                 </td>
             </tr>
             <tr>
+                <td nowrap><span class=hammock-icode>"password-hash-cost"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_PASSWORD_HASH_COST</span></td>
+                <td nowrap><span class=hammock-icode>--password-hash-cost=</span></td>
+                <td >
+                    Integer value between 4 and 31 specifying the bcrypt hash
+                    cost for newly generated passwords.  Higher values result
+                    in it taking longer to verify a user's password, making it
+                    more difficult to perform a brute force attack.  However,
+                    if this is too high then it will affect server
+                    responsiveness and consume too many resources on the
+                    server.
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>10</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap><span class=hammock-icode>"password-secret-salt"</span></td>
+                <td nowrap><span class=hammock-icode>CCS_PASSWORD_SECRET_SALT</span></td>
+                <td nowrap><span class=hammock-icode>--password-secret-salt=</span></td>
+                <td >
+                    Secure secret string that must not be made public and
+                    should be different for every server.  This is used as
+                    "salt" that is appended to passwords before they are
+                    hashed.
+                    <p>
+                        <b>Warning:</b> Changing this value will cause
+                        everyone's password to no longer work.
+                    </p>
+                    <p>
+                        <b>Default:</b> <span class=hammock-icode>""</span>.
+                    </p>
+                </td>
+            </tr>
+            <tr>
                 <td nowrap><span class=hammock-icode>"production-secret"</span></td>
                 <td nowrap><span class=hammock-icode>CCS_PRODUCTION_SECRET</span></td>
                 <td nowrap><span class=hammock-icode>--production-secret=</span></td>
@@ -809,6 +849,8 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
     "https-priv-key-file" : "/etc/canopy/key.pem",
     "hostname" : "sandbox.canopy.link",
     "js-client-path" : "/home/ubuntu/canopy-js-client",
+    "password-hash-cost" : 10,
+    "password-secret-salt" : "E2vOmLYAig7ER5uIoL9wSa",
     "production-secret" : "my production secret",
     "sendgrid-secret-key" : "ljP)48-1x*CL@0iA#",
     "sendgrid-username" : "mysendgridusername",
@@ -826,7 +868,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             <div class=hammock-section-contents>
                 
         For example, to run the Canopy Server as a non-root user, you might use:
-        <pre class='hammock-code'>CCS_HTTP_PORT=8080 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server</pre>
+        <pre class='hammock-code'>CCS_HTTPS_PORT=8443 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server</pre>
     
             </div>
         </div>
@@ -839,7 +881,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             <div class=hammock-section-contents>
                 
         An alternative way to run the Canopy Server as a non-root user is:
-        <pre class='hammock-code'>/usr/local/bin/canopy/canopy-server --http-port=8080 --log-file="ccs.log"</pre>
+        <pre class='hammock-code'>/usr/local/bin/canopy/canopy-server --https-port=8443 --log-file="ccs.log"</pre>
     
             </div>
         </div>
@@ -856,7 +898,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             the <span class=hammock-icode>/api/info</span> endpoint.  For example:
         </p>
         <p>
-            <a href="http://sandbox.canopy.link/api/info" target="_blank" ><b>http://sandbox.canopy.link/api/info</b></a>
+            <a href="https://sandbox.canopy.link/api/info" target="_blank" ><b>https://sandbox.canopy.link/api/info</b></a>
         </p>
         <p>
             Additionally, the log file may contain a dump of all configuration
@@ -876,13 +918,51 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
                 
         This command creates a 2048-bit private key (key.pem) and a self-signed
         certificate (cert.pem)
-        <pre class='hammock-code'>openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365
--out cert.pem</pre>
+        <pre class='hammock-code'>openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out cert.pem</pre>
         <p>
             Place these files somewhere secure on your server.  Perhaps:
         </p>
         <pre class='hammock-code'>sudo mv key.pem /etc/canopy/key.pem
 sudo mv cert.pem /etc/canopy/cert.pem</pre>
+        <p>
+            Configure your <span class=hammock-icode>/etc/canopy/server.conf</span> file to point
+            to these files:
+        </p>
+        <pre class='hammock-code'>"enable-https" : true,
+"https-cert-file" : "/etc/canopy/cert.pem",
+"https-priv-key-file" : "/etc/canopy/key.pem",</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=ssl_setup_-_ca-signed_certificate name=ssl_setup_-_ca-signed_certificate></a>
+            <div class=hammock-section-title>
+                SSL Setup - CA-signed Certificate
+            </div>
+            <div class=hammock-section-contents>
+                
+        This command creates a Certificate Signing Request (csr.pem) and a
+        2048-bit private key (key.pem).
+        <pre class='hammock-code'>openssl req -newkey rsa:2048 -nodes -keyout key.pem -out csr.pem</pre>
+        <p>
+            Follow the instructions provided by your Certificate Authority of
+            choice (such as VeriSign, GoDaddy, or Gandi.net) to convert this
+            CSR into an SSL Certificate.
+        </p>
+        <p>
+            Once you receive the certificate, copy the private key and
+            certificate somewhere secure on your server, such as:
+        </p>
+        <pre class='hammock-code'>/etc/canopy/key.pem
+/etc/canopy/cert.pem</pre>
+        <p>
+            Configure your <span class=hammock-icode>/etc/canopy/server.conf</span> file to point
+            to these files:
+        </p>
+        <pre class='hammock-code'>"enable-https" : true,
+"https-cert-file" : "/etc/canopy/cert.pem",
+"https-priv-key-file" : "/etc/canopy/key.pem",</pre>
     
             </div>
         </div>

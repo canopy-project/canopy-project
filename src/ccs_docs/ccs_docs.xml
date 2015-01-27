@@ -245,7 +245,7 @@
 
             <p>
                 To check that it is working, go to
-                <icode>http://&lt;ip_address&gt;/api/info</icode> in your web
+                <icode>https://&lt;ip_address&gt;/api/info</icode> in your web
                 browser.  You should see something like the following response:
             </p>
             <code>
@@ -503,6 +503,41 @@
                 </cell>
             </row>
             <row>
+                <cell nowrap='1'><icode>"password-hash-cost"</icode></cell>
+                <cell nowrap='1'><icode>CCS_PASSWORD_HASH_COST</icode></cell>
+                <cell nowrap='1'><icode>--password-hash-cost=</icode></cell>
+                <cell>
+                    Integer value between 4 and 31 specifying the bcrypt hash
+                    cost for newly generated passwords.  Higher values result
+                    in it taking longer to verify a user's password, making it
+                    more difficult to perform a brute force attack.  However,
+                    if this is too high then it will affect server
+                    responsiveness and consume too many resources on the
+                    server.
+                    <p>
+                        <b>Default:</b> <icode>10</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
+                <cell nowrap='1'><icode>"password-secret-salt"</icode></cell>
+                <cell nowrap='1'><icode>CCS_PASSWORD_SECRET_SALT</icode></cell>
+                <cell nowrap='1'><icode>--password-secret-salt=</icode></cell>
+                <cell>
+                    Secure secret string that must not be made public and
+                    should be different for every server.  This is used as
+                    "salt" that is appended to passwords before they are
+                    hashed.
+                    <p>
+                        <b>Warning:</b> Changing this value will cause
+                        everyone's password to no longer work.
+                    </p>
+                    <p>
+                        <b>Default:</b> <icode>""</icode>.
+                    </p>
+                </cell>
+            </row>
+            <row>
                 <cell nowrap='1'><icode>"production-secret"</icode></cell>
                 <cell nowrap='1'><icode>CCS_PRODUCTION_SECRET</icode></cell>
                 <cell nowrap='1'><icode>--production-secret=</icode></cell>
@@ -573,6 +608,8 @@
                 "https-priv-key-file" : "/etc/canopy/key.pem",
                 "hostname" : "sandbox.canopy.link",
                 "js-client-path" : "/home/ubuntu/canopy-js-client",
+                "password-hash-cost" : 10,
+                "password-secret-salt" : "E2vOmLYAig7ER5uIoL9wSa",
                 "production-secret" : "my production secret",
                 "sendgrid-secret-key" : "ljP)48-1x*CL@0iA#",
                 "sendgrid-username" : "mysendgridusername",
@@ -583,13 +620,13 @@
     <section title='Environment Override Example'>
         For example, to run the Canopy Server as a non-root user, you might use:
         <code>
-            CCS_HTTP_PORT=8080 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server
+            CCS_HTTPS_PORT=8443 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server
         </code>
     </section>
     <section title='Command-line Override Example'>
         An alternative way to run the Canopy Server as a non-root user is:
         <code>
-            /usr/local/bin/canopy/canopy-server --http-port=8080 --log-file="ccs.log"
+            /usr/local/bin/canopy/canopy-server --https-port=8443 --log-file="ccs.log"
         </code>
     </section>
     <section title='Checking the Configuration'>
@@ -598,7 +635,7 @@
             the <icode>/api/info</icode> endpoint.  For example:
         </p>
         <p>
-            <a target='_blank' href="http://sandbox.canopy.link/api/info"><b>http://sandbox.canopy.link/api/info</b></a>
+            <a target='_blank' href="https://sandbox.canopy.link/api/info"><b>https://sandbox.canopy.link/api/info</b></a>
         </p>
         <p>
             Additionally, the log file may contain a dump of all configuration
@@ -620,6 +657,44 @@
         <code>
             sudo mv key.pem /etc/canopy/key.pem
             sudo mv cert.pem /etc/canopy/cert.pem
+        </code>
+        <p>
+            Configure your <icode>/etc/canopy/server.conf</icode> file to point
+            to these files:
+        </p>
+        <code>
+                "enable-https" : true,
+                "https-cert-file" : "/etc/canopy/cert.pem",
+                "https-priv-key-file" : "/etc/canopy/key.pem",
+        </code>
+    </section>
+    <section title='SSL Setup - CA-signed Certificate'>
+        This command creates a Certificate Signing Request (csr.pem) and a
+        2048-bit private key (key.pem).
+        <code>
+        openssl req -newkey rsa:2048 -nodes -keyout key.pem -out csr.pem
+        </code>
+        <p>
+            Follow the instructions provided by your Certificate Authority of
+            choice (such as VeriSign, GoDaddy, or Gandi.net) to convert this
+            CSR into an SSL Certificate.
+        </p>
+        <p>
+            Once you receive the certificate, copy the private key and
+            certificate somewhere secure on your server, such as:
+        </p>
+        <code>
+            /etc/canopy/key.pem
+            /etc/canopy/cert.pem
+        </code>
+        <p>
+            Configure your <icode>/etc/canopy/server.conf</icode> file to point
+            to these files:
+        </p>
+        <code>
+                "enable-https" : true,
+                "https-cert-file" : "/etc/canopy/cert.pem",
+                "https-priv-key-file" : "/etc/canopy/key.pem",
         </code>
     </section>
 </chapter>
