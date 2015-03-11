@@ -23,7 +23,7 @@ function get_element_scroll_y(id) {
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_account_model').style.fontWeight = '';document.getElementById('toc_account_model').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_user_accounts').style.fontWeight = '';document.getElementById('toc_user_accounts').style.backgroundColor = '';document.getElementById('toc_create_a_user_account').style.fontWeight = '';document.getElementById('toc_create_a_user_account').style.backgroundColor = '';document.getElementById('toc_get_current_user_account').style.fontWeight = '';document.getElementById('toc_get_current_user_account').style.backgroundColor = '';document.getElementById('toc_update_account_profile').style.fontWeight = '';document.getElementById('toc_update_account_profile').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_account-linked_devices').style.fontWeight = '';document.getElementById('toc_create_account-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';document.getElementById('toc_add/update_cloud_var_metadata').style.fontWeight = '';document.getElementById('toc_add/update_cloud_var_metadata').style.backgroundColor = '';document.getElementById('toc_update_cloud_var_value').style.fontWeight = '';document.getElementById('toc_update_cloud_var_value').style.backgroundColor = '';document.getElementById('toc_labels_and_collections').style.fontWeight = '';document.getElementById('toc_labels_and_collections').style.backgroundColor = '';document.getElementById('toc_synchronization').style.fontWeight = '';document.getElementById('toc_synchronization').style.backgroundColor = '';document.getElementById('toc_track_account_resources').style.fontWeight = '';document.getElementById('toc_track_account_resources').style.backgroundColor = '';document.getElementById('toc_track_device_resources').style.fontWeight = '';document.getElementById('toc_track_device_resources').style.backgroundColor = '';document.getElementById('toc_track_historic_cloud_variable_data').style.fontWeight = '';document.getElementById('toc_track_historic_cloud_variable_data').style.backgroundColor = '';
+        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_permission_model').style.fontWeight = '';document.getElementById('toc_permission_model').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_users').style.fontWeight = '';document.getElementById('toc_users').style.backgroundColor = '';document.getElementById('toc_create_a_user').style.fontWeight = '';document.getElementById('toc_create_a_user').style.backgroundColor = '';document.getElementById('toc_get_current_user').style.fontWeight = '';document.getElementById('toc_get_current_user').style.backgroundColor = '';document.getElementById('toc_update_user_profile').style.fontWeight = '';document.getElementById('toc_update_user_profile').style.backgroundColor = '';document.getElementById('toc_delete_current_user').style.fontWeight = '';document.getElementById('toc_delete_current_user').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_user-linked_devices').style.fontWeight = '';document.getElementById('toc_create_user-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';document.getElementById('toc_add/update_cloud_var_metadata').style.fontWeight = '';document.getElementById('toc_add/update_cloud_var_metadata').style.backgroundColor = '';document.getElementById('toc_update_cloud_var_value').style.fontWeight = '';document.getElementById('toc_update_cloud_var_value').style.backgroundColor = '';document.getElementById('toc_synchronization').style.fontWeight = '';document.getElementById('toc_synchronization').style.backgroundColor = '';document.getElementById('toc_track_account_resources').style.fontWeight = '';document.getElementById('toc_track_account_resources').style.backgroundColor = '';document.getElementById('toc_track_device_resources').style.fontWeight = '';document.getElementById('toc_track_device_resources').style.backgroundColor = '';document.getElementById('toc_track_historic_cloud_variable_data').style.fontWeight = '';document.getElementById('toc_track_historic_cloud_variable_data').style.backgroundColor = '';
     if (0) {
     }
     
@@ -45,11 +45,6 @@ function update_scroll() {
             else if (y + 32 > get_element_scroll_y('synchronization')) {
                 document.getElementById('toc_synchronization').style.fontWeight = "bold";
                 document.getElementById('toc_synchronization').style.backgroundColor = "#d0d0d0";
-            }
-            
-            else if (y + 32 > get_element_scroll_y('labels_and_collections')) {
-                document.getElementById('toc_labels_and_collections').style.fontWeight = "bold";
-                document.getElementById('toc_labels_and_collections').style.backgroundColor = "#d0d0d0";
             }
             
             else if (y + 32 > get_element_scroll_y('update_cloud_var_value')) {
@@ -87,9 +82,9 @@ function update_scroll() {
                 document.getElementById('toc_create_anonymous_device').style.backgroundColor = "#d0d0d0";
             }
             
-            else if (y + 32 > get_element_scroll_y('create_account-linked_devices')) {
-                document.getElementById('toc_create_account-linked_devices').style.fontWeight = "bold";
-                document.getElementById('toc_create_account-linked_devices').style.backgroundColor = "#d0d0d0";
+            else if (y + 32 > get_element_scroll_y('create_user-linked_devices')) {
+                document.getElementById('toc_create_user-linked_devices').style.fontWeight = "bold";
+                document.getElementById('toc_create_user-linked_devices').style.backgroundColor = "#d0d0d0";
             }
             
             else if (y + 32 > get_element_scroll_y('devices')) {
@@ -97,24 +92,29 @@ function update_scroll() {
                 document.getElementById('toc_devices').style.backgroundColor = "#d0d0d0";
             }
             
-            else if (y + 32 > get_element_scroll_y('update_account_profile')) {
-                document.getElementById('toc_update_account_profile').style.fontWeight = "bold";
-                document.getElementById('toc_update_account_profile').style.backgroundColor = "#d0d0d0";
+            else if (y + 32 > get_element_scroll_y('delete_current_user')) {
+                document.getElementById('toc_delete_current_user').style.fontWeight = "bold";
+                document.getElementById('toc_delete_current_user').style.backgroundColor = "#d0d0d0";
             }
             
-            else if (y + 32 > get_element_scroll_y('get_current_user_account')) {
-                document.getElementById('toc_get_current_user_account').style.fontWeight = "bold";
-                document.getElementById('toc_get_current_user_account').style.backgroundColor = "#d0d0d0";
+            else if (y + 32 > get_element_scroll_y('update_user_profile')) {
+                document.getElementById('toc_update_user_profile').style.fontWeight = "bold";
+                document.getElementById('toc_update_user_profile').style.backgroundColor = "#d0d0d0";
             }
             
-            else if (y + 32 > get_element_scroll_y('create_a_user_account')) {
-                document.getElementById('toc_create_a_user_account').style.fontWeight = "bold";
-                document.getElementById('toc_create_a_user_account').style.backgroundColor = "#d0d0d0";
+            else if (y + 32 > get_element_scroll_y('get_current_user')) {
+                document.getElementById('toc_get_current_user').style.fontWeight = "bold";
+                document.getElementById('toc_get_current_user').style.backgroundColor = "#d0d0d0";
             }
             
-            else if (y + 32 > get_element_scroll_y('user_accounts')) {
-                document.getElementById('toc_user_accounts').style.fontWeight = "bold";
-                document.getElementById('toc_user_accounts').style.backgroundColor = "#d0d0d0";
+            else if (y + 32 > get_element_scroll_y('create_a_user')) {
+                document.getElementById('toc_create_a_user').style.fontWeight = "bold";
+                document.getElementById('toc_create_a_user').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('users')) {
+                document.getElementById('toc_users').style.fontWeight = "bold";
+                document.getElementById('toc_users').style.backgroundColor = "#d0d0d0";
             }
             
             else if (y + 32 > get_element_scroll_y('basic_auth_for_devices')) {
@@ -137,9 +137,9 @@ function update_scroll() {
                 document.getElementById('toc_session-based_auth_login').style.backgroundColor = "#d0d0d0";
             }
             
-            else if (y + 32 > get_element_scroll_y('account_model')) {
-                document.getElementById('toc_account_model').style.fontWeight = "bold";
-                document.getElementById('toc_account_model').style.backgroundColor = "#d0d0d0";
+            else if (y + 32 > get_element_scroll_y('permission_model')) {
+                document.getElementById('toc_permission_model').style.fontWeight = "bold";
+                document.getElementById('toc_permission_model').style.backgroundColor = "#d0d0d0";
             }
             
             else if (y + 32 > get_element_scroll_y('authentication')) {
@@ -175,7 +175,7 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_account_model' class='hammock-toc-section'><a href='#account_model'>Account Model</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_user_accounts' class='hammock-toc-chapter'><a href='#user_accounts'>User Accounts</a></div><div id='toc_create_a_user_account' class='hammock-toc-section'><a href='#create_a_user_account'>Create a User Account</a></div><div id='toc_get_current_user_account' class='hammock-toc-section'><a href='#get_current_user_account'>Get Current User Account</a></div><div id='toc_update_account_profile' class='hammock-toc-section'><a href='#update_account_profile'>Update Account Profile</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_account-linked_devices' class='hammock-toc-section'><a href='#create_account-linked_devices'>Create Account-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_add/update_cloud_var_metadata' class='hammock-toc-section'><a href='#add/update_cloud_var_metadata'>Add/Update Cloud Var Metadata</a></div><div id='toc_update_cloud_var_value' class='hammock-toc-section'><a href='#update_cloud_var_value'>Update Cloud Var Value</a></div><div id='toc_labels_and_collections' class='hammock-toc-chapter'><a href='#labels_and_collections'>Labels and Collections</a></div><div id='toc_synchronization' class='hammock-toc-chapter'><a href='#synchronization'>Synchronization</a></div><div id='toc_track_account_resources' class='hammock-toc-section'><a href='#track_account_resources'>Track Account Resources</a></div><div id='toc_track_device_resources' class='hammock-toc-section'><a href='#track_device_resources'>Track Device Resources</a></div><div id='toc_track_historic_cloud_variable_data' class='hammock-toc-section'><a href='#track_historic_cloud_variable_data'>Track Historic Cloud Variable Data</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_permission_model' class='hammock-toc-section'><a href='#permission_model'>Permission Model</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_users' class='hammock-toc-chapter'><a href='#users'>Users</a></div><div id='toc_create_a_user' class='hammock-toc-section'><a href='#create_a_user'>Create a User</a></div><div id='toc_get_current_user' class='hammock-toc-section'><a href='#get_current_user'>Get Current User</a></div><div id='toc_update_user_profile' class='hammock-toc-section'><a href='#update_user_profile'>Update User Profile</a></div><div id='toc_delete_current_user' class='hammock-toc-section'><a href='#delete_current_user'>Delete Current User</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_user-linked_devices' class='hammock-toc-section'><a href='#create_user-linked_devices'>Create User-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_add/update_cloud_var_metadata' class='hammock-toc-section'><a href='#add/update_cloud_var_metadata'>Add/Update Cloud Var Metadata</a></div><div id='toc_update_cloud_var_value' class='hammock-toc-section'><a href='#update_cloud_var_value'>Update Cloud Var Value</a></div><div id='toc_synchronization' class='hammock-toc-chapter'><a href='#synchronization'>Synchronization</a></div><div id='toc_track_account_resources' class='hammock-toc-section'><a href='#track_account_resources'>Track Account Resources</a></div><div id='toc_track_device_resources' class='hammock-toc-section'><a href='#track_device_resources'>Track Device Resources</a></div><div id='toc_track_historic_cloud_variable_data' class='hammock-toc-section'><a href='#track_historic_cloud_variable_data'>Track Historic Cloud Variable Data</a></div></div>
     <div class=hammock-doc-outer>
 
 
@@ -188,95 +188,41 @@ window.onload = function() {
                     
     
         <div class=hammock-section-outer>
-            <a class=hammock-a-name id=account_model name=account_model></a>
+            <a class=hammock-a-name id=permission_model name=permission_model></a>
             <div class=hammock-section-title>
-                Account Model
+                Permission Model
             </div>
             <div class=hammock-section-contents>
                 
-        The Canopy REST API is used by both humans and IoT devices.  There are
-        two types of accounts:
+        The Canopy REST API is used by both humans and IoT devices.
 
+        There are two types of credentials, depending on whether a human user
+        or an IoT device is making the request.  Additionally, two types of
+        authentication are supported: <b>BASIC AUTH</b> and
+        <b>Session-based AUTH</b>.
         <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
             <tr>
-                <td nowrap class=hammock-tbl-header>Account Type</td>
-                <td nowrap class=hammock-tbl-header>Description</td>
+                <td  class=hammock-tbl-header>Credential Type</td>
+                <td  class=hammock-tbl-header>HTTP BASIC AUTH</td>
+                <td  class=hammock-tbl-header>Session-based AUTH</td>
+                <td  class=hammock-tbl-header>Username</td>
+                <td  class=hammock-tbl-header>Password</td>
             </tr>
             <tr>
-                <td nowrap><b>User Account</b></td>
-                <td >A human.  This may be an <b>end user</b> or a
-                <b>device maker</b>.</td>
+                <td ><b>User</b></td>
+                <td ><b>Yes</b></td>
+                <td ><b>Yes</b></td>
+                <td >Chosen by user</td>
+                <td >Chosen by user</td>
             </tr>
             <tr>
-                <td nowrap><b>Device Account</b></td>
-                <td >An IoT device.  This account gets created
-                automatically whenever a new device resource is generated on
-                the server.  See <a href=#create_account-linked_devices>C<!---->r<!---->e<!---->a<!---->t<!---->e<!----> <!---->A<!---->c<!---->c<!---->o<!---->u<!---->n<!---->t<!---->-<!---->L<!---->i<!---->n<!---->k<!---->e<!---->d<!----> <!---->D<!---->e<!---->v<!---->i<!---->c<!---->e<!---->s<!----></a> and Create
-                Anonymous Device.
-                </td>
+                <td ><b>Device</b></td>
+                <td ><b>Yes</b></td>
+                <td >No</td>
+                <td >Device UUID</td>
+                <td >Device Secret Key</td>
             </tr>
         </table>
-
-        Every User Account has some relationship with every device resource.
-
-        <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
-            <tr>
-                <td  class=hammock-tbl-header>User-Device Relationship</td>
-                <td  class=hammock-tbl-header>Description</td>
-            </tr>
-            <tr>
-                <td ><b>No Access</b></td>
-                <td >User cannot access the device.</td>
-            </tr>
-            <tr>
-                <td ><b>End User</b></td>
-                <td >User can interact with the device as an end user.</td>
-            </tr>
-            <tr>
-                <td ><b>Device Maker</b></td>
-                <td >User can manage the device from an inventory standpoint,
-                but may not directly control or monitor it without permission from the end user.</td>
-            </tr>
-            <tr>
-                <td ><b>Device Maker + End User</b></td>
-                <td >User can do everything with the device.</td>
-            </tr>
-        </table>
-        
-        <div class=hammock-subsection-outer>
-            <div class=hammock-subsection-title>
-                Methods of Authentication
-            </div>
-            <div class=hammock-subsection-contents>
-                
-            Two types of authentication are supported: <b>BASIC AUTH</b> and
-            <b>Session-based AUTH</b>.
-            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
-                <tr>
-                    <td  class=hammock-tbl-header>Account Type</td>
-                    <td  class=hammock-tbl-header>HTTP BASIC AUTH</td>
-                    <td  class=hammock-tbl-header>Session-based AUTH</td>
-                    <td  class=hammock-tbl-header>Username</td>
-                    <td  class=hammock-tbl-header>Password</td>
-                </tr>
-                <tr>
-                    <td ><b>User Account</b></td>
-                    <td ><b>Yes</b></td>
-                    <td ><b>Yes</b></td>
-                    <td >Chosen by user</td>
-                    <td >Chosen by user</td>
-                </tr>
-                <tr>
-                    <td ><b>Device Account</b></td>
-                    <td ><b>Yes</b></td>
-                    <td >No</td>
-                    <td >Device UUID</td>
-                    <td >Device Secret Key</td>
-                </tr>
-            </table>
-        
-            </div>
-        </div>
     
             </div>
         </div>
@@ -314,7 +260,7 @@ window.onload = function() {
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
-                Response
+                Success Response
             </div>
             <div class=hammock-subsection-contents>
                 
@@ -334,6 +280,19 @@ window.onload = function() {
     "email" : "leela@planetexpress.com"
 }</pre></div>
             </div><script>$("#mctab3").on('click', function() {$("#mc3").show();$("#mctab3").toggleClass('hammock-multicode-selected', 3==3);$("#mc4").hide();$("#mctab4").toggleClass('hammock-multicode-selected', 3==4);});$("#mctab3").toggleClass('hammock-multicode-selected', 1);$("#mctab4").on('click', function() {$("#mc3").hide();$("#mctab3").toggleClass('hammock-multicode-selected', 4==3);$("#mc4").show();$("#mctab4").toggleClass('hammock-multicode-selected', 4==4);});$("#mc4").hide();</script>
+
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Error Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            Can error out with Bad Request (400), Unauthorized (401)
+            or Internal Server Error (500).
         
             </div>
         </div>
@@ -363,13 +322,26 @@ window.onload = function() {
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
-                Response
+                Success Response
             </div>
             <div class=hammock-subsection-contents>
                 
+            The <span class=hammock-icode>/api/logout/</span> endpoint sends this
+            response whether or not you were logged in.
             <pre class='hammock-code sh_javascript'>{
     "result" : "ok"
 }</pre>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Error Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            Can error out with Internal Server Error (500).
         
             </div>
         </div>
@@ -449,17 +421,17 @@ And then send this header:
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=user_accounts name=user_accounts></a>
+                <a class=hammock-a-name id=users name=users></a>
                 <div class=hammock-chapter-title>
-                    User Accounts
+                    Users
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
         <div class=hammock-section-outer>
-            <a class=hammock-a-name id=create_a_user_account name=create_a_user_account></a>
+            <a class=hammock-a-name id=create_a_user name=create_a_user></a>
             <div class=hammock-section-title>
-                Create a User Account
+                Create a User
             </div>
             <div class=hammock-section-contents>
                 
@@ -470,19 +442,19 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab8 class='hammock-multicode-tab'>REST</div><div id=mctab9 class='hammock-multicode-tab'>EXAMPLE</div><div id=mctab10 class='hammock-multicode-tab'>CURL</div></div><div id=mc8 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_account
+            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab8 class='hammock-multicode-tab'>REST</div><div id=mctab9 class='hammock-multicode-tab'>EXAMPLE</div><div id=mctab10 class='hammock-multicode-tab'>CURL</div></div><div id=mc8 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_user
 {
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
     "password" : &lt;PASSWORD&gt;
 }</pre></div>
-                <div id=mc9 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_account
+                <div id=mc9 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_user
 {
     "username" : "leela",
     "email" : "leela@planetexpress.com",
     "password" : "P1anetExpre55"
 }</pre></div>
-                <div id=mc10 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -d '{ "username" : "leela", "email": "leela@planetexpress.com", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/create_account</pre></div>
+                <div id=mc10 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -d '{ "username" : "leela", "email": "leela@planetexpress.com", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/create_user</pre></div>
             </div><script>$("#mctab8").on('click', function() {$("#mc8").show();$("#mctab8").toggleClass('hammock-multicode-selected', 8==8);$("#mc9").hide();$("#mctab9").toggleClass('hammock-multicode-selected', 8==9);$("#mc10").hide();$("#mctab10").toggleClass('hammock-multicode-selected', 8==10);});$("#mctab8").toggleClass('hammock-multicode-selected', 1);$("#mctab9").on('click', function() {$("#mc8").hide();$("#mctab8").toggleClass('hammock-multicode-selected', 9==8);$("#mc9").show();$("#mctab9").toggleClass('hammock-multicode-selected', 9==9);$("#mc10").hide();$("#mctab10").toggleClass('hammock-multicode-selected', 9==10);});$("#mc9").hide();$("#mctab10").on('click', function() {$("#mc8").hide();$("#mctab8").toggleClass('hammock-multicode-selected', 10==8);$("#mc9").hide();$("#mctab9").toggleClass('hammock-multicode-selected', 10==9);$("#mc10").show();$("#mctab10").toggleClass('hammock-multicode-selected', 10==10);});$("#mc10").hide();</script>
             <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
                 <tr>
@@ -510,6 +482,7 @@ And then send this header:
                     <td >string
                         <ul><li>6-120 characters</li>
                             <li>All characters allowed</li>
+                            <li>Case sensitive</li>
                         </ul>
                     </td>
                 </tr>
@@ -520,20 +493,20 @@ And then send this header:
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
-                Response
+                Success Response
             </div>
             <div class=hammock-subsection-contents>
                 
             <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab11 class='hammock-multicode-tab'>REST</div><div id=mctab12 class='hammock-multicode-tab'>EXAMPLE</div></div><div id=mc11 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>200 OK
 {
-    "activated" : false,
+    "validated" : false,
     "email" : &lt;EMAIL&gt;,
     "result" : "ok",
     "username" : &lt;USERNAME&gt;
 }</pre></div>
                 <div id=mc12 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>200 OK
 {
-    "activated" : false,
+    "validated" : false,
     "email" : "leela@planetexpress.com",
     "result" : "ok",
     "username" : "leela",
@@ -542,14 +515,25 @@ And then send this header:
         
             </div>
         </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Error Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            TBD
+        
+            </div>
+        </div>
     
             </div>
         </div>
     
         <div class=hammock-section-outer>
-            <a class=hammock-a-name id=get_current_user_account name=get_current_user_account></a>
+            <a class=hammock-a-name id=get_current_user name=get_current_user></a>
             <div class=hammock-section-title>
-                Get Current User Account
+                Get Current User
             </div>
             <div class=hammock-section-contents>
                 
@@ -573,7 +557,7 @@ And then send this header:
                 
             <pre class='hammock-code sh_javascript'>{
     "result" : "ok",
-    "activated" : &lt;ACTIVATED&gt;,
+    "validated" : &lt;VALIDATED&gt;,
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
 }</pre>
@@ -585,9 +569,9 @@ And then send this header:
         </div>
     
         <div class=hammock-section-outer>
-            <a class=hammock-a-name id=update_account_profile name=update_account_profile></a>
+            <a class=hammock-a-name id=update_user_profile name=update_user_profile></a>
             <div class=hammock-section-title>
-                Update Account Profile
+                Update User Profile
             </div>
             <div class=hammock-section-contents>
                 
@@ -613,7 +597,7 @@ And then send this header:
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
-                Response
+                Success Response
             </div>
             <div class=hammock-subsection-contents>
                 
@@ -622,6 +606,67 @@ And then send this header:
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
 }</pre>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Error Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            TBD
+        
+            </div>
+        </div>
+    
+            </div>
+        </div>
+
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=delete_current_user name=delete_current_user></a>
+            <div class=hammock-section-title>
+                Delete Current User
+            </div>
+            <div class=hammock-section-contents>
+                
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Request
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab13 class='hammock-multicode-tab'>REST</div><div id=mctab14 class='hammock-multicode-tab'>CURL</div></div><div id=mc13 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>DELETE /api/me</pre></div>
+                <div id=mc14 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/me</pre></div>
+            </div><script>$("#mctab13").on('click', function() {$("#mc13").show();$("#mctab13").toggleClass('hammock-multicode-selected', 13==13);$("#mc14").hide();$("#mctab14").toggleClass('hammock-multicode-selected', 13==14);});$("#mctab13").toggleClass('hammock-multicode-selected', 1);$("#mctab14").on('click', function() {$("#mc13").hide();$("#mctab13").toggleClass('hammock-multicode-selected', 14==13);$("#mc14").show();$("#mctab14").toggleClass('hammock-multicode-selected', 14==14);});$("#mc14").hide();</script>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Success Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <pre class='hammock-code sh_javascript'>200 OK
+{
+    "result" : "ok",
+}</pre>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Error Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            TBD
         
             </div>
         </div>
@@ -642,9 +687,9 @@ And then send this header:
                     
     
         <div class=hammock-section-outer>
-            <a class=hammock-a-name id=create_account-linked_devices name=create_account-linked_devices></a>
+            <a class=hammock-a-name id=create_user-linked_devices name=create_user-linked_devices></a>
             <div class=hammock-section-title>
-                Create Account-Linked Devices
+                Create User-Linked Devices
             </div>
             <div class=hammock-section-contents>
                 
@@ -655,15 +700,17 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            To create one or more new devices from a User Account:
+            To create one or more new devices from when authenticated as a
+            User:
             <pre class='hammock-code sh_javascript'>POST /api/create_devices
 {
-    "quanitity" : &lt;QUANITITY&gt;
+    "quanitity" : &lt;QUANTITY&gt;
     "friendly_names" : [&lt;FRIENDLY_NAME&gt;, ...]
 }</pre>
-            This will create a new device resource and associate it with the
-            current User Account.  This will also automatically assign a UUID
-            and Secret Key to each new device resource.
+            This will create new device resource(s) and assign the current
+            User to have the "creator" role for those device(s).  This will
+            also automatically assign a UUID and Secret Key to each new device
+            resource.
         
             </div>
         </div>
@@ -688,6 +735,7 @@ And then send this header:
     
             </div>
         </div>
+
     
         <div class=hammock-section-outer>
             <a class=hammock-a-name id=create_anonymous_device name=create_anonymous_device></a>
@@ -703,10 +751,9 @@ And then send this header:
         Each anonymous device has a user-assigned Secret Key that is used to
         restrict access.
 
-        Anonymous devices are automatically created by the
-        <span class=hammock-icode>/api/sync</span> endpoint.  When <span class=hammock-icode>/api/sync</span>
-        encounters a new Device UUID in the BASIC AUTH header, it will create a
-        new anonymous device.
+        Anonymous devices are automatically created whenever the API call
+        <span class=hammock-icode>/api/my_device</span> is made using device credentials that
+        have never been encountered before.
     
             </div>
         </div>
@@ -726,11 +773,174 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            To obtain a list of all devices the current Account has access to:
-            <pre class='hammock-code'>GET /api/me/devices</pre>
+            To obtain a list of all devices the current User has access to:
+            <pre class='hammock-code'>GET /api/me/devices?
+    filter=&lt;FILTER&gt;
+    &sort=&lt;SORT&gt;
+    &limit=&lt;LIMIT&gt;</pre>
+            Details about filtering, sorting, and paginating the results are
+            described in the following sections.
         
             </div>
         </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Filtering Device List
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <p>
+                <span class=hammock-icode>&lt;FILTER&gt;</span> is a sequence of constraints
+                encoded as a string.  The terms have the form:
+            </p>
+            <pre class='hammock-code'>&lt;KEY&gt;&lt;REL&gt;&lt;VALUE&gt;</pre>
+            For example:
+            <pre class='hammock-code'>temperature&gt;=50.8</pre>
+            Unary and boolean operators can be applied to these terms using
+            reverse polish notation:
+            <pre class='hammock-code'>&lt;TERM&gt; &lt;OP&gt;
+&lt;TERM&gt; &lt;TERM&gt; &lt;OP&gt;</pre>
+            For example:
+            <pre class='hammock-code'>temperature&gt;=50.8 temperature&lt;90.5 AND</pre>
+            Valid terms may be the name of any cloud variable, or one of the
+            following builtins:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Key</td>
+                    <td  class=hammock-tbl-header>Description</td>
+                    <td  class=hammock-tbl-header>Potential Values</td>
+                </tr>
+                <tr>
+                    <td ><span class=hammock-icode>ws_connection_status</span></td>
+                    <td >Is websocket connected?</td>
+                    <td >
+                        <ul><li><span class=hammock-icode>"never_connected"</span></li>
+                            <li><span class=hammock-icode>"connected"</span></li>
+                            <li><span class=hammock-icode>"disconnected"</span></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><span class=hammock-icode>activity_status</span></td>
+                    <td >Has device communicated with remote recently</td>
+                    <td >
+                        <ul><li><span class=hammock-icode>"newly_created"</span></li>
+                            <li><span class=hammock-icode>"active"</span></li>
+                            <li><span class=hammock-icode>"inactive"</span></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><span class=hammock-icode>&lt;CLOUD_VAR_NAME&gt;</span></td>
+                    <td >Filter based on cloud variable value.</td>
+                    <td >Depends on cloud variable datatype.</td>
+                </tr>
+            </table>
+
+            Valid relations are:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Relation</td>
+                    <td  class=hammock-tbl-header>Description</td>
+                </tr>
+                <tr>
+                    <td >=</td>
+                    <td >Equals</td>
+                </tr>
+                <tr>
+                    <td >!=</td>
+                    <td >Does not equal</td>
+                </tr>
+                <tr>
+                    <td >&gt;</td>
+                    <td >Greater than (numeric and date types only)</td>
+                </tr>
+                <tr>
+                    <td >&gt;=</td>
+                    <td >Greater than or equal to (numeric and date types only)</td>
+                </tr>
+                <tr>
+                    <td >&lt;</td>
+                    <td >Less than (numeric and date types only)</td>
+                </tr>
+                <tr>
+                    <td >&lt;=</td>
+                    <td >Less than or equal to (numeric and date types only)</td>
+                </tr>
+            </table>
+
+            Valid unary operators are:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Unary Op</td>
+                    <td  class=hammock-tbl-header>Description</td>
+                </tr>
+                <tr>
+                    <td >NOT</td>
+                    <td >Invert operand</td>
+                </tr>
+                <tr>
+                    <td >HAS</td>
+                    <td >For cloud variables only: does the device have a
+                    cloud variable with this name?</td>
+                </tr>
+            </table>
+
+            Valid boolean operations are:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Boolean Op</td>
+                    <td  class=hammock-tbl-header>Description</td>
+                </tr>
+                <tr>
+                    <td >AND</td>
+                    <td >Both operands are true</td>
+                </tr>
+                <tr>
+                    <td >OR</td>
+                    <td >Either operand is true</td>
+                </tr>
+            </table>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Sorting Device List
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <span class=hammock-icode>&lt;SORT&gt;</span> is a sequence of comma-separated keys
+            specifying the sort order.  The highest priority key comes first,
+            followed by tie breakers.  By default ascending order is used.  To
+            sort by a key in descending order, add <span class=hammock-icode>:DESC</span> to the
+            key.  For sort order determination, a missing cloud variable comes
+            before the minimum value (i.e. at the front of the list when
+            ascending, at the end of the list when descending).  For example:
+
+            <pre class='hammock-code'>temperature,humidity:DESC</pre>
+
+            The valid keys may be any cloud variable, or builtin.  See
+            Filtering Device List.
+
+        
+            </div>
+        </div>
+
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Limits (Pagination)
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            By default, 
+        
+            </div>
+        </div>
+
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
@@ -743,13 +953,10 @@ And then send this header:
     "devices" : [ {
         "device_id" : &lt;UUID&gt;,
         "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-        "labels" : [ &lt;LABELS&gt; ],
         "status" : {
             "ws_connected" : &lt;WS_CONNECTED&gt;,
             "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
         },
-        "sddl" : { &lt;SDDL&gt; },
-        "vars" : { &lt;VARS&gt; },
     }, ...  ]
 }</pre>
         
@@ -775,6 +982,12 @@ And then send this header:
                 
             To obtain information about a single device:
             <pre class='hammock-code'>GET /api/device/&lt;UUID&gt;</pre>
+            For convenience, you can obtain information about the currently
+            authenticated device (if any) using:
+            <pre class='hammock-code'>GET /api/my_device</pre>
+            This second form of the request can only be made when device
+            credentials are provided.  If the provided device credentials are
+            unknown to the remote, then a new anonymous device is created.
         
             </div>
         </div>
@@ -789,7 +1002,6 @@ And then send this header:
     "result" : "ok",
     "device_id" : &lt;UUID&gt;,
     "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-    "labels" : [ &lt;LABELS&gt; ],
     "status" : {
         "ws_connected" : &lt;WS_CONNECTED&gt;,
         "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
@@ -844,17 +1056,11 @@ And then send this header:
             <pre class='hammock-code sh_javascript'>POST /api/device/&lt;UUID&gt;
 {
     "friendly_name" : &lt;NEW_FRIENDLY_NAME&gt;,
-    "labels" : [ &lt;NEW_LABELS&gt; ],
     "location_note" : &lt;NEW_LOCATION_NOTE&gt;
 }</pre>
             <p>
                 All fields are optional and omitted fields will be left
                 unchanged.
-            </p>
-            <p>
-                If <span class=hammock-icode>"labels"</span> is provided, then all labels and
-                collections for this device will be replaced with the new set
-                of labels and collections.
             </p>
             <p>
                 This may be combined with <a href=#add/update_cloud_var_metadata>A<!---->d<!---->d<!---->/<!---->U<!---->p<!---->d<!---->a<!---->t<!---->e<!----> <!---->C<!---->l<!---->o<!---->u<!---->d<!----> <!---->V<!---->a<!---->r<!----> <!---->M<!---->e<!---->t<!---->a<!---->d<!---->a<!---->t<!---->a<!----></a>
@@ -940,9 +1146,9 @@ And then send this header:
             <span class=hammock-icode>false</span>.  See Automatic Cloud Variable Creation.
         </p>
         <p>
-            This request may be made by either a User Account or a Device
-            Account.  The Cloud Variable's <span class=hammock-icode>direction</span>
-            property controls who can modify it:
+            This request may be made by either a User or a Device.  The Cloud
+            Variable's <span class=hammock-icode>direction</span> property controls who can
+            modify it:
         </p>
         <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
             <tr>
@@ -950,77 +1156,18 @@ And then send this header:
                 <td  class=hammock-tbl-header>Who Can Modify Value</td>
             </tr>
             <tr>
-                <td ><span class=hammock-icode>in</span></td>
-                <td >User Account</td>
+                <td ><span class=hammock-icode>out</span></td>
+                <td ></td>
             </tr>
             <tr>
-                <td ><span class=hammock-icode>out</span></td>
-                <td >Device Account</td>
+                <td ><span class=hammock-icode>in</span></td>
+                <td ></td>
             </tr>
             <tr>
                 <td ><span class=hammock-icode>inout</span></td>
-                <td >User or Device Account</td>
+                <td ></td>
             </tr>
         </table>
-    
-            </div>
-        </div>
-
-                </div>
-            </div>
-
-
-            <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=labels_and_collections name=labels_and_collections></a>
-                <div class=hammock-chapter-title>
-                    Labels and Collections
-                </div>
-                <div class=hammock-chapter-contents>
-                    
-    
-        <div class=hammock-subsection-outer>
-            <div class=hammock-subsection-title>
-                Labels
-            </div>
-            <div class=hammock-subsection-contents>
-                
-        <p>
-            A User may assign one or more Labels to each Device resource.  A Label
-            is a string used for grouping <a href=#devices>D<!---->e<!---->v<!---->i<!---->c<!---->e<!---->s<!----></a>.  Examples might
-            include:
-            <pre class='hammock-code'>"lightbulb"
-"Customer Returns"
-"July 12 Production Run"</pre>
-        </p>
-        <p>
-            Each device has two sets of labels: those assigned by the Device
-            Maker and those assigned by the End User.
-        </p>
-    
-            </div>
-        </div>
-    
-        <div class=hammock-subsection-outer>
-            <div class=hammock-subsection-title>
-                Collections
-            </div>
-            <div class=hammock-subsection-contents>
-                
-        <p>
-            Collections are a special type of label.  A collection is a string
-            that contains a colon (<span class=hammock-icode>:</span>) and provide a means to
-            group related labels.  Collections have the the following form:
-            <pre class='hammock-code'>"COLLECTION NAME: VALUE"</pre>
-            Examples might include:
-            <pre class='hammock-code'>"Product Category: lightbulb"
-"Return Status: Waiting to Recieve"
-"Production Run: July 12, 2014"</pre>
-
-            Within a Collection, each Device is allowed a single value.
-            For example, a Device cannot be assigned both <span class=hammock-icode>"Product
-            Category: lightbulb"</span> and <span class=hammock-icode>"Product Category:
-            toaster"</span>.
-        </p>
     
             </div>
         </div>

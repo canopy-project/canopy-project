@@ -1,82 +1,36 @@
 <doc logo="" toc_title="Canopy REST API" title="Lorem Ipsum">
 
 <chapter title="Authentication">
-    <section title="Account Model">
-        The Canopy REST API is used by both humans and IoT devices.  There are
-        two types of accounts:
+    <section title="Permission Model">
+        The Canopy REST API is used by both humans and IoT devices.
 
+        There are two types of credentials, depending on whether a human user
+        or an IoT device is making the request.  Additionally, two types of
+        authentication are supported: <b>BASIC AUTH</b> and
+        <b>Session-based AUTH</b>.
         <tbl>
             <row>
-                <cell nowrap='1' header='1'>Account Type</cell>
-                <cell nowrap='1' header='1'>Description</cell>
+                <cell header='1'>Credential Type</cell>
+                <cell header='1'>HTTP BASIC AUTH</cell>
+                <cell header='1'>Session-based AUTH</cell>
+                <cell header='1'>Username</cell>
+                <cell header='1'>Password</cell>
             </row>
             <row>
-                <cell nowrap='1'><b>User Account</b></cell>
-                <cell>A human.  This may be an <b>end user</b> or a
-                <b>device maker</b>.</cell>
+                <cell><b>User</b></cell>
+                <cell><b>Yes</b></cell>
+                <cell><b>Yes</b></cell>
+                <cell>Chosen by user</cell>
+                <cell>Chosen by user</cell>
             </row>
             <row>
-                <cell nowrap='1'><b>Device Account</b></cell>
-                <cell>An IoT device.  This account gets created
-                automatically whenever a new device resource is generated on
-                the server.  See Create Account-Linked Devices and Create
-                Anonymous Device.
-                </cell>
+                <cell><b>Device</b></cell>
+                <cell><b>Yes</b></cell>
+                <cell>No</cell>
+                <cell>Device UUID</cell>
+                <cell>Device Secret Key</cell>
             </row>
         </tbl>
-
-        Every User Account has some relationship with every device resource.
-
-        <tbl>
-            <row>
-                <cell header='1'>User-Device Relationship</cell>
-                <cell header='1'>Description</cell>
-            </row>
-            <row>
-                <cell><b>No Access</b></cell>
-                <cell>User cannot access the device.</cell>
-            </row>
-            <row>
-                <cell><b>End User</b></cell>
-                <cell>User can interact with the device as an end user.</cell>
-            </row>
-            <row>
-                <cell><b>Device Maker</b></cell>
-                <cell>User can manage the device from an inventory standpoint,
-                but may not directly control or monitor it without permission from the end user.</cell>
-            </row>
-            <row>
-                <cell><b>Device Maker + End User</b></cell>
-                <cell>User can do everything with the device.</cell>
-            </row>
-        </tbl>
-        <subsection title='Methods of Authentication'>
-            Two types of authentication are supported: <b>BASIC AUTH</b> and
-            <b>Session-based AUTH</b>.
-            <tbl>
-                <row>
-                    <cell header='1'>Account Type</cell>
-                    <cell header='1'>HTTP BASIC AUTH</cell>
-                    <cell header='1'>Session-based AUTH</cell>
-                    <cell header='1'>Username</cell>
-                    <cell header='1'>Password</cell>
-                </row>
-                <row>
-                    <cell><b>User Account</b></cell>
-                    <cell><b>Yes</b></cell>
-                    <cell><b>Yes</b></cell>
-                    <cell>Chosen by user</cell>
-                    <cell>Chosen by user</cell>
-                </row>
-                <row>
-                    <cell><b>Device Account</b></cell>
-                    <cell><b>Yes</b></cell>
-                    <cell>No</cell>
-                    <cell>Device UUID</cell>
-                    <cell>Device Secret Key</cell>
-                </row>
-            </tbl>
-        </subsection>
     </section>
 
     <section title="Session-based AUTH Login">
@@ -101,7 +55,7 @@
                 </mc_item>
             </multicode>
         </subsection>
-        <subsection title="Response">
+        <subsection title="Success Response">
             Header:
             <code>
                 Set-Cookie:canopy-login-session=&lt;COOKIE_VALUE&gt;
@@ -125,6 +79,11 @@
                     }
                 </mc_item>
             </multicode>
+
+        </subsection>
+        <subsection title="Error Response">
+            Can error out with Bad Request (400), Unauthorized (401)
+            or Internal Server Error (500).
         </subsection>
     </section>
 
@@ -132,12 +91,17 @@
         <subsection title="Request">
             <code> POST /api/logout </code>
         </subsection>
-        <subsection title="Response">
+        <subsection title="Success Response">
+            The <icode>/api/logout/</icode> endpoint sends this
+            response whether or not you were logged in.
             <code syntax='javascript'>
                 {
                     "result" : "ok"
                 }
             </code>
+        </subsection>
+        <subsection title="Error Response">
+            Can error out with Internal Server Error (500).
         </subsection>
     </section>
 
@@ -203,12 +167,12 @@
 
 </chapter>
 
-<chapter title="User Accounts">
-    <section title="Create a User Account">
+<chapter title="Users">
+    <section title="Create a User">
         <subsection title="Request">
             <multicode>
                 <mc_item title="REST" syntax='javascript'>
-                    POST /api/create_account
+                    POST /api/create_user
                     {
                         "username" : &lt;USERNAME&gt;,
                         "email" : &lt;EMAIL&gt;,
@@ -216,7 +180,7 @@
                     }
                 </mc_item>
                 <mc_item title="EXAMPLE" syntax='javascript'>
-                    POST /api/create_account
+                    POST /api/create_user
                     {
                         "username" : "leela",
                         "email" : "leela@planetexpress.com",
@@ -224,7 +188,7 @@
                     }
                 </mc_item>
                 <mc_item title="CURL" syntax='javascript'>
-                    curl -d '{ "username" : "leela", "email": "leela@planetexpress.com", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/create_account
+                    curl -d '{ "username" : "leela", "email": "leela@planetexpress.com", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/create_user
                 </mc_item>
             </multicode>
             <tbl>
@@ -256,17 +220,18 @@
                         <ul>
                             <li>6-120 characters</li>
                             <li>All characters allowed</li>
+                            <li>Case sensitive</li>
                         </ul>
                     </cell>
                 </row>
             </tbl>
         </subsection>
-        <subsection title="Response">
+        <subsection title="Success Response">
             <multicode>
                 <mc_item title="REST" syntax='javascript'>
                     200 OK
                     {
-                        "activated" : false,
+                        "validated" : false,
                         "email" : &lt;EMAIL&gt;,
                         "result" : "ok",
                         "username" : &lt;USERNAME&gt;
@@ -275,7 +240,7 @@
                 <mc_item title="EXAMPLE" syntax='javascript'>
                     200 OK
                     {
-                        "activated" : false,
+                        "validated" : false,
                         "email" : "leela@planetexpress.com",
                         "result" : "ok",
                         "username" : "leela",
@@ -283,8 +248,11 @@
                 </mc_item>
             </multicode>
         </subsection>
+        <subsection title="Error Response">
+            TBD
+        </subsection>
     </section>
-    <section title="Get Current User Account">
+    <section title="Get Current User">
         <subsection title="Request">
             <code>
                 GET /api/me
@@ -294,14 +262,14 @@
             <code syntax='javascript'>
                 {
                     "result" : "ok",
-                    "activated" : &lt;ACTIVATED&gt;,
+                    "validated" : &lt;VALIDATED&gt;,
                     "username" : &lt;USERNAME&gt;,
                     "email" : &lt;EMAIL&gt;,
                 }
             </code>
         </subsection>
     </section>
-    <section title="Update Account Profile">
+    <section title="Update User Profile">
         <subsection title="Request">
             <code>
                 POST /api/me
@@ -315,7 +283,7 @@
             is provided then <icode>"old_password"</icode> must be provided as
             well.  Omitted fields will not be modified.
         </subsection>
-        <subsection title="Response">
+        <subsection title="Success Response">
             <code syntax='javascript'>
                 {
                     "result" : "ok",
@@ -324,23 +292,52 @@
                 }
             </code>
         </subsection>
+        <subsection title="Error Response">
+            TBD
+        </subsection>
+    </section>
+
+    <section title="Delete Current User">
+        <subsection title="Request">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    DELETE /api/me
+                </mc_item>
+                <mc_item title="CURL" syntax='javascript'>
+                    curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/me
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Success Response">
+            <code syntax='javascript'>
+                200 OK
+                {
+                    "result" : "ok",
+                }
+            </code>
+        </subsection>
+        <subsection title="Error Response">
+            TBD
+        </subsection>
     </section>
 </chapter>
 
 <chapter title="Devices">
-    <section title="Create Account-Linked Devices">
+    <section title="Create User-Linked Devices">
         <subsection title="Request">
-            To create one or more new devices from a User Account:
+            To create one or more new devices from when authenticated as a
+            User:
             <code syntax='javascript'>
                 POST /api/create_devices
                 {
-                    "quanitity" : &lt;QUANITITY&gt;
+                    "quanitity" : &lt;QUANTITY&gt;
                     "friendly_names" : [&lt;FRIENDLY_NAME&gt;, ...]
                 }
             </code>
-            This will create a new device resource and associate it with the
-            current User Account.  This will also automatically assign a UUID
-            and Secret Key to each new device resource.
+            This will create new device resource(s) and assign the current
+            User to have the "creator" role for those device(s).  This will
+            also automatically assign a UUID and Secret Key to each new device
+            resource.
         </subsection>
         <subsection title="Response">
             <code syntax='javascript'>
@@ -355,6 +352,7 @@
             </code>
         </subsection>
     </section>
+
     <section title="Create Anonymous Device">
         Some deployments of the Canopy Cloud Service allow devices to be
         created that are not associated with any User account.  These are
@@ -363,19 +361,169 @@
         Each anonymous device has a user-assigned Secret Key that is used to
         restrict access.
 
-        Anonymous devices are automatically created by the
-        <icode>/api/sync</icode> endpoint.  When <icode>/api/sync</icode>
-        encounters a new Device UUID in the BASIC AUTH header, it will create a
-        new anonymous device.
+        Anonymous devices are automatically created whenever the API call
+        <icode>/api/my_device</icode> is made using device credentials that
+        have never been encountered before.
     </section>
 
     <section title="List Devices">
         <subsection title="Request">
-            To obtain a list of all devices the current Account has access to:
+            To obtain a list of all devices the current User has access to:
             <code>
-                GET /api/me/devices
+                GET /api/me/devices?
+                    filter=&lt;FILTER&gt;
+                    &amp;sort=&lt;SORT&gt;
+                    &amp;limit=&lt;LIMIT&gt;
             </code>
+            Details about filtering, sorting, and paginating the results are
+            described in the following sections.
         </subsection>
+        <subsection title="Filtering Device List">
+            <p>
+                <icode>&lt;FILTER&gt;</icode> is a sequence of constraints
+                encoded as a string.  The terms have the form:
+            </p>
+            <code>
+                &lt;KEY&gt;&lt;REL&gt;&lt;VALUE&gt;
+            </code>
+            For example:
+            <code>
+                temperature>=50.8
+            </code>
+            Unary and boolean operators can be applied to these terms using
+            reverse polish notation:
+            <code>
+                &lt;TERM&gt; &lt;OP&gt;
+                &lt;TERM&gt; &lt;TERM&gt; &lt;OP&gt;
+            </code>
+            For example:
+            <code>
+                temperature>=50.8 temperature&lt;90.5 AND
+            </code>
+            Valid terms may be the name of any cloud variable, or one of the
+            following builtins:
+            <tbl>
+                <row>
+                    <cell header='1'>Key</cell>
+                    <cell header='1'>Description</cell>
+                    <cell header='1'>Potential Values</cell>
+                </row>
+                <row>
+                    <cell><icode>ws_connection_status</icode></cell>
+                    <cell>Is websocket connected?</cell>
+                    <cell>
+                        <ul>
+                            <li><icode>"never_connected"</icode></li>
+                            <li><icode>"connected"</icode></li>
+                            <li><icode>"disconnected"</icode></li>
+                        </ul>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>activity_status</icode></cell>
+                    <cell>Has device communicated with remote recently</cell>
+                    <cell>
+                        <ul>
+                            <li><icode>"newly_created"</icode></li>
+                            <li><icode>"active"</icode></li>
+                            <li><icode>"inactive"</icode></li>
+                        </ul>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>&lt;CLOUD_VAR_NAME&gt;</icode></cell>
+                    <cell>Filter based on cloud variable value.</cell>
+                    <cell>Depends on cloud variable datatype.</cell>
+                </row>
+            </tbl>
+
+            Valid relations are:
+            <tbl>
+                <row>
+                    <cell header='1'>Relation</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell>=</cell>
+                    <cell>Equals</cell>
+                </row>
+                <row>
+                    <cell>!=</cell>
+                    <cell>Does not equal</cell>
+                </row>
+                <row>
+                    <cell>&gt;</cell>
+                    <cell>Greater than (numeric and date types only)</cell>
+                </row>
+                <row>
+                    <cell>&gt;=</cell>
+                    <cell>Greater than or equal to (numeric and date types only)</cell>
+                </row>
+                <row>
+                    <cell>&lt;</cell>
+                    <cell>Less than (numeric and date types only)</cell>
+                </row>
+                <row>
+                    <cell>&lt;=</cell>
+                    <cell>Less than or equal to (numeric and date types only)</cell>
+                </row>
+            </tbl>
+
+            Valid unary operators are:
+            <tbl>
+                <row>
+                    <cell header='1'>Unary Op</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell>NOT</cell>
+                    <cell>Invert operand</cell>
+                </row>
+                <row>
+                    <cell>HAS</cell>
+                    <cell>For cloud variables only: does the device have a
+                    cloud variable with this name?</cell>
+                </row>
+            </tbl>
+
+            Valid boolean operations are:
+            <tbl>
+                <row>
+                    <cell header='1'>Boolean Op</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell>AND</cell>
+                    <cell>Both operands are true</cell>
+                </row>
+                <row>
+                    <cell>OR</cell>
+                    <cell>Either operand is true</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Sorting Device List">
+            <icode>&lt;SORT&gt;</icode> is a sequence of comma-separated keys
+            specifying the sort order.  The highest priority key comes first,
+            followed by tie breakers.  By default ascending order is used.  To
+            sort by a key in descending order, add <icode>:DESC</icode> to the
+            key.  For sort order determination, a missing cloud variable comes
+            before the minimum value (i.e. at the front of the list when
+            ascending, at the end of the list when descending).  For example:
+
+            <code>
+                temperature,humidity:DESC
+            </code>
+
+            The valid keys may be any cloud variable, or builtin.  See
+            Filtering Device List.
+
+        </subsection>
+
+        <subsection title="Limits (Pagination)">
+            By default, 
+        </subsection>
+
         <subsection title="Response">
             <code syntax='javascript'>
                 {
@@ -383,13 +531,10 @@
                     "devices" : [ {
                         "device_id" : &lt;UUID&gt;,
                         "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-                        "labels" : [ &lt;LABELS&gt; ],
                         "status" : {
                             "ws_connected" : &lt;WS_CONNECTED&gt;,
                             "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
                         },
-                        "sddl" : { &lt;SDDL&gt; },
-                        "vars" : { &lt;VARS&gt; },
                     }, ...  ]
                 }
             </code>
@@ -401,6 +546,14 @@
             <code>
                 GET /api/device/&lt;UUID&gt;
             </code>
+            For convenience, you can obtain information about the currently
+            authenticated device (if any) using:
+            <code>
+                GET /api/my_device
+            </code>
+            This second form of the request can only be made when device
+            credentials are provided.  If the provided device credentials are
+            unknown to the remote, then a new anonymous device is created.
         </subsection>
         <subsection title="Response">
             <code syntax='javascript'>
@@ -408,7 +561,6 @@
                     "result" : "ok",
                     "device_id" : &lt;UUID&gt;,
                     "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-                    "labels" : [ &lt;LABELS&gt; ],
                     "status" : {
                         "ws_connected" : &lt;WS_CONNECTED&gt;,
                         "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
@@ -433,18 +585,12 @@
                 POST /api/device/&lt;UUID&gt;
                 {
                     "friendly_name" : &lt;NEW_FRIENDLY_NAME&gt;,
-                    "labels" : [ &lt;NEW_LABELS&gt; ],
                     "location_note" : &lt;NEW_LOCATION_NOTE&gt;
                 }
             </code>
             <p>
                 All fields are optional and omitted fields will be left
                 unchanged.
-            </p>
-            <p>
-                If <icode>"labels"</icode> is provided, then all labels and
-                collections for this device will be replaced with the new set
-                of labels and collections.
             </p>
             <p>
                 This may be combined with Add/Update Cloud Var Metadata
@@ -508,9 +654,9 @@
             <icode>false</icode>.  See Automatic Cloud Variable Creation.
         </p>
         <p>
-            This request may be made by either a User Account or a Device
-            Account.  The Cloud Variable's <icode>direction</icode>
-            property controls who can modify it:
+            This request may be made by either a User or a Device.  The Cloud
+            Variable's <icode>direction</icode> property controls who can
+            modify it:
         </p>
         <tbl>
             <row>
@@ -518,57 +664,19 @@
                 <cell header='1'>Who Can Modify Value</cell>
             </row>
             <row>
-                <cell><icode>in</icode></cell>
-                <cell>User Account</cell>
+                <cell><icode>out</icode></cell>
+                <cell></cell>
             </row>
             <row>
-                <cell><icode>out</icode></cell>
-                <cell>Device Account</cell>
+                <cell><icode>in</icode></cell>
+                <cell></cell>
             </row>
             <row>
                 <cell><icode>inout</icode></cell>
-                <cell>User or Device Account</cell>
+                <cell></cell>
             </row>
         </tbl>
     </section>
-</chapter>
-
-<chapter title="Labels and Collections">
-    <subsection title='Labels'>
-        <p>
-            A User may assign one or more Labels to each Device resource.  A Label
-            is a string used for grouping Devices.  Examples might
-            include:
-            <code>
-                "lightbulb"
-                "Customer Returns"
-                "July 12 Production Run"
-            </code>
-        </p>
-        <p>
-            Each device has two sets of labels: those assigned by the Device
-            Maker and those assigned by the End User.
-        </p>
-    </subsection>
-    <subsection title='Collections'>
-        <p>
-            Collections are a special type of label.  A collection is a string
-            that contains a colon (<icode>:</icode>) and provide a means to
-            group related labels.  Collections have the the following form:
-            <code>"COLLECTION NAME: VALUE"</code>
-            Examples might include:
-            <code>
-                "Product Category: lightbulb"
-                "Return Status: Waiting to Recieve"
-                "Production Run: July 12, 2014"
-            </code>
-
-            Within a Collection, each Device is allowed a single value.
-            For example, a Device cannot be assigned both <icode>"Product
-            Category: lightbulb"</icode> and <icode>"Product Category:
-            toaster"</icode>.
-        </p>
-    </subsection>
 </chapter>
 
 <chapter title="Synchronization">
@@ -687,4 +795,3 @@
 </chapter>
 
 </doc>
-
