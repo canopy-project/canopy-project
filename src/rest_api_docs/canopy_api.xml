@@ -2,7 +2,8 @@
 
 <chapter title="Authentication">
     <section title="Permission Model">
-        The Canopy REST API is used by both humans and IoT devices.
+        The Canopy REST API is used by IoT devices and apps (on behalf of human
+        users).
 
         There are two types of credentials, depending on whether a human user
         or an IoT device is making the request.  Additionally, two types of
@@ -26,7 +27,7 @@
             <row>
                 <cell><b>Device</b></cell>
                 <cell><b>Yes</b></cell>
-                <cell>No</cell>
+                <cell>Not supported</cell>
                 <cell>Device UUID</cell>
                 <cell>Device Secret Key</cell>
             </row>
@@ -255,10 +256,21 @@
     <section title="Get Current User">
         <subsection title="Request">
             <code>
-                GET /api/me
+                GET /api/user/self
             </code>
+            Or
+            <code>
+                GET /api/self
+            </code>
+            <p>
+                The two forms of the request are interchangeable as long as User
+                credentials are supplied (or a User is logged in).  If Device
+                credentials are supplied, they behave differently:
+                <icode>/api/user/self</icode> returns an error, whereas
+                <icode>/api/self</icode> returns the Device resource.
+            </p>
         </subsection>
-        <subsection title="Response">
+        <subsection title="Success Response">
             <code syntax='javascript'>
                 {
                     "result" : "ok",
@@ -272,7 +284,7 @@
     <section title="Update User Profile">
         <subsection title="Request">
             <code>
-                POST /api/me
+                POST /api/user/self
                 {
                     "email" : &lt;NEW_EMAIL&gt;,
                     "old_password" : &lt;OLD_PASSWORD&gt;,
@@ -301,7 +313,7 @@
         <subsection title="Request">
             <multicode>
                 <mc_item title="REST" syntax='javascript'>
-                    DELETE /api/me
+                    DELETE /api/user/self
                 </mc_item>
                 <mc_item title="CURL" syntax='javascript'>
                     curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/me
@@ -546,16 +558,39 @@
             <code>
                 GET /api/device/&lt;UUID&gt;
             </code>
-            For convenience, you can obtain information about the currently
-            authenticated device (if any) using:
+            Or
             <code>
-                GET /api/my_device
+                GET /api/device/self
             </code>
-            This second form of the request can only be made when device
-            credentials are provided.  If the provided device credentials are
-            unknown to the remote, then a new anonymous device is created.
+            Or
+            <code>
+                GET /api/self
+            </code>
+            <p>
+                The <icode>/api/device/&lt;UUID&gt;</icode> form of the request
+                obtains a specific device by UUID.  The requester (i.e. the
+                authenticated User or Device) must have permission to access
+                the specified Device, otherwise an error will occur.
+            </p>
+            <p>
+                The other two forms of the request obtain the currently
+                authenticated device (i.e., the device whose credentials were
+                supplied via BASIC AUTH).  They are interchangeable as long as
+                device credentials are supplied.  If
+                user credentials are supplied, they behave differently:
+                <icode>/api/device/self</icode> returns an error, whereas
+                <icode>/api/self</icode> returns the User resource.
+            </p>
+            <p>
+                If the provided device credentials are unknown to the remote,
+                and the server supports anonymous devices, then a new anonymous
+                device will be created.  If the first form of the request is
+                used, then an anonymous device will only be created if the UUID
+                in the URI matches the UUID in the credentials, otherwise an
+                error will occur.
+            </p>
         </subsection>
-        <subsection title="Response">
+        <subsection title="Success Response">
             <code syntax='javascript'>
                 {
                     "result" : "ok",
@@ -677,121 +712,6 @@
             </row>
         </tbl>
     </section>
-</chapter>
-
-<chapter title="Synchronization">
-    The "synchronization" mechanism allows multiple resources to be tracked and
-    updated efficiently with a single API request.  Tracked resources can
-    include accounts, devices, and cloud variables.  If using Session-based
-    AUTH, the list of tracked resources will be remembered across requests.
-
-    <section title="Track Account Resources">
-        <subsection title="Request">
-            <code syntax='javascript'>
-                POST api/sync
-                {
-                    ...
-                    "track-accounts" : [&lt;USERNAME&gt;, ...]
-                    ...
-                }
-            </code>
-        </subsection>
-        <subsection title="Response">
-            The response will include basic information about each device that
-            the tracked accounts have access to.
-            <code syntax='javascript'>
-                {
-                    ...
-                    "accounts" : {
-                        &lt;USERNAME&gt; : {
-                            "devices" : [ &lt;DEVICE_UUID&gt;, ... ]
-                        }
-                    },
-                    "devices" : {
-                        &lt;DEVICE_UUID&gt; :  {
-                            "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-                            "connected" : &lt;CONNECTED&gt;,
-                            "sddl_hash" : &lt;SDDL_HASH&gt;,
-                        }
-                    },
-                    "sddl" : {
-                        &lt;SDDL_HASH&gt; : {
-                            &lt;SDDL&gt;
-                        }
-                    }
-                    ...
-                }
-            </code>
-        </subsection>
-    </section>
-    <section title="Track Device Resources">
-        <code>
-            POST api/sync
-            {
-                ...
-                "track-devices" : [&lt;DEVICE_UUID&gt;, ...]
-                ...
-            }
-        </code>
-        <subsection title="Response">
-            Detailed information about tracked devices, including Cloud
-            Variable values, will be included in the response.
-            <code>
-                {
-                    ...
-                    "devices" : {
-                        &lt;DEVICE_UUID&gt; :  {
-                            "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-                            "connected" : &lt;CONNECTED&gt;,
-                            "sddl_hash" : &lt;SDDL_HASH&gt;,
-                            "vars" : &lt;VARS&gt;,
-                            "notifs" : &lt;NOTIFICATIONS&gt;,
-                        }
-                    },
-                    "sddl" : {
-                        &lt;SDDL_HASH&gt; : {
-                            &lt;SDDL&gt;
-                        }
-                    }
-                    ...
-                }
-            </code>
-        </subsection>
-    </section>
-    <section title="Track Historic Cloud Variable Data">
-        <subsection title='Request'>
-            <code>
-                POST api/sync
-                {
-                    ...
-                    "track-vars" : ["UUID:gps[0].longitude", ...]
-                    ...
-                }
-            </code>
-        </subsection>
-        <subsection title='Response'>
-            <code>
-                {
-                    "devices" : {
-                        &lt;DEVICE_UUID&gt; : {
-                            "vars" : {
-                                "gps" : [ {
-                                    "longitude" : {
-                                        "t" : RFC3339DATE,
-                                        "v" : CURRENT_VALUE,
-                                        "history" : [
-                                            &lt;HISTORIC_SAMPLES&lt;
-                                        ]
-                                    }
-                                }, ... ]
-                            }
-                        }
-                    }
-                }
-            </code>
-        </subsection>
-    </section>
-
 </chapter>
 
 </doc>
