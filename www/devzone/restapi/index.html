@@ -425,9 +425,12 @@ And then send this header:
                 
             <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab8 class='hammock-multicode-tab'>REST</div><div id=mctab9 class='hammock-multicode-tab'>EXAMPLE</div><div id=mctab10 class='hammock-multicode-tab'>CURL</div></div><div id=mc8 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_user
 {
-    "username" : &lt;USERNAME&gt;,
-    "email" : &lt;EMAIL&gt;,
-    "password" : &lt;PASSWORD&gt;
+    "username" : string,
+    "email" : string,
+    "password" : string,
+
+    // optional:
+    "skip-email" : bool
 }</pre></div>
                 <div id=mc9 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>POST /api/create_user
 {
@@ -440,11 +443,15 @@ And then send this header:
             <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
                 <tr>
                     <td  class=hammock-tbl-header>Field</td>
+                    <td  class=hammock-tbl-header>Required</td>
+                    <td  class=hammock-tbl-header>Description</td>
                     <td  class=hammock-tbl-header>Validation</td>
                 </tr>
                 <tr>
                     <td ><span class=hammock-icode>"username"</span></td>
-                    <td >string
+                    <td ><b>Required</b></td>
+                    <td >Account username</td>
+                    <td nowrap>string
                         <ul><li>5-24 characters</li>
                             <li>Characters a-z, A-Z, 0-9 and underscore(_) allowed.</li>
                             <li>Must start with a letter</li>
@@ -453,6 +460,8 @@ And then send this header:
                 </tr>
                 <tr>
                     <td ><span class=hammock-icode>"email"</span></td>
+                    <td ><b>Required</b></td>
+                    <td >Account email</td>
                     <td >string
                         <ul><li>Must be a valid email address.</li>
                         </ul>
@@ -460,11 +469,24 @@ And then send this header:
                 </tr>
                 <tr>
                     <td ><span class=hammock-icode>"password"</span></td>
-                    <td >string
+                    <td ><b>Required</b></td>
+                    <td >Account password</td>
+                    <td nowrap>string
                         <ul><li>6-120 characters</li>
                             <li>All characters allowed</li>
                             <li>Case sensitive</li>
                         </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td nowrap><span class=hammock-icode>"skip-email"</span></td>
+                    <td >Optional</td>
+                    <td >Defaults to <span class=hammock-icode>false</span>, meaning a welcome email will be
+                    sent to the user.  If <span class=hammock-icode>true</span> the welcome email
+                    will not be sent.  This is useful when running tests &
+                    simulators that should not send out lots of emails.
+                    </td>
+                    <td >bool
                     </td>
                 </tr>
             </table>
@@ -629,9 +651,33 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab13 class='hammock-multicode-tab'>REST</div><div id=mctab14 class='hammock-multicode-tab'>CURL</div></div><div id=mc13 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>DELETE /api/user/self</pre></div>
-                <div id=mc14 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/me</pre></div>
-            </div><script>$("#mctab13").on('click', function() {$("#mc13").show();$("#mctab13").toggleClass('hammock-multicode-selected', 13==13);$("#mc14").hide();$("#mctab14").toggleClass('hammock-multicode-selected', 13==14);});$("#mctab13").toggleClass('hammock-multicode-selected', 1);$("#mctab14").on('click', function() {$("#mc13").hide();$("#mctab13").toggleClass('hammock-multicode-selected', 14==13);$("#mc14").show();$("#mctab14").toggleClass('hammock-multicode-selected', 14==14);});$("#mc14").hide();</script>
+            <div class='hammock-multicode-outer'><div class=hammock-multicode-bar><div id=mctab13 class='hammock-multicode-tab'>REST</div><div id=mctab14 class='hammock-multicode-tab'>REST (no request body)</div><div id=mctab15 class='hammock-multicode-tab'>CURL</div></div><div id=mc13 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>DELETE /api/user/self
+{
+    "skip-email" : bool
+}</pre></div>
+                <div id=mc14 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>DELETE /api/user/self</pre></div>
+                <div id=mc15 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/me</pre></div>
+            </div><script>$("#mctab13").on('click', function() {$("#mc13").show();$("#mctab13").toggleClass('hammock-multicode-selected', 13==13);$("#mc14").hide();$("#mctab14").toggleClass('hammock-multicode-selected', 13==14);$("#mc15").hide();$("#mctab15").toggleClass('hammock-multicode-selected', 13==15);});$("#mctab13").toggleClass('hammock-multicode-selected', 1);$("#mctab14").on('click', function() {$("#mc13").hide();$("#mctab13").toggleClass('hammock-multicode-selected', 14==13);$("#mc14").show();$("#mctab14").toggleClass('hammock-multicode-selected', 14==14);$("#mc15").hide();$("#mctab15").toggleClass('hammock-multicode-selected', 14==15);});$("#mc14").hide();$("#mctab15").on('click', function() {$("#mc13").hide();$("#mctab13").toggleClass('hammock-multicode-selected', 15==13);$("#mc14").hide();$("#mctab14").toggleClass('hammock-multicode-selected', 15==14);$("#mc15").show();$("#mctab15").toggleClass('hammock-multicode-selected', 15==15);});$("#mc15").hide();</script>
+            The request body may be omitted.
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Field</td>
+                    <td  class=hammock-tbl-header>Required</td>
+                    <td  class=hammock-tbl-header>Description</td>
+                    <td  class=hammock-tbl-header>Validation</td>
+                </tr>
+                <tr>
+                    <td nowrap><span class=hammock-icode>"skip-email"</span></td>
+                    <td >Optional</td>
+                    <td >Defaults to <span class=hammock-icode>false</span>, meaning a welcome email will be
+                    sent to the user.  If <span class=hammock-icode>true</span> the welcome email
+                    will not be sent.  This is useful when running tests &
+                    simulators that should not send out lots of emails.
+                    </td>
+                    <td >bool
+                    </td>
+                </tr>
+            </table>
         
             </div>
         </div>

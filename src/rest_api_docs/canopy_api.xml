@@ -175,9 +175,12 @@
                 <mc_item title="REST" syntax='javascript'>
                     POST /api/create_user
                     {
-                        "username" : &lt;USERNAME&gt;,
-                        "email" : &lt;EMAIL&gt;,
-                        "password" : &lt;PASSWORD&gt;
+                        "username" : string,
+                        "email" : string,
+                        "password" : string,
+
+                        // optional:
+                        "skip-email" : bool
                     }
                 </mc_item>
                 <mc_item title="EXAMPLE" syntax='javascript'>
@@ -195,11 +198,15 @@
             <tbl>
                 <row>
                     <cell header='1'>Field</cell>
+                    <cell header='1'>Required</cell>
+                    <cell header='1'>Description</cell>
                     <cell header='1'>Validation</cell>
                 </row>
                 <row>
                     <cell><icode>"username"</icode></cell>
-                    <cell>string
+                    <cell><b>Required</b></cell>
+                    <cell>Account username</cell>
+                    <cell nowrap='1'>string
                         <ul>
                             <li>5-24 characters</li>
                             <li>Characters a-z, A-Z, 0-9 and underscore(_) allowed.</li>
@@ -209,6 +216,8 @@
                 </row>
                 <row>
                     <cell><icode>"email"</icode></cell>
+                    <cell><b>Required</b></cell>
+                    <cell>Account email</cell>
                     <cell>string
                         <ul>
                             <li>Must be a valid email address.</li>
@@ -217,12 +226,25 @@
                 </row>
                 <row>
                     <cell><icode>"password"</icode></cell>
-                    <cell>string
+                    <cell><b>Required</b></cell>
+                    <cell>Account password</cell>
+                    <cell nowrap='1'>string
                         <ul>
                             <li>6-120 characters</li>
                             <li>All characters allowed</li>
                             <li>Case sensitive</li>
                         </ul>
+                    </cell>
+                </row>
+                <row>
+                    <cell nowrap='1'><icode>"skip-email"</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>Defaults to <icode>false</icode>, meaning a welcome email will be
+                    sent to the user.  If <icode>true</icode> the welcome email
+                    will not be sent.  This is useful when running tests &amp;
+                    simulators that should not send out lots of emails.
+                    </cell>
+                    <cell>bool
                     </cell>
                 </row>
             </tbl>
@@ -314,11 +336,37 @@
             <multicode>
                 <mc_item title="REST" syntax='javascript'>
                     DELETE /api/user/self
+                    {
+                        "skip-email" : bool
+                    }
+                </mc_item>
+                <mc_item title="REST (no request body)" syntax='javascript'>
+                    DELETE /api/user/self
                 </mc_item>
                 <mc_item title="CURL" syntax='javascript'>
                     curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/me
                 </mc_item>
             </multicode>
+            The request body may be omitted.
+            <tbl>
+                <row>
+                    <cell header='1'>Field</cell>
+                    <cell header='1'>Required</cell>
+                    <cell header='1'>Description</cell>
+                    <cell header='1'>Validation</cell>
+                </row>
+                <row>
+                    <cell nowrap='1'><icode>"skip-email"</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>Defaults to <icode>false</icode>, meaning a welcome email will be
+                    sent to the user.  If <icode>true</icode> the welcome email
+                    will not be sent.  This is useful when running tests &amp;
+                    simulators that should not send out lots of emails.
+                    </cell>
+                    <cell>bool
+                    </cell>
+                </row>
+            </tbl>
         </subsection>
         <subsection title="Success Response">
             <code syntax='javascript'>
