@@ -23,10 +23,55 @@ function get_element_scroll_y(id) {
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_permission_model').style.fontWeight = '';document.getElementById('toc_permission_model').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_users').style.fontWeight = '';document.getElementById('toc_users').style.backgroundColor = '';document.getElementById('toc_create_a_user').style.fontWeight = '';document.getElementById('toc_create_a_user').style.backgroundColor = '';document.getElementById('toc_get_current_user').style.fontWeight = '';document.getElementById('toc_get_current_user').style.backgroundColor = '';document.getElementById('toc_update_user_profile').style.fontWeight = '';document.getElementById('toc_update_user_profile').style.backgroundColor = '';document.getElementById('toc_delete_current_user').style.fontWeight = '';document.getElementById('toc_delete_current_user').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_user-linked_devices').style.fontWeight = '';document.getElementById('toc_create_user-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';document.getElementById('toc_add/update_cloud_var_metadata').style.fontWeight = '';document.getElementById('toc_add/update_cloud_var_metadata').style.backgroundColor = '';document.getElementById('toc_update_cloud_var_value').style.fontWeight = '';document.getElementById('toc_update_cloud_var_value').style.backgroundColor = '';
+        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_permission_model').style.fontWeight = '';document.getElementById('toc_permission_model').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_users').style.fontWeight = '';document.getElementById('toc_users').style.backgroundColor = '';document.getElementById('toc_create_a_user').style.fontWeight = '';document.getElementById('toc_create_a_user').style.backgroundColor = '';document.getElementById('toc_get_current_user').style.fontWeight = '';document.getElementById('toc_get_current_user').style.backgroundColor = '';document.getElementById('toc_update_user_profile').style.fontWeight = '';document.getElementById('toc_update_user_profile').style.backgroundColor = '';document.getElementById('toc_delete_current_user').style.fontWeight = '';document.getElementById('toc_delete_current_user').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_user-linked_devices').style.fontWeight = '';document.getElementById('toc_create_user-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';document.getElementById('toc_add/update_cloud_var_metadata').style.fontWeight = '';document.getElementById('toc_add/update_cloud_var_metadata').style.backgroundColor = '';document.getElementById('toc_update_cloud_var_value').style.fontWeight = '';document.getElementById('toc_update_cloud_var_value').style.backgroundColor = '';document.getElementById('toc_error_responses').style.fontWeight = '';document.getElementById('toc_error_responses').style.backgroundColor = '';document.getElementById('toc_success_&_error_reporting').style.fontWeight = '';document.getElementById('toc_success_&_error_reporting').style.backgroundColor = '';document.getElementById('toc_bad_input_error').style.fontWeight = '';document.getElementById('toc_bad_input_error').style.backgroundColor = '';document.getElementById('toc_email_taken_error').style.fontWeight = '';document.getElementById('toc_email_taken_error').style.backgroundColor = '';document.getElementById('toc_incorrect_username_or_password_error').style.fontWeight = '';document.getElementById('toc_incorrect_username_or_password_error').style.backgroundColor = '';document.getElementById('toc_not_authenticated_error').style.fontWeight = '';document.getElementById('toc_not_authenticated_error').style.backgroundColor = '';document.getElementById('toc_internal_error_error').style.fontWeight = '';document.getElementById('toc_internal_error_error').style.backgroundColor = '';document.getElementById('toc_username_taken_error').style.fontWeight = '';document.getElementById('toc_username_taken_error').style.backgroundColor = '';document.getElementById('toc_url_not_found_error').style.fontWeight = '';document.getElementById('toc_url_not_found_error').style.backgroundColor = '';
     if (0) {
     }
     
+            else if (y + 32 > get_element_scroll_y('url_not_found_error')) {
+                document.getElementById('toc_url_not_found_error').style.fontWeight = "bold";
+                document.getElementById('toc_url_not_found_error').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('username_taken_error')) {
+                document.getElementById('toc_username_taken_error').style.fontWeight = "bold";
+                document.getElementById('toc_username_taken_error').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('internal_error_error')) {
+                document.getElementById('toc_internal_error_error').style.fontWeight = "bold";
+                document.getElementById('toc_internal_error_error').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('not_authenticated_error')) {
+                document.getElementById('toc_not_authenticated_error').style.fontWeight = "bold";
+                document.getElementById('toc_not_authenticated_error').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('incorrect_username_or_password_error')) {
+                document.getElementById('toc_incorrect_username_or_password_error').style.fontWeight = "bold";
+                document.getElementById('toc_incorrect_username_or_password_error').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('email_taken_error')) {
+                document.getElementById('toc_email_taken_error').style.fontWeight = "bold";
+                document.getElementById('toc_email_taken_error').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('bad_input_error')) {
+                document.getElementById('toc_bad_input_error').style.fontWeight = "bold";
+                document.getElementById('toc_bad_input_error').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('success_&_error_reporting')) {
+                document.getElementById('toc_success_&_error_reporting').style.fontWeight = "bold";
+                document.getElementById('toc_success_&_error_reporting').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('error_responses')) {
+                document.getElementById('toc_error_responses').style.fontWeight = "bold";
+                document.getElementById('toc_error_responses').style.backgroundColor = "#d0d0d0";
+            }
+            
             else if (y + 32 > get_element_scroll_y('update_cloud_var_value')) {
                 document.getElementById('toc_update_cloud_var_value').style.fontWeight = "bold";
                 document.getElementById('toc_update_cloud_var_value').style.backgroundColor = "#d0d0d0";
@@ -155,7 +200,7 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_permission_model' class='hammock-toc-section'><a href='#permission_model'>Permission Model</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_users' class='hammock-toc-chapter'><a href='#users'>Users</a></div><div id='toc_create_a_user' class='hammock-toc-section'><a href='#create_a_user'>Create a User</a></div><div id='toc_get_current_user' class='hammock-toc-section'><a href='#get_current_user'>Get Current User</a></div><div id='toc_update_user_profile' class='hammock-toc-section'><a href='#update_user_profile'>Update User Profile</a></div><div id='toc_delete_current_user' class='hammock-toc-section'><a href='#delete_current_user'>Delete Current User</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_user-linked_devices' class='hammock-toc-section'><a href='#create_user-linked_devices'>Create User-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_add/update_cloud_var_metadata' class='hammock-toc-section'><a href='#add/update_cloud_var_metadata'>Add/Update Cloud Var Metadata</a></div><div id='toc_update_cloud_var_value' class='hammock-toc-section'><a href='#update_cloud_var_value'>Update Cloud Var Value</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_permission_model' class='hammock-toc-section'><a href='#permission_model'>Permission Model</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_users' class='hammock-toc-chapter'><a href='#users'>Users</a></div><div id='toc_create_a_user' class='hammock-toc-section'><a href='#create_a_user'>Create a User</a></div><div id='toc_get_current_user' class='hammock-toc-section'><a href='#get_current_user'>Get Current User</a></div><div id='toc_update_user_profile' class='hammock-toc-section'><a href='#update_user_profile'>Update User Profile</a></div><div id='toc_delete_current_user' class='hammock-toc-section'><a href='#delete_current_user'>Delete Current User</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_user-linked_devices' class='hammock-toc-section'><a href='#create_user-linked_devices'>Create User-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_add/update_cloud_var_metadata' class='hammock-toc-section'><a href='#add/update_cloud_var_metadata'>Add/Update Cloud Var Metadata</a></div><div id='toc_update_cloud_var_value' class='hammock-toc-section'><a href='#update_cloud_var_value'>Update Cloud Var Value</a></div><div id='toc_error_responses' class='hammock-toc-chapter'><a href='#error_responses'>Error Responses</a></div><div id='toc_success_&_error_reporting' class='hammock-toc-section'><a href='#success_&_error_reporting'>Success & Error Reporting</a></div><div id='toc_bad_input_error' class='hammock-toc-section'><a href='#bad_input_error'>bad_input Error</a></div><div id='toc_email_taken_error' class='hammock-toc-section'><a href='#email_taken_error'>email_taken Error</a></div><div id='toc_incorrect_username_or_password_error' class='hammock-toc-section'><a href='#incorrect_username_or_password_error'>incorrect_username_or_password Error</a></div><div id='toc_not_authenticated_error' class='hammock-toc-section'><a href='#not_authenticated_error'>not_authenticated Error</a></div><div id='toc_internal_error_error' class='hammock-toc-section'><a href='#internal_error_error'>internal_error Error</a></div><div id='toc_username_taken_error' class='hammock-toc-section'><a href='#username_taken_error'>username_taken Error</a></div><div id='toc_url_not_found_error' class='hammock-toc-section'><a href='#url_not_found_error'>url_not_found Error</a></div></div>
     <div class=hammock-doc-outer>
 
 
@@ -272,8 +317,29 @@ window.onload = function() {
             </div>
             <div class=hammock-subsection-contents>
                 
-            Can error out with Bad Request (400), Unauthorized (401)
-            or Internal Server Error (500).
+            This request may return the following errors:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Error</td>
+                    <td  class=hammock-tbl-header>Response Code</td>
+                    <td  class=hammock-tbl-header>Reason</td>
+                </tr>
+                <tr>
+                    <td ><a href=#bad_input_error>b<!---->a<!---->d<!---->_<!---->i<!---->n<!---->p<!---->u<!---->t<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >400</td>
+                    <td >Non-JSON payload; Required fields missing or incorrect type</td>
+                </tr>
+                <tr>
+                    <td ><a href=#incorrect_username_or_password_error>i<!---->n<!---->c<!---->o<!---->r<!---->r<!---->e<!---->c<!---->t<!---->_<!---->u<!---->s<!---->e<!---->r<!---->n<!---->a<!---->m<!---->e<!---->_<!---->o<!---->r<!---->_<!---->p<!---->a<!---->s<!---->s<!---->w<!---->o<!---->r<!---->d<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >401</td>
+                    <td >Incorrect username/password combo</td>
+                </tr>
+                <tr>
+                    <td ><a href=#internal_error_error>i<!---->n<!---->t<!---->e<!---->r<!---->n<!---->a<!---->l<!---->_<!---->e<!---->r<!---->r<!---->o<!---->r<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >500</td>
+                    <td >Internal error occurred</td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -322,7 +388,19 @@ window.onload = function() {
             </div>
             <div class=hammock-subsection-contents>
                 
-            Can error out with Internal Server Error (500).
+            This request may return the following errors:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Error</td>
+                    <td  class=hammock-tbl-header>Response Code</td>
+                    <td  class=hammock-tbl-header>Reason</td>
+                </tr>
+                <tr>
+                    <td ><a href=#internal_error_error>i<!---->n<!---->t<!---->e<!---->r<!---->n<!---->a<!---->l<!---->_<!---->e<!---->r<!---->r<!---->o<!---->r<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >500</td>
+                    <td >Internal error occurred</td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -436,7 +514,8 @@ And then send this header:
 {
     "username" : "leela",
     "email" : "leela@planetexpress.com",
-    "password" : "P1anetExpre55"
+    "password" : "P1anetExpre55",
+    "skip-email" : true
 }</pre></div>
                 <div id=mc10 class=hammock-multicode-item><pre class='hammock-code sh_javascript'>curl -d '{ "username" : "leela", "email": "leela@planetexpress.com", "password" : "P1anetExpre55" }' http://sandbox.canopy.link/api/create_user</pre></div>
             </div><script>$("#mctab8").on('click', function() {$("#mc8").show();$("#mctab8").toggleClass('hammock-multicode-selected', 8==8);$("#mc9").hide();$("#mctab9").toggleClass('hammock-multicode-selected', 8==9);$("#mc10").hide();$("#mctab10").toggleClass('hammock-multicode-selected', 8==10);});$("#mctab8").toggleClass('hammock-multicode-selected', 1);$("#mctab9").on('click', function() {$("#mc8").hide();$("#mctab8").toggleClass('hammock-multicode-selected', 9==8);$("#mc9").show();$("#mctab9").toggleClass('hammock-multicode-selected', 9==9);$("#mc10").hide();$("#mctab10").toggleClass('hammock-multicode-selected', 9==10);});$("#mc9").hide();$("#mctab10").on('click', function() {$("#mc8").hide();$("#mctab8").toggleClass('hammock-multicode-selected', 10==8);$("#mc9").hide();$("#mctab9").toggleClass('hammock-multicode-selected', 10==9);$("#mc10").show();$("#mctab10").toggleClass('hammock-multicode-selected', 10==10);});$("#mc10").hide();</script>
@@ -525,7 +604,34 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            TBD
+            This request may return the following errors:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Error</td>
+                    <td  class=hammock-tbl-header>Response Code</td>
+                    <td  class=hammock-tbl-header>Reason</td>
+                </tr>
+                <tr>
+                    <td ><a href=#bad_input_error>b<!---->a<!---->d<!---->_<!---->i<!---->n<!---->p<!---->u<!---->t<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >400</td>
+                    <td >Non-JSON payload; Required fields missing or incorrect type</td>
+                </tr>
+                <tr>
+                    <td ><a href=#email_taken_error>e<!---->m<!---->a<!---->i<!---->l<!---->_<!---->t<!---->a<!---->k<!---->e<!---->n<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >400</td>
+                    <td >Email not available</td>
+                </tr>
+                <tr>
+                    <td ><a href=#username_taken_error>u<!---->s<!---->e<!---->r<!---->n<!---->a<!---->m<!---->e<!---->_<!---->t<!---->a<!---->k<!---->e<!---->n<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >400</td>
+                    <td >Username not available</td>
+                </tr>
+                <tr>
+                    <td ><a href=#internal_error_error>i<!---->n<!---->t<!---->e<!---->r<!---->n<!---->a<!---->l<!---->_<!---->e<!---->r<!---->r<!---->o<!---->r<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >500</td>
+                    <td >Internal error occurred</td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -548,15 +654,8 @@ And then send this header:
             <div class=hammock-subsection-contents>
                 
             <pre class='hammock-code'>GET /api/user/self</pre>
-            Or
-            <pre class='hammock-code'>GET /api/self</pre>
-            <p>
-                The two forms of the request are interchangeable as long as User
-                credentials are supplied (or a User is logged in).  If Device
-                credentials are supplied, they behave differently:
-                <span class=hammock-icode>/api/user/self</span> returns an error, whereas
-                <span class=hammock-icode>/api/self</span> returns the Device resource.
-            </p>
+            This request requires that User credentials have been supplied (or
+            a User is logged in), otherwise an error will be returned.
         
             </div>
         </div>
@@ -573,6 +672,34 @@ And then send this header:
     "username" : &lt;USERNAME&gt;,
     "email" : &lt;EMAIL&gt;,
 }</pre>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Error Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            This request may return the following errors:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Error</td>
+                    <td  class=hammock-tbl-header>Response Code</td>
+                    <td  class=hammock-tbl-header>Reason</td>
+                </tr>
+                <tr>
+                    <td ><a href=#not_authenticated_error>n<!---->o<!---->t<!---->_<!---->a<!---->u<!---->t<!---->h<!---->e<!---->n<!---->t<!---->i<!---->c<!---->a<!---->t<!---->e<!---->d<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >401</td>
+                    <td >Missing credentials: not logged in and missing BASIC AUTH </td>
+                </tr>
+                <tr>
+                    <td ><a href=#internal_error_error>i<!---->n<!---->t<!---->e<!---->r<!---->n<!---->a<!---->l<!---->_<!---->e<!---->r<!---->r<!---->o<!---->r<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >500</td>
+                    <td >Internal error occurred</td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -628,7 +755,29 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            TBD
+            This request may return the following errors:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Error</td>
+                    <td  class=hammock-tbl-header>Response Code</td>
+                    <td  class=hammock-tbl-header>Reason</td>
+                </tr>
+                <tr>
+                    <td ><a href=#bad_input_error>b<!---->a<!---->d<!---->_<!---->i<!---->n<!---->p<!---->u<!---->t<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >400</td>
+                    <td >Non-JSON payload; Required fields missing or incorrect type</td>
+                </tr>
+                <tr>
+                    <td ><a href=#not_authenticated_error>n<!---->o<!---->t<!---->_<!---->a<!---->u<!---->t<!---->h<!---->e<!---->n<!---->t<!---->i<!---->c<!---->a<!---->t<!---->e<!---->d<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >401</td>
+                    <td >Missing credentials: not logged in and missing BASIC AUTH </td>
+                </tr>
+                <tr>
+                    <td ><a href=#internal_error_error>i<!---->n<!---->t<!---->e<!---->r<!---->n<!---->a<!---->l<!---->_<!---->e<!---->r<!---->r<!---->o<!---->r<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >500</td>
+                    <td >Internal error occurred</td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -702,7 +851,29 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            TBD
+            This request may return the following errors:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Error</td>
+                    <td  class=hammock-tbl-header>Response Code</td>
+                    <td  class=hammock-tbl-header>Reason</td>
+                </tr>
+                <tr>
+                    <td ><a href=#bad_input_error>b<!---->a<!---->d<!---->_<!---->i<!---->n<!---->p<!---->u<!---->t<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >400</td>
+                    <td >Non-JSON payload; Required fields missing or incorrect type</td>
+                </tr>
+                <tr>
+                    <td ><a href=#not_authenticated_error>n<!---->o<!---->t<!---->_<!---->a<!---->u<!---->t<!---->h<!---->e<!---->n<!---->t<!---->i<!---->c<!---->a<!---->t<!---->e<!---->d<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >401</td>
+                    <td >Missing credentials: not logged in and missing BASIC AUTH </td>
+                </tr>
+                <tr>
+                    <td ><a href=#internal_error_error>i<!---->n<!---->t<!---->e<!---->r<!---->n<!---->a<!---->l<!---->_<!---->e<!---->r<!---->r<!---->o<!---->r<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >500</td>
+                    <td >Internal error occurred</td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -736,7 +907,7 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            To create one or more new devices from when authenticated as a
+            To create one or more new devices when authenticated as a
             User:
             <pre class='hammock-code sh_javascript'>POST /api/create_devices
 {
@@ -759,12 +930,46 @@ And then send this header:
                 
             <pre class='hammock-code sh_javascript'>{
     "result" : "ok",
+    "count" : &lt;COUNT&gt;,
     "devices" : [ {
-        "friendly_name" : &lt;FRIENDLY_NAME&gt;
-        "device_id" : &lt;UUID&gt;
+        "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+        "device_id" : &lt;UUID&gt;,
         "device_secret_key" : &lt;DEVICE_SECRET_KEY&gt;
     }, ... ]
 }</pre>
+        
+            </div>
+        </div>
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
+                Error Response
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            This request may return the following errors:
+            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+                <tr>
+                    <td  class=hammock-tbl-header>Error</td>
+                    <td  class=hammock-tbl-header>Response Code</td>
+                    <td  class=hammock-tbl-header>Reason</td>
+                </tr>
+                <tr>
+                    <td ><a href=#bad_input_error>b<!---->a<!---->d<!---->_<!---->i<!---->n<!---->p<!---->u<!---->t<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >400</td>
+                    <td >Non-JSON payload; Required fields missing or incorrect type</td>
+                </tr>
+                <tr>
+                    <td ><a href=#not_authenticated_error>n<!---->o<!---->t<!---->_<!---->a<!---->u<!---->t<!---->h<!---->e<!---->n<!---->t<!---->i<!---->c<!---->a<!---->t<!---->e<!---->d<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >401</td>
+                    <td >Missing credentials: not logged in and missing BASIC AUTH </td>
+                </tr>
+                <tr>
+                    <td ><a href=#internal_error_error>i<!---->n<!---->t<!---->e<!---->r<!---->n<!---->a<!---->l<!---->_<!---->e<!---->r<!---->r<!---->o<!---->r<!----> <!---->E<!---->r<!---->r<!---->o<!---->r<!----></a></td>
+                    <td >500</td>
+                    <td >Internal error occurred</td>
+                </tr>
+            </table>
         
             </div>
         </div>
@@ -780,7 +985,7 @@ And then send this header:
             </div>
             <div class=hammock-section-contents>
                 
-        Some deployments of the Canopy Cloud Service allow devices to be
+        TBD[Some deployments of the Canopy Cloud Service allow devices to be
         created that are not associated with any User account.  These are
         called "anonymous devices".
 
@@ -789,7 +994,7 @@ And then send this header:
 
         Anonymous devices are automatically created whenever the API call
         <span class=hammock-icode>/api/my_device</span> is made using device credentials that
-        have never been encountered before.
+        have never been encountered before.]
     
             </div>
         </div>
@@ -827,53 +1032,16 @@ And then send this header:
             <div class=hammock-subsection-contents>
                 
             <p>
-                <span class=hammock-icode>&lt;FILTER&gt;</span> is a sequence of constraints
-                encoded as a string.  The terms have the form:
+                <span class=hammock-icode>&lt;FILTER&gt;</span> is an expression encoded as a
+                string that evaluates to a boolean value.
             </p>
-            <pre class='hammock-code'>&lt;KEY&gt;&lt;REL&gt;&lt;VALUE&gt;</pre>
+            <p>
+                A <span class=hammock-icode>&lt;TERM&gt;</span> corresponds to a single boolean
+                test.  A "value test" has the form:
+            </p>
+            <pre class='hammock-code'>&lt;VARIABLE&gt; &lt;RELATION&gt; &lt;VALUE&gt;</pre>
             For example:
-            <pre class='hammock-code'>temperature&gt;=50.8</pre>
-            Unary and boolean operators can be applied to these terms using
-            reverse polish notation:
-            <pre class='hammock-code'>&lt;TERM&gt; &lt;OP&gt;
-&lt;TERM&gt; &lt;TERM&gt; &lt;OP&gt;</pre>
-            For example:
-            <pre class='hammock-code'>temperature&gt;=50.8 temperature&lt;90.5 AND</pre>
-            Valid terms may be the name of any cloud variable, or one of the
-            following builtins:
-            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
-                <tr>
-                    <td  class=hammock-tbl-header>Key</td>
-                    <td  class=hammock-tbl-header>Description</td>
-                    <td  class=hammock-tbl-header>Potential Values</td>
-                </tr>
-                <tr>
-                    <td ><span class=hammock-icode>ws_connection_status</span></td>
-                    <td >Is websocket connected?</td>
-                    <td >
-                        <ul><li><span class=hammock-icode>"never_connected"</span></li>
-                            <li><span class=hammock-icode>"connected"</span></li>
-                            <li><span class=hammock-icode>"disconnected"</span></li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td ><span class=hammock-icode>activity_status</span></td>
-                    <td >Has device communicated with remote recently</td>
-                    <td >
-                        <ul><li><span class=hammock-icode>"newly_created"</span></li>
-                            <li><span class=hammock-icode>"active"</span></li>
-                            <li><span class=hammock-icode>"inactive"</span></li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td ><span class=hammock-icode>&lt;CLOUD_VAR_NAME&gt;</span></td>
-                    <td >Filter based on cloud variable value.</td>
-                    <td >Depends on cloud variable datatype.</td>
-                </tr>
-            </table>
-
+            <pre class='hammock-code'>temperature &gt;= 50.8</pre>
             Valid relations are:
             <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
                 <tr>
@@ -906,38 +1074,62 @@ And then send this header:
                 </tr>
             </table>
 
-            Valid unary operators are:
+            <p>
+                A "variable presence test" has the form:
+            </p>
+            <pre class='hammock-code'>HAS &lt;VARIABLE&gt;</pre>
+            For example:
+            <pre class='hammock-code'>HAS humidity</pre>
+            <p>
+                The <span class=hammock-icode>!</span> operator inverts the following TERM.
+            </p>
+            For example:
+            <pre class='hammock-code'>!(HAS humidity)
+!(temperature &lt; 10)</pre>
+            The boolean operators && (AND) and || (OR) are supported:
+            <pre class='hammock-code'>&lt;TERM&gt; && &lt;TERM&gt;
+&lt;TERM&gt; || &lt;TERM&gt;</pre>
+            For example:
+            <pre class='hammock-code'>temperature &gt;= 50.8 && temperature &lt; 90.5</pre>
+            Valid terms may be the name of any cloud variable, or one of the
+            system builtins that begin with <span class=hammock-icode>system.</span>
             <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
                 <tr>
-                    <td  class=hammock-tbl-header>Unary Op</td>
+                    <td  class=hammock-tbl-header>Key</td>
                     <td  class=hammock-tbl-header>Description</td>
+                    <td  class=hammock-tbl-header>Potential Values</td>
                 </tr>
                 <tr>
-                    <td >NOT</td>
-                    <td >Invert operand</td>
+                    <td ><span class=hammock-icode>system.ws_connection_status</span></td>
+                    <td >Is websocket connected?</td>
+                    <td >
+                        <ul><li><span class=hammock-icode>"never_connected"</span></li>
+                            <li><span class=hammock-icode>"connected"</span></li>
+                            <li><span class=hammock-icode>"disconnected"</span></li>
+                        </ul>
+                    </td>
                 </tr>
                 <tr>
-                    <td >HAS</td>
-                    <td >For cloud variables only: does the device have a
-                    cloud variable with this name?</td>
+                    <td ><span class=hammock-icode>system.activity_status</span></td>
+                    <td >Has device communicated with remote recently</td>
+                    <td >
+                        <ul><li><span class=hammock-icode>"newly_created"</span></li>
+                            <li><span class=hammock-icode>"active"</span></li>
+                            <li><span class=hammock-icode>"inactive"</span></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td ><span class=hammock-icode>&lt;CLOUD_VAR_NAME&gt;</span></td>
+                    <td >Filter based on cloud variable value.</td>
+                    <td >Depends on cloud variable datatype.</td>
                 </tr>
             </table>
 
-            Valid boolean operations are:
-            <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
-                <tr>
-                    <td  class=hammock-tbl-header>Boolean Op</td>
-                    <td  class=hammock-tbl-header>Description</td>
-                </tr>
-                <tr>
-                    <td >AND</td>
-                    <td >Both operands are true</td>
-                </tr>
-                <tr>
-                    <td >OR</td>
-                    <td >Either operand is true</td>
-                </tr>
-            </table>
+        Finally, parenthesis can be used to construct larger expressions.  For
+        example:
+            <pre class='hammock-code'>!(temperature &gt;= 50.8 && temperature &lt; 90.5) or HAS humidity</pre>
+
         
             </div>
         </div>
@@ -948,15 +1140,19 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            <span class=hammock-icode>&lt;SORT&gt;</span> is a sequence of comma-separated keys
-            specifying the sort order.  The highest priority key comes first,
-            followed by tie breakers.  By default ascending order is used.  To
-            sort by a key in descending order, add <span class=hammock-icode>:DESC</span> to the
-            key.  For sort order determination, a missing cloud variable comes
-            before the minimum value (i.e. at the front of the list when
-            ascending, at the end of the list when descending).  For example:
-
-            <pre class='hammock-code'>temperature,humidity:DESC</pre>
+            <p><span class=hammock-icode>&lt;SORT&gt;</span> is a sequence of comma-separated keys
+                specifying the sort order.  The highest priority key comes first,
+                followed by tie breakers.  By default ascending order is used.  To
+                sort by a key in descending order, add <span class=hammock-icode>!</span> before the
+                key.  For sort order determination, a missing cloud variable comes
+                before the minimum value (i.e. at the front of the list when
+                ascending, at the end of the list when descending).
+            </p>
+            <p> 
+                This example sorts by temperature (ascending) then, to break
+                ties, humidity (descending)
+            </p>
+            <pre class='hammock-code'>temperature,!humidity</pre>
 
             The valid keys may be any cloud variable, or builtin.  See
             Filtering Device List.
@@ -972,7 +1168,20 @@ And then send this header:
             </div>
             <div class=hammock-subsection-contents>
                 
-            By default, 
+            By default a system-defined maximum number of results will be
+            returned, or you can provide <span class=hammock-icode>start</span> and
+            <span class=hammock-icode>count</span> values to paginate through larger result sets.
+
+            <pre class='hammock-code'>limit=&lt;start&gt;,&lt;count&gt;</pre>
+
+            For example:
+            <pre class='hammock-code'>limit=0,50</pre>
+
+            There is an implementation defined maximum limit to the number of
+            results that will be returned.  If <span class=hammock-icode>count</span> is above
+            this number, then the results will be truncated and the response
+            <span class=hammock-icode>count</span> field will tell you how many items are
+            actually returned.
         
             </div>
         </div>
@@ -986,11 +1195,13 @@ And then send this header:
                 
             <pre class='hammock-code sh_javascript'>{
     "result" : "ok",
+    "count" : &lt;COUNT&gt;,
     "devices" : [ {
         "device_id" : &lt;UUID&gt;,
         "friendly_name" : &lt;FRIENDLY_NAME&gt;,
         "status" : {
             "ws_connected" : &lt;WS_CONNECTED&gt;,
+            "active_status" : &lt;ACTIVE_STATUS&gt;,
             "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
         },
     }, ...  ]
@@ -1020,8 +1231,6 @@ And then send this header:
             <pre class='hammock-code'>GET /api/device/&lt;UUID&gt;</pre>
             Or
             <pre class='hammock-code'>GET /api/device/self</pre>
-            Or
-            <pre class='hammock-code'>GET /api/self</pre>
             <p>
                 The <span class=hammock-icode>/api/device/&lt;UUID&gt;</span> form of the request
                 obtains a specific device by UUID.  The requester (i.e. the
@@ -1029,21 +1238,18 @@ And then send this header:
                 the specified Device, otherwise an error will occur.
             </p>
             <p>
-                The other two forms of the request obtain the currently
-                authenticated device (i.e., the device whose credentials were
-                supplied via BASIC AUTH).  They are interchangeable as long as
-                device credentials are supplied.  If
-                user credentials are supplied, they behave differently:
-                <span class=hammock-icode>/api/device/self</span> returns an error, whereas
-                <span class=hammock-icode>/api/self</span> returns the User resource.
+                The second form of the request obtains the currently
+                authenticated device (i.e. the device whose credentials were
+                supplied via BASIC AUTH).  It returns an error if User
+                credentials are supplied.
             </p>
             <p>
-                If the provided device credentials are unknown to the remote,
+                TBD [If the provided device credentials are unknown to the remote,
                 and the server supports anonymous devices, then a new anonymous
                 device will be created.  If the first form of the request is
                 used, then an anonymous device will only be created if the UUID
                 in the URI matches the UUID in the credentials, otherwise an
-                error will occur.
+                error will occur.]
             </p>
         
             </div>
@@ -1225,6 +1431,186 @@ And then send this header:
                 <td ></td>
             </tr>
         </table>
+    
+            </div>
+        </div>
+
+                </div>
+            </div>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=error_responses name=error_responses></a>
+                <div class=hammock-chapter-title>
+                    Error Responses
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=success_&_error_reporting name=success_&_error_reporting></a>
+            <div class=hammock-section-title>
+                Success & Error Reporting
+            </div>
+            <div class=hammock-section-contents>
+                
+        A successful API call will have the <span class=hammock-icode>200 OK</span> response code
+        and include <span class=hammock-icode>"result" : "ok"</span> in the response:
+        <pre class='hammock-code'>200 OK
+{
+    "result": "ok",
+    ...
+}</pre>
+        <p>
+        An unsuccesful API call will have a <span class=hammock-icode>4XX</span> or
+        <span class=hammock-icode>4XX</span> response code and include <span class=hammock-icode>"result" :
+        "error"</span> in the response.  The response will also include an
+        <span class=hammock-icode>"error_type"</span> field along with additional details about
+        the error if available.
+        </p>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=bad_input_error name=bad_input_error></a>
+            <div class=hammock-section-title>
+                bad_input Error
+            </div>
+            <div class=hammock-section-contents>
+                
+        The <span class=hammock-icode>"bad_input"</span> error response is sent when request
+        payload validation fails.  For example:
+        <pre class='hammock-code'>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "bad_input",
+    "error_msg" : "String \"username\" expected"
+}</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=email_taken_error name=email_taken_error></a>
+            <div class=hammock-section-title>
+                email_taken Error
+            </div>
+            <div class=hammock-section-contents>
+                
+        The <span class=hammock-icode>"email_taken"</span> error response is sent when creating a
+        user or changing a user's email address if the requested email address
+        is already in use by a different user.
+        The response is:
+        <pre class='hammock-code'>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "email_taken",
+}</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=incorrect_username_or_password_error name=incorrect_username_or_password_error></a>
+            <div class=hammock-section-title>
+                incorrect_username_or_password Error
+            </div>
+            <div class=hammock-section-contents>
+                
+        The <span class=hammock-icode>"incorrect_username_or_password"</span> error response is
+        sent when the provided credentials are incorrect.
+        The response is:
+        <pre class='hammock-code'>401 UNAUTHORIZED
+{
+    "result" : "error",
+    "error_type" : "incorrect_username_or_password",
+}</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=not_authenticated_error name=not_authenticated_error></a>
+            <div class=hammock-section-title>
+                not_authenticated Error
+            </div>
+            <div class=hammock-section-contents>
+                
+        The <span class=hammock-icode>"not_authenticated"</span> error response is
+        sent if the request is missing required authentication credentials.
+        The response is:
+        <pre class='hammock-code'>401 UNAUTHORIZED
+{
+    "result" : "error",
+    "error_type" : "not_authenticated",
+}</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=internal_error_error name=internal_error_error></a>
+            <div class=hammock-section-title>
+                internal_error Error
+            </div>
+            <div class=hammock-section-contents>
+                
+        The <span class=hammock-icode>"internal_error"</span> error response is sent when an
+        error outside the user's control has occurred.  The response may
+        include an <span class=hammock-icode>"error_details"</span> field containing further
+        details about the error.  If a panic/crash occurred, the response may
+        include an <span class=hammock-icode>"error_callstack"</span> field showing the
+        callstack.  For example:
+        <pre class='hammock-code'>500 INTERNAL SERVER ERROR
+{
+    "result" : "error",
+    "error_type" : "internal_error",
+    "error_msg" : "Unable to connect to database",
+    "error_details" : "session has been closed",
+}</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=username_taken_error name=username_taken_error></a>
+            <div class=hammock-section-title>
+                username_taken Error
+            </div>
+            <div class=hammock-section-contents>
+                
+        The <span class=hammock-icode>"username_taken"</span> error response is sent when creating a
+        user if the requested username is already in use by a different user.
+        The response is:
+        <pre class='hammock-code'>400 BAD REQUEST
+{
+    "result" : "error",
+    "error_type" : "username_taken",
+}</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=url_not_found_error name=url_not_found_error></a>
+            <div class=hammock-section-title>
+                url_not_found Error
+            </div>
+            <div class=hammock-section-contents>
+                
+        The <span class=hammock-icode>"url_not_found"</span> error response is sent if the
+        requested URL was not found.  This may also occur if the requester does
+        not have permission to access the requested resource, in which case
+        this response is more secure than a <span class=hammock-icode>403 FORBIDDEN</span>
+        response because it does not leak information about the existance of an
+        entity.
+        The response is:
+        <pre class='hammock-code'>404 NOT FOUND
+{
+    "result" : "error",
+    "error_type" : "url_not_found",
+}</pre>
     
             </div>
         </div>

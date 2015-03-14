@@ -83,8 +83,29 @@
 
         </subsection>
         <subsection title="Error Response">
-            Can error out with Bad Request (400), Unauthorized (401)
-            or Internal Server Error (500).
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                </row>
+                <row>
+                    <cell>incorrect_username_or_password Error</cell>
+                    <cell>401</cell>
+                    <cell>Incorrect username/password combo</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
 
@@ -102,7 +123,19 @@
             </code>
         </subsection>
         <subsection title="Error Response">
-            Can error out with Internal Server Error (500).
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
 
@@ -188,7 +221,8 @@
                     {
                         "username" : "leela",
                         "email" : "leela@planetexpress.com",
-                        "password" : "P1anetExpre55"
+                        "password" : "P1anetExpre55",
+                        "skip-email" : true
                     }
                 </mc_item>
                 <mc_item title="CURL" syntax='javascript'>
@@ -272,7 +306,34 @@
             </multicode>
         </subsection>
         <subsection title="Error Response">
-            TBD
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                </row>
+                <row>
+                    <cell>email_taken Error</cell>
+                    <cell>400</cell>
+                    <cell>Email not available</cell>
+                </row>
+                <row>
+                    <cell>username_taken Error</cell>
+                    <cell>400</cell>
+                    <cell>Username not available</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
     <section title="Get Current User">
@@ -280,17 +341,8 @@
             <code>
                 GET /api/user/self
             </code>
-            Or
-            <code>
-                GET /api/self
-            </code>
-            <p>
-                The two forms of the request are interchangeable as long as User
-                credentials are supplied (or a User is logged in).  If Device
-                credentials are supplied, they behave differently:
-                <icode>/api/user/self</icode> returns an error, whereas
-                <icode>/api/self</icode> returns the Device resource.
-            </p>
+            This request requires that User credentials have been supplied (or
+            a User is logged in), otherwise an error will be returned.
         </subsection>
         <subsection title="Success Response">
             <code syntax='javascript'>
@@ -301,6 +353,26 @@
                     "email" : &lt;EMAIL&gt;,
                 }
             </code>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
     <section title="Update User Profile">
@@ -327,7 +399,29 @@
             </code>
         </subsection>
         <subsection title="Error Response">
-            TBD
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
 
@@ -377,7 +471,29 @@
             </code>
         </subsection>
         <subsection title="Error Response">
-            TBD
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
 </chapter>
@@ -385,7 +501,7 @@
 <chapter title="Devices">
     <section title="Create User-Linked Devices">
         <subsection title="Request">
-            To create one or more new devices from when authenticated as a
+            To create one or more new devices when authenticated as a
             User:
             <code syntax='javascript'>
                 POST /api/create_devices
@@ -403,18 +519,44 @@
             <code syntax='javascript'>
                 {
                     "result" : "ok",
+                    "count" : &lt;COUNT&gt;,
                     "devices" : [ {
-                        "friendly_name" : &lt;FRIENDLY_NAME&gt;
-                        "device_id" : &lt;UUID&gt;
+                        "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                        "device_id" : &lt;UUID&gt;,
                         "device_secret_key" : &lt;DEVICE_SECRET_KEY&gt;
                     }, ... ]
                 }
             </code>
         </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
     </section>
 
     <section title="Create Anonymous Device">
-        Some deployments of the Canopy Cloud Service allow devices to be
+        TBD[Some deployments of the Canopy Cloud Service allow devices to be
         created that are not associated with any User account.  These are
         called "anonymous devices".
 
@@ -423,7 +565,7 @@
 
         Anonymous devices are automatically created whenever the API call
         <icode>/api/my_device</icode> is made using device credentials that
-        have never been encountered before.
+        have never been encountered before.]
     </section>
 
     <section title="List Devices">
@@ -440,63 +582,20 @@
         </subsection>
         <subsection title="Filtering Device List">
             <p>
-                <icode>&lt;FILTER&gt;</icode> is a sequence of constraints
-                encoded as a string.  The terms have the form:
+                <icode>&lt;FILTER&gt;</icode> is an expression encoded as a
+                string that evaluates to a boolean value.
+            </p>
+            <p>
+                A <icode>&lt;TERM&gt;</icode> corresponds to a single boolean
+                test.  A "value test" has the form:
             </p>
             <code>
-                &lt;KEY&gt;&lt;REL&gt;&lt;VALUE&gt;
+                &lt;VARIABLE&gt; &lt;RELATION&gt; &lt;VALUE&gt;
             </code>
             For example:
             <code>
-                temperature>=50.8
+                temperature >= 50.8
             </code>
-            Unary and boolean operators can be applied to these terms using
-            reverse polish notation:
-            <code>
-                &lt;TERM&gt; &lt;OP&gt;
-                &lt;TERM&gt; &lt;TERM&gt; &lt;OP&gt;
-            </code>
-            For example:
-            <code>
-                temperature>=50.8 temperature&lt;90.5 AND
-            </code>
-            Valid terms may be the name of any cloud variable, or one of the
-            following builtins:
-            <tbl>
-                <row>
-                    <cell header='1'>Key</cell>
-                    <cell header='1'>Description</cell>
-                    <cell header='1'>Potential Values</cell>
-                </row>
-                <row>
-                    <cell><icode>ws_connection_status</icode></cell>
-                    <cell>Is websocket connected?</cell>
-                    <cell>
-                        <ul>
-                            <li><icode>"never_connected"</icode></li>
-                            <li><icode>"connected"</icode></li>
-                            <li><icode>"disconnected"</icode></li>
-                        </ul>
-                    </cell>
-                </row>
-                <row>
-                    <cell><icode>activity_status</icode></cell>
-                    <cell>Has device communicated with remote recently</cell>
-                    <cell>
-                        <ul>
-                            <li><icode>"newly_created"</icode></li>
-                            <li><icode>"active"</icode></li>
-                            <li><icode>"inactive"</icode></li>
-                        </ul>
-                    </cell>
-                </row>
-                <row>
-                    <cell><icode>&lt;CLOUD_VAR_NAME&gt;</icode></cell>
-                    <cell>Filter based on cloud variable value.</cell>
-                    <cell>Depends on cloud variable datatype.</cell>
-                </row>
-            </tbl>
-
             Valid relations are:
             <tbl>
                 <row>
@@ -529,50 +628,92 @@
                 </row>
             </tbl>
 
-            Valid unary operators are:
+            <p>
+                A "variable presence test" has the form:
+            </p>
+            <code>
+                HAS &lt;VARIABLE&gt;
+            </code>
+            For example:
+            <code>
+                HAS humidity
+            </code>
+            <p>
+                The <icode>!</icode> operator inverts the following TERM.
+            </p>
+            For example:
+            <code>
+                !(HAS humidity)
+                !(temperature &lt; 10)
+            </code>
+            The boolean operators &amp;&amp; (AND) and || (OR) are supported:
+            <code>
+                &lt;TERM&gt; &amp;&amp; &lt;TERM&gt;
+                &lt;TERM&gt; || &lt;TERM&gt;
+            </code>
+            For example:
+            <code>
+                temperature &gt;= 50.8 &amp;&amp; temperature &lt; 90.5
+            </code>
+            Valid terms may be the name of any cloud variable, or one of the
+            system builtins that begin with <icode>system.</icode>
             <tbl>
                 <row>
-                    <cell header='1'>Unary Op</cell>
+                    <cell header='1'>Key</cell>
                     <cell header='1'>Description</cell>
+                    <cell header='1'>Potential Values</cell>
                 </row>
                 <row>
-                    <cell>NOT</cell>
-                    <cell>Invert operand</cell>
+                    <cell><icode>system.ws_connection_status</icode></cell>
+                    <cell>Is websocket connected?</cell>
+                    <cell>
+                        <ul>
+                            <li><icode>"never_connected"</icode></li>
+                            <li><icode>"connected"</icode></li>
+                            <li><icode>"disconnected"</icode></li>
+                        </ul>
+                    </cell>
                 </row>
                 <row>
-                    <cell>HAS</cell>
-                    <cell>For cloud variables only: does the device have a
-                    cloud variable with this name?</cell>
+                    <cell><icode>system.activity_status</icode></cell>
+                    <cell>Has device communicated with remote recently</cell>
+                    <cell>
+                        <ul>
+                            <li><icode>"newly_created"</icode></li>
+                            <li><icode>"active"</icode></li>
+                            <li><icode>"inactive"</icode></li>
+                        </ul>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>&lt;CLOUD_VAR_NAME&gt;</icode></cell>
+                    <cell>Filter based on cloud variable value.</cell>
+                    <cell>Depends on cloud variable datatype.</cell>
                 </row>
             </tbl>
 
-            Valid boolean operations are:
-            <tbl>
-                <row>
-                    <cell header='1'>Boolean Op</cell>
-                    <cell header='1'>Description</cell>
-                </row>
-                <row>
-                    <cell>AND</cell>
-                    <cell>Both operands are true</cell>
-                </row>
-                <row>
-                    <cell>OR</cell>
-                    <cell>Either operand is true</cell>
-                </row>
-            </tbl>
+        Finally, parenthesis can be used to construct larger expressions.  For
+        example:
+            <code>
+                !(temperature &gt;= 50.8 &amp;&amp; temperature &lt; 90.5) or HAS humidity
+            </code>
+
         </subsection>
         <subsection title="Sorting Device List">
-            <icode>&lt;SORT&gt;</icode> is a sequence of comma-separated keys
-            specifying the sort order.  The highest priority key comes first,
-            followed by tie breakers.  By default ascending order is used.  To
-            sort by a key in descending order, add <icode>:DESC</icode> to the
-            key.  For sort order determination, a missing cloud variable comes
-            before the minimum value (i.e. at the front of the list when
-            ascending, at the end of the list when descending).  For example:
-
+            <p><icode>&lt;SORT&gt;</icode> is a sequence of comma-separated keys
+                specifying the sort order.  The highest priority key comes first,
+                followed by tie breakers.  By default ascending order is used.  To
+                sort by a key in descending order, add <icode>!</icode> before the
+                key.  For sort order determination, a missing cloud variable comes
+                before the minimum value (i.e. at the front of the list when
+                ascending, at the end of the list when descending).
+            </p>
+            <p> 
+                This example sorts by temperature (ascending) then, to break
+                ties, humidity (descending)
+            </p>
             <code>
-                temperature,humidity:DESC
+                temperature,!humidity
             </code>
 
             The valid keys may be any cloud variable, or builtin.  See
@@ -581,18 +722,37 @@
         </subsection>
 
         <subsection title="Limits (Pagination)">
-            By default, 
+            By default a system-defined maximum number of results will be
+            returned, or you can provide <icode>start</icode> and
+            <icode>count</icode> values to paginate through larger result sets.
+
+            <code>
+                limit=&lt;start&gt;,&lt;count&gt;
+            </code>
+
+            For example:
+            <code>
+                limit=0,50
+            </code>
+
+            There is an implementation defined maximum limit to the number of
+            results that will be returned.  If <icode>count</icode> is above
+            this number, then the results will be truncated and the response
+            <icode>count</icode> field will tell you how many items are
+            actually returned.
         </subsection>
 
         <subsection title="Response">
             <code syntax='javascript'>
                 {
                     "result" : "ok",
+                    "count" : &lt;COUNT&gt;,
                     "devices" : [ {
                         "device_id" : &lt;UUID&gt;,
                         "friendly_name" : &lt;FRIENDLY_NAME&gt;,
                         "status" : {
                             "ws_connected" : &lt;WS_CONNECTED&gt;,
+                            "active_status" : &lt;ACTIVE_STATUS&gt;,
                             "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
                         },
                     }, ...  ]
@@ -610,10 +770,6 @@
             <code>
                 GET /api/device/self
             </code>
-            Or
-            <code>
-                GET /api/self
-            </code>
             <p>
                 The <icode>/api/device/&lt;UUID&gt;</icode> form of the request
                 obtains a specific device by UUID.  The requester (i.e. the
@@ -621,21 +777,18 @@
                 the specified Device, otherwise an error will occur.
             </p>
             <p>
-                The other two forms of the request obtain the currently
-                authenticated device (i.e., the device whose credentials were
-                supplied via BASIC AUTH).  They are interchangeable as long as
-                device credentials are supplied.  If
-                user credentials are supplied, they behave differently:
-                <icode>/api/device/self</icode> returns an error, whereas
-                <icode>/api/self</icode> returns the User resource.
+                The second form of the request obtains the currently
+                authenticated device (i.e. the device whose credentials were
+                supplied via BASIC AUTH).  It returns an error if User
+                credentials are supplied.
             </p>
             <p>
-                If the provided device credentials are unknown to the remote,
+                TBD [If the provided device credentials are unknown to the remote,
                 and the server supports anonymous devices, then a new anonymous
                 device will be created.  If the first form of the request is
                 used, then an anonymous device will only be created if the UUID
                 in the URI matches the UUID in the credentials, otherwise an
-                error will occur.
+                error will occur.]
             </p>
         </subsection>
         <subsection title="Success Response">
@@ -646,6 +799,7 @@
                     "friendly_name" : &lt;FRIENDLY_NAME&gt;,
                     "status" : {
                         "ws_connected" : &lt;WS_CONNECTED&gt;,
+                        "active_status" : &lt;ACTIVE_STATUS&gt;,
                         "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
                     },
                     "sddl" : { &lt;SDDL&gt; },
@@ -759,6 +913,121 @@
                 <cell></cell>
             </row>
         </tbl>
+    </section>
+</chapter>
+
+<chapter title="Error Responses">
+    <section title="Success &amp; Error Reporting">
+        A successful API call will have the <icode>200 OK</icode> response code
+        and include <icode>"result" : "ok"</icode> in the response:
+        <code>
+            200 OK
+            {
+                "result": "ok",
+                ...
+            }
+        </code>
+        <p>
+        An unsuccesful API call will have a <icode>4XX</icode> or
+        <icode>4XX</icode> response code and include <icode>"result" :
+        "error"</icode> in the response.  The response will also include an
+        <icode>"error_type"</icode> field along with additional details about
+        the error if available.
+        </p>
+    </section>
+    <section title="bad_input Error">
+        The <icode>"bad_input"</icode> error response is sent when request
+        payload validation fails.  For example:
+        <code>
+            400 BAD REQUEST
+            {
+                "result" : "error",
+                "error_type" : "bad_input",
+                "error_msg" : "String \"username\" expected"
+            }
+        </code>
+    </section>
+    <section title="email_taken Error">
+        The <icode>"email_taken"</icode> error response is sent when creating a
+        user or changing a user's email address if the requested email address
+        is already in use by a different user.
+        The response is:
+        <code>
+            400 BAD REQUEST
+            {
+                "result" : "error",
+                "error_type" : "email_taken",
+            }
+        </code>
+    </section>
+    <section title="incorrect_username_or_password Error">
+        The <icode>"incorrect_username_or_password"</icode> error response is
+        sent when the provided credentials are incorrect.
+        The response is:
+        <code>
+            401 UNAUTHORIZED
+            {
+                "result" : "error",
+                "error_type" : "incorrect_username_or_password",
+            }
+        </code>
+    </section>
+    <section title="not_authenticated Error">
+        The <icode>"not_authenticated"</icode> error response is
+        sent if the request is missing required authentication credentials.
+        The response is:
+        <code>
+            401 UNAUTHORIZED
+            {
+                "result" : "error",
+                "error_type" : "not_authenticated",
+            }
+        </code>
+    </section>
+    <section title="internal_error Error">
+        The <icode>"internal_error"</icode> error response is sent when an
+        error outside the user's control has occurred.  The response may
+        include an <icode>"error_details"</icode> field containing further
+        details about the error.  If a panic/crash occurred, the response may
+        include an <icode>"error_callstack"</icode> field showing the
+        callstack.  For example:
+        <code>
+            500 INTERNAL SERVER ERROR
+            {
+                "result" : "error",
+                "error_type" : "internal_error",
+                "error_msg" : "Unable to connect to database",
+                "error_details" : "session has been closed",
+            }
+        </code>
+    </section>
+    <section title="username_taken Error">
+        The <icode>"username_taken"</icode> error response is sent when creating a
+        user if the requested username is already in use by a different user.
+        The response is:
+        <code>
+            400 BAD REQUEST
+            {
+                "result" : "error",
+                "error_type" : "username_taken",
+            }
+        </code>
+    </section>
+    <section title="url_not_found Error">
+        The <icode>"url_not_found"</icode> error response is sent if the
+        requested URL was not found.  This may also occur if the requester does
+        not have permission to access the requested resource, in which case
+        this response is more secure than a <icode>403 FORBIDDEN</icode>
+        response because it does not leak information about the existance of an
+        entity.
+        The response is:
+        <code>
+            404 NOT FOUND
+            {
+                "result" : "error",
+                "error_type" : "url_not_found",
+            }
+        </code>
     </section>
 </chapter>
 
