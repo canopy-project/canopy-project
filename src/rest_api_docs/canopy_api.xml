@@ -695,7 +695,7 @@
         Finally, parenthesis can be used to construct larger expressions.  For
         example:
             <code>
-                !(temperature &gt;= 50.8 &amp;&amp; temperature &lt; 90.5) or HAS humidity
+                !(temperature &gt;= 50.8 &amp;&amp; temperature &lt; 90.5) || HAS humidity
             </code>
 
         </subsection>
@@ -763,12 +763,19 @@
     <section title="Get Single Device">
         <subsection title="Request">
             To obtain information about a single device:
-            <code>
-                GET /api/device/&lt;UUID&gt;
-            </code>
+            <multicode>
+                <mc_item title="REST">
+                    GET /api/device/&lt;UUID&gt;?
+                        timestamps=&lt;TIMESTAMPS&gt;
+                </mc_item>
+                <mc_item title="Example">
+                    GET /api/device/d5c827d2-1ba7-4da6-b87b-0864f0969fa8?timestamps=rfc3339
+                </mc_item>
+            </multicode>
             Or
             <code>
-                GET /api/device/self
+                GET /api/device/self?
+                    timestamps=&lt;TIMESTAMPS&gt;
             </code>
             <p>
                 The <icode>/api/device/&lt;UUID&gt;</icode> form of the request
@@ -790,6 +797,31 @@
                 in the URI matches the UUID in the credentials, otherwise an
                 error will occur.]
             </p>
+            <p>
+                The following query parameters are accepted
+                <tbl>
+                    <row>
+                        <cell header='1'>Query Parameter</cell>
+                        <cell header='1'>Required?</cell>
+                        <cell header='1'>Description</cell>
+                    </row>
+                    <row>
+                        <cell><icode>timestamps</icode></cell>
+                        <cell>Optional</cell>
+                        <cell>Optionally select timestamp format. This may be either:
+                            <ul>
+                                <li><icode>"epoch_us"</icode> - (Default)
+                                return timestamps as uint64 microseconds since
+                                the Unix epoch.</li>
+                                <li><icode>"rfc3339"</icode> -
+                                return timestamps as RFC3339-encoded datetime
+                                strings in UTC timezone.
+                                </li>
+                            </ul>
+                        </cell>
+                    </row>
+                </tbl>
+            </p>
         </subsection>
         <subsection title="Success Response">
             <code syntax='javascript'>
@@ -802,7 +834,7 @@
                         "active_status" : &lt;ACTIVE_STATUS&gt;,
                         "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
                     },
-                    "sddl" : { &lt;SDDL&gt; },
+                    "var_decls" : { &lt;VAR_DECLS&gt; },
                     "vars" : { &lt;VARS&gt; },
                 }
             </code>
@@ -836,86 +868,295 @@
         </subsection>
     </section>
 
-    <section title="Add/Update Cloud Var Metadata">
+    <section title="Declare Cloud Variables">
         <subsection title="Request">
             <p>
-                To add a new cloud variable, or update an existing cloud
-                variable's metadata, use:
+                Before using a Cloud Variable you must declare it, specifying
+                its name, direction, datatype and other metadata properties.
+                The first time a cloud variable name is declared for a
+                particular device, a cloud variable gets created, but not set.
+                Declaring a cloud variable is an idempotent operation, meaning
+                that subsequent identical declarations will have no effect.
+                However, attempts to redeclare a named cloud variable with
+                different datatype or direction will fail unless you delete it
+                first.
             </p>
-            <code syntax='javascript'>
-                POST /api/device/&lt;UUID&gt;
-                {
-                    "sddl" : {
-                        &lt;VAR_DECL&gt; : &lt;VAR_PROPERTIES&gt;,
-                        ...
-                    }
-                }
-            </code>
-            <p>
-                This may be combined with Add/Update Cloud Var Metadata
-                and Update Cloud Var Values into a single request.
-            </p>
-            <p>
-                To fully replace the list of cloud variables, add
-                <icode>"full-replacement" : true</icode> to the request.
-                <code>
+            <multicode>
+                <mc_item title="REST">
                     POST /api/device/&lt;UUID&gt;
                     {
-                        "sddl" : {
-                            "full-replacement" : true,
+                        "var_decls" : {
                             &lt;VAR_DECL&gt; : &lt;VAR_PROPERTIES&gt;,
                             ...
                         }
                     }
-                </code>
+                </mc_item>
+                <mc_item title="EXAMPLE">
+                    POST /api/device/d5c827d2-1ba7-4da6-b87b-0864f0969fa8
+                    {
+                        "var_decls" : {
+                            "out float32 temperature" : { },
+                            "out float32 humidity" : { },
+                            "in int8 dimmer_brightness" : { },
+                            "in bool reboot_now" : { },
+                            ...
+                        }
+                    }
+                </mc_item>
+            </multicode>
+            <p>
+                A <icode>&lt;VAR_DECL&gt;</icode> is a string with the following format:
+            </p>
+            <code syntax='javascript'>
+                "&lt;DIRECTION&gt; &lt;TYPE&gt; &lt;NAME&gt;"
+            </code>
+            For example:
+            <code syntax='javascript'>
+                "out float32 temperature"
+            </code>
+            The <icode>&lt;DIRECTION&gt;</icode> determines who can modify the value:
+            <tbl>
+                <row>
+                    <cell header='1'>Direction</cell>
+                    <cell header='1'>Who Can Modify Value</cell>
+                </row>
+                <row>
+                    <cell><icode>out</icode></cell>
+                    <cell>Can only be set by the device that the cloud variable
+                    belongs to.</cell>
+                </row>
+                <row>
+                    <cell><icode>in</icode></cell>
+                    <cell>Can only be set by users and other devices (i.e. not
+                            the device that the cloud variable belongs
+                            to).</cell>
+                </row>
+                <row>
+                    <cell><icode>inout</icode></cell>
+                    <cell>Anyone with access to the cloud variable can set it.</cell>
+                </row>
+            </tbl>
+
+            The <icode>&lt;TYPE&gt;</icode> determines the datatype of the
+            cloud variable.  It may be any of the following:
+            <tbl>
+                <row>
+                    <cell header='1'>Datatype</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell><icode>bool</icode></cell>
+                    <cell>Boolean value</cell>
+                </row>
+                <row>
+                    <cell><icode>int8</icode></cell>
+                    <cell>8-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>int16</icode></cell>
+                    <cell>16-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>int32</icode></cell>
+                    <cell>32-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>uint8</icode></cell>
+                    <cell>8-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>uint16</icode></cell>
+                    <cell>16-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>uint32</icode></cell>
+                    <cell>32-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>datetime</icode></cell>
+                    <cell>64-bit unsigned integer representing microseconds
+                    from Epoch</cell>
+                </row>
+                <row>
+                    <cell><icode>float32</icode></cell>
+                    <cell>32-bit floating point number</cell>
+                </row>
+                <row>
+                    <cell><icode>float64</icode></cell>
+                    <cell>64-bit floating point number</cell>
+                </row>
+                <row>
+                    <cell><icode>string</icode></cell>
+                    <cell>string value</cell>
+                </row>
+                <row>
+                    <cell>TBD composite objects</cell>
+                    <cell>TBD</cell>
+                </row>
+            </tbl>
+
+            The <icode>&lt;NAME&gt;</icode> is a string name for the cloud
+            variable.  The name can be at most 127 characters in length, must
+            start with a letter or underscore (_), must contain at least one
+            letter (A-Z or a-z), and must only contain uppercase (A-Z),
+            lowercase (a-z), digits (0-9), and underscore (_).
+
+            <p>TBD reserved values?</p>
+
+            <p>
+                The <icode>&lt;VAR_PROPERTIES&gt;</icode> is an object
+                specifying additional metadata for the cloud variable.  At this
+                time it must be an empty object <icode>{}</icode> reserved for
+                future use. 
+            </p>
+
+            <p>
+                This request may be combined with Update Device Properties and
+                Update Cloud Var Value into a single request.
             </p>
         </subsection>
+        <subsection title="Response">
+            The remote responds with the entire Device object, as if a 
+            Get Single Device request had been made.
+        </subsection>
     </section>
-    <section title='Update Cloud Var Value'>
-        <p>
-            To update Cloud Variable values, use:
-        </p>
-        <code syntax='javascript'>
-            POST /api/device/&lt;UUID&gt;
-            {
-                "vars" : {
-                    &lt;VAR_NAME&gt; : &lt;NEW_VALUE&gt;,
-                    ...
+    <section title='Set Cloud Variable Values'>
+        <subsection title="Request">
+            <p>
+                To set Cloud Variable values, use:
+            </p>
+            <code syntax='javascript'>
+                POST /api/device/&lt;UUID&gt;
+                {
+                    "vars" : {
+                        &lt;VAR_NAME&gt; : &lt;NEW_VALUE&gt;,
+                        ...
+                    }
                 }
-            }
-        </code>
-        <p>
-            This will automatically create a cloud variable for each
-            newly-encountered var, unless the device's
-            <icode>"auto-var-creation"</icode> property is set to
-            <icode>false</icode>.  See Automatic Cloud Variable Creation.
-        </p>
-        <p>
-            This request may be made by either a User or a Device.  The Cloud
-            Variable's <icode>direction</icode> property controls who can
-            modify it:
-        </p>
-        <tbl>
-            <row>
-                <cell header='1'>Direction</cell>
-                <cell header='1'>Who Can Modify Value</cell>
-            </row>
-            <row>
-                <cell><icode>out</icode></cell>
-                <cell></cell>
-            </row>
-            <row>
-                <cell><icode>in</icode></cell>
-                <cell></cell>
-            </row>
-            <row>
-                <cell><icode>inout</icode></cell>
-                <cell></cell>
-            </row>
-        </tbl>
+            </code>
+        </subsection>
     </section>
 </chapter>
 
+<chapter title="Other Endpoints">
+    <section title="Get Server Info">
+        Provides some details about the server, including which version of
+        Canopy it is running and how it is configured.
+        <subsection title="Request">
+            <multicode>
+                <mc_item title="REST">
+                    GET /api/info
+                </mc_item>
+                <mc_item title="CURL">
+                    curl https://sandbox.canopy.link/api/info
+                </mc_item>
+            </multicode>
+            Anyone can make this request (no authentication needed).
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                        "service-name" : "Canopy Cloud Service",
+                        "version" : string,
+                        "clock_us" : uint64,
+                        "clock_utc" : string,
+                        "config" : {
+                            "allow-anon-devices" : boolean,
+                            "allow-origin" : string,
+                            "email-service" : string,
+                            "enable-http" : false,
+                            "enable-https" : true,
+                            "forward-other-hosts" : string,
+                            "hostname" : string,
+                            "http-port" : int,
+                            "https-cert-file" : string,
+                            "https-port" : int,
+                            "https-priv-key-file" : string,
+                            "js-client-path" : string,
+                            "log-file" : string,
+                            "sendgrid-username" : string,
+                            "web-manager-path" : string
+                        }
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                        "service-name" : "Canopy Cloud Service",
+                        "version" : "0.9.2-beta"
+                        "clock_us" : 1426772581829000,
+                        "clock_utc" : "2015-03-19 22:47:31.893205,
+                        "config" : {
+                            "allow-anon-devices" : true,
+                            "allow-origin" : "",
+                            "email-service" : "sendgrid",
+                            "enable-http" : false,
+                            "enable-https" : true,
+                            "forward-other-hosts" : "",
+                            "hostname" : "dev02.canopy.link",
+                            "http-port" : 80,
+                            "https-cert-file" : "/etc/canopy/cert.pem",
+                            "https-port" : 443,
+                            "https-priv-key-file" : "/etc/canopy/key.pem",
+                            "js-client-path" : "/home/gregp/development/canopy/canopy-js-client",
+                            "log-file" : "/var/log/canopy/server.log",
+                            "sendgrid-username" : "canopy-mailer",
+                            "web-manager-path":  "/home/gregp/development/canopy/canopy-app"
+                        },
+                    }
+                </mc_item>
+            </multicode>
+            <tbl>
+                <row>
+                    <cell header='1'>Field</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell>version</cell>
+                    <cell>Version of the canopy server as a string.  For
+                    example "0.9.2-beta".</cell>
+                </row>
+                <row>
+                    <cell>clock_us</cell>
+                    <cell>Server time in microseconds since the Unix
+                    Epoch.</cell>
+                </row>
+                <row>
+                    <cell>clock_utc</cell>
+                    <cell>Server time reported as an RFC3339-encoded UTC
+                    datetime string</cell>
+                </row>
+                <row>
+                    <cell>config</cell>
+                    <cell>Server configuration settings.
+                        For details about the <icode>"config"</icode> fields,
+                        see <a href='../ccs/#configuration_settings'>Canopy
+                        Server: Configuration Settings</a>.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+</chapter>
 <chapter title="Error Responses">
     <section title="Success &amp; Error Reporting">
         A successful API call will have the <icode>200 OK</icode> response code
