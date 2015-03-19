@@ -824,27 +824,100 @@
             </p>
         </subsection>
         <subsection title="Success Response">
-            <code syntax='javascript'>
-                {
-                    "result" : "ok",
-                    "device_id" : &lt;UUID&gt;,
-                    "friendly_name" : &lt;FRIENDLY_NAME&gt;,
-                    "status" : {
-                        "ws_connected" : &lt;WS_CONNECTED&gt;,
-                        "active_status" : &lt;ACTIVE_STATUS&gt;,
-                        "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
-                    },
-                    "var_decls" : { &lt;VAR_DECLS&gt; },
-                    "vars" : { &lt;VARS&gt; },
-                }
-            </code>
+            See Device Object Response for details.
         </subsection>
     </section>
     <section title="Get Historical Cloud Var Data">
         <subsection title="Request">
-            <code>
-                GET /api/device/&lt;UUID&gt;/&lt;VAR_PATH&gt;
-            </code>
+            Retrieve historic cloud variable samples.
+            <multicode>
+                <mc_item title="REST">
+                    GET /api/device/&lt;UUID&gt;/&lt;VAR_NAME&gt;?
+                        start_time=&lt;START_TIME&gt;
+                        &amp;end_time=&lt;END_TIME&gt;
+                        &amp;hint_num_samples=&lt;HINT_NUM_SAMPLES&gt;
+                </mc_item>
+                <mc_item title="EXAMPLE">
+                    GET /api/device/d5c827d2-1ba7-4da6-b87b-0864f0969fa8/temperature?start_time='2015-03-19 12:00:00'
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST">
+                    {
+                        "result" : "ok",
+                        "current_clock_us" : uint64,
+                        "current_clock_utc" : string,
+                        "count" : int,
+                        "samples" : [
+                            {
+                                "t" : string,
+                                "v" : value
+                            }, {
+                                ...
+                            }
+                        ]
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE">
+                    {
+                        "result" : "ok",
+                        "current_clock_us" : 1426772581829000,
+                        "current_clock_utc" : "2015-03-19T22:47:31Z",
+                        "count" : 3,
+                        "samples" : [
+                            {
+                                "t": "2015-03-18T16:57:36Z",
+                                "v": 24.821886
+                            },
+                            {
+                                "t": "2015-03-18T16:57:56Z",
+                                "v": 24.777397
+                            },
+                            {
+                                "t": "2015-03-18T16:58:17Z",
+                                "v": 24.777014
+                            }
+                        ]
+                    }
+                </mc_item>
+            </multicode>
+            <tbl>
+                <row>
+                    <cell header='1'>Field</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell>"clock_us"</cell>
+                    <cell>Server time in microseconds since the Unix
+                    Epoch.</cell>
+                </row>
+                <row>
+                    <cell>"clock_utc"</cell>
+                    <cell>Server time reported as an RFC3339-encoded UTC
+                    datetime string</cell>
+                </row>
+                <row>
+                    <cell><icode>"count"</icode></cell>
+                    <cell>Integer number of samples returned.</cell>
+                </row>
+                <row>
+                    <cell><icode>"samples"</icode></cell>
+                    <cell>Array of Sample objects.</cell>
+                </row>
+                <row>
+                    <cell><icode>"t"</icode></cell>
+                    <cell>String datetime of sample in RFC3339 format with UTC
+                    timezone. </cell>
+                </row>
+                <row>
+                    <cell><icode>"v"</icode></cell>
+                    <cell>Value of the cloud variable at the timestamp.  The
+                    JSON datatype depends on the Cloud Variable's
+                    datatype.</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
     <section title="Update Device Properties">
@@ -853,8 +926,8 @@
             <code syntax='javascript'>
                 POST /api/device/&lt;UUID&gt;
                 {
-                    "friendly_name" : &lt;NEW_FRIENDLY_NAME&gt;,
-                    "location_note" : &lt;NEW_LOCATION_NOTE&gt;
+                    "friendly_name" : string
+                    "location_note" : string
                 }
             </code>
             <p>
@@ -865,6 +938,31 @@
                 This may be combined with Add/Update Cloud Var Metadata
                 and Update Cloud Var Values into a single request.
             </p>
+            <tbl>
+                <row>
+                    <cell header='1'>Field</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell><icode>"friendly_name"</icode></cell>
+                    <cell>User-assigned name for device.  May be any UTF-8
+                    string of at most 127 bytes.</cell>
+                </row>
+                <row>
+                    <cell><icode>"location_note"</icode></cell>
+                    <cell>User-assigned note about the location of this device.
+                    May be any UTF-8 string of at most 1023 bytes.
+                    </cell>
+                </row>
+            </tbl>
+            <p>
+                This request may be combined with Declare Cloud Variable and
+                Set Cloud Variable Values into a single request.
+            </p>
+        </subsection>
+        <subsection title="Response">
+            The remote responds with the entire Device object.
+            See Device Object Response.
         </subsection>
     </section>
 
@@ -1016,8 +1114,8 @@
             </p>
         </subsection>
         <subsection title="Response">
-            The remote responds with the entire Device object, as if a 
-            Get Single Device request had been made.
+            The remote responds with the entire Device object.
+            See Device Object Response.
         </subsection>
     </section>
     <section title='Set Cloud Variable Values'>
@@ -1025,15 +1123,137 @@
             <p>
                 To set Cloud Variable values, use:
             </p>
-            <code syntax='javascript'>
-                POST /api/device/&lt;UUID&gt;
-                {
-                    "vars" : {
-                        &lt;VAR_NAME&gt; : &lt;NEW_VALUE&gt;,
-                        ...
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    POST /api/device/&lt;UUID&gt;
+                    {
+                        "vars" : {
+                            &lt;VAR_NAME&gt; : value,
+                            ...
+                        }
                     }
-                }
-            </code>
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    POST /api/device/d5c827d2-1ba7-4da6-b87b-0864f0969fa8
+                    {
+                        "vars" : {
+                            "temperature" : 43.0,
+                            "humidity" : 32.41,
+                            "dimmer_level" : 4,
+                            "happy" : true
+                            ...
+                        }
+                    }
+                </mc_item>
+            </multicode>
+            <p>
+                The datatype of the <icode>value</icode> must match the
+                datatype of the Cloud Variable.
+            </p>
+            <p>
+                This request may be combined with Update Device Properties and
+                Declare Cloud Variable into a single request.
+            </p>
+        </subsection>
+        <subsection title="Response">
+            The remote responds with the entire Device object.
+            See Device Object Response.
+        </subsection>
+    </section>
+    <section title='Device Object Response'>
+        The same response is sent for the following endpoints:
+        <code>
+            GET /api/device/&lt;UUID&gt;
+            GET /api/device/self
+            POST /api/device/&lt;UUID&gt;
+            POST /api/device/self
+        </code>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST">
+                    {
+                        "result" : "ok",
+                        "device_id" : &lt;UUID&gt;,
+                        "friendly_name" : &lt;FRIENDLY_NAME&gt;,
+                        "status" : {
+                            "ws_connected" : &lt;WS_CONNECTED&gt;,
+                            "active_status" : &lt;ACTIVE_STATUS&gt;,
+                            "last_activity_time" : &lt;LAST_ACTIVITY_TIME&gt;,
+                        },
+                        "var_decls" : { &lt;VAR_DECLS&gt; },
+                        "vars" : { &lt;VARS&gt; },
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE">
+                    {
+                        "result" : "ok",
+                        "device_id" : "d5c827d2-1ba7-4da6-b87b-0864f0969fa8",
+                        "friendly_name" : "My Toaster 17",
+                        "status" : {
+                            "ws_connected" : true,
+                            "active_status" : "active",
+                            "last_activity_time" : 1426803897000000,
+                        },
+                        "var_decls" : {
+                            "out float32 temperature" : { },
+                            "out float32 humidity" : { },
+                            "in int8 dimmer_brightness" : { },
+                            "in bool reboot_now" : { },
+                        },
+                        "vars" : {
+                            "temperature" : {
+                                "t" : 1426803897000000,
+                                "v" : 37.4,
+                            },
+                            "humidity" : {
+                                "t" : 1426803897000000,
+                                "v" : 92.3,
+                            },
+                            "dimmer_brightness" : {
+                                "t" : 1426803897000000,
+                                "v" : 0,
+                            },
+                            "reboot_now" : {
+                                "t" : 1426803897000000,
+                                "v" : false,
+                            }
+                        }
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Non-JSON payload; Required fields missing or
+                    incorrect type; Input validation failure;  Attempt to
+                    change an existing cloud variable's declaration.</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>url_not_found Error</cell>
+                    <cell>404</cell>
+                    <cell>Device with &lt;UUID&gt; does not exist or you have
+                    no access to it.</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
 </chapter>
