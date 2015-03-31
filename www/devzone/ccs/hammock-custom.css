@@ -7,7 +7,11 @@ body {
 
 .hammock-a-name {
     position: relative;
+    display: inline-block;
     top: -40px;
+    height: 1px;
+    overflow: hidden;
+    border: 1px solid #a0a0a0;
 }
 
 .hammock-chapter-contents {

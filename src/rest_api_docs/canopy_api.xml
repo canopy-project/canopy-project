@@ -316,7 +316,8 @@
                 <row>
                     <cell>bad_input Error</cell>
                     <cell>400</cell>
-                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                    <cell>Non-JSON payload; Required fields missing or
+                    incorrect type; Input validation failure.</cell>
                 </row>
                 <row>
                     <cell>email_taken Error</cell>
@@ -409,7 +410,8 @@
                 <row>
                     <cell>bad_input Error</cell>
                     <cell>400</cell>
-                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                    <cell>Non-JSON payload; Required fields missing or
+                    incorrect type; Input validation failure.</cell>
                 </row>
                 <row>
                     <cell>not_authenticated Error</cell>
@@ -438,7 +440,7 @@
                     DELETE /api/user/self
                 </mc_item>
                 <mc_item title="CURL" syntax='javascript'>
-                    curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/me
+                    curl -X DELETE -u "username:password" http://sandbox.canopy.link/api/user/self
                 </mc_item>
             </multicode>
             The request body may be omitted.
@@ -481,7 +483,8 @@
                 <row>
                     <cell>bad_input Error</cell>
                     <cell>400</cell>
-                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                    <cell>Non-JSON payload; Required fields missing or
+                    incorrect type; Input validation failure.</cell>
                 </row>
                 <row>
                     <cell>not_authenticated Error</cell>
@@ -539,7 +542,8 @@
                 <row>
                     <cell>bad_input Error</cell>
                     <cell>400</cell>
-                    <cell>Non-JSON payload; Required fields missing or incorrect type</cell>
+                    <cell>Non-JSON payload; Required fields missing or
+                    incorrect type; Input validation failure.</cell>
                 </row>
                 <row>
                     <cell>not_authenticated Error</cell>
@@ -568,11 +572,67 @@
         have never been encountered before.]
     </section>
 
+    <section title="Delete Device">
+        <subsection title="Request">
+            To delete a device:
+
+            <p>
+                TBD: Should there be a way to archive/suspend a device?
+            </p>
+
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    DELETE /api/device/&lt;UUID&gt;
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    DELETE /api/device/d5c827d2-1ba7-4da6-b87b-0864f0969fa8
+                </mc_item>
+            </multicode>
+            Or to delete the currently authenticated device:
+            <code>
+                DELETE /api/device/self
+            </code>
+
+        </subsection>
+        <subsection title="Success Response">
+            On success, the Device and all Cloud Variable associated with it
+            are deleted.  The Device's credentials can no longer be used to
+            make API calls.
+            <code syntax='javascript'>
+                200 OK
+                {
+                    "result" : "ok",
+                }
+            </code>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+        
+    </section>
+
     <section title="List Devices">
         <subsection title="Request">
             To obtain a list of all devices the current User has access to:
             <code>
-                GET /api/me/devices?
+                GET /api/user/self/devices?
                     filter=&lt;FILTER&gt;
                     &amp;sort=&lt;SORT&gt;
                     &amp;limit=&lt;LIMIT&gt;
@@ -926,7 +986,7 @@
             <code syntax='javascript'>
                 POST /api/device/&lt;UUID&gt;
                 {
-                    "friendly_name" : string
+                    "friendly_name" : string,
                     "location_note" : string
                 }
             </code>
