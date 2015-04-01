@@ -1,30 +1,36 @@
 <doc logo="" toc_title="Canopy Server" title="Canopy Server">
 <chapter title='Overview'>
     <section title='About'>
-        The <b>Canopy Server</b> is a server-side program written in GoLang.  It serves
-        the <a target="_blank" href="../restapi/canopy_api.html">Canopy REST API</a> and Canopy
-        Websocket API.  Additionally, it can be configured to serve the Canopy
-        Device Manager which provides a web-based frontend.
+        <p>
+            The <b>Canopy Server</b> is an open source server-side program
+            written in GoLang.  It serves the <a target="_blank"
+            href="../restapi">Canopy REST API</a> and Canopy
+            Websocket API.  Additionally, it can be configured to serve the
+            Canopy Device Manager which provides a convenient web-based
+            frontend for developers and system administrators.
+        </p>
+        <p>
+            The <b>Canopy Server</b> has been architected to scale linearly to
+            millions of devices with class leading performance, security and
+            ease-of-use.
+        </p>
     </section>
     <section title='Hosting Options'>
         <subsection title='Hosted by Us'>
             <p>
-                The Canopy team operates two large-scale deployments of the Canopy
-                Server.  These are hosted in a world-class datacenter with high
-                availability.  
+                The Canopy team operates a large-scale deployment of the Canopy
+                Server that you can use to develop and launch your
+                cloud-enabled product or service.  Our servers are hosted in a
+                world-class datacenter with high
+                availability.
                 <ul>
                     <li>
-                        <a target='_blank' href="http://sandbox.canopy.link">
-                        <b>http://sandbox.canopy.link</b></a>: Free deployment for
+                        <a target='_blank' href="https://sandbox.canopy.link">
+                        <b>https://sandbox.canopy.link</b></a>: Free deployment for
                         learning Canopy and developing smart products.
                     </li>
-                    <li>
-                        <a target='_blank' href="http://sandbox.canopy.link">
-                        <b>http://ccs.canopy.link</b></a>: Enterprise-grade
-                        deployment for shipping products.
-                    </li>
                 </ul>
-                Learn more about these deployments on our <a target="_blank"
+                Learn more about our hosted offerings on our <a target="_blank"
                 href='http://canopy.link/services.html'>Services</a> page.
             </p>
         </subsection>
@@ -32,7 +38,7 @@
             <p>
                 The Canopy Server is completely open source and licensed under
                 the highly-permisive Apache v2.0 license.  It is easy to deploy
-                your own instance of the server by following the Installation
+                your own instance of the server by following the installation
                 instructions in this document.
             </p>
         </subsection>
@@ -43,14 +49,13 @@
 <chapter title='Installation'>
     <p>
         This section contains instructions for installing the Canopy Server
-        from source on a fresh Ubuntu 14.04 LTS machine.  This may be installed
-        in a public cloud, private cloud, local network, or even on your
-        laptop!
+        from a release package or from source on a fresh Ubuntu 14.04 LTS
+        machine.  This may be installed in a public cloud, private cloud, local
+        network, or even on your laptop!
     </p>
     <section title='Installing Dependencies'>
         <p>
-            Canopy requires Cassandra, Oracle Java 1.7, and Go-lang in order to
-            run.
+            Canopy requires Cassandra and Oracle Java 1.7 in order to run.
         </p>
         <subsection title='Installing Cassandra'>
             <p>
@@ -95,25 +100,51 @@
                 When prompted, press ENTER.  Then select "Yes" and press ENTER.
             </p>
         </subsection>
-        <subsection title='Installing Go-lang'>
+    </section>
+    <section title='Installing Canopy Server'>
+        <p>
+            The Canopy Server can be built from source or installed from a
+            Debian package.
+        </p>
+        <subsection title='Installing Canopy Server From .deb Package'>
             <p>
-                Run:
+                Download the latest release on our <a target='_blank'
+                href='../release'>Release Package Downloads</a> page.  Look for
+                the <icode>".deb x64 64-bit Binary Package"</icode>.
+            </p>
+            <p>
+                In the directory where you downloaded the release package,
+                install the Canopy Server with this command (replacing
+                XX.YY.ZZ-W with the version number you downloaded):
+            </p>
+            <code>
+                sudo dpkg -i canopy-server_XX.YY.ZZ-W_amd64.deb
+            </code>
+            <p>
+                You can now skip ahead to Configuring and Running.
+            </p>
+        </subsection>
+        <subsection title='Building Canopy Server From Source'>
+            <p>
+                Alternatively you can build the Canopy Server from source by cloning the
+                github repository.  This section walks you through the steps.
+            </p>
+            <p>
+                Install golang:
             </p>
             <code>
                 sudo apt-get install -y golang git make mercurial
             </code>
-        </subsection>
-        <subsection title='Installing Canopy Server'>
             <p>
                 Clone the repository:
             </p>
-            <code>git clone https://github.com/canopy-project/canopy-cloud
+            <code>git clone https://github.com/canopy-project/canopy-server
             </code>
             <p>
                 Build the project:
             </p>
             <code>
-                cd canopy-cloud
+                cd canopy-server
                 make
             </code>
             <p>
@@ -121,7 +152,7 @@
             </p>
             <output>
                 make -C src/canopy go_get_deps
-                make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+                make[1]: Entering directory `/home/ubuntu/canopy-server/src/canopy'
                 mkdir -p ~/.canopy/golang
                 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.net/websocket
                 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gocql/gocql
@@ -130,9 +161,9 @@
                 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/mux
                 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/sendgrid/sendgrid-go
                 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.crypto/bcrypt
-                make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+                make[1]: Leaving directory `/home/ubuntu/canopy-server/src/canopy'
                 make -C src/canopy all
-                make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+                make[1]: Entering directory `/home/ubuntu/canopy-server/src/canopy'
                 mkdir -p ~/.canopy/golang
                 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy-cloud-service.go canopy_cloud.go canopy_json.go
                 mkdir -p build/
@@ -179,6 +210,26 @@
                 chgrp canopy /var/log/canopy/ccs-errors.log
                 make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
             </output>
+        </subsection>
+    </section>
+    
+    <section title='Configuring and Running'>
+        <subsection title='Configuring the Cloud Server'>
+            One last step before running the Canopy Server.  We must configure it.
+            Edit the file: 
+            <code>
+                /etc/canopy/server.conf
+            </code>
+            <p>
+                Change the <icode>"hostname"</icode> to match the IP address or hostname of your server.
+            </p>
+            <p>
+                There a many other configuration options you can modify.  Learn
+                more about configuring the server in the Configuration chapter.
+            </p>
+        </subsection>
+
+        <subsection title='Starting Cassandra and Initialize Database'>
             <p>
                 Start Cassandra running:
             </p>
@@ -204,35 +255,8 @@
                 Create the database:
             </p>
             <code>
-                canodevtool create-db
+                canopy-ops create-db
             </code>
-
-            <p>
-                Don't worry if there are errors.  You should see this output:
-            </p>
-
-            <output>
-                Error opening file /var/log/canopy/ccs.log:  open /var/log/canopy/ccs.log: permission denied
-                Falling back to STDOUT for logging
-                WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched input '(' expecting ')'
-            </output>
-        </subsection>
-    </section>
-    
-    <section title='Configuring and Running'>
-        <subsection title='Configuring the Cloud Server'>
-            One last step before running the Canopy Cloud Service.  We must configure it.
-            Edit the file: 
-            <code>
-                /etc/canopy/server.conf
-            </code>
-            <p>
-                Change the <icode>"hostname"</icode> to match the IP address or hostname of your server.
-            </p>
-            <p>
-                There a many other configuration options you can modify.  Learn
-                more about configuring the server in the Configuration chapter.
-            </p>
         </subsection>
 
         <subsection title='Starting the Canopy Server'>
@@ -240,7 +264,7 @@
                 Now, you can start the Canopy Server
             </p>
             <code>
-                sudo /etc/init.d/canopy-cloud-service start
+                sudo /etc/init.d/canopy-server start
             </code>
 
             <p>
@@ -248,19 +272,39 @@
                 <icode>https://&lt;ip_address&gt;/api/info</icode> in your web
                 browser.  You should see something like the following response:
             </p>
-            <code>
-                {
-                    "service-name" : "Canopy Cloud Service",
-                    "version" : "0.9.0-beta"
-                }
-            </code>
+            <output>
+            {
+                "clock_us": 1427847182641191,
+                "clock_utc": "2015-04-01T00:13:02.641191Z",
+                "config": {
+                    "allow-anon-devices": true,
+                    "allow-origin": "",
+                    "email-service": "sendgrid",
+                    "enable-http": false,
+                    "enable-https": true,
+                    "forward-other-hosts": "",
+                    "hostname": "dev02.canopy.link",
+                    "http-port": 80,
+                    "https-cert-file": "/etc/canopy/cert.pem",
+                    "https-port": 443,
+                    "https-priv-key-file": "/etc/canopy/key.pem",
+                    "js-client-path": "/home/gregp/development/canopy/canopy-js-client",
+                    "log-file": "/var/log/canopy/server.log",
+                    "sendgrid-username": "canopy-mailer",
+                    "web-manager-path": "/home/gregp/development/canopy/canopy-app"
+                },
+                "result": "ok",
+                "service-name": "Canopy Cloud Service",
+                "version": "15.04.03"
+            }
+            </output>
             <p>
                 If you see anything other than that, there was most likely a
                 problem.  You can view the log file by typing:
             </p>
 
             <code>
-                cat /var/log/canopy/canopy-server.log
+                cat /var/log/canopy/server.log
             </code>
         </subsection>
     </section>
@@ -620,13 +664,13 @@
     <section title='Environment Override Example'>
         For example, to run the Canopy Server as a non-root user, you might use:
         <code>
-            CCS_HTTPS_PORT=8443 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server
+            CCS_HTTPS_PORT=8443 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy-server
         </code>
     </section>
     <section title='Command-line Override Example'>
         An alternative way to run the Canopy Server as a non-root user is:
         <code>
-            /usr/local/bin/canopy/canopy-server --https-port=8443 --log-file="ccs.log"
+            /usr/local/bin/canopy-server --https-port=8443 --log-file="ccs.log"
         </code>
     </section>
     <section title='Checking the Configuration'>
@@ -697,6 +741,70 @@
                 "https-priv-key-file" : "/etc/canopy/key.pem",
         </code>
     </section>
+</chapter>
+
+<chapter title='The canopy-ops Tool'>
+    <p>
+        The <icode>canopy-ops</icode> tool gets installed when you follow the
+        Installation instructions above.  Typically it can be found in the
+        <icode>/usr/local/bin/</icode> directory.
+    </p>
+    <p>
+        This tool supports a growing number of commands that are useful for
+        operating a Canopy Server deployment.  Run <icode>"canopy-ops
+        help"</icode> for the list of commands supported by your version of the
+        tool.
+    </p>
+    <tbl>
+        <row>
+            <cell header='1'>
+                Command Line
+            </cell>
+            <cell header='1'>
+                Description
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <icode>canopy-ops help [&lt;topic_or_cmd&gt;]</icode>
+            </cell>
+            <cell>
+                Display general help or get help for a topic or command
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <icode>canopy-ops create-db</icode>
+            </cell>
+            <cell>
+                Initialize database
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <icode>canopy-ops erase-db</icode>
+            </cell>
+            <cell>
+                Wipe entire database
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <icode>canopy-ops reset-db</icode>
+            </cell>
+            <cell>
+                Wipe entire db then initialize a new db
+            </cell>
+        </row>
+        <row>
+            <cell>
+                <icode>canopy-ops workers</icode>
+            </cell>
+            <cell>
+                List all registered canopy workers
+            </cell>
+        </row>
+    </tbl>
 </chapter>
 
 </doc>

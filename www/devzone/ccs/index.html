@@ -22,10 +22,15 @@ function get_element_scroll_y(id) {
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.backgroundColor = '';
+        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_installing_canopy_server').style.fontWeight = '';document.getElementById('toc_installing_canopy_server').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.backgroundColor = '';document.getElementById('toc_the_canopy-ops_tool').style.fontWeight = '';document.getElementById('toc_the_canopy-ops_tool').style.backgroundColor = '';
     if (0) {
     }
     
+            else if (y + 32 > get_element_scroll_y('the_canopy-ops_tool')) {
+                document.getElementById('toc_the_canopy-ops_tool').style.fontWeight = "bold";
+                document.getElementById('toc_the_canopy-ops_tool').style.backgroundColor = "#d0d0d0";
+            }
+            
             else if (y + 32 > get_element_scroll_y('ssl_setup_-_ca-signed_certificate')) {
                 document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.fontWeight = "bold";
                 document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.backgroundColor = "#d0d0d0";
@@ -74,6 +79,11 @@ function update_scroll() {
             else if (y + 32 > get_element_scroll_y('configuring_and_running')) {
                 document.getElementById('toc_configuring_and_running').style.fontWeight = "bold";
                 document.getElementById('toc_configuring_and_running').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('installing_canopy_server')) {
+                document.getElementById('toc_installing_canopy_server').style.fontWeight = "bold";
+                document.getElementById('toc_installing_canopy_server').style.backgroundColor = "#d0d0d0";
             }
             
             else if (y + 32 > get_element_scroll_y('installing_dependencies')) {
@@ -129,7 +139,7 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div><div id='toc_ssl_setup_-_self-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_self-signed_certificate'>SSL Setup - Self-signed Certificate</a></div><div id='toc_ssl_setup_-_ca-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_ca-signed_certificate'>SSL Setup - CA-signed Certificate</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_installing_canopy_server' class='hammock-toc-section'><a href='#installing_canopy_server'>Installing Canopy Server</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div><div id='toc_ssl_setup_-_self-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_self-signed_certificate'>SSL Setup - Self-signed Certificate</a></div><div id='toc_ssl_setup_-_ca-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_ca-signed_certificate'>SSL Setup - CA-signed Certificate</a></div><div id='toc_the_canopy-ops_tool' class='hammock-toc-chapter'><a href='#the_canopy-ops_tool'>The canopy-ops Tool</a></div></div>
     <div class=hammock-doc-outer>
 
             <div class=hammock-chapter-outer>
@@ -147,10 +157,18 @@ window.onload = function() {
             </div>
             <div class=hammock-section-contents>
                 
-        The <b>Canopy Server</b> is a server-side program written in GoLang.  It serves
-        the <a href="../restapi/canopy_api.html" target="_blank" >Canopy REST API</a> and Canopy
-        Websocket API.  Additionally, it can be configured to serve the Canopy
-        Device Manager which provides a web-based frontend.
+        <p>
+            The <b>Canopy Server</b> is an open source server-side program
+            written in GoLang.  It serves the <a href="../restapi" target="_blank" >Canopy REST API</a> and Canopy
+            Websocket API.  Additionally, it can be configured to serve the
+            Canopy Device Manager which provides a convenient web-based
+            frontend for developers and system administrators.
+        </p>
+        <p>
+            The <b>Canopy Server</b> has been architected to scale linearly to
+            millions of devices with class leading performance, security and
+            ease-of-use.
+        </p>
     
             </div>
         </div>
@@ -170,21 +188,18 @@ window.onload = function() {
             <div class=hammock-subsection-contents>
                 
             <p>
-                The Canopy team operates two large-scale deployments of the Canopy
-                Server.  These are hosted in a world-class datacenter with high
-                availability.  
+                The Canopy team operates a large-scale deployment of the Canopy
+                Server that you can use to develop and launch your
+                cloud-enabled product or service.  Our servers are hosted in a
+                world-class datacenter with high
+                availability.
                 <ul><li>
-                        <a href="http://sandbox.canopy.link" target="_blank" >
-                        <b>http://sandbox.canopy.link</b></a>: Free deployment for
+                        <a href="https://sandbox.canopy.link" target="_blank" >
+                        <b>https://sandbox.canopy.link</b></a>: Free deployment for
                         learning Canopy and developing smart products.
                     </li>
-                    <li>
-                        <a href="http://sandbox.canopy.link" target="_blank" >
-                        <b>http://ccs.canopy.link</b></a>: Enterprise-grade
-                        deployment for shipping products.
-                    </li>
                 </ul>
-                Learn more about these deployments on our <a href="http://canopy.link/services.html" target="_blank" >Services</a> page.
+                Learn more about our hosted offerings on our <a href="http://canopy.link/services.html" target="_blank" >Services</a> page.
             </p>
         
             </div>
@@ -199,7 +214,7 @@ window.onload = function() {
             <p>
                 The Canopy Server is completely open source and licensed under
                 the highly-permisive Apache v2.0 license.  It is easy to deploy
-                your own instance of the server by following the <a href=#installation>I<!---->n<!---->s<!---->t<!---->a<!---->l<!---->l<!---->a<!---->t<!---->i<!---->o<!---->n<!----></a>
+                your own instance of the server by following the installation
                 instructions in this document.
             </p>
         
@@ -223,9 +238,9 @@ window.onload = function() {
                     
     <p>
         This section contains instructions for installing the Canopy Server
-        from source on a fresh Ubuntu 14.04 LTS machine.  This may be installed
-        in a public cloud, private cloud, local network, or even on your
-        laptop!
+        from a release package or from source on a fresh Ubuntu 14.04 LTS
+        machine.  This may be installed in a public cloud, private cloud, local
+        network, or even on your laptop!
     </p>
     
         <div class=hammock-section-outer>
@@ -236,8 +251,7 @@ window.onload = function() {
             <div class=hammock-section-contents>
                 
         <p>
-            Canopy requires Cassandra, Oracle Java 1.7, and Go-lang in order to
-            run.
+            Canopy requires Cassandra and Oracle Java 1.7 in order to run.
         </p>
         
         <div class=hammock-subsection-outer>
@@ -288,41 +302,73 @@ sudo apt-get install -y oracle-java7-installer</pre>
         
             </div>
         </div>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=installing_canopy_server name=installing_canopy_server></a>
+            <div class=hammock-section-title>
+                Installing Canopy Server
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            The Canopy Server can be built from source or installed from a
+            Debian package.
+        </p>
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
-                Installing Go-lang
+                Installing Canopy Server From .deb Package
             </div>
             <div class=hammock-subsection-contents>
                 
             <p>
-                Run:
+                Download the latest release on our <a href="../release" target="_blank" >Release Package Downloads</a> page.  Look for
+                the <span class=hammock-icode>".deb x64 64-bit Binary Package"</span>.
             </p>
-            <pre class='hammock-code'>sudo apt-get install -y golang git make mercurial</pre>
+            <p>
+                In the directory where you downloaded the release package,
+                install the Canopy Server with this command (replacing
+                XX.YY.ZZ-W with the version number you downloaded):
+            </p>
+            <pre class='hammock-code'>sudo dpkg -i canopy-server_XX.YY.ZZ-W_amd64.deb</pre>
+            <p>
+                You can now skip ahead to <a href=#configuring_and_running>C<!---->o<!---->n<!---->f<!---->i<!---->g<!---->u<!---->r<!---->i<!---->n<!---->g<!----> <!---->a<!---->n<!---->d<!----> <!---->R<!---->u<!---->n<!---->n<!---->i<!---->n<!---->g<!----></a>.
+            </p>
         
             </div>
         </div>
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
-                Installing Canopy Server
+                Building Canopy Server From Source
             </div>
             <div class=hammock-subsection-contents>
                 
             <p>
+                Alternatively you can build the Canopy Server from source by cloning the
+                github repository.  This section walks you through the steps.
+            </p>
+            <p>
+                Install golang:
+            </p>
+            <pre class='hammock-code'>sudo apt-get install -y golang git make mercurial</pre>
+            <p>
                 Clone the repository:
             </p>
-            <pre class='hammock-code'>git clone https://github.com/canopy-project/canopy-cloud</pre>
+            <pre class='hammock-code'>git clone https://github.com/canopy-project/canopy-server</pre>
             <p>
                 Build the project:
             </p>
-            <pre class='hammock-code'>cd canopy-cloud
+            <pre class='hammock-code'>cd canopy-server
 make</pre>
             <p>
                 You should see this output:
             </p>
             <pre class='hammock-output'>make -C src/canopy go_get_deps
-make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+make[1]: Entering directory `/home/ubuntu/canopy-server/src/canopy'
 mkdir -p ~/.canopy/golang
 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.net/websocket
 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gocql/gocql
@@ -331,9 +377,9 @@ GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/c
 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/gorilla/mux
 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get github.com/sendgrid/sendgrid-go
 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go get code.google.com/p/go.crypto/bcrypt
-make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'
+make[1]: Leaving directory `/home/ubuntu/canopy-server/src/canopy'
 make -C src/canopy all
-make[1]: Entering directory `/home/ubuntu/canopy-cloud/src/canopy'
+make[1]: Entering directory `/home/ubuntu/canopy-server/src/canopy'
 mkdir -p ~/.canopy/golang
 GOPATH=$(cd ~/.canopy/golang; pwd):$(cd ../../; pwd) go build canopy-cloud-service.go canopy_cloud.go canopy_json.go
 mkdir -p build/
@@ -375,35 +421,6 @@ chgrp canopy /var/log/canopy/ccs.log
 chown canopy /var/log/canopy/ccs-errors.log
 chgrp canopy /var/log/canopy/ccs-errors.log
 make[1]: Leaving directory `/home/ubuntu/canopy-cloud/src/canopy'</pre>
-            <p>
-                Start Cassandra running:
-            </p>
-            <pre class='hammock-code'>sudo cassandra</pre>
-            <p>
-                You should see a bunch of text scroll, ending with:
-            </p>
-            <pre class='hammock-output'>INFO 17:24:59,576 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-3-Data.db (114 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=91604)
-INFO 17:24:59,644 CFS(Keyspace='system', ColumnFamily='local') liveRatio is 27.44988344988345 (just-counted was 3.515151515151515).  calculation took 5ms for 257 cells
-INFO 17:24:59,644 Enqueuing flush of Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
-INFO 17:24:59,645 Writing Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
-INFO 17:24:59,677 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-4-Data.db (5275 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=103603)
-INFO 17:24:59,693 Compacting [SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-1-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-3-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-4-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-2-Data.db')]
-INFO 17:24:59,780 Node localhost/127.0.0.1 state jump to normal</pre>
-            <p>
-                Press ENTER to return to the command-line.
-            </p>
-            <p>
-                Create the database:
-            </p>
-            <pre class='hammock-code'>canodevtool create-db</pre>
-
-            <p>
-                Don't worry if there are errors.  You should see this output:
-            </p>
-
-            <pre class='hammock-output'>Error opening file /var/log/canopy/ccs.log:  open /var/log/canopy/ccs.log: permission denied
-Falling back to STDOUT for logging
-WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched input '(' expecting ')'</pre>
         
             </div>
         </div>
@@ -426,7 +443,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             </div>
             <div class=hammock-subsection-contents>
                 
-            One last step before running the Canopy Cloud Service.  We must configure it.
+            One last step before running the Canopy Server.  We must configure it.
             Edit the file: 
             <pre class='hammock-code'>/etc/canopy/server.conf</pre>
             <p>
@@ -443,6 +460,38 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
         
         <div class=hammock-subsection-outer>
             <div class=hammock-subsection-title>
+                Starting Cassandra and Initialize Database
+            </div>
+            <div class=hammock-subsection-contents>
+                
+            <p>
+                Start Cassandra running:
+            </p>
+            <pre class='hammock-code'>sudo cassandra</pre>
+            <p>
+                You should see a bunch of text scroll, ending with:
+            </p>
+            <pre class='hammock-output'>INFO 17:24:59,576 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-3-Data.db (114 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=91604)
+INFO 17:24:59,644 CFS(Keyspace='system', ColumnFamily='local') liveRatio is 27.44988344988345 (just-counted was 3.515151515151515).  calculation took 5ms for 257 cells
+INFO 17:24:59,644 Enqueuing flush of Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
+INFO 17:24:59,645 Writing Memtable-local@414544706(10098/277188 serialized/live bytes, 259 ops)
+INFO 17:24:59,677 Completed flushing /var/lib/cassandra/data/system/local/system-local-jb-4-Data.db (5275 bytes) for commitlog position ReplayPosition(segmentId=1410197098396, position=103603)
+INFO 17:24:59,693 Compacting [SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-1-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-3-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-4-Data.db'), SSTableReader(path='/var/lib/cassandra/data/system/local/system-local-jb-2-Data.db')]
+INFO 17:24:59,780 Node localhost/127.0.0.1 state jump to normal</pre>
+            <p>
+                Press ENTER to return to the command-line.
+            </p>
+            <p>
+                Create the database:
+            </p>
+            <pre class='hammock-code'>canopy-ops create-db</pre>
+        
+            </div>
+        </div>
+
+        
+        <div class=hammock-subsection-outer>
+            <div class=hammock-subsection-title>
                 Starting the Canopy Server
             </div>
             <div class=hammock-subsection-contents>
@@ -450,23 +499,43 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             <p>
                 Now, you can start the Canopy Server
             </p>
-            <pre class='hammock-code'>sudo /etc/init.d/canopy-cloud-service start</pre>
+            <pre class='hammock-code'>sudo /etc/init.d/canopy-server start</pre>
 
             <p>
                 To check that it is working, go to
                 <span class=hammock-icode>https://&lt;ip_address&gt;/api/info</span> in your web
                 browser.  You should see something like the following response:
             </p>
-            <pre class='hammock-code'>{
-    "service-name" : "Canopy Cloud Service",
-    "version" : "0.9.0-beta"
+            <pre class='hammock-output'>{
+    "clock_us": 1427847182641191,
+    "clock_utc": "2015-04-01T00:13:02.641191Z",
+    "config": {
+        "allow-anon-devices": true,
+        "allow-origin": "",
+        "email-service": "sendgrid",
+        "enable-http": false,
+        "enable-https": true,
+        "forward-other-hosts": "",
+        "hostname": "dev02.canopy.link",
+        "http-port": 80,
+        "https-cert-file": "/etc/canopy/cert.pem",
+        "https-port": 443,
+        "https-priv-key-file": "/etc/canopy/key.pem",
+        "js-client-path": "/home/gregp/development/canopy/canopy-js-client",
+        "log-file": "/var/log/canopy/server.log",
+        "sendgrid-username": "canopy-mailer",
+        "web-manager-path": "/home/gregp/development/canopy/canopy-app"
+    },
+    "result": "ok",
+    "service-name": "Canopy Cloud Service",
+    "version": "15.04.03"
 }</pre>
             <p>
                 If you see anything other than that, there was most likely a
                 problem.  You can view the log file by typing:
             </p>
 
-            <pre class='hammock-code'>cat /var/log/canopy/canopy-server.log</pre>
+            <pre class='hammock-code'>cat /var/log/canopy/server.log</pre>
         
             </div>
         </div>
@@ -868,7 +937,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             <div class=hammock-section-contents>
                 
         For example, to run the Canopy Server as a non-root user, you might use:
-        <pre class='hammock-code'>CCS_HTTPS_PORT=8443 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy/canopy-server</pre>
+        <pre class='hammock-code'>CCS_HTTPS_PORT=8443 CCS_LOG_FILE="ccs.log" /usr/local/bin/canopy-server</pre>
     
             </div>
         </div>
@@ -881,7 +950,7 @@ WARN 2014/09/08 17:28:24 cass_datalayer.go:340: (IGNORED)  line 6:19 mismatched 
             <div class=hammock-section-contents>
                 
         An alternative way to run the Canopy Server as a non-root user is:
-        <pre class='hammock-code'>/usr/local/bin/canopy/canopy-server --https-port=8443 --log-file="ccs.log"</pre>
+        <pre class='hammock-code'>/usr/local/bin/canopy-server --https-port=8443 --log-file="ccs.log"</pre>
     
             </div>
         </div>
@@ -966,6 +1035,79 @@ sudo mv cert.pem /etc/canopy/cert.pem</pre>
     
             </div>
         </div>
+
+                </div>
+            </div>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=the_canopy-ops_tool name=the_canopy-ops_tool></a>
+                <div class=hammock-chapter-title>
+                    The canopy-ops Tool
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    <p>
+        The <span class=hammock-icode>canopy-ops</span> tool gets installed when you follow the
+        <a href=#installation>I<!---->n<!---->s<!---->t<!---->a<!---->l<!---->l<!---->a<!---->t<!---->i<!---->o<!---->n<!----></a> instructions above.  Typically it can be found in the
+        <span class=hammock-icode>/usr/local/bin/</span> directory.
+    </p>
+    <p>
+        This tool supports a growing number of commands that are useful for
+        operating a Canopy Server deployment.  Run <span class=hammock-icode>"canopy-ops
+        help"</span> for the list of commands supported by your version of the
+        tool.
+    </p>
+    <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+        <tr>
+            <td  class=hammock-tbl-header>
+                Command Line
+            </td>
+            <td  class=hammock-tbl-header>
+                Description
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <span class=hammock-icode>canopy-ops help [&lt;topic_or_cmd&gt;]</span>
+            </td>
+            <td >
+                Display general help or get help for a topic or command
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <span class=hammock-icode>canopy-ops create-db</span>
+            </td>
+            <td >
+                Initialize database
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <span class=hammock-icode>canopy-ops erase-db</span>
+            </td>
+            <td >
+                Wipe entire database
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <span class=hammock-icode>canopy-ops reset-db</span>
+            </td>
+            <td >
+                Wipe entire db then initialize a new db
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <span class=hammock-icode>canopy-ops workers</span>
+            </td>
+            <td >
+                List all registered canopy workers
+            </td>
+        </tr>
+    </table>
 
                 </div>
             </div>

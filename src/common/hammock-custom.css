@@ -23,7 +23,7 @@ body {
     max-width: 960px;
     min-width: 500px;
     border-bottom: 2px solid #c0c0c0;
-    padding-bottom: 48px;
+    padding-bottom: 32px;
     padding-left:16px;
 }
 
@@ -147,7 +147,7 @@ body {
     font-size: 28px;
     font-weight: 400;
     color: #3060a0;
-    margin-top: 32px;
+    margin-top: 8px;
     border-top:1px solid #d0d0d0;
 }
 
