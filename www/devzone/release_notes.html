@@ -28,10 +28,56 @@
     <div class=hr-gradient></div>
     <a name='0.9.1'></a><br>
     <div class='bg-light-gray centered' style='; padding-top:20px; padding-bottom:40px;'>
+        <div class='l'>Canopy v15.04.03</div>
+        <div style='display:inline-block; width:700px; text-align:left;'>
+            <b>Release Date:</b> Apr 03, 2015<br><br>
+            <b>Download:</b> <a href=release.html>Release Package Download Page</a><br><br>
+            <b>Release Notes:</b> Scalability and Performance Improvements and
+            API Changes
+            <ul>
+                <li><b>Scalability/Performance:</b> Implement multiresolution stratified downsampling of time series data</li>
+                <li><b>Scalability/Performance:</b> Implement trimming of old time series data by LOD (garbage collecting)</li>
+                <li><b>Scalability:</b> Implement distributed message passing system ("Pigeon")</li>
+                <li><b>Scalability:</b> Re-implement each REST endpoint as Pigeon task</li>
+                <li><b>API:</b>  Remove Device Accounts.  Now a Device is just
+                    a Device and an Account is always a User Account.
+                </li>
+                <li><b>API:</b>  Rename <code>/api/create_account</code> to
+                    <code>/api/create_user</code> </li>
+                <li><b>API:</b>  Rename <code>/api/me</code> to
+                    <code>/api/user/self</code> and/or <code>/api/device/self</code> </li>
+                <li><b>API:</b>  Add <code>skip-email</code> option to several endpoints.</li>
+                <li><b>API:</b>  Document ability to sort, filter and paginate devices (added to documentation but not implemented yet)</li>
+                <li><b>API:</b>  Change some timestamps to report in microseconds since the Unix Epoch</li>
+                <li><b>API:</b>  Rename <code>activated</code> to <code>validated</code> (email validation status).
+                </li>
+                <li><b>API:</b>  Rename <code>sddl</code> to <code>var_decl</code>
+                </li>
+                <li><b>Bug Fix:</b> Implement account email changing and fix
+                    username/email validation.
+                </li>
+                <li><b>Bug Fix:</b> Implement account and device deletion.
+                </li>
+                <li><b>Bug Fix:</b> Several API bug fixes, particularly
+                relating to error reporting.
+                </li>
+                <li><b>Reorganize:</b> Rename
+                    <code>canopy-cloud-service</code> to
+                    <code>canopy-server</code> and <code>canodevtool</code> to
+                    <code>canopy-ops</code>
+                </li>
+                <li><b>Reorganize:</b> Change default log file to <code>/var/log/canopy/server.log</code>
+                </li>
+                <li><b>Refactor:</b> Refactor canopy-ops code
+                </li>
+            </ul>
+        </div>
+        <br><br>
+
         <div class='l'>Canopy 0.9.1 - Beta</div>
         <div style='display:inline-block; width:700px; text-align:left;'>
             <b>Release Date:</b> Feb 10, 2015<br><br>
-            <b>Download:</b> <a href=release.html>Release Package Download Page</a><br><br>
+            <b>Download:</b> <a href=release_0.9.1.html>Release Package 0.9.1 Download Page</a><br><br>
             <b>Release Notes:</b> Critical security improvements and some
             additional features.
             <ul>

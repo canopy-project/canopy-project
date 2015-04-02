@@ -22,13 +22,28 @@ function get_element_scroll_y(id) {
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_installing_canopy_server').style.fontWeight = '';document.getElementById('toc_installing_canopy_server').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.backgroundColor = '';document.getElementById('toc_the_canopy-ops_tool').style.fontWeight = '';document.getElementById('toc_the_canopy-ops_tool').style.backgroundColor = '';
+        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';document.getElementById('toc_about').style.fontWeight = '';document.getElementById('toc_about').style.backgroundColor = '';document.getElementById('toc_hosting_options').style.fontWeight = '';document.getElementById('toc_hosting_options').style.backgroundColor = '';document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_installing_dependencies').style.fontWeight = '';document.getElementById('toc_installing_dependencies').style.backgroundColor = '';document.getElementById('toc_installing_canopy_server').style.fontWeight = '';document.getElementById('toc_installing_canopy_server').style.backgroundColor = '';document.getElementById('toc_configuring_and_running').style.fontWeight = '';document.getElementById('toc_configuring_and_running').style.backgroundColor = '';document.getElementById('toc_configuration').style.fontWeight = '';document.getElementById('toc_configuration').style.backgroundColor = '';document.getElementById('toc_config_priority').style.fontWeight = '';document.getElementById('toc_config_priority').style.backgroundColor = '';document.getElementById('toc_configuration_settings').style.fontWeight = '';document.getElementById('toc_configuration_settings').style.backgroundColor = '';document.getElementById('toc_config_file_example').style.fontWeight = '';document.getElementById('toc_config_file_example').style.backgroundColor = '';document.getElementById('toc_environment_override_example').style.fontWeight = '';document.getElementById('toc_environment_override_example').style.backgroundColor = '';document.getElementById('toc_command-line_override_example').style.fontWeight = '';document.getElementById('toc_command-line_override_example').style.backgroundColor = '';document.getElementById('toc_checking_the_configuration').style.fontWeight = '';document.getElementById('toc_checking_the_configuration').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_self-signed_certificate').style.backgroundColor = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.fontWeight = '';document.getElementById('toc_ssl_setup_-_ca-signed_certificate').style.backgroundColor = '';document.getElementById('toc_operations').style.fontWeight = '';document.getElementById('toc_operations').style.backgroundColor = '';document.getElementById('toc_starting_&_stopping_the_canopy_server').style.fontWeight = '';document.getElementById('toc_starting_&_stopping_the_canopy_server').style.backgroundColor = '';document.getElementById('toc_the_canopy-ops_tool').style.fontWeight = '';document.getElementById('toc_the_canopy-ops_tool').style.backgroundColor = '';document.getElementById('toc_upgrading_the_canopy_server').style.fontWeight = '';document.getElementById('toc_upgrading_the_canopy_server').style.backgroundColor = '';
     if (0) {
     }
     
+            else if (y + 32 > get_element_scroll_y('upgrading_the_canopy_server')) {
+                document.getElementById('toc_upgrading_the_canopy_server').style.fontWeight = "bold";
+                document.getElementById('toc_upgrading_the_canopy_server').style.backgroundColor = "#d0d0d0";
+            }
+            
             else if (y + 32 > get_element_scroll_y('the_canopy-ops_tool')) {
                 document.getElementById('toc_the_canopy-ops_tool').style.fontWeight = "bold";
                 document.getElementById('toc_the_canopy-ops_tool').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('starting_&_stopping_the_canopy_server')) {
+                document.getElementById('toc_starting_&_stopping_the_canopy_server').style.fontWeight = "bold";
+                document.getElementById('toc_starting_&_stopping_the_canopy_server').style.backgroundColor = "#d0d0d0";
+            }
+            
+            else if (y + 32 > get_element_scroll_y('operations')) {
+                document.getElementById('toc_operations').style.fontWeight = "bold";
+                document.getElementById('toc_operations').style.backgroundColor = "#d0d0d0";
             }
             
             else if (y + 32 > get_element_scroll_y('ssl_setup_-_ca-signed_certificate')) {
@@ -139,7 +154,7 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_installing_canopy_server' class='hammock-toc-section'><a href='#installing_canopy_server'>Installing Canopy Server</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div><div id='toc_ssl_setup_-_self-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_self-signed_certificate'>SSL Setup - Self-signed Certificate</a></div><div id='toc_ssl_setup_-_ca-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_ca-signed_certificate'>SSL Setup - CA-signed Certificate</a></div><div id='toc_the_canopy-ops_tool' class='hammock-toc-chapter'><a href='#the_canopy-ops_tool'>The canopy-ops Tool</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy Server</div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_about' class='hammock-toc-section'><a href='#about'>About</a></div><div id='toc_hosting_options' class='hammock-toc-section'><a href='#hosting_options'>Hosting Options</a></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installing_dependencies' class='hammock-toc-section'><a href='#installing_dependencies'>Installing Dependencies</a></div><div id='toc_installing_canopy_server' class='hammock-toc-section'><a href='#installing_canopy_server'>Installing Canopy Server</a></div><div id='toc_configuring_and_running' class='hammock-toc-section'><a href='#configuring_and_running'>Configuring and Running</a></div><div id='toc_configuration' class='hammock-toc-chapter'><a href='#configuration'>Configuration</a></div><div id='toc_config_priority' class='hammock-toc-section'><a href='#config_priority'>Config Priority</a></div><div id='toc_configuration_settings' class='hammock-toc-section'><a href='#configuration_settings'>Configuration Settings</a></div><div id='toc_config_file_example' class='hammock-toc-section'><a href='#config_file_example'>Config File Example</a></div><div id='toc_environment_override_example' class='hammock-toc-section'><a href='#environment_override_example'>Environment Override Example</a></div><div id='toc_command-line_override_example' class='hammock-toc-section'><a href='#command-line_override_example'>Command-line Override Example</a></div><div id='toc_checking_the_configuration' class='hammock-toc-section'><a href='#checking_the_configuration'>Checking the Configuration</a></div><div id='toc_ssl_setup_-_self-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_self-signed_certificate'>SSL Setup - Self-signed Certificate</a></div><div id='toc_ssl_setup_-_ca-signed_certificate' class='hammock-toc-section'><a href='#ssl_setup_-_ca-signed_certificate'>SSL Setup - CA-signed Certificate</a></div><div id='toc_operations' class='hammock-toc-chapter'><a href='#operations'>Operations</a></div><div id='toc_starting_&_stopping_the_canopy_server' class='hammock-toc-section'><a href='#starting_&_stopping_the_canopy_server'>Starting & Stopping the Canopy Server</a></div><div id='toc_the_canopy-ops_tool' class='hammock-toc-section'><a href='#the_canopy-ops_tool'>The canopy-ops Tool</a></div><div id='toc_upgrading_the_canopy_server' class='hammock-toc-section'><a href='#upgrading_the_canopy_server'>Upgrading the Canopy Server</a></div></div>
     <div class=hammock-doc-outer>
 
             <div class=hammock-chapter-outer>
@@ -190,13 +205,16 @@ window.onload = function() {
             <p>
                 The Canopy team operates a large-scale deployment of the Canopy
                 Server that you can use to develop and launch your
-                cloud-enabled product or service.  Our servers are hosted in a
+                cloud-enabled products and services.  Our servers are hosted in a
                 world-class datacenter with high
                 availability.
                 <ul><li>
                         <a href="https://sandbox.canopy.link" target="_blank" >
                         <b>https://sandbox.canopy.link</b></a>: Free deployment for
                         learning Canopy and developing smart products.
+                    </li>
+                    <li>
+                        <a href="mailto:info@canopy.link" ><b>Contact Us</b></a> for a dedicated deployment.
                     </li>
                 </ul>
                 Learn more about our hosted offerings on our <a href="http://canopy.link/services.html" target="_blank" >Services</a> page.
@@ -239,7 +257,7 @@ window.onload = function() {
     <p>
         This section contains instructions for installing the Canopy Server
         from a release package or from source on a fresh Ubuntu 14.04 LTS
-        machine.  This may be installed in a public cloud, private cloud, local
+        machine.  The Canopy Server may be installed in a public cloud, private cloud, local
         network, or even on your laptop!
     </p>
     
@@ -352,11 +370,17 @@ sudo apt-get install -y oracle-java7-installer</pre>
                 github repository.  This section walks you through the steps.
             </p>
             <p>
-                Install golang:
+                Install golang.  Canopy does not work with the old version of
+                golang that Ubuntu's "apt-get" installs.  We recommend manually
+                installing version go1.4.2:
             </p>
-            <pre class='hammock-code'>sudo apt-get install -y golang git make mercurial</pre>
+            <pre class='hammock-code'>sudo apt-get install -y git make mercurial
+wget https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.4.2.linux-amd64.tar.gz
+echo PATH=/usr/local/go/bin:\$PATH &gt;&gt; ~/.profile
+source ~/.profile</pre>
             <p>
-                Clone the repository:
+                Clone the Canopy Server repository:
             </p>
             <pre class='hammock-code'>git clone https://github.com/canopy-project/canopy-server</pre>
             <p>
@@ -1041,77 +1065,154 @@ sudo mv cert.pem /etc/canopy/cert.pem</pre>
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=the_canopy-ops_tool name=the_canopy-ops_tool></a>
+                <a class=hammock-a-name id=operations name=operations></a>
                 <div class=hammock-chapter-title>
-                    The canopy-ops Tool
+                    Operations
                 </div>
                 <div class=hammock-chapter-contents>
                     
-    <p>
-        The <span class=hammock-icode>canopy-ops</span> tool gets installed when you follow the
-        <a href=#installation>I<!---->n<!---->s<!---->t<!---->a<!---->l<!---->l<!---->a<!---->t<!---->i<!---->o<!---->n<!----></a> instructions above.  Typically it can be found in the
-        <span class=hammock-icode>/usr/local/bin/</span> directory.
-    </p>
-    <p>
-        This tool supports a growing number of commands that are useful for
-        operating a Canopy Server deployment.  Run <span class=hammock-icode>"canopy-ops
-        help"</span> for the list of commands supported by your version of the
-        tool.
-    </p>
-    <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
-        <tr>
-            <td  class=hammock-tbl-header>
-                Command Line
-            </td>
-            <td  class=hammock-tbl-header>
-                Description
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <span class=hammock-icode>canopy-ops help [&lt;topic_or_cmd&gt;]</span>
-            </td>
-            <td >
-                Display general help or get help for a topic or command
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <span class=hammock-icode>canopy-ops create-db</span>
-            </td>
-            <td >
-                Initialize database
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <span class=hammock-icode>canopy-ops erase-db</span>
-            </td>
-            <td >
-                Wipe entire database
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <span class=hammock-icode>canopy-ops reset-db</span>
-            </td>
-            <td >
-                Wipe entire db then initialize a new db
-            </td>
-        </tr>
-        <tr>
-            <td >
-                <span class=hammock-icode>canopy-ops workers</span>
-            </td>
-            <td >
-                List all registered canopy workers
-            </td>
-        </tr>
-    </table>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=starting_&_stopping_the_canopy_server name=starting_&_stopping_the_canopy_server></a>
+            <div class=hammock-section-title>
+                Starting & Stopping the Canopy Server
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            The <a href=#installation>I<!---->n<!---->s<!---->t<!---->a<!---->l<!---->l<!---->a<!---->t<!---->i<!---->o<!---->n<!----></a> process installs an init.d script that has been
+            tested on Ubuntu 14.04 LTS.  This script can be used to start and
+            stop the server.
+        </p>
+        <p>
+            Start the Canopy Server with:
+        </p>
+        <pre class='hammock-code'>sudo /etc/init.d/canopy-server start</pre>
+        <p>
+            Stop the Canopy Server with:
+        </p>
+        <pre class='hammock-code'>sudo /etc/init.d/canopy-server stop</pre>
+        <p>
+            Restart the Canopy Server with:
+        </p>
+        <pre class='hammock-code'>sudo /etc/init.d/canopy-server restart</pre>
+        <p>
+            Check whether or not the Canopy Server is currently running with:
+        </p>
+        <pre class='hammock-code'>sudo /etc/init.d/canopy-server status</pre>
+        <p>
+            Errors (including errors with startup) will be reported in the log
+            file, typically:
+        </p>
+        <pre class='hammock-code'>tail /var/log/canopy/server.log</pre>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=the_canopy-ops_tool name=the_canopy-ops_tool></a>
+            <div class=hammock-section-title>
+                The canopy-ops Tool
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            The <a href=#installation>I<!---->n<!---->s<!---->t<!---->a<!---->l<!---->l<!---->a<!---->t<!---->i<!---->o<!---->n<!----></a> process also installs the
+            <span class=hammock-icode>canopy-ops</span> tool.  Typically it can be found in the
+            <span class=hammock-icode>/usr/local/bin/</span> directory.
+        </p>
+        <p>
+            This tool supports a growing number of commands that are useful for
+            operating a Canopy Server deployment.  Run <span class=hammock-icode>"canopy-ops
+            help"</span> for the list of commands supported by your version of the
+            tool.
+        </p>
+        <table cellspacing=0 cellpadding=0 border=0 class=hammock-tbl>
+            <tr>
+                <td  class=hammock-tbl-header>
+                    Command Line
+                </td>
+                <td  class=hammock-tbl-header>
+                    Description
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class=hammock-icode>canopy-ops help [&lt;TOPIC_OR_CMD&gt;]</span>
+                </td>
+                <td >
+                    Display general help or get help for a topic or command
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class=hammock-icode>canopy-ops create-db</span>
+                </td>
+                <td >
+                    Initialize database
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class=hammock-icode>canopy-ops erase-db</span>
+                </td>
+                <td >
+                    Wipe entire database
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class=hammock-icode>canopy-ops migrate-db &lt;START_VER&gt; &lt;END_VER&gt;</span>
+                </td>
+                <td >
+                    Migrate database from one release to another.
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class=hammock-icode>canopy-ops reset-db</span>
+                </td>
+                <td >
+                    Wipe entire db then initialize a new db
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <span class=hammock-icode>canopy-ops workers</span>
+                </td>
+                <td >
+                    List all registered canopy workers
+                </td>
+            </tr>
+        </table>
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer>
+            <a class=hammock-a-name id=upgrading_the_canopy_server name=upgrading_the_canopy_server></a>
+            <div class=hammock-section-title>
+                Upgrading the Canopy Server
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            Upgrade instructions vary depending on which release of the Canopy
+            Server you are running and which release you are moving to.  If
+            your desired upgrade spans several releases, the safest approach is
+            to perform the upgrade in multiple stages by going through each
+            intermediate release.
+        </p>
+        <p>
+            Upgrade instructions for all releases can be found in this document:
+            <a href="https://github.com/canopy-project/canopy-server/blob/master/docs/upgrade_process.md" target="_blank" >upgrade_process.md</a>
+        </p>
+    
+            </div>
+        </div>
 
                 </div>
             </div>
-
 </div>
     <script> 
         RenderFooter();

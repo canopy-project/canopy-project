@@ -20,7 +20,7 @@
             <p>
                 The Canopy team operates a large-scale deployment of the Canopy
                 Server that you can use to develop and launch your
-                cloud-enabled product or service.  Our servers are hosted in a
+                cloud-enabled products and services.  Our servers are hosted in a
                 world-class datacenter with high
                 availability.
                 <ul>
@@ -28,6 +28,9 @@
                         <a target='_blank' href="https://sandbox.canopy.link">
                         <b>https://sandbox.canopy.link</b></a>: Free deployment for
                         learning Canopy and developing smart products.
+                    </li>
+                    <li>
+                        <a href='mailto:info@canopy.link'><b>Contact Us</b></a> for a dedicated deployment.
                     </li>
                 </ul>
                 Learn more about our hosted offerings on our <a target="_blank"
@@ -50,7 +53,7 @@
     <p>
         This section contains instructions for installing the Canopy Server
         from a release package or from source on a fresh Ubuntu 14.04 LTS
-        machine.  This may be installed in a public cloud, private cloud, local
+        machine.  The Canopy Server may be installed in a public cloud, private cloud, local
         network, or even on your laptop!
     </p>
     <section title='Installing Dependencies'>
@@ -130,13 +133,19 @@
                 github repository.  This section walks you through the steps.
             </p>
             <p>
-                Install golang:
+                Install golang.  Canopy does not work with the old version of
+                golang that Ubuntu's "apt-get" installs.  We recommend manually
+                installing version go1.4.2:
             </p>
             <code>
-                sudo apt-get install -y golang git make mercurial
+                sudo apt-get install -y git make mercurial
+                wget https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz
+                sudo tar -C /usr/local -xzf go1.4.2.linux-amd64.tar.gz
+                echo PATH=/usr/local/go/bin:\$PATH >> ~/.profile
+                source ~/.profile
             </code>
             <p>
-                Clone the repository:
+                Clone the Canopy Server repository:
             </p>
             <code>git clone https://github.com/canopy-project/canopy-server
             </code>
@@ -743,68 +752,128 @@
     </section>
 </chapter>
 
-<chapter title='The canopy-ops Tool'>
-    <p>
-        The <icode>canopy-ops</icode> tool gets installed when you follow the
-        Installation instructions above.  Typically it can be found in the
-        <icode>/usr/local/bin/</icode> directory.
-    </p>
-    <p>
-        This tool supports a growing number of commands that are useful for
-        operating a Canopy Server deployment.  Run <icode>"canopy-ops
-        help"</icode> for the list of commands supported by your version of the
-        tool.
-    </p>
-    <tbl>
-        <row>
-            <cell header='1'>
-                Command Line
-            </cell>
-            <cell header='1'>
-                Description
-            </cell>
-        </row>
-        <row>
-            <cell>
-                <icode>canopy-ops help [&lt;topic_or_cmd&gt;]</icode>
-            </cell>
-            <cell>
-                Display general help or get help for a topic or command
-            </cell>
-        </row>
-        <row>
-            <cell>
-                <icode>canopy-ops create-db</icode>
-            </cell>
-            <cell>
-                Initialize database
-            </cell>
-        </row>
-        <row>
-            <cell>
-                <icode>canopy-ops erase-db</icode>
-            </cell>
-            <cell>
-                Wipe entire database
-            </cell>
-        </row>
-        <row>
-            <cell>
-                <icode>canopy-ops reset-db</icode>
-            </cell>
-            <cell>
-                Wipe entire db then initialize a new db
-            </cell>
-        </row>
-        <row>
-            <cell>
-                <icode>canopy-ops workers</icode>
-            </cell>
-            <cell>
-                List all registered canopy workers
-            </cell>
-        </row>
-    </tbl>
+<chapter title='Operations'>
+    <section title='Starting &amp; Stopping the Canopy Server'>
+        <p>
+            The Installation process installs an init.d script that has been
+            tested on Ubuntu 14.04 LTS.  This script can be used to start and
+            stop the server.
+        </p>
+        <p>
+            Start the Canopy Server with:
+        </p>
+        <code>
+            sudo /etc/init.d/canopy-server start
+        </code>
+        <p>
+            Stop the Canopy Server with:
+        </p>
+        <code>
+            sudo /etc/init.d/canopy-server stop
+        </code>
+        <p>
+            Restart the Canopy Server with:
+        </p>
+        <code>
+            sudo /etc/init.d/canopy-server restart
+        </code>
+        <p>
+            Check whether or not the Canopy Server is currently running with:
+        </p>
+        <code>
+            sudo /etc/init.d/canopy-server status
+        </code>
+        <p>
+            Errors (including errors with startup) will be reported in the log
+            file, typically:
+        </p>
+        <code>
+            tail /var/log/canopy/server.log
+        </code>
+    </section>
+    <section title='The canopy-ops Tool'>
+        <p>
+            The Installation process also installs the
+            <icode>canopy-ops</icode> tool.  Typically it can be found in the
+            <icode>/usr/local/bin/</icode> directory.
+        </p>
+        <p>
+            This tool supports a growing number of commands that are useful for
+            operating a Canopy Server deployment.  Run <icode>"canopy-ops
+            help"</icode> for the list of commands supported by your version of the
+            tool.
+        </p>
+        <tbl>
+            <row>
+                <cell header='1'>
+                    Command Line
+                </cell>
+                <cell header='1'>
+                    Description
+                </cell>
+            </row>
+            <row>
+                <cell>
+                    <icode>canopy-ops help [&lt;TOPIC_OR_CMD&gt;]</icode>
+                </cell>
+                <cell>
+                    Display general help or get help for a topic or command
+                </cell>
+            </row>
+            <row>
+                <cell>
+                    <icode>canopy-ops create-db</icode>
+                </cell>
+                <cell>
+                    Initialize database
+                </cell>
+            </row>
+            <row>
+                <cell>
+                    <icode>canopy-ops erase-db</icode>
+                </cell>
+                <cell>
+                    Wipe entire database
+                </cell>
+            </row>
+            <row>
+                <cell>
+                    <icode>canopy-ops migrate-db &lt;START_VER&gt; &lt;END_VER&gt;</icode>
+                </cell>
+                <cell>
+                    Migrate database from one release to another.
+                </cell>
+            </row>
+            <row>
+                <cell>
+                    <icode>canopy-ops reset-db</icode>
+                </cell>
+                <cell>
+                    Wipe entire db then initialize a new db
+                </cell>
+            </row>
+            <row>
+                <cell>
+                    <icode>canopy-ops workers</icode>
+                </cell>
+                <cell>
+                    List all registered canopy workers
+                </cell>
+            </row>
+        </tbl>
+    </section>
+    <section title='Upgrading the Canopy Server'>
+        <p>
+            Upgrade instructions vary depending on which release of the Canopy
+            Server you are running and which release you are moving to.  If
+            your desired upgrade spans several releases, the safest approach is
+            to perform the upgrade in multiple stages by going through each
+            intermediate release.
+        </p>
+        <p>
+            Upgrade instructions for all releases can be found in this document:
+            <a target='_blank' href='https://github.com/canopy-project/canopy-server/blob/master/docs/upgrade_process.md'>upgrade_process.md</a>
+        </p>
+    </section>
 </chapter>
-
 </doc>
