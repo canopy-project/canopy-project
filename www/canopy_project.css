@@ -110,6 +110,26 @@
     padding: 12px;
 }
 
+.pretty_table_sm{
+    border-top: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    background: #d8d8d8;
+    margin: 12px;
+}
+
+.pretty_table_sm td {
+    text-align: left;
+    border-bottom: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    background: #dadada;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.pretty_table_head td {
+    background: #b0c0f0;
+}
+
 pre.sh_sourceCode {
   background-color: #f0f0f0;
   box-shadow: 1px 1px 3px #a0a0a0;

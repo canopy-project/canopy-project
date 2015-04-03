@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canopy - Developer Zone</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../canopy_project.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='../canopy_base.css' rel='stylesheet' type='text/css'>
+    <link href='../canopy_project.css' rel='stylesheet' type='text/css'>
+    <link href='../canopy_project_resp.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class=main-outer>
+    <div class='bg-white centered'>
+        <script> 
+            var RELATIVE_PATH = "../";
+            RenderTopbar("devzone");
+        </script>
+    </div>
+
+    <div class='bg-lightgray banner-thin centered' >
+        <div class='l'>
+            Release Package Downloads
+        </div>
+    </div>
+    <div class=hr-gradient></div>
+    <div style='text-align: center; padding-top:8px;'>
+        <b>Latest Canopy Release:</b> 15.04.03 (Apr 03, 2015)<br>
+        <a style='font-weight:400' href='release_notes.html#15.04.03'>View Release Notes</a>
+    </div>
+    <div class='bg-light-gray centered' style='padding-top:0px; padding-bottom:40px;'>
+        <div style='display:inline-block; max-width:1200px;'>
+
+            <table cellspacing=0 cellpadding=0 border=0 class=pretty_table_sm>
+                <tr>
+                    <td colspan=3 style='background:#ffffff;text-align:center; padding-top:32px; padding-bottom:8px;'>
+                        <div class='ml'>Canopy Server</div>
+                    </td>
+                </tr>
+                <tr class='pretty_table_head'>
+                    <td><b>Component</b></td>
+                    <td><b>Package Type</b></td>
+                    <td><b>Download</b></td>
+                </tr>
+                <tr>
+                    <td rowspan=2>Canopy Server v15.04.03</td>
+                    <td>Debian Package - Linux x86 64-bit</td>
+                    <td><a href="http://code.canopy.link/canopy-server/canopy-server_15.04.03-1_amd64.deb" target="_blank" onclick="ga('send', 'event', 'download', 'edk', this.href)">canopy-server_15.04.03-1_amd64.deb</a></td>
+                </tr>
+                <tr>
+                    <td>Source</td>
+                    <td><a href="http://code.canopy.link/canopy-server/canopy-server_15.04.03.src.tar.gz" target="_blank" onclick="ga('send', 'event', 'download', 'edk', this.href)">canopy-server_15.04.03.src.tar.gz</a></td>
+                </tr>
+                <tr>
+                    <td colspan=3 style='background:#ffffff;text-align:center; padding-top:32px; padding-bottom:8px;'>
+                        <div class='ml'>Canopy Embedded Development Kit</div>
+                        <div style='color:#a00000; font-size:15px;'>This
+                        component is deprecated as we are working on a new
+                        &amp; improved Canopy C Client.</div>
+                    </td>
+                </tr>
+                <tr class='pretty_table_head'>
+                    <td><b>Component</b></td>
+                    <td><b>Package Type</b></td>
+                    <td><b>Download</b></td>
+                </tr>
+                <tr>
+                    <td rowspan=2>Canopy EDK v0.9.1</td>
+                    <td>Linux x86 64-bit Binary Package</td>
+                    <td><a href="http://code.canopy.link/edk/0.9.1/canopy-edk-0.9.1-x86_64.tgz" target="_blank" onclick="ga('send', 'event', 'download', 'edk', this.href)">canopy-edk-0.9.1-x86_64.tgz</a></td>
+                </tr>
+                <tr>
+                    <td>Source</td>
+                    <td><a href="http://code.canopy.link/edk/0.9.1/canopy-edk-0.9.1-src.tgz" target="_blank" onclick="ga('send', 'event', 'download', 'edk', this.href)">canopy-edk-0.9.1-src.tgz</a></td>
+                </tr>
+                <tr>
+                    <td colspan=3 style='background:#ffffff;text-align:center; padding-top:32px; padding-bottom:8px;'>
+                        <div class='ml'>Canopy Javascript Client</div>
+                    </td>
+                </tr>
+                <tr class='pretty_table_head'>
+                    <td><b>Component</b></td>
+                    <td><b>Package Type</b></td>
+                    <td><b>Download</b></td>
+                </tr>
+                <tr>
+                    <td>Javascript Client v15.04.03
+                    <td>Source</b></td>
+                    <td><a href="http://code.canopy.link/js/v15.04.03/canopy.js" target="_blank" onclick="ga('send', 'event', 'download', 'adk', this.href)">canopy.js</a></td>
+                </tr>
+                <tr>
+                    <td colspan=3 style='background:#ffffff;text-align:center; padding-top:32px; padding-bottom:8px;'>
+                        <div class='ml'>Canopy Device Manager Application</div>
+                    </td>
+                </tr>
+                <tr class='pretty_table_head'>
+                    <td><b>Component</b></td>
+                    <td><b>Package Type</b></td>
+                    <td><b>Download</b></td>
+                </tr>
+                <tr>
+                    <td>Device Manager v15.04.03
+                    <td>Source</b></td>
+                    <td><a href="http://code.canopy.link/device-mgr/canopy-device-mgr_15.04.03.src.tar.gz" target="_blank" onclick="ga('send', 'event', 'download', 'adk', this.href)">canopy-device-mgr_15.04.03.src.tar.gz</a></td>
+                </tr>
+            </table>
+        </div>
+        <br><br>
+
+        <div class='ml' style='padding:px;'>Older Releases</div>
+        <div style='display:inline-block; max-width:1200px;'>
+            Links to older releases are provided on the <a style='font-weight:400' href=release_notes.html>Release Notes</a> page.
+        </div>
+        <br>
+    </div>
+
+    <script>RenderFooter();</script>
+</div>
+</body>
+</html>
+
+
+<!--
+<a href=”pdfs/my-file.pdf” target=”_blank” onclick=”_gaq.push(['_trackEvent','Download','PDF',this.href]);”>Download my file</a>
+-->
