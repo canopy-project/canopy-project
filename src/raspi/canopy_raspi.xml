@@ -1,0 +1,92 @@
+<doc logo="" toc_title="Raspberry Pi Setup" title="Lorem Ipsum">
+
+<chapter title="Installation">
+    <p>
+        These instructions are for using Canopy with a Raspberry Pi.
+    </p>
+    <section title='Optional Stuff'>
+        Starting with a fresh install of Raspian, there are few things like to
+        do that will make development easier.  These are not related to Canopy,
+        but nevertheless are useful to know about.
+
+        <subsection title="Change Keyboard Mapping">
+            By default the Raspberry Pi assumes you are using a british
+            keyboard, so some keys will produce incorrect characters if you are
+            using, for example, a US keyboard.
+
+            <code>
+                sudo vi /etc/default/keyboard
+            </code>
+                Change the <icode>XKBLAYOUT</icode> line:
+            <code>
+                XKBLAYOUT="us"
+            </code>
+            <code>
+                sudo reboot
+            </code>
+        </subsection>
+
+        <subsection title="Configure WiFi">
+            You can configure through the GUI network manager.  I've found it
+            easier to just edit the <icode>/etc/network/interfaces</icode> file:
+
+            <code>
+                sudo vi /etc/network/interfaces
+            </code>
+            <code>
+                auto lo
+
+                iface lo inet loopback
+                ifact eth0 inet dhcp
+
+                auto wlan0
+                allow-hotplug wlan0
+                iface wlan0 inet dchp
+                    wpa-ssid "My WiFi SSID"
+                    wpa-psk "My WiFi Password"
+            </code>
+            <code>
+                sudo /etc/init.d/networking restart
+            </code>
+            <code>
+                sudo apt-get update
+            </code>
+        </subsection>
+
+        <subsection title="Set HDMI Resolution">
+            <p>
+                With my Rasperry Pi hooked up to a 1080p monitor, I wanted to
+                take full advantage of the resolution.
+            </p>
+            <p>
+                Run this command to see the list of supported resolutions:
+            </p>
+            <code>
+                /opt/vc/bin/tvservice -m CEA
+            </code>
+            <p>
+                You can also get the list of DMT supported modes, which is
+                <icode>hdmi_group=2</icode>.
+            </p>
+            <code>
+                /opt/vc/bin/tvservice -m DMT
+            </code>
+            <p>
+                To boot at the desired resolution (for example mode 31), edit
+                this file:
+            </p>
+            <code>
+                sudo vi /boot/config
+            </code>
+            <code>
+                hdmi_group=1  # 1=CEA  2=DMT
+                hdmi_mode=31
+            </code>
+        </subsection>
+        <subsection title="Install Vim">
+        </subsection>
+    </section>
+</chapter>
+
+</doc>
+
