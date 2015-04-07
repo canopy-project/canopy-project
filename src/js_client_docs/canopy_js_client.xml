@@ -1,0 +1,441 @@
+<doc logo="" toc_title="Javascript Client" title="Lorem Ipsum">
+
+<chapter title="Getting Started">
+    The Canopy Javascript Client (<icode>canopy.js</icode>) provides
+    easy-to-use Javascript bindings for Canopy.
+
+    <p>
+        Currently only browser-based Javascript is supported, with Node.js
+        support on its way.
+    </p>
+
+    <section title='Using a CDN'>
+        The Canopy Javascript Client (<icode>canopy.js</icode>) is hosted on our
+        servers.  You can reference the file directly with:
+        <code>
+            &lt;script src='http://code.canopy.link/adk/js/latest/canopy.js'&gt;&lt;/script&gt;
+        </code>
+    </section>
+    <section title='Downloading'>
+        Alternatively, you can download <icode>canopy.js</icode>
+        on our <a href='../release.html'><b>Release Package
+        Downloads</b></a> page.
+    </section>
+    <section title='Cloning Source'>
+        <p>
+            You can clone the git repository with:
+        </p>
+        <code>
+            git clone https://github.com/canopy-project/canopy-js-client
+        </code>
+        <p>
+            The cloned directory contains the file:
+        </p>
+        <code>
+            canopy-js-client/canopy.js
+        </code>
+    </section>
+</chapter>
+
+<chapter title='The Basics'>
+    <section title='A Simple Example'>
+        This webpage lists the Canopy Devices that are accessible to a User.
+        <code syntax="javascript">
+            &lt;html&gt;
+
+            &lt;head&gt;
+                &lt;title&gt;
+                    Canopy Example
+                &lt;/title&gt;
+                TODO JQUERY
+                &lt;script src='http://code.canopy.link/adk/js/latest/canopy.js'&gt;&lt;/script&gt;
+            &lt;/head&gt;
+
+            &lt;body id='main'&gt;
+            &lt;/body&gt;
+
+            &lt;script&gt;
+
+            Canopy.initUserClient({
+                "auth-username" : "myUsername", 
+                "auth-password" : "myPassword",
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, data) {
+                if (result != CANOPY_SUCCESS) {
+                    $("#main").html("Error: " + data.errorMsg)
+                    return;
+                }
+                data.user.devices().getMany(0, 40).onDone(function(result, deviceData) {
+                    if (result != CANOPY_SUCCESS) {
+                        $("#main").html("Error: " + deviceData.errorMsg)
+                        return;
+                    }
+                    var i;
+                    for (i = 0; i &lt; deviceData.devices.length) {
+                        var device = deviceData.devices[i];
+                        $("#main").append(device.Name() + "(" + device.ID() + "));
+                    }
+                });
+            });
+            &lt;/script&gt;
+
+            &lt;/html&gt;
+        </code>
+
+    </section>
+
+    <section title='Object Types'>
+        The Canopy Javascript Client provides the following object types.
+
+        <code>
+            Canopy (global object)
+
+                Singleton object containing the global routines exposed by this
+                library.
+
+            CanopyContext
+
+                Outermost object that holds runtime state.
+
+            CanopyRemote
+
+                Contains settings used to connect a remote Canopy Server, along
+                with connection-related state when persistent connections are
+                in use.
+
+            CanopyUser
+
+                Represents a human user who has a Canopy account on the
+                configured CanopyRemote.
+
+            CanopyDevice
+
+                Represents a Canopy-enabled "thing" that has been registered on
+                the configured Remote.  This may be physical device or a
+                simulator program.
+
+            CanopyDeviceQuery
+
+                Represents a selection of Devices that can filtered, sorted,
+                counted and paged through.
+
+            CanopyBarrier
+
+                Used to obtain the results of an asynchronous operation.  Also
+                known as a "Promise".
+
+        </code>
+    </section>
+
+</chapter>
+
+<chapter title='Canopy (global object)'>
+    The Canopy global object is a singleton object containing the global
+    routines exposed by this library.
+    <section title='Canopy.initContext()'>
+        <p>
+            Initializes a new CanopyContext.
+        </p>
+        <p>
+            This is the first routine your application must call unless you are
+            using one of the alternatives such as Canopy.initUserClient() or
+            Canopy.initDeviceClient().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                Canopy.initContext()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyContext object
+        </subsection>
+        <subsection title='Example'>
+            <code>
+                var ctx = Canopy.initContext();
+            </code>
+        </subsection>
+    </section>
+
+    <section title='Canopy.initUserClient()'>
+        <p>
+            Helper routine that:
+            <ul>
+                <li>Initializes a Context</li>
+                <li>Configures a Remote</li>
+                <li>Fetches the authenticated User</li>
+            </ul>
+        </p>
+        <p>
+            Implemented as:
+        </p>
+        <code syntax='javascript'>
+            function initUserClient(params) {
+                var ctx = Canopy.initContext();
+                var remote = canopy.initRemote(params);
+                return remote.getSelfUser();
+            }
+        </code>
+        <p>
+            This is the first routine your application must call unless you are
+            using one of the alternatives such as Canopy.initContext() or
+            Canopy.initDeviceClient().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                Canopy.initUserClient(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Same as for (CanopyContext).initRemote()
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>data</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>data.user</icode></cell>
+                    <cell>User object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+            Canopy.initUserClient({
+                "auth-username" : "myUsername", 
+                "auth-password" : "myPassword",
+                "host" : "dev02.canopy.link"
+            }).onDone(function(result, data) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(data.errorMsg);
+                    return;
+                }
+                alert("Hi " + data.user.username());
+            });
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyContext'>
+    A CanopyContext is an outermost object representing the library.  You must
+    initialize a CanopyContext before you can do anything else.
+    <code syntax='javascript'>
+        var ctx = Canopy.initContext();
+    </code>
+</chapter>
+
+<chapter title='Initialization'>
+    <section title='canopy_init_context'>
+        <code syntax='c'>
+            CanopyContext canopy_init_context();
+        </code>
+        <p>
+            Initialize <icode>libcanopy</icode> and create a context.  
+        </p>
+        <p>
+            This may be called multiple times to create multiple contexts,
+            which may be useful for unit testing, or if you need to talk to
+            multiple canopy servers.
+        </p>
+        <p>
+            The new context is configured based on environment variables, falling back
+            to default settings.
+        </p>
+        <p>
+            <b>Returns</b> a handle to the newly-create context object.
+            Returns <icode>NULL</icode> on error.
+        </p>
+        <subsection title='Example'>
+            <code syntax='c'>
+                CanopyContext ctx;
+                ctx = canopy_init_context();
+                if (!ctx) {
+                    canopy_write_error(stderr, NULL, "Failed to initialize Canopy context");
+                }
+            </code>
+        </subsection>
+    </section>
+    <section title='canopy_set_opt'>
+        <code syntax='c'>
+            CanopyResultEnum canopy_set_opt(CanopyContext ctx, 
+                    [OPTION_NAME, OPTION_VALUE,]
+                    ...
+            );
+        </code>
+        <p>
+            Set a context-wide option.
+        </p>
+        <p>
+            Takes an odd number of arguments.  After the first argument
+            (<icode>ctx</icode>), the arguments must must alternate between
+            option identifiers and values.  The option pars may appear in any
+            order, but each option may be provided at most once.
+        </p>
+        <p>
+            Accepted options are:
+        </p>
+        <ul>
+            <li><icode>CANOPY_CLOUD_HOST</icode></li>
+            <li><icode>CANOPY_HTTP_PORT</icode></li>
+            <li><icode>CANOPY_HTTPS_PORT</icode></li>
+            <li><icode>CANOPY_WS_PORT</icode></li>
+            <li><icode>CANOPY_WSS_PORT</icode></li>
+            <li><icode>CANOPY_DEVICE_UUID</icode></li>
+            <li><icode>CANOPY_DEVICE_SECRET_KEY</icode></li>
+        </ul>
+        <p>
+            <b>Returns</b> <icode>CANOPY_SUCCESS</icode> on success, otherwise
+            an error code.
+        </p>
+        <subsection title='Example'>
+            <code syntax='c'>
+                CanopyResultEnum result;
+                
+                // Does nothing with no option arguments:
+                canopy_set_opt(ctx);
+
+                // You can set several options at once:
+                result = canopy_set_opt(ctx,
+                    CANOPY_CLOUD_SERVER, "localhost:8080",
+                    CANOPY_DEVICE_UUID, "16eeca6a-e8dc-4c54-b78e-6a7416803ca8",
+                    CANOPY_DEVICE_SECRET_KEY, "My Secret"
+                );
+                if (result != CANOPY_SUCCESS) {
+                    canopy_write_error(stderr, ctx, "Failed to set options");
+                }
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='Cloud Variables'>
+    <section title='canopy_var_init'>
+        <code syntax='c'>
+            CanopyResultEnum canopy_var_init(CanopyContext ctx, 
+                    const char *decl,
+                    [OPTION_NAME, OPTION_VALUE,]
+                    ...
+            );
+        </code>
+    </section>
+    <section title='canopy_var_set'>
+        <code syntax='c'>
+            CanopyResultEnum canopy_var_set(CanopyContext ctx, const char *varname, CanopyVarValue value);
+
+            CanopyResultEnum canopy_var_set_bool(CanopyContext ctx, const char *varname, bool value);
+            CanopyResultEnum canopy_var_set_float32(CanopyContext ctx, const char *varname, float value);
+            CanopyResultEnum canopy_var_set_float64(CanopyContext ctx, const char *varname, double value);
+            CanopyResultEnum canopy_var_set_int8(CanopyContext ctx, const char *varname, int8_t value);
+            CanopyResultEnum canopy_var_set_int16(CanopyContext ctx, const char *varname, int16_t value);
+            CanopyResultEnum canopy_var_set_int32(CanopyContext ctx, const char *varname, int32_t value);
+            CanopyResultEnum canopy_var_set_string(CanopyContext ctx, const char *varname, const char *value);
+            CanopyResultEnum canopy_var_set_uint8(CanopyContext ctx, const char *varname, uint8_t value);
+            CanopyResultEnum canopy_var_set_uint16(CanopyContext ctx, const char *varname, uint16_t value);
+            CanopyResultEnum canopy_var_set_uint32(CanopyContext ctx, const char *varname, uint32_t value);
+        </code>
+    </section>
+    <section title='canopy_var_get'>
+    </section>
+    <section title='canopy_var_on_change'>
+    </section>
+    <section title='CANOPY_VALUE_ macros'>
+    </section>
+    <section title='CANOPY_READ_ macros'>
+    </section>
+</chapter>
+
+<chapter title="Notifications">
+    <section title='canopy_notify'>
+    </section>
+</chapter>
+
+<chapter title="Synchronization">
+    <section title='canopy_sync_blocking'>
+    </section>
+    <section title='canopy_once_every'>
+    </section>
+</chapter>
+
+<chapter title="Error Handling">
+    <section title='Error Codes'>
+        Most <icode>libcanopy</icode> routines return an error code, indicating
+        success or the reason for failure.
+
+        <tbl>
+            <row>
+                <cell header="1">Enum Value </cell>
+                <cell header="1">Meaning</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_SUCCESS</icode></cell>
+                <cell>Command succeeded</cell>
+            </row>
+            <row>
+                <cell><icode>ERROR_UNKNOWN</icode></cell>
+                <cell>An unknown error occured</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_CONNECTION_FAILED</icode></cell>
+                <cell>Unable to connect to cloud server.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_REDUNDANT_PARAMETER</icode></cell>
+                <cell>A single parameter was provided too many times to a routine.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_PROMISE_NOT_COMPLETE</icode></cell>
+                <cell> The requested operation cannot be performed on a non-completed promise.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_INVALID_OPT</icode></cell>
+                <cell> A supplied option was invalid.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_OUT_OF_MEMORY</icode></cell>
+                <cell> You need to add more RAM :-)</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_BAD_VARIABLE_DECLARATION</icode></cell>
+                <cell>Cloud Variable declaration could not be parsed.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_SINGLE_USE_VALUE_ALREADY_USED</icode></cell>
+                <cell>A single-use Cloud Variable value has already been used as an argument.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_INCORRECT_DATATYPE</icode></cell>
+                <cell>The provided datatype does not match the dataype expected.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_INVALID_VALUE</icode></cell>
+                <cell>An invalid value was provided as a parameter.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_PARSING_PAYLOAD</icode></cell>
+                <cell>Unable to parse received payload.</cell>
+            </row>
+            <row>
+                <cell><icode>CANOPY_ERROR_PROCESSING_PAYLOAD</icode></cell>
+                <cell>Error processing received payload.</cell>
+            </row>
+        </tbl>
+    </section>
+    <section title='canopy_error_msg'>
+    </section>
+    <section title='canopy_write_error'>
+    </section>
+</chapter>
+
+</doc>
+
