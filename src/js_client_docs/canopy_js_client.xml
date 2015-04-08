@@ -57,8 +57,9 @@
             &lt;script&gt;
 
             Canopy.initUserClient({
-                "auth-username" : "myUsername", 
-                "auth-password" : "myPassword",
+                "auth_type" : "basic",
+                "auth_username" : "myUsername", 
+                "auth_password" : "myPassword",
                 "host" : "sandbox.canopy.link"
             }).onDone(function(result, data) {
                 if (result != CANOPY_SUCCESS) {
@@ -256,18 +257,39 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>params.auth_username</icode></cell>
-                    <cell>Optional</cell>
-                    <cell>string</cell>
-                    <cell>Username to authenticate with if using BASIC AUTH.
-                        Otherwise ignored.  Defaults to <icode>""</icode>.</cell>
-                </row>
-                <row>
                     <cell><icode>params.auth_password</icode></cell>
                     <cell>Optional</cell>
                     <cell>string</cell>
-                    <cell>Password to authenticate with if using BASIC AUTH.
-                    Otherwise ignored.  Defaults to <icode>""</icode>.</cell>
+                    <cell>User's password for authentication.  Required if
+                    "auth_type" is "basic" or if you plan to call
+                    (CanopyRemote).login().  Otherwise ignored.  Defaults to
+                    <icode>""</icode>.</cell>
+                </row>
+                <row>
+                    <cell><icode>params.auth_type</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>Type of authentication to use.  Must be one of:
+                        <ul>
+                            <li><icode>"basic"</icode> - Send BASIC AUTH
+                                credentials with each request.
+                            </li>
+                            <li><icode>"session"</icode> - Send session cookies
+                                with each request.
+                            </li>
+                        </ul>
+                        Defaults to <icode>"session"</icode>.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.auth_username</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>Username to authenticate with if using BASIC AUTH or
+                        when .login() is called.
+                        This may be a user's username or email address (TBD: or
+                        a Device's ID).  Defaults
+                        to <icode>""</icode>.</cell>
                 </row>
                 <row>
                     <cell><icode>params.host</icode></cell>
@@ -352,6 +374,75 @@
                 // Silly example:
                 Canopy.initContext().shutdown();
             </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyRemote'>
+    <section title='(CanopyRemote).login()'>
+        Login a User to the remote Canopy Server using the credentials supplied
+        to (CanopyContext).initRemote() in the <icode>"auth_username"</icode>
+        and <icode>"auth_password"</icode> parameters. 
+        <p>
+            If successful, the response will include a session cookie that will
+            be included in subsequent requests made by the browser to the
+            Remote's host.
+        </p>
+        <p>
+            NOTE: Currently only one User can be logged in at a time.  Calling
+            this on one Remote object will have the effect of logging in that
+            User across all other Remote objects configured with the same host
+            and auth_type="session".
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).login()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>data</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>data.user</icode></cell>
+                    <cell>User object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "auth_username" : "myUsername",
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.login().onDone(function(result, data) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(data.errorMsg);
+                        return;
+                    }
+                    alert("Hi " + data.user.username());
+                });
+            </code>
+
         </subsection>
     </section>
 </chapter>
