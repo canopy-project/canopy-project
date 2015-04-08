@@ -379,20 +379,93 @@
 </chapter>
 
 <chapter title='CanopyRemote'>
+    <section title='(CanopyRemote).getSelfUser()'>
+        Get the User object corresponding to the currently authenticated user.
+        <p>
+            If the Remote's <icode>"auth_type"</icode> is
+            <icode>"session"</icode>, then the currently authenticated user is
+            the currently logged in user, if any.
+        </p>
+        <p>
+            If the Remote's <icode>"auth_type"</icode> is
+            <icode>"basic"</icode>, then the currently authenticated user is
+            the user whose credientials were supplied to
+            (CanopyContext).initRemote() in the <icode>"auth_username"</icode>
+            and <icode>"auth_password"</icode> parameters. 
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).getSelfUser()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>data</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>data.user</icode></cell>
+                    <cell>User object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername",
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.getSelfUser().onDone(function(result, data) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(data.errorMsg);
+                        return;
+                    }
+                    alert("Hi " + data.user.username());
+                });
+            </code>
+        </subsection>
+
+
+    </section>
+
     <section title='(CanopyRemote).login()'>
         Login a User to the remote Canopy Server using the credentials supplied
         to (CanopyContext).initRemote() in the <icode>"auth_username"</icode>
         and <icode>"auth_password"</icode> parameters. 
+        <p>
+            This can only used if the Remote object's
+            <icode>"auth_type"</icode> was configured to be
+            <icode>"session"</icode>.
+        </p>
         <p>
             If successful, the response will include a session cookie that will
             be included in subsequent requests made by the browser to the
             Remote's host.
         </p>
         <p>
-            NOTE: Currently only one User can be logged in at a time.  Calling
-            this on one Remote object will have the effect of logging in that
-            User across all other Remote objects configured with the same host
-            and auth_type="session".
+            NOTE: Currently only one User can be logged in at a time and this
+            call has a global effect.  Calling this on one Remote object will
+            have the effect of logging in that User across all other Remote
+            objects configured with the same host and auth_type="session".
         </p>
 
         <subsection title='Usage'>
@@ -443,6 +516,227 @@
                 });
             </code>
 
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).logout()'>
+        Logout the currently authenticated User on the remote Canopy Server.
+        <p>
+            This can only used if the Remote object's
+            <icode>"auth_type"</icode> was configured to be
+            <icode>"session"</icode>.
+        </p>
+        <p>
+            NOTE: Currently only one User can be logged in at a time and this
+            call has a global effect.  Calling this on one Remote object will
+            cause the user to be logged out across all other Remote objects
+            configured with the same host and auth_type="session".
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).logout()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, no additional data will be included in the
+                <icode>data</icode> parameter of the Barrier's .onDone()
+                callback.
+            </p>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.logout().onDone(function(result, data) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(data.errorMsg);
+                        return;
+                    }
+                    alert("You've been logged out ");
+                });
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyUser'>
+    A CanopyUser represents a human user who has a Canopy account on the
+    configured CanopyRemote.
+    <section title='(CanopyUser).devices()'>
+        Obtains CanopyDeviceQuery object corresponding to all Devices that User has
+        access to.
+    </section>
+    <section title='(CanopyUser).email()'>
+        Get or set User's email address.
+        <p>
+            NOTE: This method will get or set the cached local copy of the User's
+            email address.  To synchronize with the remote call
+            (CanopyUser).updateFromRemote(), (CanopyUser).updateToRemote() or
+            (CanopyUser).SyncWithRemote().
+        </p>
+        <p>
+            When setting the User's email address this method does not perform
+            any validation on the input.  Validation occurs server-side the
+            next time synchronization is performed.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the User's email address:
+            <code>
+                (CanopyUser).email()
+            </code>
+            <p>
+                To set the User's email address:
+            </p>
+            <code>
+                (CanopyUser).email(newEmail)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Optionally takes a new email address.
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>newEmail</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>New email address for user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            String email address.
+            <p>
+                Returns the newly-assigned email address if any.
+            </p>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var myNewEmail = "canopytest@mailinator.com";
+
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, data) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + data.errorMsg);
+                        return;
+                    }
+
+                    var user = data.user;
+                    var oldEmail = user.email();
+                    user.email(myNewEmail);
+
+                    // Push change to remote:
+                    user.updateToRemote().onDone(function(result, data) {
+                        if (result != CANOPY_SUCCESS) {
+                            alert("Error changing email: " + data.errorMsg);
+                            return;
+                        }
+
+                        alert("Email changed from " + oldEmail + " to " + newEmail);
+                    }
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).isValidated()'>
+        Get User's validation status, which signifies whether or not the user
+        has confirmed their email address.
+        <p>
+            NOTE: This method will get the cached local copy of the User's
+            validation status.  To synchronize with the remote call
+            (CanopyUser).updateFromRemote() or (CanopyUser).syncWithRemote().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).isValidated()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Boolean.  <icode>true</icode> means the user has confirmed their
+            email address, <icode>false</icode> means the user has not.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, data) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + data.errorMsg);
+                        return;
+                    }
+                    if (data.user.isValidated()) {
+                        alert("You're a good person!"));
+                    } else {
+                        alert("Please check your email!"));
+                    }
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).username()'>
+        Get User's username.
+        <p>
+            NOTE: This method will get the cached local copy of the User's
+            username.  To synchronize with the remote call
+            (CanopyUser).updateFromRemote() or (CanopyUser).syncWithRemote().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).username()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String username.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, data) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + data.errorMsg);
+                        return;
+                    }
+
+                    alert("Hello " + data.user.username());
+                }
+            </code>
         </subsection>
     </section>
 </chapter>
