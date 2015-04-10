@@ -227,14 +227,15 @@ td.hammock-tbl-header{
     position: fixed;
     width: 240px;
     overflow: auto;
-    top: 94px;
+    top: 68px;
     left: 8px;
-    font-size: 14px;
+    font-size: 12px;
     padding: 16px;
     padding-top: 12px;
     font-weight: 400;
     white-space: nowrap;
-    background: rgba(255, 255, 255, 0.6);
+    line-height: 1;
+    background: rgba(240, 240, 240, 0.95);
     overflow: hidden;
     border-radius: 3px;
 }
