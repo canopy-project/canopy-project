@@ -1,8 +1,10 @@
 <doc logo="" toc_title="Javascript Client" title="Lorem Ipsum">
 
 <chapter title="Getting Started">
-    The Canopy Javascript Client (<icode>canopy.js</icode>) provides
-    easy-to-use Javascript bindings for Canopy.
+    <p>
+        The Canopy Javascript Client (<icode>canopy.js</icode>) provides
+        easy-to-use Javascript bindings for Canopy.
+    </p>
 
     <p>
         Currently only browser-based Javascript is supported, with Node.js
@@ -120,6 +122,13 @@
                 Represents a selection of Devices that can be filtered, sorted,
                 counted and paged through.
 
+            CanopyVariable
+
+                Represents a "Cloud Variable", which is a Device property that
+                is tracked and stored on the server.  Cloud Variables are
+                useful for sensor data, real-time control, and Device
+                configuration.
+
             CanopyBarrier
 
                 Used to obtain the results of an asynchronous operation.  Also
@@ -131,8 +140,10 @@
 </chapter>
 
 <chapter title='Canopy (global object)'>
-    The Canopy global object is a singleton object containing the global
-    routines exposed by this library.
+    <p>
+        The Canopy global object is a singleton object containing the global
+        routines exposed by this library.
+    </p>
     <section title='Canopy.initContext()'>
         <p>
             Initializes a new CanopyContext.
@@ -298,9 +309,12 @@
 </chapter>
 
 <chapter title='CanopyContext'>
-    A CanopyContext is an outermost object representing the library.  You must
-    initialize a CanopyContext before you can do anything else by calling either
-    Canopy.initContext(), Canopy.initUserClient() or Canopy.initDeviceClient().
+    <p>
+        A CanopyContext is an outermost object representing the library.  You
+        must initialize a CanopyContext before you can do anything else by
+        calling either Canopy.initContext(), Canopy.initUserClient() or
+        Canopy.initDeviceClient().
+    </p>
     <section title='(CanopyContext).initRemote()'>
         Initializes a Remote object.
         <p>
@@ -641,8 +655,10 @@
 </chapter>
 
 <chapter title='CanopyUser'>
-    A CanopyUser represents a human user who has a Canopy account on the
-    configured CanopyRemote.
+    <p>
+        A CanopyUser represents a human user who has a Canopy account on the
+        configured CanopyRemote.
+    </p>
     <section title='(CanopyUser).createDevices()'>
         Create one or more CanopyDevice resources on the remote.
         <p>
@@ -982,9 +998,11 @@
 </chapter>
 
 <chapter title='CanopyDevice'>
-    A CanopyDevice represents a Canopy-enabled "thing" that has been registered
-    on the configured Remote.  This may be a physical device or a simulator
-    program.
+    <p>
+        A CanopyDevice represents a Canopy-enabled "thing" that has been
+        registered on the configured Remote.  This may be a physical device or
+        a simulator program.
+    </p>
 
     <section title="(CanopyDevice).id()">
         Get Device's Canopy ID.
@@ -1039,8 +1057,10 @@
 </chapter>
 
 <chapter title='CanopyDeviceQuery'>
-    A CanopyDeviceQuery represents a selection of Devices that can be filtered,
-    sorted, counted, and paged through.
+    <p>
+        A CanopyDeviceQuery represents a selection of Devices that can be
+        filtered, sorted, counted, and paged through.
+    </p>
 
     <section title='(CanopyDeviceQuery).count()'>
         Obtain from the remote the total number of devices that satisfy this query.
@@ -1151,6 +1171,183 @@
             </code>
         </subsection>
     </section>
-
 </chapter>
+
+<chapter title='CanopyVariable'>
+    <p>
+        A CanopyVariable represents a "Cloud Variable", which is a Device
+        property that is tracked and stored on the server.  Cloud Variables are
+        useful for sensor data, real-time control, and Device configuration.
+    </p>
+
+    <section title='(CanopyVariable).datatype()'>
+        Get the Cloud Variable's datatype.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).datatype()
+            </code>
+        </subsection>
+        <subsection title='Return Value'>
+            String containing the Cloud Variable's datatype.
+            <p>
+                Will be one of the following:
+            </p>
+            <tbl>
+                <row>
+                    <cell header='1'>Value</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell><icode>"bool"</icode></cell>
+                    <cell>Boolean value</cell>
+                </row>
+                <row>
+                    <cell><icode>"int8"</icode></cell>
+                    <cell>8-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"int16"</icode></cell>
+                    <cell>16-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"int32"</icode></cell>
+                    <cell>32-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"uint8"</icode></cell>
+                    <cell>8-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"uint16"</icode></cell>
+                    <cell>16-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"uint32"</icode></cell>
+                    <cell>32-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"datetime"</icode></cell>
+                    <cell>64-bit unsigned integer representing microseconds
+                    from Epoch</cell>
+                </row>
+                <row>
+                    <cell><icode>"float32"</icode></cell>
+                    <cell>32-bit floating point number</cell>
+                </row>
+                <row>
+                    <cell><icode>"float64"</icode></cell>
+                    <cell>64-bit floating point number</cell>
+                </row>
+                <row>
+                    <cell><icode>"string"</icode></cell>
+                    <cell>string value</cell>
+                </row>
+                <row>
+                    <cell>TBD composite objects</cell>
+                    <cell>TBD</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, data) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(data.errorMsg);
+                    return;
+                }
+
+                // Loop over cloud variables and say their datatypes
+                var cloudVars = data.device.vars();
+                for (var i = 0; i &lt; cloudVars.length; i++) {
+                    alert("Cloud Var " + cloudVars[i].name() + "has datatype " + cloudVars[i].datatype());
+                }
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).direction()'>
+        Get the Cloud Variable's direction.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).direction()
+            </code>
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a string direction.  The direction determines who can
+            modify the value:
+            <tbl>
+                <row>
+                    <cell header='1'>Direction</cell>
+                    <cell header='1'>Who Can Modify Value</cell>
+                </row>
+                <row>
+                    <cell><icode>"out"</icode></cell>
+                    <cell>Can only be set by the device that the cloud variable
+                    belongs to.</cell>
+                </row>
+                <row>
+                    <cell><icode>"in"</icode></cell>
+                    <cell>Can only be set by users and other devices (i.e. not
+                            the device that the cloud variable belongs
+                            to).</cell>
+                </row>
+                <row>
+                    <cell><icode>"inout"</icode></cell>
+                    <cell>Anyone with access to the cloud variable can set it.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, data) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(data.errorMsg);
+                    return;
+                }
+
+                // Loop over cloud variables and say their directions
+                var cloudVars = data.device.vars();
+                for (var i = 0; i &lt; cloudVars.length; i++) {
+                    alert("Cloud Var " + cloudVars[i].name() + "has direction " + cloudVars[i].direction());
+                }
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).value()'>
+        Get or set the Cloud Variable's value.
+        <p>
+            This method will get or set the cached local copy of the Cloud
+            Variable's value.  To synchronize with the remote call
+            <icode>(CanopyDevice).updateFromRemote()</icode>,
+            <icode>(CanopyDevice).updateToRemote()</icode> or
+            <icode>(CanopyDevice).SyncWithRemote()</icode>.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the Cloud Variable's value:
+            <code>
+                (CanopyVariable).value()
+            </code>
+            <p>
+                To set the Cloud Variable's value:
+            </p>
+            <code>
+                (CanopyVariable).value(newValue)
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
 </doc>
