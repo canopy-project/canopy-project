@@ -1,6 +1,6 @@
 <doc logo="" toc_title="Javascript Client" title="Lorem Ipsum">
 
-<chapter title="Getting Started">
+<chapter title="Setup and Install">
     <p>
         The Canopy Javascript Client (<icode>canopy.js</icode>) provides
         easy-to-use Javascript bindings for Canopy.
@@ -40,52 +40,6 @@
 </chapter>
 
 <chapter title='The Basics'>
-    <section title='A Simple Example'>
-        This webpage lists the Canopy Devices that are accessible to a User.
-        <code syntax="javascript">
-            &lt;html&gt;
-
-            &lt;head&gt;
-                &lt;title&gt;
-                    Canopy Example
-                &lt;/title&gt;
-                TODO JQUERY
-                &lt;script src='http://code.canopy.link/adk/js/latest/canopy.js'&gt;&lt;/script&gt;
-            &lt;/head&gt;
-
-            &lt;body id='main'&gt;
-            &lt;/body&gt;
-
-            &lt;script&gt;
-
-            Canopy.initUserClient({
-                "auth_type" : "basic",
-                "auth_username" : "myUsername", 
-                "auth_password" : "myPassword",
-                "host" : "sandbox.canopy.link"
-            }).onDone(function(result, data) {
-                if (result != CANOPY_SUCCESS) {
-                    $("#main").html("Error: " + data.errorMsg)
-                    return;
-                }
-                data.user.devices().getMany(0, 40).onDone(function(result, deviceData) {
-                    if (result != CANOPY_SUCCESS) {
-                        $("#main").html("Error: " + deviceData.errorMsg)
-                        return;
-                    }
-                    var i;
-                    for (i = 0; i &lt; deviceData.devices.length) {
-                        var device = deviceData.devices[i];
-                        $("#main").append(device.Name() + "(" + device.ID() + "));
-                    }
-                });
-            });
-            &lt;/script&gt;
-
-            &lt;/html&gt;
-        </code>
-
-    </section>
 
     <section title='Object Types'>
         The Canopy Javascript Client provides the following object types.
@@ -135,6 +89,181 @@
                 Also known as a "Promise".
 
         </code>
+    </section>
+
+    <section title='Local vs Remote Operations'>
+        <p>
+            Some of the routines in this library operate on locally cached copies
+            of data (a "local operation"), whereas other routines interact with the
+            remote Canopy server ("a remote operation").
+        </p>
+        <p>
+            All local operations return immediately.
+        </p> 
+        <p>
+            All remote operations are asynchronous by nature and return a
+            CanopyBarrier object.  The CanopyBarrier object is used to wait for
+            and obtain the results of the operation.
+        </p> 
+    </section>
+
+    <section title='Initialization'>
+        <p>
+            The library initialization code depends on whose credentials (if
+            any) your program has access to.  The process differs slightly if
+            you will be using the library on behalf of a human User or on
+            behalf of a Device.
+        </p>
+        <subsection title="Initializing Library with a Signed-in User">
+            <p>
+                If the user has an active session on the remote Canopy server
+                (for example if they went to
+                 <icode>https://sandbox.canopy.link</icode> and logging in),
+                you can initialize the library with:
+            </p>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        // An error occured.
+                        // If the user is not logged in then result==CANOPY_ERROR_NOT_LOGGED_IN
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+
+                    // Success!
+                    // responseData.user contains the CanopyUser object for the
+                    // signed in user.
+                    var user = responseData.user;
+                    ...
+                });
+            </code>
+            <p>
+                You may want to change <icode>http://sandbox.canopy.link</icode> in
+                the above example to your Canopy remote.
+            </p>
+            <p>
+                The <icode>Canopy.initUserClient()</icode> call accepts many
+                additional parameters described in the documentation for <icode>(CanopyContext).initRemote()</icode>.
+            </p>
+        </subsection>
+        <subsection title="Initializing Library with User Credentials using BASIC AUTH">
+            <p>
+                To instead use BASIC AUTH to interact with the remote
+                Canopy server on behalf of a User, provide ther User's
+                credentials to <icode>Canopy.initUserClient()</icode>:
+            </p>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        // An error occurred.
+                        // If the credentials are incorrect then result==CANOPY_ERROR_BAD_CREDENTIALS
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+
+                    // Success!
+                    // responseData.user contains the CanopyUser object for the
+                    // authenticated user.
+                    var user = responseData.user;
+                    ...
+                });
+            </code>
+        </subsection>
+        <subsection title="Initializing Library with Device Credentials using BASIC AUTH">
+            <p>
+                To instead use the library on behalf of a Device, use
+                <icode>Canopy.initDeviceClient()</icode> and provide the Device's ID and Secret Key.
+            </p>
+            <code syntax='javascript'>
+                Canopy.initDeviceClient({
+                    "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's ID */
+                    "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        // An error occurred.
+                        // If the credentials are incorrect then result==CANOPY_ERROR_BAD_CREDENTIALS
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+
+                    // Success!
+                    // responseData.device contains the CanopyDevice object for the
+                    // authenticated device.
+                    var device = responseData.device;
+                    ...
+                });
+            </code>
+        </subsection>
+        <subsection title="Initializing Library without Credentials">
+            Some routines, such as <icode>(CanopyRemote).createUser()</icode>
+            do not require authentication.  To use these routines, you must
+            create a CanopyContext and CanopyRemote manually.
+
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "host" : "sandbox.canopy.link"
+                });
+
+                // You can now call remote.createUser({...}) for example.
+            </code>
+
+        </subsection>
+    </section>
+
+    <section title='A Simple Example'>
+        This webpage lists the Canopy Devices that are accessible to a User.
+        <code syntax="javascript">
+            &lt;html&gt;
+
+            &lt;head&gt;
+                &lt;title&gt;
+                    Canopy Example
+                &lt;/title&gt;
+                TODO JQUERY
+                &lt;script src='http://code.canopy.link/adk/js/latest/canopy.js'&gt;&lt;/script&gt;
+            &lt;/head&gt;
+
+            &lt;body id='main'&gt;
+            &lt;/body&gt;
+
+            &lt;script&gt;
+
+            Canopy.initUserClient({
+                "auth_type" : "basic",
+                "auth_username" : "myUsername", 
+                "auth_password" : "myPassword",
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    $("#main").html("Error: " + responseData.errorMsg)
+                    return;
+                }
+                responseData.user.devices().getMany(0, 40).onDone(function(result, deviceData) {
+                    if (result != CANOPY_SUCCESS) {
+                        $("#main").html("Error: " + deviceData.errorMsg)
+                        return;
+                    }
+                    var i;
+                    for (i = 0; i &lt; deviceData.devices.length) {
+                        var device = deviceData.devices[i];
+                        $("#main").append(device.Name() + "(" + device.ID() + "));
+                    }
+                });
+            });
+            &lt;/script&gt;
+
+            &lt;/html&gt;
+        </code>
+
     </section>
 
 </chapter>
@@ -208,7 +337,7 @@
             CanopyBarrier object.
 
             <p>
-                On success, the <icode>data</icode> parameter of the Barrier's
+                On success, the <icode>responseData</icode> parameter of the Barrier's
                 .onDone() callback will contain the following fields:
             </p>
             <tbl>
@@ -217,7 +346,7 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>data.device</icode></cell>
+                    <cell><icode>responseData.device</icode></cell>
                     <cell>Device object representing authenticated user.</cell>
                 </row>
             </tbl>
@@ -228,12 +357,12 @@
                 "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
                 "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
                 "host" : "sandbox.canopy.link"
-            }).onDone(function(result, data) {
+            }).onDone(function(result, responseData) {
                 if (result != CANOPY_SUCCESS) {
-                    alert(data.errorMsg);
+                    alert(responseData.errorMsg);
                     return;
                 }
-                alert("Hi " + data.device.name());
+                alert("Hi " + responseData.device.name());
             });
             </code>
         </subsection>
@@ -276,7 +405,7 @@
             CanopyBarrier object.
 
             <p>
-                On success, the <icode>data</icode> parameter of the Barrier's
+                On success, the <icode>responseData</icode> parameter of the Barrier's
                 .onDone() callback will contain the following fields:
             </p>
             <tbl>
@@ -285,7 +414,7 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>data.user</icode></cell>
+                    <cell><icode>responseData.user</icode></cell>
                     <cell>User object representing authenticated user.</cell>
                 </row>
             </tbl>
@@ -296,12 +425,12 @@
                 "auth-username" : "myUsername", 
                 "auth-password" : "myPassword",
                 "host" : "dev02.canopy.link"
-            }).onDone(function(result, data) {
+            }).onDone(function(result, responseData) {
                 if (result != CANOPY_SUCCESS) {
-                    alert(data.errorMsg);
+                    alert(responseData.errorMsg);
                     return;
                 }
-                alert("Hi " + data.user.username());
+                alert("Hi " + responseData.user.username());
             });
             </code>
         </subsection>
@@ -310,10 +439,10 @@
 
 <chapter title='CanopyContext'>
     <p>
-        A CanopyContext is an outermost object representing the library.  You
-        must initialize a CanopyContext before you can do anything else by
-        calling either Canopy.initContext(), Canopy.initUserClient() or
-        Canopy.initDeviceClient().
+        A CanopyContext is an outermost object that holds runtime state for the
+        library.  You must initialize a CanopyContext before you can do
+        anything else by calling either Canopy.initContext(),
+        Canopy.initUserClient() or Canopy.initDeviceClient().
     </p>
     <section title='(CanopyContext).initRemote()'>
         Initializes a Remote object.
@@ -491,7 +620,7 @@
             CanopyBarrier object.
 
             <p>
-                On success, the <icode>data</icode> parameter of the Barrier's
+                On success, the <icode>responseData</icode> parameter of the Barrier's
                 .onDone() callback will contain the following fields:
             </p>
             <tbl>
@@ -500,7 +629,7 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>data.user</icode></cell>
+                    <cell><icode>responseData.user</icode></cell>
                     <cell>User object representing authenticated user.</cell>
                 </row>
             </tbl>
@@ -517,12 +646,12 @@
                     "host" : "sandbox.canopy.link"
                 });
 
-                remote.getSelfUser().onDone(function(result, data) {
+                remote.getSelfUser().onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert(data.errorMsg);
+                        alert(responseData.errorMsg);
                         return;
                     }
-                    alert("Hi " + data.user.username());
+                    alert("Hi " + responseData.user.username());
                 });
             </code>
         </subsection>
@@ -563,7 +692,7 @@
             CanopyBarrier object.
 
             <p>
-                On success, the <icode>data</icode> parameter of the Barrier's
+                On success, the <icode>responseData</icode> parameter of the Barrier's
                 .onDone() callback will contain the following fields:
             </p>
             <tbl>
@@ -572,7 +701,7 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>data.user</icode></cell>
+                    <cell><icode>responseData.user</icode></cell>
                     <cell>User object representing authenticated user.</cell>
                 </row>
             </tbl>
@@ -588,12 +717,12 @@
                     "host" : "sandbox.canopy.link"
                 });
 
-                remote.login().onDone(function(result, data) {
+                remote.login().onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert(data.errorMsg);
+                        alert(responseData.errorMsg);
                         return;
                     }
-                    alert("Hi " + data.user.username());
+                    alert("Hi " + responseData.user.username());
                 });
             </code>
 
@@ -628,9 +757,8 @@
             CanopyBarrier object.
 
             <p>
-                On success, no additional data will be included in the
-                <icode>data</icode> parameter of the Barrier's .onDone()
-                callback.
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
             </p>
         </subsection>
 
@@ -642,9 +770,9 @@
                     "host" : "sandbox.canopy.link"
                 });
 
-                remote.logout().onDone(function(result, data) {
+                remote.logout().onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert(data.errorMsg);
+                        alert(responseData.errorMsg);
                         return;
                     }
                     alert("You've been logged out ");
@@ -702,7 +830,7 @@
             CanopyBarrier object.
 
             <p>
-                On success, the <icode>data</icode> parameter of the Barrier's
+                On success, the <icode>responseData</icode> parameter of the Barrier's
                 .onDone() callback will contain the following fields:
             </p>
             <tbl>
@@ -711,7 +839,7 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>data.devices</icode></cell>
+                    <cell><icode>responseData.devices</icode></cell>
                     <cell>(DEPRECATED) Array of CanopyDevice objects
                     corresponding to the newly created devices.  
                     <p>Note: This is
@@ -728,19 +856,19 @@
                     "auth_username" : "myUsername", 
                     "auth_password" : "myPassword",
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert("Error: " + data.errorMsg);
+                        alert("Error: " + responseData.errorMsg);
                         return;
                     }
 
                     // Create 3 new devices
-                    data.user.createDevices({
+                    responseData.user.createDevices({
                         quantity: 3,
                         names: ["Toaster", "Lightbulb", "Refridgerator"]
-                    }).onDone(function(result, data) {
+                    }).onDone(function(result, responseData) {
                         if (result != CANOPY_SUCCESS) {
-                            alert("Error creating devices: " + data.errorMsg);
+                            alert("Error creating devices: " + responseData.errorMsg);
                             return;
                         }
 
@@ -811,20 +939,20 @@
                     "auth_username" : "myUsername", 
                     "auth_password" : "myPassword",
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert("Error: " + data.errorMsg);
+                        alert("Error: " + responseData.errorMsg);
                         return;
                     }
 
-                    var user = data.user;
+                    var user = responseData.user;
                     var oldEmail = user.email();
                     user.email(myNewEmail);
 
                     // Push change to remote:
-                    user.updateToRemote().onDone(function(result, data) {
+                    user.updateToRemote().onDone(function(result, responseData) {
                         if (result != CANOPY_SUCCESS) {
-                            alert("Error changing email: " + data.errorMsg);
+                            alert("Error changing email: " + responseData.errorMsg);
                             return;
                         }
 
@@ -862,12 +990,12 @@
                     "auth_username" : "myUsername", 
                     "auth_password" : "myPassword",
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert("Error: " + data.errorMsg);
+                        alert("Error: " + responseData.errorMsg);
                         return;
                     }
-                    if (data.user.isValidated()) {
+                    if (responseData.user.isValidated()) {
                         alert("You're a good person!"));
                     } else {
                         alert("Please check your email!"));
@@ -898,9 +1026,9 @@
                     "auth_username" : "myUsername", 
                     "auth_password" : "myPassword",
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert("Error: " + data.errorMsg);
+                        alert("Error: " + responseData.errorMsg);
                         return;
                     }
 
@@ -935,13 +1063,13 @@
                     "auth_username" : "myUsername", 
                     "auth_password" : "myPassword",
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert("Error: " + data.errorMsg);
+                        alert("Error: " + responseData.errorMsg);
                         return;
                     }
 
-                    alert("Hello " + data.user.username());
+                    alert("Hello " + responseData.user.username());
                 }
             </code>
         </subsection>
@@ -989,9 +1117,8 @@
             CanopyBarrier object.
 
             <p>
-                On success, no additional data will be included in the
-                <icode>data</icode> parameter of the Barrier's .onDone()
-                callback.
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
             </p>
         </subsection>
     </section>
@@ -1024,13 +1151,13 @@
                     "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
                     "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        alert("Error: " + data.errorMsg);
+                        alert("Error: " + responseData.errorMsg);
                         return;
                     }
 
-                    alert(data.device.id());
+                    alert(responseData.device.id());
                     /* OUTPUT: 8f0dad00-2f45-4726-bd08-ceb0530f70c8 */
                 }
             </code>
@@ -1076,7 +1203,7 @@
             CanopyBarrier object.
 
             <p>
-                On success, the <icode>data</icode> parameter of the Barrier's
+                On success, the <icode>responseData</icode> parameter of the Barrier's
                 .onDone() callback will contain the following fields:
             </p>
             <tbl>
@@ -1085,7 +1212,7 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>data.count</icode></cell>
+                    <cell><icode>responseData.count</icode></cell>
                     <cell>Device object representing authenticated user.</cell>
                 </row>
             </tbl>
@@ -1097,13 +1224,13 @@
                     "auth_username" : "myUsername", 
                     "auth_password" : "myPassword",
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        $("#main").html("Error: " + data.errorMsg)
+                        $("#main").html("Error: " + responseData.errorMsg)
                         return;
                     }
 
-                    data.user.devices().count().onDone(function(result, countData) {
+                    responseData.user.devices().count().onDone(function(result, countData) {
                         if (result != CANOPY_SUCCESS) {
                             $("#main").html("Error: " + countData.errorMsg)
                             return;
@@ -1151,13 +1278,13 @@
                     "auth_username" : "myUsername", 
                     "auth_password" : "myPassword",
                     "host" : "sandbox.canopy.link"
-                }).onDone(function(result, data) {
+                }).onDone(function(result, responseData) {
                     if (result != CANOPY_SUCCESS) {
-                        $("#main").html("Error: " + data.errorMsg)
+                        $("#main").html("Error: " + responseData.errorMsg)
                         return;
                     }
 
-                    dq = data.user.devices();
+                    dq = responseData.user.devices();
                     dq = dq.filter("HAS latitude").filter("HAS longitude");
                     dq.count().onDone(function(result, countData) {
                         if (result != CANOPY_SUCCESS) {
@@ -1258,14 +1385,14 @@
                 "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
                 "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
                 "host" : "sandbox.canopy.link"
-            }).onDone(function(result, data) {
+            }).onDone(function(result, responseData) {
                 if (result != CANOPY_SUCCESS) {
-                    alert(data.errorMsg);
+                    alert(responseData.errorMsg);
                     return;
                 }
 
                 // Loop over cloud variables and say their datatypes
-                var cloudVars = data.device.vars();
+                var cloudVars = responseData.device.vars();
                 for (var i = 0; i &lt; cloudVars.length; i++) {
                     alert("Cloud Var " + cloudVars[i].name() + "has datatype " + cloudVars[i].datatype());
                 }
@@ -1294,17 +1421,17 @@
                 "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
                 "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
                 "host" : "sandbox.canopy.link"
-            }).onDone(function(result, data) {
+            }).onDone(function(result, responseData) {
                 if (result != CANOPY_SUCCESS) {
-                    alert(data.errorMsg);
+                    alert(responseData.errorMsg);
                     return;
                 }
 
                 // Loop over cloud variables and confirm their device object is
                 // correct.
-                var cloudVars = data.device.vars();
+                var cloudVars = responseData.device.vars();
                 for (var i = 0; i &lt; cloudVars.length; i++) {
-                    if (cloudVars[i].device() != data.device) {
+                    if (cloudVars[i].device() != responseData.device) {
                         // This will never happen
                         alert("Something is seriously broken!");
                     }
@@ -1356,14 +1483,14 @@
                 "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
                 "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
                 "host" : "sandbox.canopy.link"
-            }).onDone(function(result, data) {
+            }).onDone(function(result, responseData) {
                 if (result != CANOPY_SUCCESS) {
-                    alert(data.errorMsg);
+                    alert(responseData.errorMsg);
                     return;
                 }
 
                 // Loop over cloud variables and say their directions
-                var cloudVars = data.device.vars();
+                var cloudVars = responseData.device.vars();
                 for (var i = 0; i &lt; cloudVars.length; i++) {
                     alert("Cloud Var " + cloudVars[i].name() + "has direction " + cloudVars[i].direction());
                 }
@@ -1386,7 +1513,7 @@
             CanopyBarrier object.
 
             <p>
-                On success, the <icode>data</icode> parameter of the Barrier's
+                On success, the <icode>responseData</icode> parameter of the Barrier's
                 .onDone() callback will contain the following fields:
             </p>
             <tbl>
@@ -1396,7 +1523,7 @@
                     <cell header="1">Description</cell>
                 </row>
                 <row>
-                    <cell><icode>data.samples</icode></cell>
+                    <cell><icode>responseData.samples</icode></cell>
                     <cell>List of Objects:
                         <p>
                             <code>
@@ -1421,14 +1548,14 @@
                 "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
                 "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
                 "host" : "sandbox.canopy.link"
-            }).onDone(function(result, data) {
+            }).onDone(function(result, responseData) {
                 if (result != CANOPY_SUCCESS) {
-                    alert(data.errorMsg);
+                    alert(responseData.errorMsg);
                     return;
                 }
 
                 // Get temperature cloud variable, if any.
-                var temperature = data.device.varByName("temperature");
+                var temperature = responseData.device.varByName("temperature");
                 if (!temperature) {
                     console.log("This device does not have cloud var \"temperature\"");
                     return;
