@@ -131,8 +131,8 @@
 
             CanopyBarrier
 
-                Used to obtain the results of an asynchronous operation.  Also
-                known as a "Promise".
+                Used to wait for the results of an asynchronous operation.
+                Also known as a "Promise".
 
         </code>
     </section>
@@ -1187,6 +1187,9 @@
                 (CanopyVariable).datatype()
             </code>
         </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
         <subsection title='Return Value'>
             String containing the Cloud Variable's datatype.
             <p>
@@ -1271,12 +1274,55 @@
         </subsection>
     </section>
 
+    <section title='(CanopyVariable).device()'>
+        Get the CanopyDevice object that this Cloud Variable belongs to.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).device()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a CanopyDevice object.
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, data) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(data.errorMsg);
+                    return;
+                }
+
+                // Loop over cloud variables and confirm their device object is
+                // correct.
+                var cloudVars = data.device.vars();
+                for (var i = 0; i &lt; cloudVars.length; i++) {
+                    if (cloudVars[i].device() != data.device) {
+                        // This will never happen
+                        alert("Something is seriously broken!");
+                    }
+                }
+            });
+            </code>
+        </subsection>
+    </section>
+
     <section title='(CanopyVariable).direction()'>
         Get the Cloud Variable's direction.
         <subsection title='Usage'>
             <code>
                 (CanopyVariable).direction()
             </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
         </subsection>
         <subsection title='Return Value'>
             Returns a string direction.  The direction determines who can
@@ -1326,6 +1372,206 @@
         </subsection>
     </section>
 
+    <section title='(CanopyVariable).historicData()'>
+        Fetch historic data for a Cloud Variable.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).historicData(startTime, endTime)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>data</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>data.samples</icode></cell>
+                    <cell>List of Objects:
+                        <p>
+                            <code>
+                                [{
+                                    t : "2015-04-15T04:32:02Z",
+                                    v : 143.2
+                                }, ...]
+                            </code>
+                        </p></cell> <cell>List of sample data points.  The
+                        <icode>"t"</icode> field of each object contains the
+                        RFC3339-encoded timestamp when the sample was reported
+                        to the remote.  The <icode>"v"</icode> field contains
+                        the sample's value at that time.  The value's datatype
+                        is determined by the Cloud Variable's datatype.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, data) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(data.errorMsg);
+                    return;
+                }
+
+                // Get temperature cloud variable, if any.
+                var temperature = data.device.varByName("temperature");
+                if (!temperature) {
+                    console.log("This device does not have cloud var \"temperature\"");
+                    return;
+                }
+
+                // Fetch historic temperature data for this device
+                temperature.historicData().onDone(function(result, historicData) {
+                    if (result != CANOPY_SUCCESS) {
+                        console.log("Error: " + historicData.errorMsg);
+                        return;
+                    }
+
+                    // Dump all samples:
+                    for (var i = 0; i &lt; historicData.samples.length; i++) {
+                        console.log("Time: " + historicData.samples[i].t);
+                        console.log("Value: " + historicData.samples[i].v);
+                    }
+                });
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).isModified()'>
+        Get whether this Cloud Variable's value has been set locally since the
+        last synchronization with the remote.
+        <p>
+            This method will return <icode>true</icode> if the most recent call to 
+            <icode>(CloudVariable).value(newValue)</icode> is later than the most recent
+            successful response from a
+            <icode>(CanopyDevice).syncWithRemote()</icode> or
+            <icode>(CanopyDevice).updateFromRemote()</icode> call for this
+            Cloud Variable's Device.
+        </p>
+        <p>
+            This method returns <icode>true</icode> even if the
+            <icode>newValue</icode> passed to
+            <icode>(CloudVariable).value(newValue)</icode> matches the Cloud
+            Variable's previous value.  That is to say, the value does not have to
+            actually change for it to be considered "modified".
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).isModified()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a boolean.
+            <ul>
+                <li>
+                    <icode>true</icode> - This Cloud Variable has been set
+                    locally since the last synchronization with the remote.
+                </li>
+                <li>
+                    <icode>false</icode> - Otherwise.
+                </li>
+            </ul>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).lastRemoteUpdateTime()'>
+        Get the time when this Cloud Variable was last changed on the remote.
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).lastRemoteUpdateTime()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a RFC3339-encoded timestamp string, such as <icode>"2015-04-15T04:32:02Z"</icode>.
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).lastRemoteValue()'>
+        Get this Cloud Variable's value as of the most recent synchronization
+        with the remote.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).lastRemoteValue()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns the Cloud Variable's value, or <icode>null</icode> if the
+            Cloud Variable has never been set on the remote.
+            <p>
+                The datatype of the return value depends on the Cloud Variable's
+                datatype.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).lastRemoteUpdateSecondsAgo()'>
+        Get the number of seconds since this Cloud Variable was last changed on
+        the remote.
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization with the remote.
+        </p>
+        <p>
+            The response depends on both the remote's clock and the client's
+            clock.  If either is inaccurate, the returned value will be
+            correspondingly incorrect.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).lastRemoteUpdateSecondsAgo()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns floating point number of seconds, for example <icode>5.32</icode> for 5.32 seconds.
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).name()'>
+        Get the name of this Cloud Variable.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).name()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String name of this Cloud Variable.
+        </subsection>
+    </section>
+
     <section title='(CanopyVariable).value()'>
         Get or set the Cloud Variable's value.
         <p>
@@ -1350,4 +1596,80 @@
     </section>
 </chapter>
 
+<chapter title='CanopyBarrier'>
+    <p>
+        A CanopyBarrier is used to wait for the results of an asynchronous
+        operation.  Also known as a "Promise".
+    </p>
+    <section title='(CanopyBarrier).onDone()'>
+        <p>
+            Register a callback that will be triggered when the results of an
+            asynchronous operation are complete.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyBarrier).onDone(function(result, responseData) { ... })
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single callback function as a parameter.
+
+                This callback must accept two parameters:
+            </p>
+            <tbl>
+                <row>
+                    <cell nowrap='1' header="1">Parameter To Callback</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>result</icode></cell>
+                    <cell nowrap='1'>Integer (error enum value)</cell>
+                    <cell><icode>CANOPY_SUCCESS</icode> if the operation
+                        completed successful.
+                        <p>
+                            <icode>CANOPY_ERROR_xxx</icode> value if an error
+                            occurred.
+                        </p>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>responseData</icode></cell>
+                    <cell>Object</cell>
+                    <cell>Contents varies depending on which request was made and
+                    whether or not there was an error.  Details are provided in
+                    each asynchronous method's documentation.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+    <section title='CanopyBarrier Error Response'>
+        <p>
+            If an error occurs while carrying out an asynchronous operation,
+            the barrier's <icode>onDone</icode> callback will be called as
+            follows:
+        </p>
+        <p>
+            The <icode>result</icode> parameter will contain a
+            <icode>CANOPY_ERROR_xxx</icode> value, such as <icode>CANOPY_ERROR_BAD_CREDENTIALS</icode>.
+        </p>
+        <p>
+            The <icode>responseData</icode> parameter will contain the following fields:
+        </p>
+        <tbl>
+            <row>
+                <cell header="1">Field</cell>
+                <cell header="1">Datatype</cell>
+                <cell header="1">Description</cell>
+            </row>
+            <row>
+                <cell><icode>responseData.errorMsg</icode></cell>
+                <cell>String</cell>
+                <cell>Human-readable description of the error.</cell>
+            </row>
+        </tbl>
+    </section>
+</chapter>
 </doc>
