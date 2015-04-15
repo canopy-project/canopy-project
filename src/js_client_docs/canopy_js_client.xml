@@ -415,7 +415,7 @@
                 </row>
                 <row>
                     <cell><icode>responseData.user</icode></cell>
-                    <cell>User object representing authenticated user.</cell>
+                    <cell>CanopyUser object representing authenticated user.</cell>
                 </row>
             </tbl>
         </subsection>
@@ -591,8 +591,208 @@
 </chapter>
 
 <chapter title='CanopyRemote'>
+    <section title='(CanopyRemote).apiBaseUrl()'>
+        Get the base URL used for making REST API requests to the remote Canopy
+        server.
+        <p>
+            The returned value does not have a trailing slash.
+        </p>
+        <p>
+            It is unlikely that you will ever need to call this because the
+            client library handles all API requests for you.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).apiBaseUrl()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String containing URL prefix, such as "<icode>https://sandbox.canopy.link/api</icode>".
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).baseUrl()'>
+        Get the base URL used for making general HTTP requests to the remote
+        Canopy server.
+        <p>
+            The returned value does not have a trailing slash, and is typically
+            a substring of <icode>(CanopyRemote).apiBaseUrl()</icode>'s return
+            value.
+        </p>
+        <p>
+            It is unlikely that you will ever need to call this because the
+            client library handles all API requests for you.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).baseUrl()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String containing URL prefix, such as "<icode>https://sandbox.canopy.link</icode>".
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).createUser()'>
+        Create a new User on the remote Canopy server.
+
+        <p>
+            (TBD) On successful completion, this CanopyRemote is still not
+            authenticated with the newly created user's credententials, so only
+            local operations on the <icode>responseData.User</icode> will be
+            permitted.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).createUser(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.username</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.  Must satisfy the following:
+                        <ul>
+                            <li>
+                                5-24 characters.
+                            </li>
+                            <li>
+                                Characters a-z, A-Z, 0-9 and underscore(_) allowed.
+                            </li>
+                            <li>
+                                Must start with a letter.
+                            </li>
+                        </ul>
+                    </cell>
+                    <cell>New user's username.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.email</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.  Must be a valid email address.</cell>
+                    <cell>New user's email address.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.password</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.  Must satisfy the following:
+                        <ul>
+                            <li>
+                                6-120 characters.
+                            </li>
+                            <li>
+                                All characters allowed.
+                            </li>
+                            <li>
+                                Case sensitive.
+                            </li>
+                        </ul>
+                    </cell>
+                    <cell>New user's password.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.user</icode></cell>
+                    <cell>CanopyUser object representing newly created user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).getSelfDevice()'>
+        Get the CanopyDevice object corresponding to the currently authenticated device.
+        <p>
+            The currently authenticated device is
+            the device whose credientials were supplied to
+            (CanopyContext).initRemote() in the <icode>"auth_username"</icode>
+            and <icode>"auth_password"</icode> parameters. 
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).getSelfUser()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.data</icode></cell>
+                    <cell>CanopyDevice object representing authenticated device.</cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's ID */
+                    "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.getSelfDevice().onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+                    alert("You are a device named " + responseData.device.name());
+                });
+            </code>
+        </subsection>
+    </section>
+
     <section title='(CanopyRemote).getSelfUser()'>
-        Get the User object corresponding to the currently authenticated user.
+        Get the CanopyUser object corresponding to the currently authenticated user.
         <p>
             If the Remote's <icode>"auth_type"</icode> is
             <icode>"session"</icode>, then the currently authenticated user is
@@ -630,7 +830,7 @@
                 </row>
                 <row>
                     <cell><icode>responseData.user</icode></cell>
-                    <cell>User object representing authenticated user.</cell>
+                    <cell>CanopyUser object representing authenticated user.</cell>
                 </row>
             </tbl>
         </subsection>
@@ -702,7 +902,7 @@
                 </row>
                 <row>
                     <cell><icode>responseData.user</icode></cell>
-                    <cell>User object representing authenticated user.</cell>
+                    <cell>CanopyUser object representing authenticated user.</cell>
                 </row>
             </tbl>
         </subsection>
@@ -780,6 +980,121 @@
             </code>
         </subsection>
     </section>
+
+    <section title='(CanopyRemote).requestPasswordReset()'>
+        Requests a password reset on behalf of a user who has forgotten their
+        password.
+        <p>
+            If the remote Canopy server has a mail service configured, then the
+            user will recieve an email with instructions at their registered
+            email address.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).requestPasswordReset(params)
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.username</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Username or email address of user requesting password
+                    reset.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).resetPassword()'>
+        Resets a user's password.
+        <p>
+            To perform this operation, you need to know the "password reset
+            code" that is encoded in the URL link in the instruction email that
+            was sent to the user when the password reset was requested.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).resetPassword(params)
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.username</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Username of user who requested the password reset.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.password</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>New password.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.confirmPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Must match <icode>params.password</icode>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.code</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Password reset code that is encoded in the URL link
+                        in the instruction email that was sent to the user when the
+                        password reset was requested.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
 </chapter>
 
 <chapter title='CanopyUser'>
@@ -787,6 +1102,61 @@
         A CanopyUser represents a human user who has a Canopy account on the
         configured CanopyRemote.
     </p>
+
+    <section title='(CanopyUser).changePassword()'>
+        Change this CanopyUser's password.
+        <p>
+            This method communicates with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).changePassword(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.oldPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>User's old password.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.newPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>User's new password.</cell>
+                </row>
+                <row>
+                    <cell><icode>params.confirmPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>Must match <icode>params.newPassword</icode>.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
     <section title='(CanopyUser).createDevices()'>
         Create one or more CanopyDevice resources on the remote.
         <p>
@@ -878,10 +1248,49 @@
             </code>
         </subsection>
     </section>
+
     <section title='(CanopyUser).devices()'>
-        Obtains CanopyDeviceQuery object corresponding to all Devices that User has
-        access to.
+        Obtains CanopyDeviceQuery object corresponding to all devices that this
+        CanopyUser has access to.
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).devices()
+            </code>
+        </subsection>
+        <subsection title='Paramters'>
+            None.
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyDeviceQuery object corresponding to all devices that this
+            CanopyUser has access to.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+                    responseData.user.devices().getMany(0, 10).onDone(function(result, deviceData) {
+                        if (result != CANOPY_SUCCESS) {
+                            alert(deviceData.errorMsg);
+                            return;
+                        }
+                        for (var i = 0; i &lt; deviceData.devices.length; i++) {
+                            var device = deviceData.devices[i];
+                            console.log(device.name() + "(" + device.id() + ")");
+                        }
+                    });
+                });
+            </code>
+        </subsection>
     </section>
+
     <section title='(CanopyUser).email()'>
         Get or set User's email address.
         <p>
@@ -1033,6 +1442,154 @@
                     }
 
                     var remote = canopy.user.remote();
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).syncWithRemote()'>
+        Synchronizes certain properties of this CanopyUser object with the
+        remote Canopy server.
+        
+        <p>
+            This is similar to calling
+            <icode>(CanopyUser).updateToRemote()</icode> followed by
+            <icode>(CanopyUser).updateFromRemote()</icode>.
+        </p>
+
+        <p>
+            This method pushes:
+        </p>
+        <ul>
+            <li>Changes to this CanopyUser's email address made with
+            <icode>(CanopyUser).email(newEmail)</icode>.</li>
+        </ul>
+        <p>
+            and updates locally (with data from the remote):
+        </p>
+        <ul>
+            <li>User's email address, obtainable with <icode>(CanopyUser).email()</icode>.</li>
+            <li>User's validation status, obtainable with <icode>(CanopyUser).isValidated()</icode>.</li>
+        </ul>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).syncWithRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).updateFromRemote()'>
+        Updates certain properties of this CanopyUser object with data fetched
+        from the remote Canopy server.
+        <p>
+            Typically <icode>(CanopyUser).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method updates:
+        </p>
+        <ul>
+            <li>User's email address, obtainable with <icode>(CanopyUser).email()</icode>.</li>
+            <li>User's validation status, obtainable with <icode>(CanopyUser).isValidated()</icode>.</li>
+        </ul>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).updateFromRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).updateToRemote()'>
+        Pushes certain local modifications to this CanopyUser object to the
+        remote Canopy server.
+        <p>
+            Typically <icode>(CanopyUser).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method pushes:
+        </p>
+        <ul>
+            <li>Changes to this CanopyUser's email address made with
+            <icode>(CanopyUser).email(newEmail)</icode>.</li>
+        </ul>
+        <p>
+            For all other remote changes (such as device creation, 
+            password changes, etc) you must use the appropriate specific routines.  See:
+            <ul>
+                <li><icode>(CanopyUser).changePassword()</icode> to change CanopyUser's password. </li>
+                <li><icode>(CanopyUser).createDevices()</icode> to create device resources owned by this CanopyUser. </li>
+                <li><icode>(CanopyUser).validate()</icode> to validate this CanopyUser (i.e. to confirm their email address). </li>
+            </ul>
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).updateToRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var myNewEmail = "canopytest@mailinator.com";
+
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+
+                    var user = responseData.user;
+                    var oldEmail = user.email();
+                    user.email(myNewEmail);
+
+                    // Push change to remote:
+                    user.updateToRemote().onDone(function(result, responseData) {
+                        if (result != CANOPY_SUCCESS) {
+                            alert("Error changing email: " + responseData.errorMsg);
+                            return;
+                        }
+
+                        alert("Email changed from " + oldEmail + " to " + newEmail);
+                    }
                 }
             </code>
         </subsection>
