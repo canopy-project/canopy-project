@@ -1297,7 +1297,7 @@
             This method will get or set the cached local copy of the User's
             email address.  To synchronize with the remote call
             (CanopyUser).updateFromRemote(), (CanopyUser).updateToRemote() or
-            (CanopyUser).SyncWithRemote().
+            (CanopyUser).syncWithRemote().
         </p>
         <p>
             When setting the User's email address this method does not perform
@@ -1720,24 +1720,396 @@
             </code>
         </subsection>
     </section>
-    <!--section title="(CanopyDevice).lastActivitySecondsAgo()">
+
+    <section title="(CanopyDevice).isActive()">
+        (Deprecated) This routine is likely to be removed or modified in future
+        versions of the libary.
+        <p>
+            Get whether this CanopyDevice has interacted with the remote Canopy
+            server within the past 60 seconds.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).isActive()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Boolean:
+            <ul>
+                <li><icode>true</icode> if this CanopyDevice has interacted
+                    with the remote Canopy server within the past 60 seconds, as of
+                    the most recent synchronization with the remote Canopy server.
+                </li>
+                <li><icode>false</icode> otherwise.</li>
+            </ul>
+        </subsection>
     </section>
+
+    <section title="(CanopyDevice).isInactive()">
+        (Deprecated) This routine is likely to be removed or modified in future
+        versions of the libary.
+        <p>
+            Get whether this CanopyDevice has not interacted with the remote
+            Canopy server within the past 60 seconds.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).isInactive()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            <ul>
+                <li><icode>false</icode> if this CanopyDevice has interacted
+                    with the remote Canopy server within the past 60 seconds,
+                    as of the most recent synchronization with the remote
+                    Canopy server.
+                </li>
+                <li><icode>true</icode> otherwise.</li>
+            </ul>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).isNewlyCreated()">
+        <p>
+            Get whether this CanopyDevice is newly created, meaning it has
+            never interacted with the remote Canopy server.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).isNewlyCreated()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            <ul>
+                <li><icode>true</icode> if this CanopyDevice is newly created,
+                    meaning it has never interacted with the remote Canopy
+                    server, as of the most recent synchronization with the
+                    remote Canopy server.
+                </li>
+                <li><icode>false</icode> otherwise.</li>
+            </ul>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).lastActivitySecondsAgo()">
+        (Deprecated) This routine is likely to be removed or modified in future
+        versions of the libary.
+        <p>
+            Get the number of seconds since this device last interacted with
+            the remote Canopy server.
+        </p>
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization by this CanopyDevice with the remote.
+        </p>
+        <p>
+            The response depends on both the remote's clock and the client's
+            clock.  If either is inaccurate, the returned value will be
+            correspondingly incorrect.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).lastActivitySecondsAgo()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns floating point number of seconds, for example <icode>5.32</icode> for 5.32 seconds.
+        </subsection>
+    </section>
+
     <section title="(CanopyDevice).lastActivityTime()">
+        Get the time when this device last interacted with the remote Canopy
+        server.
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization by this CanopyDevice with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).lastActivityTime()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a RFC3339-encoded timestamp string, such as <icode>"2015-04-15T04:32:02Z"</icode>.
+        </subsection>
     </section>
+
     <section title="(CanopyDevice).locationNote()">
+        Get or set the the user-assigned location note for this device.
+        <p>
+            This method will get or set the cached local copy of the
+            device's location note.  To synchronize with the remote call
+            <icode>(CanopyDevice).syncWithRemote()</icode>,
+            (<icode>(CanopyDevice).updateFromRemote()</icode> or
+             <icode>(CanopyDevice).updateToRemote()</icode>.
+        </p>
+        <p>
+            When setting the device's location note this method does
+            perform any validation on the input.  Validation occurs
+            server-side the next time synchronization is performed.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the device's location note:
+            <code>
+                (CanopyDevice).locationNote()
+            </code>
+            <p>
+                To set the device's location note:
+            </p>
+            <code>
+                (CanopyDevice).locationNote(newLocationNote)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Optionally takes a new device location note.
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>newLocationNote</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>New device location note.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            String device location note.
+            <p>
+                Returns the newly-assigned location note if any.
+            </p>
+        </subsection>
     </section>
+
     <section title="(CanopyDevice).name()">
+        Get or set the the user-assigned name of this device.
+        <p>
+            This method will get or set the cached local copy of the
+            device's name.  To synchronize with the remote call
+            <icode>(CanopyDevice).syncWithRemote()</icode>,
+            (<icode>(CanopyDevice).updateFromRemote()</icode> or
+             <icode>(CanopyDevice).updateToRemote()</icode>.
+        </p>
+        <p>
+            When setting the device's name this method does perform any
+            validation on the input.  Validation occurs server-side the
+            next time synchronization is performed.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the device's name:
+            <code>
+                (CanopyDevice).name()
+            </code>
+            <p>
+                To set the device's name:
+            </p>
+            <code>
+                (CanopyDevice).name(newName)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Optionally takes a new device name.
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>newName</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>New device name.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            String device name.
+            <p>
+                Returns the newly-assigned name if any.
+            </p>
+        </subsection>
     </section>
-    <section title="(CanopyDevice).connectionStatus()">
+
+    <section title="(CanopyDevice).secretKey()">
+        Get the device's secret key, or <icode>null</icode> if the secret key
+        is hidden.
+        <p>
+            This method will get the cached local copy of the
+            device's secret key.  To synchronize with the remote call
+            <icode>(CanopyDevice).syncWithRemote()</icode> or
+            (<icode>(CanopyDevice).updateFromRemote()</icode>.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).secretKey()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None.
+        </subsection>
+        <subsection title='Return Value'>
+            String device secret key, or <icode>null</icode> if the secret key
+            is hidden.
+        </subsection>
     </section>
-    <section title="(CanopyDevice).remote()">
+
+    <section title='(CanopyDevice).syncWithRemote()'>
+        Synchronizes certain properties of this CanopyDevice object with the
+        remote Canopy server.
+        
+        <p>
+            This is similar to calling
+            <icode>(CanopyDevice).updateToRemote()</icode> followed by
+            <icode>(CanopyDevice).updateFromRemote()</icode>.
+        </p>
+
+        <p>
+            This method pushes:
+        </p>
+        <ul>
+            <li>
+                Newly declared cloud variables belonging to this CanopyDevice,
+                declared with <icode>(CanopyDevice).declareVar()</icode>.
+            </li>
+            <li>
+                Changes to cloud variable values belonging to this
+                CanopyDevice, modified with
+                <icode>(CanopyVariable).value(newValue)</icode>.
+            </li>
+            <li>
+                Changes to this CanopyDevice's name made with
+                <icode>(CanopyDevice).name(newName)</icode>.
+            </li>
+            <li>
+                Changes to this CanopyDevice's location note made with
+                <icode>(CanopyDevice).locationNote(newLocationNote)</icode>.
+            </li>
+        </ul>
+        <p>
+            and updates locally (with data from the remote):
+        </p>
+        <ul>
+            <li>
+                The list of cloud variables and their metadata, update times,
+                and values, obtainable with
+                <icode>(CanopyDevice).vars()</icode> and
+                <icode>(CanopyDevice).varByName()</icode>
+            </li>
+            <li>
+                Devices's name, obtainable with <icode>(CanopyDevice).name()</icode>.
+            </li>
+            <li>
+                Devices's location note, obtainable with <icode>(CanopyDevice).locationNote()</icode>.
+            </li>
+            <li>
+                Devices's secret key, obtainable with <icode>(CanopyDevice).secretKey()</icode>.
+            </li>
+            <li>
+                Devices's last update time, activation status, and websocket
+                connectivity status.
+            </li>
+        </ul>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).syncWithRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
     </section>
-    <section title="(CanopyDevice).syncWithRemote()">
+
+    <section title='(CanopyDevice).updateFromRemote()'>
+        Updates certain properties of this CanopyUser object with data fetched
+        from the remote Canopy server.
+        <p>
+            Typically <icode>(CanopyDevice).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method updates this CanopyDevice object locally with data from
+            the remote Canopy server just like
+            <icode>(CanopyDevice).syncWithRemote()</icode>.  However, it does
+            not push any data to the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).updateFromRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
     </section>
-    <section title="(CanopyDevice).updateFromRemote()">
+
+    <section title='(CanopyDevice).updateToRemote()'>
+        Pushes certain local modifications to this CanopyDevice object to the
+        remote Canopy server.
+        <p>
+            Typically <icode>(CanopyDevice).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method pushes to the remote Canopy server just like
+            <icode>(CanopyDevice).syncWithRemote()</icode>.  However, it does
+            not update the local CanopyDevice object with data from the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).updateToRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
     </section>
-    <section title="(CanopyDevice).updateToRemote()">
-    </section-->
 </chapter>
 
 <chapter title='CanopyDeviceQuery'>
@@ -2263,7 +2635,7 @@
             Variable's value.  To synchronize with the remote call
             <icode>(CanopyDevice).updateFromRemote()</icode>,
             <icode>(CanopyDevice).updateToRemote()</icode> or
-            <icode>(CanopyDevice).SyncWithRemote()</icode>.
+            <icode>(CanopyDevice).syncWithRemote()</icode>.
         </p>
         <subsection title='Usage'>
             To retrieve the Cloud Variable's value:
