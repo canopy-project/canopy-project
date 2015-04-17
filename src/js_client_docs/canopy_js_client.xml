@@ -1158,7 +1158,7 @@
     </section>
 
     <section title='(CanopyUser).createDevices()'>
-        Create one or more CanopyDevice resources on the remote.
+        Create one or more device resources on the remote.
         <p>
             This method communicates with the remote.
         </p>
@@ -2225,6 +2225,141 @@
                     });
                 })
             </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyDeviceQuery).get()'>
+        Fetch a single device from the remote, selected by either row index or ID.
+        <p>
+            This method communicates with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDeviceQuery).get(idOrIndex)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Takes a single parameter which must be either a:
+            <ul>
+                <li><b>String</b> - to select by device ID, or</li>
+                <li><b>Integer</b> - to select by row index into this
+                    CanopyDeviceQuery's selection.</li>
+            </ul>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, if the requested device is found, the
+                <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.device</icode></cell>
+                    <cell>New local CanopyDevice object representing the
+                    requested device.</cell>
+                </row>
+            </tbl>
+
+            <p>
+                If the device is not found as part of this CanopyDeviceQuery's
+                selection, then the <icode>result</icode> parameter will be
+                <icode>CANOPY_ERROR_NOT_FOUND</icode>.
+            </p>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        $("#main").html("Error: " + responseData.errorMsg)
+                        return;
+                    }
+
+                    // Get user's first device
+                    responseData.user.devices().get(0).onDone(function(result, deviceData) {
+                        if (result != CANOPY_SUCCESS) {
+                            $("#main").html("Error: " + countData.errorMsg)
+                            return;
+                        }
+
+                        alert("Your first device is:" + deviceData.device.name());
+                    });
+                })
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyDeviceQuery).getMany()'>
+        Fetch multiple devices from the remote, selected by row index range.
+        <p>
+            A CanopyDeviceQuery represents an ordered selection of potentially
+            large number of devices.  This method fetches a subset of those
+            devices based on the <icode>start</icode> and <icode>count</icode>
+            parameters.
+        </p>
+        <p>
+            This method communicates with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDeviceQuery).getMany(start, count)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Takes two parameters:
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>start</icode></cell>
+                    <cell>Required</cell>
+                    <cell>Integer</cell>
+                    <cell>Row offset to start fetching from.  Use
+                    <icode>0</icode> to start from the beginning of the
+                    selection.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>count</icode></cell>
+                    <cell>Required</cell>
+                    <cell>Integer</cell>
+                    <cell>Maximum of devices to fetch.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.devices</icode></cell>
+                    <cell>List of new local CanopyDevice objects representing
+                    the requested devices.  This will be an empty list
+                    <icode>[]</icode> if no devices are found.</cell>
+                </row>
+            </tbl>
         </subsection>
     </section>
 </chapter>
