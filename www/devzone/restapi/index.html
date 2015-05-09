@@ -14,188 +14,293 @@
     <link href='hammock-custom.css' rel='stylesheet' type='text/css'>
 <script>
 function get_scroll_y() {
-    return window.pageYOffset || document.body.scrollTop || document.html.scrollTop;
+    if (window.pageYOffset !== undefined) {
+        return window.pageYOffset;
+    }
+    if (document.body !== undefined && document.body.scrollTop !== undefined) {
+        return document.body.scrollTop;
+    }
+    if (document.html !== undefined && document.html.scrollTop !== undefined) {
+        return document.html.scrollTop;
+    }
+    return 0;
 }
 function get_element_scroll_y(id) {
     return document.getElementById(id).offsetTop;
 }
 
+function jq( myid ) {
+     
+        return "#" + myid.replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+         
+}
+
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';document.getElementById('toc_permission_model').style.fontWeight = '';document.getElementById('toc_permission_model').style.backgroundColor = '';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';document.getElementById('toc_users').style.fontWeight = '';document.getElementById('toc_users').style.backgroundColor = '';document.getElementById('toc_create_a_user').style.fontWeight = '';document.getElementById('toc_create_a_user').style.backgroundColor = '';document.getElementById('toc_get_current_user').style.fontWeight = '';document.getElementById('toc_get_current_user').style.backgroundColor = '';document.getElementById('toc_update_user_profile').style.fontWeight = '';document.getElementById('toc_update_user_profile').style.backgroundColor = '';document.getElementById('toc_delete_current_user').style.fontWeight = '';document.getElementById('toc_delete_current_user').style.backgroundColor = '';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';document.getElementById('toc_create_user-linked_devices').style.fontWeight = '';document.getElementById('toc_create_user-linked_devices').style.backgroundColor = '';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';document.getElementById('toc_delete_device').style.fontWeight = '';document.getElementById('toc_delete_device').style.backgroundColor = '';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';document.getElementById('toc_declare_cloud_variables').style.fontWeight = '';document.getElementById('toc_declare_cloud_variables').style.backgroundColor = '';document.getElementById('toc_set_cloud_variable_values').style.fontWeight = '';document.getElementById('toc_set_cloud_variable_values').style.backgroundColor = '';document.getElementById('toc_device_object_response').style.fontWeight = '';document.getElementById('toc_device_object_response').style.backgroundColor = '';document.getElementById('toc_other_endpoints').style.fontWeight = '';document.getElementById('toc_other_endpoints').style.backgroundColor = '';document.getElementById('toc_get_server_info').style.fontWeight = '';document.getElementById('toc_get_server_info').style.backgroundColor = '';document.getElementById('toc_error_responses').style.fontWeight = '';document.getElementById('toc_error_responses').style.backgroundColor = '';document.getElementById('toc_success_&_error_reporting').style.fontWeight = '';document.getElementById('toc_success_&_error_reporting').style.backgroundColor = '';document.getElementById('toc_bad_input_error').style.fontWeight = '';document.getElementById('toc_bad_input_error').style.backgroundColor = '';document.getElementById('toc_email_taken_error').style.fontWeight = '';document.getElementById('toc_email_taken_error').style.backgroundColor = '';document.getElementById('toc_incorrect_username_or_password_error').style.fontWeight = '';document.getElementById('toc_incorrect_username_or_password_error').style.backgroundColor = '';document.getElementById('toc_not_authenticated_error').style.fontWeight = '';document.getElementById('toc_not_authenticated_error').style.backgroundColor = '';document.getElementById('toc_internal_error_error').style.fontWeight = '';document.getElementById('toc_internal_error_error').style.backgroundColor = '';document.getElementById('toc_username_taken_error').style.fontWeight = '';document.getElementById('toc_username_taken_error').style.backgroundColor = '';document.getElementById('toc_url_not_found_error').style.fontWeight = '';document.getElementById('toc_url_not_found_error').style.backgroundColor = '';
+        document.getElementById('toc_authentication').style.fontWeight = '';document.getElementById('toc_authentication').style.backgroundColor = '';var foo = document.getElementById('authentication_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_permission_model').style.fontWeight = '';document.getElementById('toc_permission_model').style.backgroundColor = '';var foo = document.getElementById('permission_model_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_session-based_auth_login').style.fontWeight = '';document.getElementById('toc_session-based_auth_login').style.backgroundColor = '';var foo = document.getElementById('session-based_auth_login_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_session-based_auth_logout').style.fontWeight = '';document.getElementById('toc_session-based_auth_logout').style.backgroundColor = '';var foo = document.getElementById('session-based_auth_logout_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_basic_auth_for_users').style.fontWeight = '';document.getElementById('toc_basic_auth_for_users').style.backgroundColor = '';var foo = document.getElementById('basic_auth_for_users_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_basic_auth_for_devices').style.fontWeight = '';document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = '';var foo = document.getElementById('basic_auth_for_devices_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_users').style.fontWeight = '';document.getElementById('toc_users').style.backgroundColor = '';var foo = document.getElementById('users_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_create_a_user').style.fontWeight = '';document.getElementById('toc_create_a_user').style.backgroundColor = '';var foo = document.getElementById('create_a_user_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_get_current_user').style.fontWeight = '';document.getElementById('toc_get_current_user').style.backgroundColor = '';var foo = document.getElementById('get_current_user_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_update_user_profile').style.fontWeight = '';document.getElementById('toc_update_user_profile').style.backgroundColor = '';var foo = document.getElementById('update_user_profile_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_delete_current_user').style.fontWeight = '';document.getElementById('toc_delete_current_user').style.backgroundColor = '';var foo = document.getElementById('delete_current_user_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_devices').style.fontWeight = '';document.getElementById('toc_devices').style.backgroundColor = '';var foo = document.getElementById('devices_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_create_user-linked_devices').style.fontWeight = '';document.getElementById('toc_create_user-linked_devices').style.backgroundColor = '';var foo = document.getElementById('create_user-linked_devices_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_create_anonymous_device').style.fontWeight = '';document.getElementById('toc_create_anonymous_device').style.backgroundColor = '';var foo = document.getElementById('create_anonymous_device_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_delete_device').style.fontWeight = '';document.getElementById('toc_delete_device').style.backgroundColor = '';var foo = document.getElementById('delete_device_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_list_devices').style.fontWeight = '';document.getElementById('toc_list_devices').style.backgroundColor = '';var foo = document.getElementById('list_devices_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_get_single_device').style.fontWeight = '';document.getElementById('toc_get_single_device').style.backgroundColor = '';var foo = document.getElementById('get_single_device_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = '';document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = '';var foo = document.getElementById('get_historical_cloud_var_data_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_update_device_properties').style.fontWeight = '';document.getElementById('toc_update_device_properties').style.backgroundColor = '';var foo = document.getElementById('update_device_properties_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_declare_cloud_variables').style.fontWeight = '';document.getElementById('toc_declare_cloud_variables').style.backgroundColor = '';var foo = document.getElementById('declare_cloud_variables_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_set_cloud_variable_values').style.fontWeight = '';document.getElementById('toc_set_cloud_variable_values').style.backgroundColor = '';var foo = document.getElementById('set_cloud_variable_values_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_device_object_response').style.fontWeight = '';document.getElementById('toc_device_object_response').style.backgroundColor = '';var foo = document.getElementById('device_object_response_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_other_endpoints').style.fontWeight = '';document.getElementById('toc_other_endpoints').style.backgroundColor = '';var foo = document.getElementById('other_endpoints_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_get_server_info').style.fontWeight = '';document.getElementById('toc_get_server_info').style.backgroundColor = '';var foo = document.getElementById('get_server_info_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_error_responses').style.fontWeight = '';document.getElementById('toc_error_responses').style.backgroundColor = '';var foo = document.getElementById('error_responses_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_success_&_error_reporting').style.fontWeight = '';document.getElementById('toc_success_&_error_reporting').style.backgroundColor = '';var foo = document.getElementById('success_&_error_reporting_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_bad_input_error').style.fontWeight = '';document.getElementById('toc_bad_input_error').style.backgroundColor = '';var foo = document.getElementById('bad_input_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_email_taken_error').style.fontWeight = '';document.getElementById('toc_email_taken_error').style.backgroundColor = '';var foo = document.getElementById('email_taken_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_incorrect_username_or_password_error').style.fontWeight = '';document.getElementById('toc_incorrect_username_or_password_error').style.backgroundColor = '';var foo = document.getElementById('incorrect_username_or_password_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_not_authenticated_error').style.fontWeight = '';document.getElementById('toc_not_authenticated_error').style.backgroundColor = '';var foo = document.getElementById('not_authenticated_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_internal_error_error').style.fontWeight = '';document.getElementById('toc_internal_error_error').style.backgroundColor = '';var foo = document.getElementById('internal_error_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_username_taken_error').style.fontWeight = '';document.getElementById('toc_username_taken_error').style.backgroundColor = '';var foo = document.getElementById('username_taken_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_url_not_found_error').style.fontWeight = '';document.getElementById('toc_url_not_found_error').style.backgroundColor = '';var foo = document.getElementById('url_not_found_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';
     if (0) {
     }
     
-            else if (y + 32 > get_element_scroll_y('url_not_found_error')) {
+            else if (y + 48 > get_element_scroll_y('url_not_found_error')) {
                 document.getElementById('toc_url_not_found_error').style.fontWeight = "bold";
                 document.getElementById('toc_url_not_found_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('url_not_found_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('username_taken_error')) {
+            else if (y + 48 > get_element_scroll_y('username_taken_error')) {
                 document.getElementById('toc_username_taken_error').style.fontWeight = "bold";
                 document.getElementById('toc_username_taken_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('username_taken_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('internal_error_error')) {
+            else if (y + 48 > get_element_scroll_y('internal_error_error')) {
                 document.getElementById('toc_internal_error_error').style.fontWeight = "bold";
                 document.getElementById('toc_internal_error_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('internal_error_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('not_authenticated_error')) {
+            else if (y + 48 > get_element_scroll_y('not_authenticated_error')) {
                 document.getElementById('toc_not_authenticated_error').style.fontWeight = "bold";
                 document.getElementById('toc_not_authenticated_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('not_authenticated_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('incorrect_username_or_password_error')) {
+            else if (y + 48 > get_element_scroll_y('incorrect_username_or_password_error')) {
                 document.getElementById('toc_incorrect_username_or_password_error').style.fontWeight = "bold";
                 document.getElementById('toc_incorrect_username_or_password_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('incorrect_username_or_password_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('email_taken_error')) {
+            else if (y + 48 > get_element_scroll_y('email_taken_error')) {
                 document.getElementById('toc_email_taken_error').style.fontWeight = "bold";
                 document.getElementById('toc_email_taken_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('email_taken_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('bad_input_error')) {
+            else if (y + 48 > get_element_scroll_y('bad_input_error')) {
                 document.getElementById('toc_bad_input_error').style.fontWeight = "bold";
                 document.getElementById('toc_bad_input_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('bad_input_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('success_&_error_reporting')) {
+            else if (y + 48 > get_element_scroll_y('success_&_error_reporting')) {
                 document.getElementById('toc_success_&_error_reporting').style.fontWeight = "bold";
                 document.getElementById('toc_success_&_error_reporting').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('success_&_error_reporting_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('error_responses')) {
+            else if (y + 48 > get_element_scroll_y('error_responses')) {
                 document.getElementById('toc_error_responses').style.fontWeight = "bold";
                 document.getElementById('toc_error_responses').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('error_responses_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('get_server_info')) {
+            else if (y + 48 > get_element_scroll_y('get_server_info')) {
                 document.getElementById('toc_get_server_info').style.fontWeight = "bold";
                 document.getElementById('toc_get_server_info').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('get_server_info_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('other_endpoints')) {
+            else if (y + 48 > get_element_scroll_y('other_endpoints')) {
                 document.getElementById('toc_other_endpoints').style.fontWeight = "bold";
                 document.getElementById('toc_other_endpoints').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('other_endpoints_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('device_object_response')) {
+            else if (y + 48 > get_element_scroll_y('device_object_response')) {
                 document.getElementById('toc_device_object_response').style.fontWeight = "bold";
                 document.getElementById('toc_device_object_response').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('device_object_response_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('set_cloud_variable_values')) {
+            else if (y + 48 > get_element_scroll_y('set_cloud_variable_values')) {
                 document.getElementById('toc_set_cloud_variable_values').style.fontWeight = "bold";
                 document.getElementById('toc_set_cloud_variable_values').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('set_cloud_variable_values_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('declare_cloud_variables')) {
+            else if (y + 48 > get_element_scroll_y('declare_cloud_variables')) {
                 document.getElementById('toc_declare_cloud_variables').style.fontWeight = "bold";
                 document.getElementById('toc_declare_cloud_variables').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('declare_cloud_variables_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('update_device_properties')) {
+            else if (y + 48 > get_element_scroll_y('update_device_properties')) {
                 document.getElementById('toc_update_device_properties').style.fontWeight = "bold";
                 document.getElementById('toc_update_device_properties').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('update_device_properties_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('get_historical_cloud_var_data')) {
+            else if (y + 48 > get_element_scroll_y('get_historical_cloud_var_data')) {
                 document.getElementById('toc_get_historical_cloud_var_data').style.fontWeight = "bold";
                 document.getElementById('toc_get_historical_cloud_var_data').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('get_historical_cloud_var_data_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('get_single_device')) {
+            else if (y + 48 > get_element_scroll_y('get_single_device')) {
                 document.getElementById('toc_get_single_device').style.fontWeight = "bold";
                 document.getElementById('toc_get_single_device').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('get_single_device_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('list_devices')) {
+            else if (y + 48 > get_element_scroll_y('list_devices')) {
                 document.getElementById('toc_list_devices').style.fontWeight = "bold";
                 document.getElementById('toc_list_devices').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('list_devices_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('delete_device')) {
+            else if (y + 48 > get_element_scroll_y('delete_device')) {
                 document.getElementById('toc_delete_device').style.fontWeight = "bold";
                 document.getElementById('toc_delete_device').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('delete_device_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('create_anonymous_device')) {
+            else if (y + 48 > get_element_scroll_y('create_anonymous_device')) {
                 document.getElementById('toc_create_anonymous_device').style.fontWeight = "bold";
                 document.getElementById('toc_create_anonymous_device').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('create_anonymous_device_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('create_user-linked_devices')) {
+            else if (y + 48 > get_element_scroll_y('create_user-linked_devices')) {
                 document.getElementById('toc_create_user-linked_devices').style.fontWeight = "bold";
                 document.getElementById('toc_create_user-linked_devices').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('create_user-linked_devices_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('devices')) {
+            else if (y + 48 > get_element_scroll_y('devices')) {
                 document.getElementById('toc_devices').style.fontWeight = "bold";
                 document.getElementById('toc_devices').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('devices_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('delete_current_user')) {
+            else if (y + 48 > get_element_scroll_y('delete_current_user')) {
                 document.getElementById('toc_delete_current_user').style.fontWeight = "bold";
                 document.getElementById('toc_delete_current_user').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('delete_current_user_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('update_user_profile')) {
+            else if (y + 48 > get_element_scroll_y('update_user_profile')) {
                 document.getElementById('toc_update_user_profile').style.fontWeight = "bold";
                 document.getElementById('toc_update_user_profile').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('update_user_profile_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('get_current_user')) {
+            else if (y + 48 > get_element_scroll_y('get_current_user')) {
                 document.getElementById('toc_get_current_user').style.fontWeight = "bold";
                 document.getElementById('toc_get_current_user').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('get_current_user_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('create_a_user')) {
+            else if (y + 48 > get_element_scroll_y('create_a_user')) {
                 document.getElementById('toc_create_a_user').style.fontWeight = "bold";
                 document.getElementById('toc_create_a_user').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('create_a_user_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('users')) {
+            else if (y + 48 > get_element_scroll_y('users')) {
                 document.getElementById('toc_users').style.fontWeight = "bold";
                 document.getElementById('toc_users').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('users_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('basic_auth_for_devices')) {
+            else if (y + 48 > get_element_scroll_y('basic_auth_for_devices')) {
                 document.getElementById('toc_basic_auth_for_devices').style.fontWeight = "bold";
                 document.getElementById('toc_basic_auth_for_devices').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('basic_auth_for_devices_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('basic_auth_for_users')) {
+            else if (y + 48 > get_element_scroll_y('basic_auth_for_users')) {
                 document.getElementById('toc_basic_auth_for_users').style.fontWeight = "bold";
                 document.getElementById('toc_basic_auth_for_users').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('basic_auth_for_users_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('session-based_auth_logout')) {
+            else if (y + 48 > get_element_scroll_y('session-based_auth_logout')) {
                 document.getElementById('toc_session-based_auth_logout').style.fontWeight = "bold";
                 document.getElementById('toc_session-based_auth_logout').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('session-based_auth_logout_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('session-based_auth_login')) {
+            else if (y + 48 > get_element_scroll_y('session-based_auth_login')) {
                 document.getElementById('toc_session-based_auth_login').style.fontWeight = "bold";
                 document.getElementById('toc_session-based_auth_login').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('session-based_auth_login_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('permission_model')) {
+            else if (y + 48 > get_element_scroll_y('permission_model')) {
                 document.getElementById('toc_permission_model').style.fontWeight = "bold";
                 document.getElementById('toc_permission_model').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('permission_model_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('authentication')) {
+            else if (y + 48 > get_element_scroll_y('authentication')) {
                 document.getElementById('toc_authentication').style.fontWeight = "bold";
                 document.getElementById('toc_authentication').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('authentication_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            $(jq('toc_authentication_sections')).hide();$(jq('toc_users_sections')).hide();$(jq('toc_devices_sections')).hide();$(jq('toc_other_endpoints_sections')).hide();$(jq('toc_error_responses_sections')).hide();
+    if (0) {
+    }
+    
+            else if (y + 48 > get_element_scroll_y('error_responses')) {
+                $(jq('toc_error_responses_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('other_endpoints')) {
+                $(jq('toc_other_endpoints_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('devices')) {
+                $(jq('toc_devices_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('users')) {
+                $(jq('toc_users_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('authentication')) {
+                $(jq('toc_authentication_sections')).show();
             }
             
 }
 window.onload = function() {
     window.addEventListener("scroll", update_scroll);
 }
+$(document).ready(function() {update_scroll();});
 </script>
 
     <script>
@@ -220,21 +325,19 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_permission_model' class='hammock-toc-section'><a href='#permission_model'>Permission Model</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div><div id='toc_users' class='hammock-toc-chapter'><a href='#users'>Users</a></div><div id='toc_create_a_user' class='hammock-toc-section'><a href='#create_a_user'>Create a User</a></div><div id='toc_get_current_user' class='hammock-toc-section'><a href='#get_current_user'>Get Current User</a></div><div id='toc_update_user_profile' class='hammock-toc-section'><a href='#update_user_profile'>Update User Profile</a></div><div id='toc_delete_current_user' class='hammock-toc-section'><a href='#delete_current_user'>Delete Current User</a></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_create_user-linked_devices' class='hammock-toc-section'><a href='#create_user-linked_devices'>Create User-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_delete_device' class='hammock-toc-section'><a href='#delete_device'>Delete Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_declare_cloud_variables' class='hammock-toc-section'><a href='#declare_cloud_variables'>Declare Cloud Variables</a></div><div id='toc_set_cloud_variable_values' class='hammock-toc-section'><a href='#set_cloud_variable_values'>Set Cloud Variable Values</a></div><div id='toc_device_object_response' class='hammock-toc-section'><a href='#device_object_response'>Device Object Response</a></div><div id='toc_other_endpoints' class='hammock-toc-chapter'><a href='#other_endpoints'>Other Endpoints</a></div><div id='toc_get_server_info' class='hammock-toc-section'><a href='#get_server_info'>Get Server Info</a></div><div id='toc_error_responses' class='hammock-toc-chapter'><a href='#error_responses'>Error Responses</a></div><div id='toc_success_&_error_reporting' class='hammock-toc-section'><a href='#success_&_error_reporting'>Success & Error Reporting</a></div><div id='toc_bad_input_error' class='hammock-toc-section'><a href='#bad_input_error'>bad_input Error</a></div><div id='toc_email_taken_error' class='hammock-toc-section'><a href='#email_taken_error'>email_taken Error</a></div><div id='toc_incorrect_username_or_password_error' class='hammock-toc-section'><a href='#incorrect_username_or_password_error'>incorrect_username_or_password Error</a></div><div id='toc_not_authenticated_error' class='hammock-toc-section'><a href='#not_authenticated_error'>not_authenticated Error</a></div><div id='toc_internal_error_error' class='hammock-toc-section'><a href='#internal_error_error'>internal_error Error</a></div><div id='toc_username_taken_error' class='hammock-toc-section'><a href='#username_taken_error'>username_taken Error</a></div><div id='toc_url_not_found_error' class='hammock-toc-section'><a href='#url_not_found_error'>url_not_found Error</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Canopy REST API</div><div></div><div id='toc_authentication' class='hammock-toc-chapter'><a href='#authentication'>Authentication</a></div><div id='toc_authentication_sections' class='hammock-toc-sections'><div id='toc_permission_model' class='hammock-toc-section'><a href='#permission_model'>Permission Model</a></div><div id='toc_session-based_auth_login' class='hammock-toc-section'><a href='#session-based_auth_login'>Session-based AUTH Login</a></div><div id='toc_session-based_auth_logout' class='hammock-toc-section'><a href='#session-based_auth_logout'>Session-based AUTH Logout</a></div><div id='toc_basic_auth_for_users' class='hammock-toc-section'><a href='#basic_auth_for_users'>BASIC AUTH for Users</a></div><div id='toc_basic_auth_for_devices' class='hammock-toc-section'><a href='#basic_auth_for_devices'>BASIC AUTH for Devices</a></div></div><div id='toc_users' class='hammock-toc-chapter'><a href='#users'>Users</a></div><div id='toc_users_sections' class='hammock-toc-sections'><div id='toc_create_a_user' class='hammock-toc-section'><a href='#create_a_user'>Create a User</a></div><div id='toc_get_current_user' class='hammock-toc-section'><a href='#get_current_user'>Get Current User</a></div><div id='toc_update_user_profile' class='hammock-toc-section'><a href='#update_user_profile'>Update User Profile</a></div><div id='toc_delete_current_user' class='hammock-toc-section'><a href='#delete_current_user'>Delete Current User</a></div></div><div id='toc_devices' class='hammock-toc-chapter'><a href='#devices'>Devices</a></div><div id='toc_devices_sections' class='hammock-toc-sections'><div id='toc_create_user-linked_devices' class='hammock-toc-section'><a href='#create_user-linked_devices'>Create User-Linked Devices</a></div><div id='toc_create_anonymous_device' class='hammock-toc-section'><a href='#create_anonymous_device'>Create Anonymous Device</a></div><div id='toc_delete_device' class='hammock-toc-section'><a href='#delete_device'>Delete Device</a></div><div id='toc_list_devices' class='hammock-toc-section'><a href='#list_devices'>List Devices</a></div><div id='toc_get_single_device' class='hammock-toc-section'><a href='#get_single_device'>Get Single Device</a></div><div id='toc_get_historical_cloud_var_data' class='hammock-toc-section'><a href='#get_historical_cloud_var_data'>Get Historical Cloud Var Data</a></div><div id='toc_update_device_properties' class='hammock-toc-section'><a href='#update_device_properties'>Update Device Properties</a></div><div id='toc_declare_cloud_variables' class='hammock-toc-section'><a href='#declare_cloud_variables'>Declare Cloud Variables</a></div><div id='toc_set_cloud_variable_values' class='hammock-toc-section'><a href='#set_cloud_variable_values'>Set Cloud Variable Values</a></div><div id='toc_device_object_response' class='hammock-toc-section'><a href='#device_object_response'>Device Object Response</a></div></div><div id='toc_other_endpoints' class='hammock-toc-chapter'><a href='#other_endpoints'>Other Endpoints</a></div><div id='toc_other_endpoints_sections' class='hammock-toc-sections'><div id='toc_get_server_info' class='hammock-toc-section'><a href='#get_server_info'>Get Server Info</a></div></div><div id='toc_error_responses' class='hammock-toc-chapter'><a href='#error_responses'>Error Responses</a></div><div id='toc_error_responses_sections' class='hammock-toc-sections'><div id='toc_success_&_error_reporting' class='hammock-toc-section'><a href='#success_&_error_reporting'>Success & Error Reporting</a></div><div id='toc_bad_input_error' class='hammock-toc-section'><a href='#bad_input_error'>bad_input Error</a></div><div id='toc_email_taken_error' class='hammock-toc-section'><a href='#email_taken_error'>email_taken Error</a></div><div id='toc_incorrect_username_or_password_error' class='hammock-toc-section'><a href='#incorrect_username_or_password_error'>incorrect_username_or_password Error</a></div><div id='toc_not_authenticated_error' class='hammock-toc-section'><a href='#not_authenticated_error'>not_authenticated Error</a></div><div id='toc_internal_error_error' class='hammock-toc-section'><a href='#internal_error_error'>internal_error Error</a></div><div id='toc_username_taken_error' class='hammock-toc-section'><a href='#username_taken_error'>username_taken Error</a></div><div id='toc_url_not_found_error' class='hammock-toc-section'><a href='#url_not_found_error'>url_not_found Error</a></div></div></div>
     <div class=hammock-doc-outer>
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=authentication name=authentication></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=authentication name=authentication></a><div class=hammock-chapter-title>
                     Authentication
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=permission_model name=permission_model></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=permission_model_section_contents>
+            <a class=hammock-a-name id=permission_model name=permission_model></a><div class=hammock-section-title>
                 Permission Model
             </div>
             <div class=hammock-section-contents>
@@ -274,9 +377,8 @@ window.onload = function() {
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=session-based_auth_login name=session-based_auth_login></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=session-based_auth_login_section_contents>
+            <a class=hammock-a-name id=session-based_auth_login name=session-based_auth_login></a><div class=hammock-section-title>
                 Session-based AUTH Login
             </div>
             <div class=hammock-section-contents>
@@ -368,9 +470,8 @@ window.onload = function() {
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=session-based_auth_logout name=session-based_auth_logout></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=session-based_auth_logout_section_contents>
+            <a class=hammock-a-name id=session-based_auth_logout name=session-based_auth_logout></a><div class=hammock-section-title>
                 Session-based AUTH Logout
             </div>
             <div class=hammock-section-contents>
@@ -429,9 +530,8 @@ window.onload = function() {
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=basic_auth_for_users name=basic_auth_for_users></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=basic_auth_for_users_section_contents>
+            <a class=hammock-a-name id=basic_auth_for_users name=basic_auth_for_users></a><div class=hammock-section-title>
                 BASIC AUTH for Users
             </div>
             <div class=hammock-section-contents>
@@ -463,9 +563,8 @@ requests.get(url, auth=HTTPBasicAuth('leela', 'P1anetExpre55'))</pre></div>
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=basic_auth_for_devices name=basic_auth_for_devices></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=basic_auth_for_devices_section_contents>
+            <a class=hammock-a-name id=basic_auth_for_devices name=basic_auth_for_devices></a><div class=hammock-section-title>
                 BASIC AUTH for Devices
             </div>
             <div class=hammock-section-contents>
@@ -500,16 +599,14 @@ And then send this header:
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=users name=users></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=users name=users></a><div class=hammock-chapter-title>
                     Users
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=create_a_user name=create_a_user></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=create_a_user_section_contents>
+            <a class=hammock-a-name id=create_a_user name=create_a_user></a><div class=hammock-section-title>
                 Create a User
             </div>
             <div class=hammock-section-contents>
@@ -660,9 +757,8 @@ And then send this header:
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=get_current_user name=get_current_user></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=get_current_user_section_contents>
+            <a class=hammock-a-name id=get_current_user name=get_current_user></a><div class=hammock-section-title>
                 Get Current User
             </div>
             <div class=hammock-section-contents>
@@ -728,9 +824,8 @@ And then send this header:
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=update_user_profile name=update_user_profile></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=update_user_profile_section_contents>
+            <a class=hammock-a-name id=update_user_profile name=update_user_profile></a><div class=hammock-section-title>
                 Update User Profile
             </div>
             <div class=hammock-section-contents>
@@ -808,9 +903,8 @@ And then send this header:
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=delete_current_user name=delete_current_user></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=delete_current_user_section_contents>
+            <a class=hammock-a-name id=delete_current_user name=delete_current_user></a><div class=hammock-section-title>
                 Delete Current User
             </div>
             <div class=hammock-section-contents>
@@ -909,16 +1003,14 @@ And then send this header:
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=devices name=devices></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=devices name=devices></a><div class=hammock-chapter-title>
                     Devices
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=create_user-linked_devices name=create_user-linked_devices></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=create_user-linked_devices_section_contents>
+            <a class=hammock-a-name id=create_user-linked_devices name=create_user-linked_devices></a><div class=hammock-section-title>
                 Create User-Linked Devices
             </div>
             <div class=hammock-section-contents>
@@ -1002,9 +1094,8 @@ And then send this header:
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=create_anonymous_device name=create_anonymous_device></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=create_anonymous_device_section_contents>
+            <a class=hammock-a-name id=create_anonymous_device name=create_anonymous_device></a><div class=hammock-section-title>
                 Create Anonymous Device
             </div>
             <div class=hammock-section-contents>
@@ -1024,9 +1115,8 @@ And then send this header:
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=delete_device name=delete_device></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=delete_device_section_contents>
+            <a class=hammock-a-name id=delete_device name=delete_device></a><div class=hammock-section-title>
                 Delete Device
             </div>
             <div class=hammock-section-contents>
@@ -1104,9 +1194,8 @@ And then send this header:
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=list_devices name=list_devices></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=list_devices_section_contents>
+            <a class=hammock-a-name id=list_devices name=list_devices></a><div class=hammock-section-title>
                 List Devices
             </div>
             <div class=hammock-section-contents>
@@ -1317,9 +1406,8 @@ And then send this header:
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=get_single_device name=get_single_device></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=get_single_device_section_contents>
+            <a class=hammock-a-name id=get_single_device name=get_single_device></a><div class=hammock-section-title>
                 Get Single Device
             </div>
             <div class=hammock-section-contents>
@@ -1401,9 +1489,8 @@ And then send this header:
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=get_historical_cloud_var_data name=get_historical_cloud_var_data></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=get_historical_cloud_var_data_section_contents>
+            <a class=hammock-a-name id=get_historical_cloud_var_data name=get_historical_cloud_var_data></a><div class=hammock-section-title>
                 Get Historical Cloud Var Data
             </div>
             <div class=hammock-section-contents>
@@ -1509,9 +1596,8 @@ And then send this header:
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=update_device_properties name=update_device_properties></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=update_device_properties_section_contents>
+            <a class=hammock-a-name id=update_device_properties name=update_device_properties></a><div class=hammock-section-title>
                 Update Device Properties
             </div>
             <div class=hammock-section-contents>
@@ -1578,9 +1664,8 @@ And then send this header:
         </div>
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=declare_cloud_variables name=declare_cloud_variables></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=declare_cloud_variables_section_contents>
+            <a class=hammock-a-name id=declare_cloud_variables name=declare_cloud_variables></a><div class=hammock-section-title>
                 Declare Cloud Variables
             </div>
             <div class=hammock-section-contents>
@@ -1746,9 +1831,8 @@ And then send this header:
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=set_cloud_variable_values name=set_cloud_variable_values></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=set_cloud_variable_values_section_contents>
+            <a class=hammock-a-name id=set_cloud_variable_values name=set_cloud_variable_values></a><div class=hammock-section-title>
                 Set Cloud Variable Values
             </div>
             <div class=hammock-section-contents>
@@ -1808,9 +1892,8 @@ And then send this header:
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=device_object_response name=device_object_response></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=device_object_response_section_contents>
+            <a class=hammock-a-name id=device_object_response name=device_object_response></a><div class=hammock-section-title>
                 Device Object Response
             </div>
             <div class=hammock-section-contents>
@@ -1927,16 +2010,14 @@ POST /api/device/self</pre>
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=other_endpoints name=other_endpoints></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=other_endpoints name=other_endpoints></a><div class=hammock-chapter-title>
                     Other Endpoints
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=get_server_info name=get_server_info></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=get_server_info_section_contents>
+            <a class=hammock-a-name id=get_server_info name=get_server_info></a><div class=hammock-section-title>
                 Get Server Info
             </div>
             <div class=hammock-section-contents>
@@ -2078,16 +2159,14 @@ POST /api/device/self</pre>
             </div>
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=error_responses name=error_responses></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=error_responses name=error_responses></a><div class=hammock-chapter-title>
                     Error Responses
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=success_&_error_reporting name=success_&_error_reporting></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=success_&_error_reporting_section_contents>
+            <a class=hammock-a-name id=success_&_error_reporting name=success_&_error_reporting></a><div class=hammock-section-title>
                 Success & Error Reporting
             </div>
             <div class=hammock-section-contents>
@@ -2110,9 +2189,8 @@ POST /api/device/self</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=bad_input_error name=bad_input_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=bad_input_error_section_contents>
+            <a class=hammock-a-name id=bad_input_error name=bad_input_error></a><div class=hammock-section-title>
                 bad_input Error
             </div>
             <div class=hammock-section-contents>
@@ -2129,9 +2207,8 @@ POST /api/device/self</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=email_taken_error name=email_taken_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=email_taken_error_section_contents>
+            <a class=hammock-a-name id=email_taken_error name=email_taken_error></a><div class=hammock-section-title>
                 email_taken Error
             </div>
             <div class=hammock-section-contents>
@@ -2149,9 +2226,8 @@ POST /api/device/self</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=incorrect_username_or_password_error name=incorrect_username_or_password_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=incorrect_username_or_password_error_section_contents>
+            <a class=hammock-a-name id=incorrect_username_or_password_error name=incorrect_username_or_password_error></a><div class=hammock-section-title>
                 incorrect_username_or_password Error
             </div>
             <div class=hammock-section-contents>
@@ -2168,9 +2244,8 @@ POST /api/device/self</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=not_authenticated_error name=not_authenticated_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=not_authenticated_error_section_contents>
+            <a class=hammock-a-name id=not_authenticated_error name=not_authenticated_error></a><div class=hammock-section-title>
                 not_authenticated Error
             </div>
             <div class=hammock-section-contents>
@@ -2187,9 +2262,8 @@ POST /api/device/self</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=internal_error_error name=internal_error_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=internal_error_error_section_contents>
+            <a class=hammock-a-name id=internal_error_error name=internal_error_error></a><div class=hammock-section-title>
                 internal_error Error
             </div>
             <div class=hammock-section-contents>
@@ -2211,9 +2285,8 @@ POST /api/device/self</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=username_taken_error name=username_taken_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=username_taken_error_section_contents>
+            <a class=hammock-a-name id=username_taken_error name=username_taken_error></a><div class=hammock-section-title>
                 username_taken Error
             </div>
             <div class=hammock-section-contents>
@@ -2230,9 +2303,8 @@ POST /api/device/self</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=url_not_found_error name=url_not_found_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=url_not_found_error_section_contents>
+            <a class=hammock-a-name id=url_not_found_error name=url_not_found_error></a><div class=hammock-section-title>
                 url_not_found Error
             </div>
             <div class=hammock-section-contents>

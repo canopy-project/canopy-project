@@ -13,153 +13,252 @@
     <link href='hammock-custom.css' rel='stylesheet' type='text/css'>
 <script>
 function get_scroll_y() {
-    return window.pageYOffset || document.body.scrollTop || document.html.scrollTop;
+    if (window.pageYOffset !== undefined) {
+        return window.pageYOffset;
+    }
+    if (document.body !== undefined && document.body.scrollTop !== undefined) {
+        return document.body.scrollTop;
+    }
+    if (document.html !== undefined && document.html.scrollTop !== undefined) {
+        return document.html.scrollTop;
+    }
+    return 0;
 }
 function get_element_scroll_y(id) {
     return document.getElementById(id).offsetTop;
 }
 
+function jq( myid ) {
+     
+        return "#" + myid.replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+         
+}
+
 function update_scroll() {
     var y = get_scroll_y();
 
-        document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';document.getElementById('toc_prerequisites').style.fontWeight = '';document.getElementById('toc_prerequisites').style.backgroundColor = '';document.getElementById('toc_downloading_the_source').style.fontWeight = '';document.getElementById('toc_downloading_the_source').style.backgroundColor = '';document.getElementById('toc_building_and_installing_libcanopy').style.fontWeight = '';document.getElementById('toc_building_and_installing_libcanopy').style.backgroundColor = '';document.getElementById('toc_the_basics').style.fontWeight = '';document.getElementById('toc_the_basics').style.backgroundColor = '';document.getElementById('toc_a_simple_example').style.fontWeight = '';document.getElementById('toc_a_simple_example').style.backgroundColor = '';document.getElementById('toc_compiling_and_running').style.fontWeight = '';document.getElementById('toc_compiling_and_running').style.backgroundColor = '';document.getElementById('toc_initialization').style.fontWeight = '';document.getElementById('toc_initialization').style.backgroundColor = '';document.getElementById('toc_canopy_init_context').style.fontWeight = '';document.getElementById('toc_canopy_init_context').style.backgroundColor = '';document.getElementById('toc_canopy_set_opt').style.fontWeight = '';document.getElementById('toc_canopy_set_opt').style.backgroundColor = '';document.getElementById('toc_cloud_variables').style.fontWeight = '';document.getElementById('toc_cloud_variables').style.backgroundColor = '';document.getElementById('toc_canopy_var_init').style.fontWeight = '';document.getElementById('toc_canopy_var_init').style.backgroundColor = '';document.getElementById('toc_canopy_var_set').style.fontWeight = '';document.getElementById('toc_canopy_var_set').style.backgroundColor = '';document.getElementById('toc_canopy_var_get').style.fontWeight = '';document.getElementById('toc_canopy_var_get').style.backgroundColor = '';document.getElementById('toc_canopy_var_on_change').style.fontWeight = '';document.getElementById('toc_canopy_var_on_change').style.backgroundColor = '';document.getElementById('toc_canopy_value__macros').style.fontWeight = '';document.getElementById('toc_canopy_value__macros').style.backgroundColor = '';document.getElementById('toc_canopy_read__macros').style.fontWeight = '';document.getElementById('toc_canopy_read__macros').style.backgroundColor = '';document.getElementById('toc_notifications').style.fontWeight = '';document.getElementById('toc_notifications').style.backgroundColor = '';document.getElementById('toc_canopy_notify').style.fontWeight = '';document.getElementById('toc_canopy_notify').style.backgroundColor = '';document.getElementById('toc_synchronization').style.fontWeight = '';document.getElementById('toc_synchronization').style.backgroundColor = '';document.getElementById('toc_canopy_sync_blocking').style.fontWeight = '';document.getElementById('toc_canopy_sync_blocking').style.backgroundColor = '';document.getElementById('toc_canopy_once_every').style.fontWeight = '';document.getElementById('toc_canopy_once_every').style.backgroundColor = '';document.getElementById('toc_error_handling').style.fontWeight = '';document.getElementById('toc_error_handling').style.backgroundColor = '';document.getElementById('toc_error_codes').style.fontWeight = '';document.getElementById('toc_error_codes').style.backgroundColor = '';document.getElementById('toc_canopy_error_msg').style.fontWeight = '';document.getElementById('toc_canopy_error_msg').style.backgroundColor = '';document.getElementById('toc_canopy_write_error').style.fontWeight = '';document.getElementById('toc_canopy_write_error').style.backgroundColor = '';
+        document.getElementById('toc_installation').style.fontWeight = '';document.getElementById('toc_installation').style.backgroundColor = '';var foo = document.getElementById('installation_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_prerequisites').style.fontWeight = '';document.getElementById('toc_prerequisites').style.backgroundColor = '';var foo = document.getElementById('prerequisites_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_downloading_the_source').style.fontWeight = '';document.getElementById('toc_downloading_the_source').style.backgroundColor = '';var foo = document.getElementById('downloading_the_source_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_building_and_installing_libcanopy').style.fontWeight = '';document.getElementById('toc_building_and_installing_libcanopy').style.backgroundColor = '';var foo = document.getElementById('building_and_installing_libcanopy_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_the_basics').style.fontWeight = '';document.getElementById('toc_the_basics').style.backgroundColor = '';var foo = document.getElementById('the_basics_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_a_simple_example').style.fontWeight = '';document.getElementById('toc_a_simple_example').style.backgroundColor = '';var foo = document.getElementById('a_simple_example_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_compiling_and_running').style.fontWeight = '';document.getElementById('toc_compiling_and_running').style.backgroundColor = '';var foo = document.getElementById('compiling_and_running_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_initialization').style.fontWeight = '';document.getElementById('toc_initialization').style.backgroundColor = '';var foo = document.getElementById('initialization_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_init_context').style.fontWeight = '';document.getElementById('toc_canopy_init_context').style.backgroundColor = '';var foo = document.getElementById('canopy_init_context_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_set_opt').style.fontWeight = '';document.getElementById('toc_canopy_set_opt').style.backgroundColor = '';var foo = document.getElementById('canopy_set_opt_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_cloud_variables').style.fontWeight = '';document.getElementById('toc_cloud_variables').style.backgroundColor = '';var foo = document.getElementById('cloud_variables_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_var_init').style.fontWeight = '';document.getElementById('toc_canopy_var_init').style.backgroundColor = '';var foo = document.getElementById('canopy_var_init_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_var_set').style.fontWeight = '';document.getElementById('toc_canopy_var_set').style.backgroundColor = '';var foo = document.getElementById('canopy_var_set_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_var_get').style.fontWeight = '';document.getElementById('toc_canopy_var_get').style.backgroundColor = '';var foo = document.getElementById('canopy_var_get_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_var_on_change').style.fontWeight = '';document.getElementById('toc_canopy_var_on_change').style.backgroundColor = '';var foo = document.getElementById('canopy_var_on_change_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_value__macros').style.fontWeight = '';document.getElementById('toc_canopy_value__macros').style.backgroundColor = '';var foo = document.getElementById('canopy_value__macros_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_read__macros').style.fontWeight = '';document.getElementById('toc_canopy_read__macros').style.backgroundColor = '';var foo = document.getElementById('canopy_read__macros_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_notifications').style.fontWeight = '';document.getElementById('toc_notifications').style.backgroundColor = '';var foo = document.getElementById('notifications_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_notify').style.fontWeight = '';document.getElementById('toc_canopy_notify').style.backgroundColor = '';var foo = document.getElementById('canopy_notify_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_synchronization').style.fontWeight = '';document.getElementById('toc_synchronization').style.backgroundColor = '';var foo = document.getElementById('synchronization_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_sync_blocking').style.fontWeight = '';document.getElementById('toc_canopy_sync_blocking').style.backgroundColor = '';var foo = document.getElementById('canopy_sync_blocking_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_once_every').style.fontWeight = '';document.getElementById('toc_canopy_once_every').style.backgroundColor = '';var foo = document.getElementById('canopy_once_every_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_error_handling').style.fontWeight = '';document.getElementById('toc_error_handling').style.backgroundColor = '';var foo = document.getElementById('error_handling_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_error_codes').style.fontWeight = '';document.getElementById('toc_error_codes').style.backgroundColor = '';var foo = document.getElementById('error_codes_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_error_msg').style.fontWeight = '';document.getElementById('toc_canopy_error_msg').style.backgroundColor = '';var foo = document.getElementById('canopy_error_msg_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_canopy_write_error').style.fontWeight = '';document.getElementById('toc_canopy_write_error').style.backgroundColor = '';var foo = document.getElementById('canopy_write_error_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';
     if (0) {
     }
     
-            else if (y + 32 > get_element_scroll_y('canopy_write_error')) {
+            else if (y + 48 > get_element_scroll_y('canopy_write_error')) {
                 document.getElementById('toc_canopy_write_error').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_write_error').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_write_error_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_error_msg')) {
+            else if (y + 48 > get_element_scroll_y('canopy_error_msg')) {
                 document.getElementById('toc_canopy_error_msg').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_error_msg').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_error_msg_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('error_codes')) {
+            else if (y + 48 > get_element_scroll_y('error_codes')) {
                 document.getElementById('toc_error_codes').style.fontWeight = "bold";
                 document.getElementById('toc_error_codes').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('error_codes_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('error_handling')) {
+            else if (y + 48 > get_element_scroll_y('error_handling')) {
                 document.getElementById('toc_error_handling').style.fontWeight = "bold";
                 document.getElementById('toc_error_handling').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('error_handling_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_once_every')) {
+            else if (y + 48 > get_element_scroll_y('canopy_once_every')) {
                 document.getElementById('toc_canopy_once_every').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_once_every').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_once_every_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_sync_blocking')) {
+            else if (y + 48 > get_element_scroll_y('canopy_sync_blocking')) {
                 document.getElementById('toc_canopy_sync_blocking').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_sync_blocking').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_sync_blocking_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('synchronization')) {
+            else if (y + 48 > get_element_scroll_y('synchronization')) {
                 document.getElementById('toc_synchronization').style.fontWeight = "bold";
                 document.getElementById('toc_synchronization').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('synchronization_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_notify')) {
+            else if (y + 48 > get_element_scroll_y('canopy_notify')) {
                 document.getElementById('toc_canopy_notify').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_notify').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_notify_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('notifications')) {
+            else if (y + 48 > get_element_scroll_y('notifications')) {
                 document.getElementById('toc_notifications').style.fontWeight = "bold";
                 document.getElementById('toc_notifications').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('notifications_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_read__macros')) {
+            else if (y + 48 > get_element_scroll_y('canopy_read__macros')) {
                 document.getElementById('toc_canopy_read__macros').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_read__macros').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_read__macros_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_value__macros')) {
+            else if (y + 48 > get_element_scroll_y('canopy_value__macros')) {
                 document.getElementById('toc_canopy_value__macros').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_value__macros').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_value__macros_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_var_on_change')) {
+            else if (y + 48 > get_element_scroll_y('canopy_var_on_change')) {
                 document.getElementById('toc_canopy_var_on_change').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_var_on_change').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_var_on_change_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_var_get')) {
+            else if (y + 48 > get_element_scroll_y('canopy_var_get')) {
                 document.getElementById('toc_canopy_var_get').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_var_get').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_var_get_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_var_set')) {
+            else if (y + 48 > get_element_scroll_y('canopy_var_set')) {
                 document.getElementById('toc_canopy_var_set').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_var_set').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_var_set_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_var_init')) {
+            else if (y + 48 > get_element_scroll_y('canopy_var_init')) {
                 document.getElementById('toc_canopy_var_init').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_var_init').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_var_init_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('cloud_variables')) {
+            else if (y + 48 > get_element_scroll_y('cloud_variables')) {
                 document.getElementById('toc_cloud_variables').style.fontWeight = "bold";
                 document.getElementById('toc_cloud_variables').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('cloud_variables_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_set_opt')) {
+            else if (y + 48 > get_element_scroll_y('canopy_set_opt')) {
                 document.getElementById('toc_canopy_set_opt').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_set_opt').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_set_opt_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('canopy_init_context')) {
+            else if (y + 48 > get_element_scroll_y('canopy_init_context')) {
                 document.getElementById('toc_canopy_init_context').style.fontWeight = "bold";
                 document.getElementById('toc_canopy_init_context').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('canopy_init_context_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('initialization')) {
+            else if (y + 48 > get_element_scroll_y('initialization')) {
                 document.getElementById('toc_initialization').style.fontWeight = "bold";
                 document.getElementById('toc_initialization').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('initialization_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('compiling_and_running')) {
+            else if (y + 48 > get_element_scroll_y('compiling_and_running')) {
                 document.getElementById('toc_compiling_and_running').style.fontWeight = "bold";
                 document.getElementById('toc_compiling_and_running').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('compiling_and_running_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('a_simple_example')) {
+            else if (y + 48 > get_element_scroll_y('a_simple_example')) {
                 document.getElementById('toc_a_simple_example').style.fontWeight = "bold";
                 document.getElementById('toc_a_simple_example').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('a_simple_example_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('the_basics')) {
+            else if (y + 48 > get_element_scroll_y('the_basics')) {
                 document.getElementById('toc_the_basics').style.fontWeight = "bold";
                 document.getElementById('toc_the_basics').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('the_basics_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('building_and_installing_libcanopy')) {
+            else if (y + 48 > get_element_scroll_y('building_and_installing_libcanopy')) {
                 document.getElementById('toc_building_and_installing_libcanopy').style.fontWeight = "bold";
                 document.getElementById('toc_building_and_installing_libcanopy').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('building_and_installing_libcanopy_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('downloading_the_source')) {
+            else if (y + 48 > get_element_scroll_y('downloading_the_source')) {
                 document.getElementById('toc_downloading_the_source').style.fontWeight = "bold";
                 document.getElementById('toc_downloading_the_source').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('downloading_the_source_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('prerequisites')) {
+            else if (y + 48 > get_element_scroll_y('prerequisites')) {
                 document.getElementById('toc_prerequisites').style.fontWeight = "bold";
                 document.getElementById('toc_prerequisites').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('prerequisites_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
             }
             
-            else if (y + 32 > get_element_scroll_y('installation')) {
+            else if (y + 48 > get_element_scroll_y('installation')) {
                 document.getElementById('toc_installation').style.fontWeight = "bold";
                 document.getElementById('toc_installation').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('installation_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            $(jq('toc_installation_sections')).hide();$(jq('toc_the_basics_sections')).hide();$(jq('toc_initialization_sections')).hide();$(jq('toc_cloud_variables_sections')).hide();$(jq('toc_notifications_sections')).hide();$(jq('toc_synchronization_sections')).hide();$(jq('toc_error_handling_sections')).hide();
+    if (0) {
+    }
+    
+            else if (y + 48 > get_element_scroll_y('error_handling')) {
+                $(jq('toc_error_handling_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('synchronization')) {
+                $(jq('toc_synchronization_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('notifications')) {
+                $(jq('toc_notifications_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('cloud_variables')) {
+                $(jq('toc_cloud_variables_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('initialization')) {
+                $(jq('toc_initialization_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('the_basics')) {
+                $(jq('toc_the_basics_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('installation')) {
+                $(jq('toc_installation_sections')).show();
             }
             
 }
 window.onload = function() {
     window.addEventListener("scroll", update_scroll);
 }
+$(document).ready(function() {update_scroll();});
 </script>
 
     <script>
@@ -184,13 +283,12 @@ window.onload = function() {
         </div>
     </div>
 </div>
-    <div class='hammock-toc-outer'><div class='hammock-toc-title'>C/C++ Client</div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_prerequisites' class='hammock-toc-section'><a href='#prerequisites'>Prerequisites</a></div><div id='toc_downloading_the_source' class='hammock-toc-section'><a href='#downloading_the_source'>Downloading the Source</a></div><div id='toc_building_and_installing_libcanopy' class='hammock-toc-section'><a href='#building_and_installing_libcanopy'>Building and Installing libcanopy</a></div><div id='toc_the_basics' class='hammock-toc-chapter'><a href='#the_basics'>The Basics</a></div><div id='toc_a_simple_example' class='hammock-toc-section'><a href='#a_simple_example'>A Simple Example</a></div><div id='toc_compiling_and_running' class='hammock-toc-section'><a href='#compiling_and_running'>Compiling and Running</a></div><div id='toc_initialization' class='hammock-toc-chapter'><a href='#initialization'>Initialization</a></div><div id='toc_canopy_init_context' class='hammock-toc-section'><a href='#canopy_init_context'>canopy_init_context</a></div><div id='toc_canopy_set_opt' class='hammock-toc-section'><a href='#canopy_set_opt'>canopy_set_opt</a></div><div id='toc_cloud_variables' class='hammock-toc-chapter'><a href='#cloud_variables'>Cloud Variables</a></div><div id='toc_canopy_var_init' class='hammock-toc-section'><a href='#canopy_var_init'>canopy_var_init</a></div><div id='toc_canopy_var_set' class='hammock-toc-section'><a href='#canopy_var_set'>canopy_var_set</a></div><div id='toc_canopy_var_get' class='hammock-toc-section'><a href='#canopy_var_get'>canopy_var_get</a></div><div id='toc_canopy_var_on_change' class='hammock-toc-section'><a href='#canopy_var_on_change'>canopy_var_on_change</a></div><div id='toc_canopy_value__macros' class='hammock-toc-section'><a href='#canopy_value__macros'>CANOPY_VALUE_ macros</a></div><div id='toc_canopy_read__macros' class='hammock-toc-section'><a href='#canopy_read__macros'>CANOPY_READ_ macros</a></div><div id='toc_notifications' class='hammock-toc-chapter'><a href='#notifications'>Notifications</a></div><div id='toc_canopy_notify' class='hammock-toc-section'><a href='#canopy_notify'>canopy_notify</a></div><div id='toc_synchronization' class='hammock-toc-chapter'><a href='#synchronization'>Synchronization</a></div><div id='toc_canopy_sync_blocking' class='hammock-toc-section'><a href='#canopy_sync_blocking'>canopy_sync_blocking</a></div><div id='toc_canopy_once_every' class='hammock-toc-section'><a href='#canopy_once_every'>canopy_once_every</a></div><div id='toc_error_handling' class='hammock-toc-chapter'><a href='#error_handling'>Error Handling</a></div><div id='toc_error_codes' class='hammock-toc-section'><a href='#error_codes'>Error Codes</a></div><div id='toc_canopy_error_msg' class='hammock-toc-section'><a href='#canopy_error_msg'>canopy_error_msg</a></div><div id='toc_canopy_write_error' class='hammock-toc-section'><a href='#canopy_write_error'>canopy_write_error</a></div></div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>C/C++ Client</div><div></div><div id='toc_installation' class='hammock-toc-chapter'><a href='#installation'>Installation</a></div><div id='toc_installation_sections' class='hammock-toc-sections'><div id='toc_prerequisites' class='hammock-toc-section'><a href='#prerequisites'>Prerequisites</a></div><div id='toc_downloading_the_source' class='hammock-toc-section'><a href='#downloading_the_source'>Downloading the Source</a></div><div id='toc_building_and_installing_libcanopy' class='hammock-toc-section'><a href='#building_and_installing_libcanopy'>Building and Installing libcanopy</a></div></div><div id='toc_the_basics' class='hammock-toc-chapter'><a href='#the_basics'>The Basics</a></div><div id='toc_the_basics_sections' class='hammock-toc-sections'><div id='toc_a_simple_example' class='hammock-toc-section'><a href='#a_simple_example'>A Simple Example</a></div><div id='toc_compiling_and_running' class='hammock-toc-section'><a href='#compiling_and_running'>Compiling and Running</a></div></div><div id='toc_initialization' class='hammock-toc-chapter'><a href='#initialization'>Initialization</a></div><div id='toc_initialization_sections' class='hammock-toc-sections'><div id='toc_canopy_init_context' class='hammock-toc-section'><a href='#canopy_init_context'>canopy_init_context</a></div><div id='toc_canopy_set_opt' class='hammock-toc-section'><a href='#canopy_set_opt'>canopy_set_opt</a></div></div><div id='toc_cloud_variables' class='hammock-toc-chapter'><a href='#cloud_variables'>Cloud Variables</a></div><div id='toc_cloud_variables_sections' class='hammock-toc-sections'><div id='toc_canopy_var_init' class='hammock-toc-section'><a href='#canopy_var_init'>canopy_var_init</a></div><div id='toc_canopy_var_set' class='hammock-toc-section'><a href='#canopy_var_set'>canopy_var_set</a></div><div id='toc_canopy_var_get' class='hammock-toc-section'><a href='#canopy_var_get'>canopy_var_get</a></div><div id='toc_canopy_var_on_change' class='hammock-toc-section'><a href='#canopy_var_on_change'>canopy_var_on_change</a></div><div id='toc_canopy_value__macros' class='hammock-toc-section'><a href='#canopy_value__macros'>CANOPY_VALUE_ macros</a></div><div id='toc_canopy_read__macros' class='hammock-toc-section'><a href='#canopy_read__macros'>CANOPY_READ_ macros</a></div></div><div id='toc_notifications' class='hammock-toc-chapter'><a href='#notifications'>Notifications</a></div><div id='toc_notifications_sections' class='hammock-toc-sections'><div id='toc_canopy_notify' class='hammock-toc-section'><a href='#canopy_notify'>canopy_notify</a></div></div><div id='toc_synchronization' class='hammock-toc-chapter'><a href='#synchronization'>Synchronization</a></div><div id='toc_synchronization_sections' class='hammock-toc-sections'><div id='toc_canopy_sync_blocking' class='hammock-toc-section'><a href='#canopy_sync_blocking'>canopy_sync_blocking</a></div><div id='toc_canopy_once_every' class='hammock-toc-section'><a href='#canopy_once_every'>canopy_once_every</a></div></div><div id='toc_error_handling' class='hammock-toc-chapter'><a href='#error_handling'>Error Handling</a></div><div id='toc_error_handling_sections' class='hammock-toc-sections'><div id='toc_error_codes' class='hammock-toc-section'><a href='#error_codes'>Error Codes</a></div><div id='toc_canopy_error_msg' class='hammock-toc-section'><a href='#canopy_error_msg'>canopy_error_msg</a></div><div id='toc_canopy_write_error' class='hammock-toc-section'><a href='#canopy_write_error'>canopy_write_error</a></div></div></div>
     <div class=hammock-doc-outer>
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=installation name=installation></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=installation name=installation></a><div class=hammock-chapter-title>
                     Installation
                 </div>
                 <div class=hammock-chapter-contents>
@@ -200,9 +298,8 @@ window.onload = function() {
     to work with multiple git repositories.
 
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=prerequisites name=prerequisites></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=prerequisites_section_contents>
+            <a class=hammock-a-name id=prerequisites name=prerequisites></a><div class=hammock-section-title>
                 Prerequisites
             </div>
             <div class=hammock-section-contents>
@@ -238,9 +335,8 @@ sudo cp repo /usr/local/bin</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=downloading_the_source name=downloading_the_source></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=downloading_the_source_section_contents>
+            <a class=hammock-a-name id=downloading_the_source name=downloading_the_source></a><div class=hammock-section-title>
                 Downloading the Source
             </div>
             <div class=hammock-section-contents>
@@ -280,9 +376,8 @@ cd canopy_edk</pre>
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=building_and_installing_libcanopy name=building_and_installing_libcanopy></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=building_and_installing_libcanopy_section_contents>
+            <a class=hammock-a-name id=building_and_installing_libcanopy name=building_and_installing_libcanopy></a><div class=hammock-section-title>
                 Building and Installing libcanopy
             </div>
             <div class=hammock-section-contents>
@@ -336,16 +431,14 @@ sudo make install</pre>
             </div>
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=the_basics name=the_basics></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=the_basics name=the_basics></a><div class=hammock-chapter-title>
                     The Basics
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=a_simple_example name=a_simple_example></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=a_simple_example_section_contents>
+            <a class=hammock-a-name id=a_simple_example name=a_simple_example></a><div class=hammock-section-title>
                 A Simple Example
             </div>
             <div class=hammock-section-contents>
@@ -382,9 +475,8 @@ int main(void) {
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=compiling_and_running name=compiling_and_running></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=compiling_and_running_section_contents>
+            <a class=hammock-a-name id=compiling_and_running name=compiling_and_running></a><div class=hammock-section-title>
                 Compiling and Running
             </div>
             <div class=hammock-section-contents>
@@ -472,16 +564,14 @@ int main(void) {
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=initialization name=initialization></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=initialization name=initialization></a><div class=hammock-chapter-title>
                     Initialization
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_init_context name=canopy_init_context></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_init_context_section_contents>
+            <a class=hammock-a-name id=canopy_init_context name=canopy_init_context></a><div class=hammock-section-title>
                 canopy_init_context
             </div>
             <div class=hammock-section-contents>
@@ -522,9 +612,8 @@ if (!ctx) {
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_set_opt name=canopy_set_opt></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_set_opt_section_contents>
+            <a class=hammock-a-name id=canopy_set_opt name=canopy_set_opt></a><div class=hammock-section-title>
                 canopy_set_opt
             </div>
             <div class=hammock-section-contents>
@@ -590,16 +679,14 @@ if (result != CANOPY_SUCCESS) {
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=cloud_variables name=cloud_variables></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=cloud_variables name=cloud_variables></a><div class=hammock-chapter-title>
                     Cloud Variables
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_var_init name=canopy_var_init></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_var_init_section_contents>
+            <a class=hammock-a-name id=canopy_var_init name=canopy_var_init></a><div class=hammock-section-title>
                 canopy_var_init
             </div>
             <div class=hammock-section-contents>
@@ -613,9 +700,8 @@ if (result != CANOPY_SUCCESS) {
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_var_set name=canopy_var_set></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_var_set_section_contents>
+            <a class=hammock-a-name id=canopy_var_set name=canopy_var_set></a><div class=hammock-section-title>
                 canopy_var_set
             </div>
             <div class=hammock-section-contents>
@@ -636,9 +722,8 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_var_get name=canopy_var_get></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_var_get_section_contents>
+            <a class=hammock-a-name id=canopy_var_get name=canopy_var_get></a><div class=hammock-section-title>
                 canopy_var_get
             </div>
             <div class=hammock-section-contents>
@@ -647,9 +732,8 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_var_on_change name=canopy_var_on_change></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_var_on_change_section_contents>
+            <a class=hammock-a-name id=canopy_var_on_change name=canopy_var_on_change></a><div class=hammock-section-title>
                 canopy_var_on_change
             </div>
             <div class=hammock-section-contents>
@@ -658,9 +742,8 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_value__macros name=canopy_value__macros></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_value__macros_section_contents>
+            <a class=hammock-a-name id=canopy_value__macros name=canopy_value__macros></a><div class=hammock-section-title>
                 CANOPY_VALUE_ macros
             </div>
             <div class=hammock-section-contents>
@@ -669,9 +752,8 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_read__macros name=canopy_read__macros></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_read__macros_section_contents>
+            <a class=hammock-a-name id=canopy_read__macros name=canopy_read__macros></a><div class=hammock-section-title>
                 CANOPY_READ_ macros
             </div>
             <div class=hammock-section-contents>
@@ -685,16 +767,14 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=notifications name=notifications></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=notifications name=notifications></a><div class=hammock-chapter-title>
                     Notifications
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_notify name=canopy_notify></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_notify_section_contents>
+            <a class=hammock-a-name id=canopy_notify name=canopy_notify></a><div class=hammock-section-title>
                 canopy_notify
             </div>
             <div class=hammock-section-contents>
@@ -708,16 +788,14 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=synchronization name=synchronization></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=synchronization name=synchronization></a><div class=hammock-chapter-title>
                     Synchronization
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_sync_blocking name=canopy_sync_blocking></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_sync_blocking_section_contents>
+            <a class=hammock-a-name id=canopy_sync_blocking name=canopy_sync_blocking></a><div class=hammock-section-title>
                 canopy_sync_blocking
             </div>
             <div class=hammock-section-contents>
@@ -726,9 +804,8 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_once_every name=canopy_once_every></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_once_every_section_contents>
+            <a class=hammock-a-name id=canopy_once_every name=canopy_once_every></a><div class=hammock-section-title>
                 canopy_once_every
             </div>
             <div class=hammock-section-contents>
@@ -742,16 +819,14 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
 
 
             <div class=hammock-chapter-outer>
-                <a class=hammock-a-name id=error_handling name=error_handling></a>
-                <div class=hammock-chapter-title>
+                <a class=hammock-a-name id=error_handling name=error_handling></a><div class=hammock-chapter-title>
                     Error Handling
                 </div>
                 <div class=hammock-chapter-contents>
                     
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=error_codes name=error_codes></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=error_codes_section_contents>
+            <a class=hammock-a-name id=error_codes name=error_codes></a><div class=hammock-section-title>
                 Error Codes
             </div>
             <div class=hammock-section-contents>
@@ -821,9 +896,8 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_error_msg name=canopy_error_msg></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_error_msg_section_contents>
+            <a class=hammock-a-name id=canopy_error_msg name=canopy_error_msg></a><div class=hammock-section-title>
                 canopy_error_msg
             </div>
             <div class=hammock-section-contents>
@@ -832,9 +906,8 @@ CanopyResultEnum <a href=#canopy_var_set>c<!---->a<!---->n<!---->o<!---->p<!----
             </div>
         </div>
     
-        <div class=hammock-section-outer>
-            <a class=hammock-a-name id=canopy_write_error name=canopy_write_error></a>
-            <div class=hammock-section-title>
+        <div class=hammock-section-outer id=canopy_write_error_section_contents>
+            <a class=hammock-a-name id=canopy_write_error name=canopy_write_error></a><div class=hammock-section-title>
                 canopy_write_error
             </div>
             <div class=hammock-section-contents>
