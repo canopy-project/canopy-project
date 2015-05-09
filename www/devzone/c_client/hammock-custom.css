@@ -7,7 +7,10 @@ body {
 
 .hammock-a-name {
     position: relative;
-    top: -40px;
+    display: inline-block;
+    top: -96px;
+    height: 1px;
+    overflow: hidden;
 }
 
 .hammock-chapter-contents {
@@ -16,17 +19,22 @@ body {
     margin-top: 16px;
 }
 
+.hammock-chapter-contents > p {
+    padding-left: 18px;
+}
+
 .hammock-chapter-outer {
     max-width: 960px;
     min-width: 500px;
-    border-bottom: 2px solid #c0c0c0;
-    padding-bottom: 48px;
+    padding-bottom: 32px;
     padding-left:16px;
 }
 
 .hammock-chapter-title {
+    display: inline-block;
     margin-top: 32px;
     font-size: 35px;
+    padding-left:16px;
 }
 
 .hammock-code{
@@ -114,7 +122,7 @@ body {
 }
 
 .hammock-doc-outer {
-    margin-left: 300px;
+    margin-left: 280px;
 }
 
 .hammock-icode{
@@ -135,17 +143,21 @@ body {
 
 .hammock-section-contents {
     margin-top: 16px;
+    padding-left: 16px;
 }
 
 .hammock-section-outer {
+    margin-top: 48px;
 }
 
 .hammock-section-title {
+    display: inline-block;
     font-size: 28px;
     font-weight: 400;
     color: #3060a0;
-    margin-top: 32px;
+    margin-top: 8px;
     border-top:1px solid #d0d0d0;
+    padding-left: 16px;
 }
 
 .hammock-chapter-contents .hammock-section-title{
@@ -210,7 +222,7 @@ td.hammock-tbl-header{
 }
 
 .hammock-toc-chapter {
-    margin-top: 16px;
+    margin-top: 8px;
     font-size:18px;
     border-radius: 3px;
 }
@@ -224,14 +236,17 @@ td.hammock-tbl-header{
     position: fixed;
     width: 240px;
     overflow: auto;
-    top: 94px;
+    top: 68px;
+    bottom: 8px;
     left: 8px;
-    font-size: 14px;
+    font-size: 13px;
     padding: 16px;
     padding-top: 12px;
     font-weight: 400;
     white-space: nowrap;
-    background: rgba(255, 255, 255, 0.6);
+    line-height: 1.25;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.95);
     overflow: hidden;
     border-radius: 3px;
 }
@@ -242,6 +257,9 @@ td.hammock-tbl-header{
 }
 
 .hammock-toc-subsection {
+}
+
+.hammock-toc-sections {
 }
 
 .hammock-toc-title {

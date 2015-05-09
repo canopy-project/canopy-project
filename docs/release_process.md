@@ -39,11 +39,17 @@ This will generate the files:
 
 Copy these to code.canopy.link:
 
-    scp canopy-server_15.04.03-1_amd64.deb canopy-server_15.04.03.src.tar.gz canopy.link:~/www/code.canopy.link/canopy-server/
+    scp canopy-server_*_amd64.deb canopy-server_*.src.tar.gz canopy.link:~/www/code.canopy.link/canopy-server/
 
 ** Generate canopy-js-client Release Packages **
 
-Login to server and create appropriate subdirectory, then:
+Login to server and create appropriate subdirectory.
+Update "latest" symbol link:
+
+    rm latest
+    ln -s vXX.YY.ZZ latest
+
+BAck on the build system:
 
     scp -r canopy.js canopy.link:~/www/code.canopy.link/js/v15.04.03/canopy.js
 

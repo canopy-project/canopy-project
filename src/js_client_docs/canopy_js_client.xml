@@ -1,0 +1,2866 @@
+<doc logo="" toc_title="Javascript Client" title="Lorem Ipsum">
+
+<chapter title="Setup and Install">
+    <p>
+        The Canopy Javascript Client (<icode>canopy.js</icode>) provides
+        easy-to-use Javascript bindings for Canopy.
+    </p>
+
+    <p>
+        Currently only browser-based Javascript is supported, with Node.js
+        support on its way.
+    </p>
+
+    <section title='Using a CDN'>
+        The Canopy Javascript Client (<icode>canopy.js</icode>) is hosted on our
+        servers.  You can reference the file directly with:
+        <code>
+            &lt;script src='http://code.canopy.link/adk/js/latest/canopy.js'&gt;&lt;/script&gt;
+        </code>
+    </section>
+    <section title='Downloading'>
+        Alternatively, you can download <icode>canopy.js</icode>
+        on our <a href='../release.html'><b>Release Package
+        Downloads</b></a> page.
+    </section>
+    <section title='Cloning Source'>
+        <p>
+            You can clone the git repository with:
+        </p>
+        <code>
+            git clone https://github.com/canopy-project/canopy-js-client
+        </code>
+        <p>
+            The cloned directory contains the file:
+        </p>
+        <code>
+            canopy-js-client/canopy.js
+        </code>
+    </section>
+</chapter>
+
+<chapter title='The Basics'>
+
+    <section title='Object Types'>
+        The Canopy Javascript Client provides the following object types.
+
+        <code>
+            Canopy (global object)
+
+                Singleton object containing the global routines exposed by this
+                library.
+
+            CanopyContext
+
+                Outermost object that holds runtime state.
+
+            CanopyRemote
+
+                Contains settings used to connect a remote Canopy Server, along
+                with connection-related state when persistent connections are
+                in use.
+
+            CanopyUser
+
+                Represents a human user who has a Canopy account on the
+                configured CanopyRemote.
+
+            CanopyDevice
+
+                Represents a Canopy-enabled "thing" that has been registered on
+                the configured Remote.  This may be a physical device or a
+                simulator program.
+
+            CanopyDeviceQuery
+
+                Represents a selection of Devices that can be filtered, sorted,
+                counted and paged through.
+
+            CanopyVariable
+
+                Represents a "Cloud Variable", which is a Device property that
+                is tracked and stored on the server.  Cloud Variables are
+                useful for sensor data, real-time control, and Device
+                configuration.
+
+            CanopyBarrier
+
+                Used to wait for the results of an asynchronous operation.
+                Also known as a "Promise".
+
+        </code>
+    </section>
+
+    <section title='Local vs Remote Operations'>
+        <p>
+            Some of the routines in this library operate on locally cached copies
+            of data (a "local operation"), whereas other routines interact with the
+            remote Canopy server ("a remote operation").
+        </p>
+        <p>
+            All local operations return immediately.
+        </p> 
+        <p>
+            All remote operations are asynchronous by nature and return a
+            CanopyBarrier object.  The CanopyBarrier object is used to wait for
+            and obtain the results of the operation.
+        </p> 
+    </section>
+
+    <section title='Initialization'>
+        <p>
+            The library initialization code depends on whose credentials (if
+            any) your program has access to.  The process differs slightly if
+            you will be using the library on behalf of a human User or on
+            behalf of a Device.
+        </p>
+        <subsection title="Initializing Library with a Signed-in User">
+            <p>
+                If the user has an active session on the remote Canopy server
+                (for example if they went to
+                 <icode>https://sandbox.canopy.link</icode> and logging in),
+                you can initialize the library with:
+            </p>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        // An error occured.
+                        // If the user is not logged in then result==CANOPY_ERROR_NOT_LOGGED_IN
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+
+                    // Success!
+                    // responseData.user contains the CanopyUser object for the
+                    // signed in user.
+                    var user = responseData.user;
+                    ...
+                });
+            </code>
+            <p>
+                You may want to change <icode>http://sandbox.canopy.link</icode> in
+                the above example to your Canopy remote.
+            </p>
+            <p>
+                The <icode>Canopy.initUserClient()</icode> call accepts many
+                additional parameters described in the documentation for <icode>(CanopyContext).initRemote()</icode>.
+            </p>
+        </subsection>
+        <subsection title="Initializing Library with User Credentials using BASIC AUTH">
+            <p>
+                To instead use BASIC AUTH to interact with the remote
+                Canopy server on behalf of a User, provide ther User's
+                credentials to <icode>Canopy.initUserClient()</icode>:
+            </p>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        // An error occurred.
+                        // If the credentials are incorrect then result==CANOPY_ERROR_BAD_CREDENTIALS
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+
+                    // Success!
+                    // responseData.user contains the CanopyUser object for the
+                    // authenticated user.
+                    var user = responseData.user;
+                    ...
+                });
+            </code>
+        </subsection>
+        <subsection title="Initializing Library with Device Credentials using BASIC AUTH">
+            <p>
+                To instead use the library on behalf of a Device, use
+                <icode>Canopy.initDeviceClient()</icode> and provide the Device's ID and Secret Key.
+            </p>
+            <code syntax='javascript'>
+                Canopy.initDeviceClient({
+                    "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's ID */
+                    "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        // An error occurred.
+                        // If the credentials are incorrect then result==CANOPY_ERROR_BAD_CREDENTIALS
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+
+                    // Success!
+                    // responseData.device contains the CanopyDevice object for the
+                    // authenticated device.
+                    var device = responseData.device;
+                    ...
+                });
+            </code>
+        </subsection>
+        <subsection title="Initializing Library without Credentials">
+            Some routines, such as <icode>(CanopyRemote).createUser()</icode>
+            do not require authentication.  To use these routines, you must
+            create a CanopyContext and CanopyRemote manually.
+
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "host" : "sandbox.canopy.link"
+                });
+
+                // You can now call remote.createUser({...}) for example.
+            </code>
+
+        </subsection>
+    </section>
+
+    <section title='A Simple Example'>
+        This webpage lists the Canopy Devices that are accessible to a User.
+        <code syntax="javascript">
+            &lt;html&gt;
+
+            &lt;head&gt;
+                &lt;title&gt;
+                    Canopy Example
+                &lt;/title&gt;
+                TODO JQUERY
+                &lt;script src='http://code.canopy.link/adk/js/latest/canopy.js'&gt;&lt;/script&gt;
+            &lt;/head&gt;
+
+            &lt;body id='main'&gt;
+            &lt;/body&gt;
+
+            &lt;script&gt;
+
+            Canopy.initUserClient({
+                "auth_type" : "basic",
+                "auth_username" : "myUsername", 
+                "auth_password" : "myPassword",
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    $("#main").html("Error: " + responseData.errorMsg)
+                    return;
+                }
+                responseData.user.devices().getMany(0, 40).onDone(function(result, deviceData) {
+                    if (result != CANOPY_SUCCESS) {
+                        $("#main").html("Error: " + deviceData.errorMsg)
+                        return;
+                    }
+                    var i;
+                    for (i = 0; i &lt; deviceData.devices.length) {
+                        var device = deviceData.devices[i];
+                        $("#main").append(device.Name() + "(" + device.ID() + "));
+                    }
+                });
+            });
+            &lt;/script&gt;
+
+            &lt;/html&gt;
+        </code>
+
+    </section>
+
+</chapter>
+
+<chapter title='Canopy (global object)'>
+    <p>
+        The Canopy global object is a singleton object containing the global
+        routines exposed by this library.
+    </p>
+    <section title='Canopy.initContext()'>
+        <p>
+            Initializes a new CanopyContext.
+        </p>
+        <p>
+            This is the first routine your application must call unless you are
+            using one of the alternatives such as Canopy.initUserClient() or
+            Canopy.initDeviceClient().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                Canopy.initContext()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyContext object
+        </subsection>
+        <subsection title='Example'>
+            <code>
+                var ctx = Canopy.initContext();
+            </code>
+        </subsection>
+    </section>
+
+    <section title='Canopy.initDeviceClient()'>
+        <p>
+            Helper routine that initializes the library when you plan to make
+            API requests on behalf of a Device.  This routine:
+            <ul>
+                <li>Initializes a Context</li>
+                <li>Configures a Remote</li>
+                <li>Fetches the authenticated Device</li>
+            </ul>
+        </p>
+        <p>
+            Implemented as:
+        </p>
+        <code syntax='javascript'>
+            function initDeviceClient(params) {
+                var ctx = Canopy.initContext();
+                var remote = canopy.initRemote(params);
+                return remote.getSelfDevice();
+            }
+        </code>
+        <p>
+            This is the first routine your application must call unless you are
+            using one of the alternatives such as Canopy.initContext() or
+            Canopy.initUserClient().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                Canopy.initDeviceClient(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Same as for (CanopyContext).initRemote()
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.device</icode></cell>
+                    <cell>Device object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(responseData.errorMsg);
+                    return;
+                }
+                alert("Hi " + responseData.device.name());
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='Canopy.initUserClient()'>
+        <p>
+            Helper routine that initializes the library when you plan to make
+            API requests on behalf of a User.  This routine:
+            <ul>
+                <li>Initializes a Context</li>
+                <li>Configures a Remote</li>
+                <li>Fetches the authenticated User</li>
+            </ul>
+        </p>
+        <p>
+            Implemented as:
+        </p>
+        <code syntax='javascript'>
+            function initUserClient(params) {
+                var ctx = Canopy.initContext();
+                var remote = canopy.initRemote(params);
+                return remote.getSelfUser();
+            }
+        </code>
+        <p>
+            This is the first routine your application must call unless you are
+            using one of the alternatives such as Canopy.initContext() or
+            Canopy.initDeviceClient().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                Canopy.initUserClient(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Same as for (CanopyContext).initRemote()
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.user</icode></cell>
+                    <cell>CanopyUser object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+            Canopy.initUserClient({
+                "auth-username" : "myUsername", 
+                "auth-password" : "myPassword",
+                "host" : "dev02.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(responseData.errorMsg);
+                    return;
+                }
+                alert("Hi " + responseData.user.username());
+            });
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyContext'>
+    <p>
+        A CanopyContext is an outermost object that holds runtime state for the
+        library.  You must initialize a CanopyContext before you can do
+        anything else by calling either Canopy.initContext(),
+        Canopy.initUserClient() or Canopy.initDeviceClient().
+    </p>
+    <section title='(CanopyContext).initRemote()'>
+        Initializes a Remote object.
+        <p>
+            Typically you can call Canopy.initUserClient() or
+            Canopy.initDeviceClient() to initialize a Remote without calling
+            this directly.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                Canopy.initRemote(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object may
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.auth_password</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>User's password for authentication.  Required if
+                    "auth_type" is "basic" or if you plan to call
+                    (CanopyRemote).login().  Otherwise ignored.  Defaults to
+                    <icode>""</icode>.</cell>
+                </row>
+                <row>
+                    <cell><icode>params.auth_type</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>Type of authentication to use.  Must be one of:
+                        <ul>
+                            <li><icode>"basic"</icode> - Send BASIC AUTH
+                                credentials with each request.
+                            </li>
+                            <li><icode>"session"</icode> - Send session cookies
+                                with each request.
+                            </li>
+                        </ul>
+                        Defaults to <icode>"session"</icode>.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.auth_username</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>Username to authenticate with if using BASIC AUTH or
+                        when .login() is called.
+                        This may be a user's username or email address (TBD: or
+                        a Device's ID).  Defaults
+                        to <icode>""</icode>.</cell>
+                </row>
+                <row>
+                    <cell><icode>params.host</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>Hostname or IP address of remote Canopy Server.
+                    Defaults to <icode>"sandbox.canopy.link"</icode>.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.http_port</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>integer</cell>
+                    <cell>Port to use if using HTTP.  Otherwise ignored.
+                    Defaults to <icode>80</icode>.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.https_port</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>integer</cell>
+                    <cell>Port to use if using HTTPS.  Otherwise ignored.
+                    Defaults to <icode>443</icode>.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.skip_cert_check</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>boolean</cell>
+                    <cell>When <icode>true</icode>, skips the validation of the
+                    Canopy Server's SSL certificate, if such skipping is
+                    possible.  Note that most browsers do not allow this check
+                    to be skipped and will display a warning to the user.
+                    WARNING: This option is highly insecure and should never be
+                    used in production.  Defaults to <icode>false</icode>.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.use_http</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>boolean</cell>
+                    <cell>When <icode>true</icode>, forces the use of HTTP
+                    instead of HTTPS.  WARNING: This option is highly insecure
+                    and should never be used in production.  Defaults to
+                    <icode>false</icode>.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyContext object
+        </subsection>
+        <subsection title='Example'>
+            <code>
+                var ctx = Canopy.initContext();
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyContext).shutdown()'>
+        Shuts down a CanopyContext closing and freeing all resources that can
+        be closed or freed.  Let's face it: you are writing a web application
+        and it is unlikely that you will ever actually call this.  But we
+        provide it here anyway for completeness.
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyContext).shutdown()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            Integer error code.  CANOPY_SUCCESS on success.
+        </subsection>
+
+        <subsection title='Example'>
+            <code>
+                // Silly example:
+                Canopy.initContext().shutdown();
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyRemote'>
+    <section title='(CanopyRemote).apiBaseUrl()'>
+        Get the base URL used for making REST API requests to the remote Canopy
+        server.
+        <p>
+            The returned value does not have a trailing slash.
+        </p>
+        <p>
+            It is unlikely that you will ever need to call this because the
+            client library handles all API requests for you.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).apiBaseUrl()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String containing URL prefix, such as "<icode>https://sandbox.canopy.link/api</icode>".
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).baseUrl()'>
+        Get the base URL used for making general HTTP requests to the remote
+        Canopy server.
+        <p>
+            The returned value does not have a trailing slash, and is typically
+            a substring of <icode>(CanopyRemote).apiBaseUrl()</icode>'s return
+            value.
+        </p>
+        <p>
+            It is unlikely that you will ever need to call this because the
+            client library handles all API requests for you.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).baseUrl()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String containing URL prefix, such as "<icode>https://sandbox.canopy.link</icode>".
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).createUser()'>
+        Create a new User on the remote Canopy server.
+
+        <p>
+            (TBD) On successful completion, this CanopyRemote is still not
+            authenticated with the newly created user's credententials, so only
+            local operations on the <icode>responseData.User</icode> will be
+            permitted.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).createUser(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.username</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.  Must satisfy the following:
+                        <ul>
+                            <li>
+                                5-24 characters.
+                            </li>
+                            <li>
+                                Characters a-z, A-Z, 0-9 and underscore(_) allowed.
+                            </li>
+                            <li>
+                                Must start with a letter.
+                            </li>
+                        </ul>
+                    </cell>
+                    <cell>New user's username.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.email</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.  Must be a valid email address.</cell>
+                    <cell>New user's email address.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.password</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.  Must satisfy the following:
+                        <ul>
+                            <li>
+                                6-120 characters.
+                            </li>
+                            <li>
+                                All characters allowed.
+                            </li>
+                            <li>
+                                Case sensitive.
+                            </li>
+                        </ul>
+                    </cell>
+                    <cell>New user's password.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.user</icode></cell>
+                    <cell>CanopyUser object representing newly created user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).getSelfDevice()'>
+        Get the CanopyDevice object corresponding to the currently authenticated device.
+        <p>
+            The currently authenticated device is
+            the device whose credientials were supplied to
+            (CanopyContext).initRemote() in the <icode>"auth_username"</icode>
+            and <icode>"auth_password"</icode> parameters. 
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).getSelfUser()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.data</icode></cell>
+                    <cell>CanopyDevice object representing authenticated device.</cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's ID */
+                    "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.getSelfDevice().onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+                    alert("You are a device named " + responseData.device.name());
+                });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).getSelfUser()'>
+        Get the CanopyUser object corresponding to the currently authenticated user.
+        <p>
+            If the Remote's <icode>"auth_type"</icode> is
+            <icode>"session"</icode>, then the currently authenticated user is
+            the currently logged in user, if any.
+        </p>
+        <p>
+            If the Remote's <icode>"auth_type"</icode> is
+            <icode>"basic"</icode>, then the currently authenticated user is
+            the user whose credientials were supplied to
+            (CanopyContext).initRemote() in the <icode>"auth_username"</icode>
+            and <icode>"auth_password"</icode> parameters. 
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).getSelfUser()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.user</icode></cell>
+                    <cell>CanopyUser object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername",
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.getSelfUser().onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+                    alert("Hi " + responseData.user.username());
+                });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).login()'>
+        Login a User to the remote Canopy Server using the credentials supplied
+        to (CanopyContext).initRemote() in the <icode>"auth_username"</icode>
+        and <icode>"auth_password"</icode> parameters. 
+        <p>
+            This can only used if the Remote object's
+            <icode>"auth_type"</icode> was configured to be
+            <icode>"session"</icode>.
+        </p>
+        <p>
+            If successful, the response will include a session cookie that will
+            be included in subsequent requests made by the browser to the
+            Remote's host.
+        </p>
+        <p>
+            NOTE: Currently only one User can be logged in at a time and this
+            call has a global effect.  Calling this on one Remote object will
+            have the effect of logging in that User across all other Remote
+            objects configured with the same host and auth_type="session".
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).login()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.user</icode></cell>
+                    <cell>CanopyUser object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "auth_username" : "myUsername",
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.login().onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+                    alert("Hi " + responseData.user.username());
+                });
+            </code>
+
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).logout()'>
+        Logout the currently authenticated User on the remote Canopy Server.
+        <p>
+            This can only used if the Remote object's
+            <icode>"auth_type"</icode> was configured to be
+            <icode>"session"</icode>.
+        </p>
+        <p>
+            NOTE: Currently only one User can be logged in at a time and this
+            call has a global effect.  Calling this on one Remote object will
+            cause the user to be logged out across all other Remote objects
+            configured with the same host and auth_type="session".
+        </p>
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).logout()
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            None
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
+            </p>
+        </subsection>
+
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var ctx = Canopy.initContext();
+
+                var remote = ctx.initRemote({
+                    "host" : "sandbox.canopy.link"
+                });
+
+                remote.logout().onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+                    alert("You've been logged out ");
+                });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).requestPasswordReset()'>
+        Requests a password reset on behalf of a user who has forgotten their
+        password.
+        <p>
+            If the remote Canopy server has a mail service configured, then the
+            user will recieve an email with instructions at their registered
+            email address.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).requestPasswordReset(params)
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.username</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Username or email address of user requesting password
+                    reset.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyRemote).resetPassword()'>
+        Resets a user's password.
+        <p>
+            To perform this operation, you need to know the "password reset
+            code" that is encoded in the URL link in the instruction email that
+            was sent to the user when the password reset was requested.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyRemote).resetPassword(params)
+            </code>
+        </subsection>
+
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.username</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Username of user who requested the password reset.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.password</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>New password.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.confirmPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Must match <icode>params.password</icode>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.code</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String.</cell>
+                    <cell>Password reset code that is encoded in the URL link
+                        in the instruction email that was sent to the user when the
+                        password reset was requested.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyUser'>
+    <p>
+        A CanopyUser represents a human user who has a Canopy account on the
+        configured CanopyRemote.
+    </p>
+
+    <section title='(CanopyUser).changePassword()'>
+        Change this CanopyUser's password.
+        <p>
+            This method communicates with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).changePassword(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.oldPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>User's old password.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.newPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>User's new password.</cell>
+                </row>
+                <row>
+                    <cell><icode>params.confirmPassword</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>Must match <icode>params.newPassword</icode>.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).createDevices()'>
+        Create one or more device resources on the remote.
+        <p>
+            This method communicates with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).createDevices(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.quantity</icode></cell>
+                    <cell>Required</cell>
+                    <cell>Integer</cell>
+                    <cell>Number of devices to create.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>params.names</icode></cell>
+                    <cell>Required</cell>
+                    <cell>List of strings</cell>
+                    <cell>List of string names to assign the newly created
+                    devices.  The list must have
+                    <icode>params.quanitity</icode> number of items.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.devices</icode></cell>
+                    <cell>(DEPRECATED) Array of CanopyDevice objects
+                    corresponding to the newly created devices.  
+                    <p>Note: This is
+                    likely to change to become a DeviceQuery object in
+                    subsequent library revisions.</p></cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                // Initialize library and authenticate
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+
+                    // Create 3 new devices
+                    responseData.user.createDevices({
+                        quantity: 3,
+                        names: ["Toaster", "Lightbulb", "Refridgerator"]
+                    }).onDone(function(result, responseData) {
+                        if (result != CANOPY_SUCCESS) {
+                            alert("Error creating devices: " + responseData.errorMsg);
+                            return;
+                        }
+
+                        alert("Devices created!");
+                    }
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).devices()'>
+        Obtains CanopyDeviceQuery object corresponding to all devices that this
+        CanopyUser has access to.
+
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).devices()
+            </code>
+        </subsection>
+        <subsection title='Paramters'>
+            None.
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyDeviceQuery object corresponding to all devices that this
+            CanopyUser has access to.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert(responseData.errorMsg);
+                        return;
+                    }
+                    responseData.user.devices().getMany(0, 10).onDone(function(result, deviceData) {
+                        if (result != CANOPY_SUCCESS) {
+                            alert(deviceData.errorMsg);
+                            return;
+                        }
+                        for (var i = 0; i &lt; deviceData.devices.length; i++) {
+                            var device = deviceData.devices[i];
+                            console.log(device.name() + "(" + device.id() + ")");
+                        }
+                    });
+                });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).email()'>
+        Get or set User's email address.
+        <p>
+            This method will get or set the cached local copy of the User's
+            email address.  To synchronize with the remote call
+            (CanopyUser).updateFromRemote(), (CanopyUser).updateToRemote() or
+            (CanopyUser).syncWithRemote().
+        </p>
+        <p>
+            When setting the User's email address this method does not perform
+            any validation on the input.  Validation occurs server-side the
+            next time synchronization is performed.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the User's email address:
+            <code>
+                (CanopyUser).email()
+            </code>
+            <p>
+                To set the User's email address:
+            </p>
+            <code>
+                (CanopyUser).email(newEmail)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Optionally takes a new email address.
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>newEmail</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>New email address for user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            String email address.
+            <p>
+                Returns the newly-assigned email address if any.
+            </p>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var myNewEmail = "canopytest@mailinator.com";
+
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+
+                    var user = responseData.user;
+                    var oldEmail = user.email();
+                    user.email(myNewEmail);
+
+                    // Push change to remote:
+                    user.updateToRemote().onDone(function(result, responseData) {
+                        if (result != CANOPY_SUCCESS) {
+                            alert("Error changing email: " + responseData.errorMsg);
+                            return;
+                        }
+
+                        alert("Email changed from " + oldEmail + " to " + newEmail);
+                    }
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).isValidated()'>
+        Get User's validation status, which signifies whether or not the user
+        has confirmed their email address.
+        <p>
+            This method will get the cached local copy of the User's
+            validation status.  To synchronize with the remote call
+            (CanopyUser).updateFromRemote() or (CanopyUser).syncWithRemote().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).isValidated()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Boolean.  <icode>true</icode> means the user has confirmed their
+            email address, <icode>false</icode> means the user has not.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+                    if (responseData.user.isValidated()) {
+                        alert("You're a good person!"));
+                    } else {
+                        alert("Please check your email!"));
+                    }
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).remote()'>
+        Get the CanopyRemote object that this CanopyUser object uses to
+        communicate with the remote.
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).remote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyRemote object
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+
+                    var remote = canopy.user.remote();
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).syncWithRemote()'>
+        Synchronizes certain properties of this CanopyUser object with the
+        remote Canopy server.
+        
+        <p>
+            This is similar to calling
+            <icode>(CanopyUser).updateToRemote()</icode> followed by
+            <icode>(CanopyUser).updateFromRemote()</icode>.
+        </p>
+
+        <p>
+            This method pushes:
+        </p>
+        <ul>
+            <li>Changes to this CanopyUser's email address made with
+            <icode>(CanopyUser).email(newEmail)</icode>.</li>
+        </ul>
+        <p>
+            and updates locally (with data from the remote):
+        </p>
+        <ul>
+            <li>User's email address, obtainable with <icode>(CanopyUser).email()</icode>.</li>
+            <li>User's validation status, obtainable with <icode>(CanopyUser).isValidated()</icode>.</li>
+        </ul>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).syncWithRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).updateFromRemote()'>
+        Updates certain properties of this CanopyUser object with data fetched
+        from the remote Canopy server.
+        <p>
+            Typically <icode>(CanopyUser).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method updates:
+        </p>
+        <ul>
+            <li>User's email address, obtainable with <icode>(CanopyUser).email()</icode>.</li>
+            <li>User's validation status, obtainable with <icode>(CanopyUser).isValidated()</icode>.</li>
+        </ul>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).updateFromRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).updateToRemote()'>
+        Pushes certain local modifications to this CanopyUser object to the
+        remote Canopy server.
+        <p>
+            Typically <icode>(CanopyUser).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method pushes:
+        </p>
+        <ul>
+            <li>Changes to this CanopyUser's email address made with
+            <icode>(CanopyUser).email(newEmail)</icode>.</li>
+        </ul>
+        <p>
+            For all other remote changes (such as device creation, 
+            password changes, etc) you must use the appropriate specific routines.  See:
+            <ul>
+                <li><icode>(CanopyUser).changePassword()</icode> to change CanopyUser's password. </li>
+                <li><icode>(CanopyUser).createDevices()</icode> to create device resources owned by this CanopyUser. </li>
+                <li><icode>(CanopyUser).validate()</icode> to validate this CanopyUser (i.e. to confirm their email address). </li>
+            </ul>
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).updateToRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                var myNewEmail = "canopytest@mailinator.com";
+
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+
+                    var user = responseData.user;
+                    var oldEmail = user.email();
+                    user.email(myNewEmail);
+
+                    // Push change to remote:
+                    user.updateToRemote().onDone(function(result, responseData) {
+                        if (result != CANOPY_SUCCESS) {
+                            alert("Error changing email: " + responseData.errorMsg);
+                            return;
+                        }
+
+                        alert("Email changed from " + oldEmail + " to " + newEmail);
+                    }
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).username()'>
+        Get User's username.
+        <p>
+            This method will get the cached local copy of the User's
+            username.  To synchronize with the remote call
+            (CanopyUser).updateFromRemote() or (CanopyUser).syncWithRemote().
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).username()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String username.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+
+                    alert("Hello " + responseData.user.username());
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyUser).validate()'>
+        "Validate" the user in response to them confirming their email address.
+        <p>
+            It is unlikely that you will ever need to call this.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyUser).validate(params)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single object as its only parameter.  This object must
+                have the following members:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>params.code</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>Activation code from the activation email that was
+                    sent to the user.</cell>
+                </row>
+                <row>
+                    <cell><icode>params.username</icode></cell>
+                    <cell>Required</cell>
+                    <cell>String</cell>
+                    <cell>Username from the activation email.  Must match the
+                    currently authenticated user's username.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's .onDone()
+                callback will contain an empty object <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyDevice'>
+    <p>
+        A CanopyDevice represents a Canopy-enabled "thing" that has been
+        registered on the configured Remote.  This may be a physical device or
+        a simulator program.
+    </p>
+
+    <section title="(CanopyDevice).id()">
+        Get Device's Canopy ID.
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).id()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String.  Typically contains a type-4 UUID such as
+            <icode>"8f0dad00-2f45-4726-bd08-ceb0530f70c8"</icode>.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initDeviceClient({
+                    "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                    "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        alert("Error: " + responseData.errorMsg);
+                        return;
+                    }
+
+                    alert(responseData.device.id());
+                    /* OUTPUT: 8f0dad00-2f45-4726-bd08-ceb0530f70c8 */
+                }
+            </code>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).isActive()">
+        (Deprecated) This routine is likely to be removed or modified in future
+        versions of the libary.
+        <p>
+            Get whether this CanopyDevice has interacted with the remote Canopy
+            server within the past 60 seconds.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).isActive()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Boolean:
+            <ul>
+                <li><icode>true</icode> if this CanopyDevice has interacted
+                    with the remote Canopy server within the past 60 seconds, as of
+                    the most recent synchronization with the remote Canopy server.
+                </li>
+                <li><icode>false</icode> otherwise.</li>
+            </ul>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).isInactive()">
+        (Deprecated) This routine is likely to be removed or modified in future
+        versions of the libary.
+        <p>
+            Get whether this CanopyDevice has not interacted with the remote
+            Canopy server within the past 60 seconds.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).isInactive()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            <ul>
+                <li><icode>false</icode> if this CanopyDevice has interacted
+                    with the remote Canopy server within the past 60 seconds,
+                    as of the most recent synchronization with the remote
+                    Canopy server.
+                </li>
+                <li><icode>true</icode> otherwise.</li>
+            </ul>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).isNewlyCreated()">
+        <p>
+            Get whether this CanopyDevice is newly created, meaning it has
+            never interacted with the remote Canopy server.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).isNewlyCreated()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            <ul>
+                <li><icode>true</icode> if this CanopyDevice is newly created,
+                    meaning it has never interacted with the remote Canopy
+                    server, as of the most recent synchronization with the
+                    remote Canopy server.
+                </li>
+                <li><icode>false</icode> otherwise.</li>
+            </ul>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).lastActivitySecondsAgo()">
+        (Deprecated) This routine is likely to be removed or modified in future
+        versions of the libary.
+        <p>
+            Get the number of seconds since this device last interacted with
+            the remote Canopy server.
+        </p>
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization by this CanopyDevice with the remote.
+        </p>
+        <p>
+            The response depends on both the remote's clock and the client's
+            clock.  If either is inaccurate, the returned value will be
+            correspondingly incorrect.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).lastActivitySecondsAgo()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns floating point number of seconds, for example <icode>5.32</icode> for 5.32 seconds.
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).lastActivityTime()">
+        Get the time when this device last interacted with the remote Canopy
+        server.
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization by this CanopyDevice with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).lastActivityTime()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a RFC3339-encoded timestamp string, such as <icode>"2015-04-15T04:32:02Z"</icode>.
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).locationNote()">
+        Get or set the the user-assigned location note for this device.
+        <p>
+            This method will get or set the cached local copy of the
+            device's location note.  To synchronize with the remote call
+            <icode>(CanopyDevice).syncWithRemote()</icode>,
+            (<icode>(CanopyDevice).updateFromRemote()</icode> or
+             <icode>(CanopyDevice).updateToRemote()</icode>.
+        </p>
+        <p>
+            When setting the device's location note this method does
+            perform any validation on the input.  Validation occurs
+            server-side the next time synchronization is performed.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the device's location note:
+            <code>
+                (CanopyDevice).locationNote()
+            </code>
+            <p>
+                To set the device's location note:
+            </p>
+            <code>
+                (CanopyDevice).locationNote(newLocationNote)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Optionally takes a new device location note.
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>newLocationNote</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>New device location note.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            String device location note.
+            <p>
+                Returns the newly-assigned location note if any.
+            </p>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).name()">
+        Get or set the the user-assigned name of this device.
+        <p>
+            This method will get or set the cached local copy of the
+            device's name.  To synchronize with the remote call
+            <icode>(CanopyDevice).syncWithRemote()</icode>,
+            (<icode>(CanopyDevice).updateFromRemote()</icode> or
+             <icode>(CanopyDevice).updateToRemote()</icode>.
+        </p>
+        <p>
+            When setting the device's name this method does perform any
+            validation on the input.  Validation occurs server-side the
+            next time synchronization is performed.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the device's name:
+            <code>
+                (CanopyDevice).name()
+            </code>
+            <p>
+                To set the device's name:
+            </p>
+            <code>
+                (CanopyDevice).name(newName)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Optionally takes a new device name.
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>newName</icode></cell>
+                    <cell>Optional</cell>
+                    <cell>string</cell>
+                    <cell>New device name.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            String device name.
+            <p>
+                Returns the newly-assigned name if any.
+            </p>
+        </subsection>
+    </section>
+
+    <section title="(CanopyDevice).secretKey()">
+        Get the device's secret key, or <icode>null</icode> if the secret key
+        is hidden.
+        <p>
+            This method will get the cached local copy of the
+            device's secret key.  To synchronize with the remote call
+            <icode>(CanopyDevice).syncWithRemote()</icode> or
+            (<icode>(CanopyDevice).updateFromRemote()</icode>.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).secretKey()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None.
+        </subsection>
+        <subsection title='Return Value'>
+            String device secret key, or <icode>null</icode> if the secret key
+            is hidden.
+        </subsection>
+    </section>
+
+    <section title='(CanopyDevice).syncWithRemote()'>
+        Synchronizes certain properties of this CanopyDevice object with the
+        remote Canopy server.
+        
+        <p>
+            This is similar to calling
+            <icode>(CanopyDevice).updateToRemote()</icode> followed by
+            <icode>(CanopyDevice).updateFromRemote()</icode>.
+        </p>
+
+        <p>
+            This method pushes:
+        </p>
+        <ul>
+            <li>
+                Newly declared cloud variables belonging to this CanopyDevice,
+                declared with <icode>(CanopyDevice).declareVar()</icode>.
+            </li>
+            <li>
+                Changes to cloud variable values belonging to this
+                CanopyDevice, modified with
+                <icode>(CanopyVariable).value(newValue)</icode>.
+            </li>
+            <li>
+                Changes to this CanopyDevice's name made with
+                <icode>(CanopyDevice).name(newName)</icode>.
+            </li>
+            <li>
+                Changes to this CanopyDevice's location note made with
+                <icode>(CanopyDevice).locationNote(newLocationNote)</icode>.
+            </li>
+        </ul>
+        <p>
+            and updates locally (with data from the remote):
+        </p>
+        <ul>
+            <li>
+                The list of cloud variables and their metadata, update times,
+                and values, obtainable with
+                <icode>(CanopyDevice).vars()</icode> and
+                <icode>(CanopyDevice).varByName()</icode>
+            </li>
+            <li>
+                Devices's name, obtainable with <icode>(CanopyDevice).name()</icode>.
+            </li>
+            <li>
+                Devices's location note, obtainable with <icode>(CanopyDevice).locationNote()</icode>.
+            </li>
+            <li>
+                Devices's secret key, obtainable with <icode>(CanopyDevice).secretKey()</icode>.
+            </li>
+            <li>
+                Devices's last update time, activation status, and websocket
+                connectivity status.
+            </li>
+        </ul>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).syncWithRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyDevice).updateFromRemote()'>
+        Updates certain properties of this CanopyUser object with data fetched
+        from the remote Canopy server.
+        <p>
+            Typically <icode>(CanopyDevice).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method updates this CanopyDevice object locally with data from
+            the remote Canopy server just like
+            <icode>(CanopyDevice).syncWithRemote()</icode>.  However, it does
+            not push any data to the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).updateFromRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyDevice).updateToRemote()'>
+        Pushes certain local modifications to this CanopyDevice object to the
+        remote Canopy server.
+        <p>
+            Typically <icode>(CanopyDevice).syncWithRemote()</icode> should be
+            used instead, unless you absolutely want uni-directional
+            communication.
+        </p>
+        <p>
+            This method pushes to the remote Canopy server just like
+            <icode>(CanopyDevice).syncWithRemote()</icode>.  However, it does
+            not update the local CanopyDevice object with data from the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDevice).updateToRemote()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+            <p>
+                On success, the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain an empty object
+                <icode>{}</icode>.
+            </p>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyDeviceQuery'>
+    <p>
+        A CanopyDeviceQuery represents a selection of Devices that can be
+        filtered, sorted, counted, and paged through.
+    </p>
+
+    <section title='(CanopyDeviceQuery).count()'>
+        Obtain from the remote the total number of devices that satisfy this query.
+        <subsection title='Usage'>
+            <code>
+                (CanopyDeviceQuery).count()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.count</icode></cell>
+                    <cell>Device object representing authenticated user.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        $("#main").html("Error: " + responseData.errorMsg)
+                        return;
+                    }
+
+                    responseData.user.devices().count().onDone(function(result, countData) {
+                        if (result != CANOPY_SUCCESS) {
+                            $("#main").html("Error: " + countData.errorMsg)
+                            return;
+                        }
+
+                        alert("You have access to " + countData.count + " devices");
+                    });
+                })
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyDeviceQuery).filter()'>
+        Obtain a new DeviceQuery representing a filtered subset of this
+        DeviceQuery's selection.  The original DeviceQuery is unmodified.
+        <subsection title='Usage'>
+            <code>
+                (CanopyDeviceQuery).filter(expr)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            This takes a single parameter <icode>expr</icode>.
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>expr</icode></cell>
+                    <cell>Required</cell>
+                    <cell>string</cell>
+                    <cell>Filter expression.  For example <icode>"HAS temperature &amp;&amp; temperature >= 45"</icode> See description of filter expressions here: <a href='http://www.canopy.link/devzone/restapi/#list_devices'>Device Filter Documentation</a></cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyDeviceQuery object representing the filtered selection.
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        $("#main").html("Error: " + responseData.errorMsg)
+                        return;
+                    }
+
+                    dq = responseData.user.devices();
+                    dq = dq.filter("HAS latitude").filter("HAS longitude");
+                    dq.count().onDone(function(result, countData) {
+                        if (result != CANOPY_SUCCESS) {
+                            $("#main").html("Error: " + countData.errorMsg)
+                            return;
+                        }
+
+                        alert(" " + countData.count + " devices are reporting geo coords");
+                    });
+                })
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyDeviceQuery).get()'>
+        Fetch a single device from the remote, selected by either row index or ID.
+        <p>
+            This method communicates with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDeviceQuery).get(idOrIndex)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Takes a single parameter which must be either a:
+            <ul>
+                <li><b>String</b> - to select by device ID, or</li>
+                <li><b>Integer</b> - to select by row index into this
+                    CanopyDeviceQuery's selection.</li>
+            </ul>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, if the requested device is found, the
+                <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.device</icode></cell>
+                    <cell>New local CanopyDevice object representing the
+                    requested device.</cell>
+                </row>
+            </tbl>
+
+            <p>
+                If the device is not found as part of this CanopyDeviceQuery's
+                selection, then the <icode>result</icode> parameter will be
+                <icode>CANOPY_ERROR_NOT_FOUND</icode>.
+            </p>
+        </subsection>
+        <subsection title='Example'>
+            <code syntax='javascript'>
+                Canopy.initUserClient({
+                    "auth_type" : "basic",
+                    "auth_username" : "myUsername", 
+                    "auth_password" : "myPassword",
+                    "host" : "sandbox.canopy.link"
+                }).onDone(function(result, responseData) {
+                    if (result != CANOPY_SUCCESS) {
+                        $("#main").html("Error: " + responseData.errorMsg)
+                        return;
+                    }
+
+                    // Get user's first device
+                    responseData.user.devices().get(0).onDone(function(result, deviceData) {
+                        if (result != CANOPY_SUCCESS) {
+                            $("#main").html("Error: " + countData.errorMsg)
+                            return;
+                        }
+
+                        alert("Your first device is:" + deviceData.device.name());
+                    });
+                })
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyDeviceQuery).getMany()'>
+        Fetch multiple devices from the remote, selected by row index range.
+        <p>
+            A CanopyDeviceQuery represents an ordered selection of potentially
+            large number of devices.  This method fetches a subset of those
+            devices based on the <icode>start</icode> and <icode>count</icode>
+            parameters.
+        </p>
+        <p>
+            This method communicates with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyDeviceQuery).getMany(start, count)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            Takes two parameters:
+            <tbl>
+                <row>
+                    <cell header="1">Parameter</cell>
+                    <cell header="1">Required?</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>start</icode></cell>
+                    <cell>Required</cell>
+                    <cell>Integer</cell>
+                    <cell>Row offset to start fetching from.  Use
+                    <icode>0</icode> to start from the beginning of the
+                    selection.
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>count</icode></cell>
+                    <cell>Required</cell>
+                    <cell>Integer</cell>
+                    <cell>Maximum of devices to fetch.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success the <icode>responseData</icode> parameter of the
+                Barrier's .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.devices</icode></cell>
+                    <cell>List of new local CanopyDevice objects representing
+                    the requested devices.  This will be an empty list
+                    <icode>[]</icode> if no devices are found.</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyVariable'>
+    <p>
+        A CanopyVariable represents a "Cloud Variable", which is a Device
+        property that is tracked and stored on the server.  Cloud Variables are
+        useful for sensor data, real-time control, and Device configuration.
+    </p>
+
+    <section title='(CanopyVariable).datatype()'>
+        Get the Cloud Variable's datatype.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).datatype()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String containing the Cloud Variable's datatype.
+            <p>
+                Will be one of the following:
+            </p>
+            <tbl>
+                <row>
+                    <cell header='1'>Value</cell>
+                    <cell header='1'>Description</cell>
+                </row>
+                <row>
+                    <cell><icode>"bool"</icode></cell>
+                    <cell>Boolean value</cell>
+                </row>
+                <row>
+                    <cell><icode>"int8"</icode></cell>
+                    <cell>8-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"int16"</icode></cell>
+                    <cell>16-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"int32"</icode></cell>
+                    <cell>32-bit signed integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"uint8"</icode></cell>
+                    <cell>8-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"uint16"</icode></cell>
+                    <cell>16-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"uint32"</icode></cell>
+                    <cell>32-bit unsigned integer</cell>
+                </row>
+                <row>
+                    <cell><icode>"datetime"</icode></cell>
+                    <cell>64-bit unsigned integer representing microseconds
+                    from Epoch</cell>
+                </row>
+                <row>
+                    <cell><icode>"float32"</icode></cell>
+                    <cell>32-bit floating point number</cell>
+                </row>
+                <row>
+                    <cell><icode>"float64"</icode></cell>
+                    <cell>64-bit floating point number</cell>
+                </row>
+                <row>
+                    <cell><icode>"string"</icode></cell>
+                    <cell>string value</cell>
+                </row>
+                <row>
+                    <cell>TBD composite objects</cell>
+                    <cell>TBD</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(responseData.errorMsg);
+                    return;
+                }
+
+                // Loop over cloud variables and say their datatypes
+                var cloudVars = responseData.device.vars();
+                for (var i = 0; i &lt; cloudVars.length; i++) {
+                    alert("Cloud Var " + cloudVars[i].name() + "has datatype " + cloudVars[i].datatype());
+                }
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).device()'>
+        Get the CanopyDevice object that this Cloud Variable belongs to.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).device()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a CanopyDevice object.
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(responseData.errorMsg);
+                    return;
+                }
+
+                // Loop over cloud variables and confirm their device object is
+                // correct.
+                var cloudVars = responseData.device.vars();
+                for (var i = 0; i &lt; cloudVars.length; i++) {
+                    if (cloudVars[i].device() != responseData.device) {
+                        // This will never happen
+                        alert("Something is seriously broken!");
+                    }
+                }
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).direction()'>
+        Get the Cloud Variable's direction.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).direction()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a string direction.  The direction determines who can
+            modify the value:
+            <tbl>
+                <row>
+                    <cell header='1'>Direction</cell>
+                    <cell header='1'>Who Can Modify Value</cell>
+                </row>
+                <row>
+                    <cell><icode>"out"</icode></cell>
+                    <cell>Can only be set by the device that the cloud variable
+                    belongs to.</cell>
+                </row>
+                <row>
+                    <cell><icode>"in"</icode></cell>
+                    <cell>Can only be set by users and other devices (i.e. not
+                            the device that the cloud variable belongs
+                            to).</cell>
+                </row>
+                <row>
+                    <cell><icode>"inout"</icode></cell>
+                    <cell>Anyone with access to the cloud variable can set it.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(responseData.errorMsg);
+                    return;
+                }
+
+                // Loop over cloud variables and say their directions
+                var cloudVars = responseData.device.vars();
+                for (var i = 0; i &lt; cloudVars.length; i++) {
+                    alert("Cloud Var " + cloudVars[i].name() + "has direction " + cloudVars[i].direction());
+                }
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).historicData()'>
+        Fetch historic data for a Cloud Variable.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).historicData(startTime, endTime)
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            CanopyBarrier object.
+
+            <p>
+                On success, the <icode>responseData</icode> parameter of the Barrier's
+                .onDone() callback will contain the following fields:
+            </p>
+            <tbl>
+                <row>
+                    <cell header="1">Field</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>responseData.samples</icode></cell>
+                    <cell>List of Objects:
+                        <p>
+                            <code>
+                                [{
+                                    t : "2015-04-15T04:32:02Z",
+                                    v : 143.2
+                                }, ...]
+                            </code>
+                        </p></cell> <cell>List of sample data points.  The
+                        <icode>"t"</icode> field of each object contains the
+                        RFC3339-encoded timestamp when the sample was reported
+                        to the remote.  The <icode>"v"</icode> field contains
+                        the sample's value at that time.  The value's datatype
+                        is determined by the Cloud Variable's datatype.</cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Example">
+            <code syntax='javascript'>
+            // Initialize library and authenticate device
+            Canopy.initDeviceClient({
+                "auth_username" : "8f0dad00-2f45-4726-bd08-ceb0530f70c8", /* Your Device's UUID */
+                "auth_password" : "h/1zaP3SrYGqCE2/Ior7ZbMDNVkIExVp",     /* Your Devices' Secret Key */
+                "host" : "sandbox.canopy.link"
+            }).onDone(function(result, responseData) {
+                if (result != CANOPY_SUCCESS) {
+                    alert(responseData.errorMsg);
+                    return;
+                }
+
+                // Get temperature cloud variable, if any.
+                var temperature = responseData.device.varByName("temperature");
+                if (!temperature) {
+                    console.log("This device does not have cloud var \"temperature\"");
+                    return;
+                }
+
+                // Fetch historic temperature data for this device
+                temperature.historicData().onDone(function(result, historicData) {
+                    if (result != CANOPY_SUCCESS) {
+                        console.log("Error: " + historicData.errorMsg);
+                        return;
+                    }
+
+                    // Dump all samples:
+                    for (var i = 0; i &lt; historicData.samples.length; i++) {
+                        console.log("Time: " + historicData.samples[i].t);
+                        console.log("Value: " + historicData.samples[i].v);
+                    }
+                });
+            });
+            </code>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).isModified()'>
+        Get whether this Cloud Variable's value has been set locally since the
+        last synchronization with the remote.
+        <p>
+            This method will return <icode>true</icode> if the most recent call to 
+            <icode>(CloudVariable).value(newValue)</icode> is later than the most recent
+            successful response from a
+            <icode>(CanopyDevice).syncWithRemote()</icode> or
+            <icode>(CanopyDevice).updateFromRemote()</icode> call for this
+            Cloud Variable's Device.
+        </p>
+        <p>
+            This method returns <icode>true</icode> even if the
+            <icode>newValue</icode> passed to
+            <icode>(CloudVariable).value(newValue)</icode> matches the Cloud
+            Variable's previous value.  That is to say, the value does not have to
+            actually change for it to be considered "modified".
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).isModified()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a boolean.
+            <ul>
+                <li>
+                    <icode>true</icode> - This Cloud Variable has been set
+                    locally since the last synchronization with the remote.
+                </li>
+                <li>
+                    <icode>false</icode> - Otherwise.
+                </li>
+            </ul>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).lastRemoteUpdateTime()'>
+        Get the time when this Cloud Variable was last changed on the remote.
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization with the remote.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).lastRemoteUpdateTime()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns a RFC3339-encoded timestamp string, such as <icode>"2015-04-15T04:32:02Z"</icode>.
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).lastRemoteValue()'>
+        Get this Cloud Variable's value as of the most recent synchronization
+        with the remote.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).lastRemoteValue()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns the Cloud Variable's value, or <icode>null</icode> if the
+            Cloud Variable has never been set on the remote.
+            <p>
+                The datatype of the return value depends on the Cloud Variable's
+                datatype.
+            </p>
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).lastRemoteUpdateSecondsAgo()'>
+        Get the number of seconds since this Cloud Variable was last changed on
+        the remote.
+        <p>
+            The returned value will be correct as of the most recent
+            synchronization with the remote.
+        </p>
+        <p>
+            The response depends on both the remote's clock and the client's
+            clock.  If either is inaccurate, the returned value will be
+            correspondingly incorrect.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).lastRemoteUpdateSecondsAgo()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            Returns floating point number of seconds, for example <icode>5.32</icode> for 5.32 seconds.
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).name()'>
+        Get the name of this Cloud Variable.
+        <subsection title='Usage'>
+            <code>
+                (CanopyVariable).name()
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            None
+        </subsection>
+        <subsection title='Return Value'>
+            String name of this Cloud Variable.
+        </subsection>
+    </section>
+
+    <section title='(CanopyVariable).value()'>
+        Get or set the Cloud Variable's value.
+        <p>
+            This method will get or set the cached local copy of the Cloud
+            Variable's value.  To synchronize with the remote call
+            <icode>(CanopyDevice).updateFromRemote()</icode>,
+            <icode>(CanopyDevice).updateToRemote()</icode> or
+            <icode>(CanopyDevice).syncWithRemote()</icode>.
+        </p>
+        <subsection title='Usage'>
+            To retrieve the Cloud Variable's value:
+            <code>
+                (CanopyVariable).value()
+            </code>
+            <p>
+                To set the Cloud Variable's value:
+            </p>
+            <code>
+                (CanopyVariable).value(newValue)
+            </code>
+        </subsection>
+    </section>
+</chapter>
+
+<chapter title='CanopyBarrier'>
+    <p>
+        A CanopyBarrier is used to wait for the results of an asynchronous
+        operation.  Also known as a "Promise".
+    </p>
+    <section title='(CanopyBarrier).onDone()'>
+        <p>
+            Register a callback that will be triggered when the results of an
+            asynchronous operation are complete.
+        </p>
+        <subsection title='Usage'>
+            <code>
+                (CanopyBarrier).onDone(function(result, responseData) { ... })
+            </code>
+        </subsection>
+        <subsection title='Parameters'>
+            <p>
+                Takes a single callback function as a parameter.
+
+                This callback must accept two parameters:
+            </p>
+            <tbl>
+                <row>
+                    <cell nowrap='1' header="1">Parameter To Callback</cell>
+                    <cell header="1">Datatype</cell>
+                    <cell header="1">Description</cell>
+                </row>
+                <row>
+                    <cell><icode>result</icode></cell>
+                    <cell nowrap='1'>Integer (error enum value)</cell>
+                    <cell><icode>CANOPY_SUCCESS</icode> if the operation
+                        completed successful.
+                        <p>
+                            <icode>CANOPY_ERROR_xxx</icode> value if an error
+                            occurred.
+                        </p>
+                    </cell>
+                </row>
+                <row>
+                    <cell><icode>responseData</icode></cell>
+                    <cell>Object</cell>
+                    <cell>Contents varies depending on which request was made and
+                    whether or not there was an error.  Details are provided in
+                    each asynchronous method's documentation.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+    <section title='CanopyBarrier Error Response'>
+        <p>
+            If an error occurs while carrying out an asynchronous operation,
+            the barrier's <icode>onDone</icode> callback will be called as
+            follows:
+        </p>
+        <p>
+            The <icode>result</icode> parameter will contain a
+            <icode>CANOPY_ERROR_xxx</icode> value, such as <icode>CANOPY_ERROR_BAD_CREDENTIALS</icode>.
+        </p>
+        <p>
+            The <icode>responseData</icode> parameter will contain the following fields:
+        </p>
+        <tbl>
+            <row>
+                <cell header="1">Field</cell>
+                <cell header="1">Datatype</cell>
+                <cell header="1">Description</cell>
+            </row>
+            <row>
+                <cell><icode>responseData.errorMsg</icode></cell>
+                <cell>String</cell>
+                <cell>Human-readable description of the error.</cell>
+            </row>
+        </tbl>
+    </section>
+</chapter>
+</doc>
