@@ -93,7 +93,7 @@ function RenderFooter() {
 \
         <div class='footer-inner'>\
             <br>\
-            <span style='font-size: 13px'>Copyright &copy; 2014 - 2015 SimpleThings, Inc.</span><br><br>\
+            <span style='font-size: 13px'>Copyright &copy; 2014 - 2015 Canopy Services, Inc.</span><br><br>\
 \
             <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/4.0/88x31.png' /></a><br />Except where otherwise noted, this site is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'><u>Creative Commons Attribution 4.0 International License</u></a>.\
         </div>\
