@@ -1,0 +1,10 @@
+.canopy_doc {
+    padding: 8px
+}
+
+.canopy_doc .screenshot{
+    border: 1px solid #a0a0a0;
+    margin: 16px;
+    width: 720px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
