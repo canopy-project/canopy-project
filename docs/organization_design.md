@@ -3,11 +3,11 @@ and can create/access DEVICES.
 
 ORGANIZATION names share a namespace and validation criteria with USER names.
 
-Within an organization, you can define ROLES, and assign USERS to ROLES.  A
-ROLE is essentially a set of USERS.
+Within an organization, you can define ROLES, and assign USERS to TEAMS.  A
+TEAM is essentially a set of USERS.
 
 You can then grant access to DEVICES within an ORGANIZATION by granting
-permission for that ROLE.
+permission for that TEAM.
 
 For example, if there are three organizations "Brand", "Odm", "Support Company"
     A single device may be accessible to:
@@ -17,3 +17,9 @@ For example, if there are three organizations "Brand", "Odm", "Support Company"
         Support_Company:"Support Technicians"
 
 Eventually, these permissions will be set at the per-cloud-variable level.
+
+For now, TEAMS are simple strings.
+
+There are two special TEAMS:
+    "__members__" includes all organization members
+    "__owners__" includes organization owners

@@ -1318,6 +1318,102 @@
     </section>
 </chapter>
 
+<chapter title="Organizations">
+    <section title="Create an Organization ">
+        <subsection title="Request">
+            This endpoint is only available to authenticated Users.
+            Devices cannot create Organizations.
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    POST /api/create_org
+                    {
+                        "name" : string,
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    POST /api/create_org
+                    {
+                        "name" : "Planet-Express",
+                    }
+                </mc_item>
+                <mc_item title="CURL" syntax='javascript'>
+                    curl -d '{ "name" : "Planet-Express" }' http://sandbox.canopy.link/api/create_org
+                </mc_item>
+            </multicode>
+            <tbl>
+                <row>
+                    <cell header='1'>Field</cell>
+                    <cell header='1'>Required</cell>
+                    <cell header='1'>Description</cell>
+                    <cell header='1'>Validation</cell>
+                </row>
+                <row>
+                    <cell><icode>"name"</icode></cell>
+                    <cell><b>Required</b></cell>
+                    <cell>Organization name</cell>
+                    <cell nowrap='1'>string
+                        <ul>
+                            <li>5-24 characters</li>
+                            <li>Characters a-z, A-Z, 0-9 and underscore(_) allowed.</li>
+                            <li>Must start with a letter</li>
+                            <li>Shares namespace with User names</li>
+                        </ul>
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "name" : &lt;ORG_NAME&gt;,
+                        "result" : "ok",
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    200 OK
+                    {
+                        "name" : "Planet-Express",
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Non-JSON payload; Required fields missing or
+                    incorrect type; Input validation failure.</cell>
+                </row>
+                <row>
+                    <cell>email_taken Error</cell>
+                    <cell>400</cell>
+                    <cell>Email not available</cell>
+                </row>
+                <row>
+                    <cell>username_taken Error</cell>
+                    <cell>400</cell>
+                    <cell>Username not available</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+</chapter>
+
 <chapter title="Other Endpoints">
     <section title="Get Server Info">
         Provides some details about the server, including which version of
