@@ -1412,6 +1412,66 @@
             </tbl>
         </subsection>
     </section>
+
+    <section title="List Organizations">
+        <subsection title="Request">
+            To obtain a list of all Organizations the current User is a member
+            of:
+            <code>
+                GET /api/user/self/orgs
+            </code>
+
+            <p>
+                A User is considered a member of an Organization as long as
+                they are a member of any of the Organization's teams.
+            </p>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "orgs" : [
+                            &lt;ORG_NAME_0&gt;,
+                            &lt;ORG_NAME_1&gt;,
+                            ...
+                        ],
+                        "result" : "ok",
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    200 OK
+                    {
+                        "orgs" : [
+                            "Planet-Express",
+                            "MomCorp",
+                        ]
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
 </chapter>
 
 <chapter title="Other Endpoints">
