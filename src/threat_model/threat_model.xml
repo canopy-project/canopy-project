@@ -1,0 +1,71 @@
+<doc logo="" toc_title="Threat Model" title="Lorem Ipsum">
+
+<chapter title="Overview">
+    <section title="Draft Status">
+        <p>
+            This document is a draft, last updated 6/19/2015.
+        </p>
+    </section>
+
+    <section title="Abstract">
+        This document describes the security features of the Canopy Engine,
+        including a discussion of potential threats and vulnerabilities of the
+        platform and how they are (or may be) mitigated.
+    </section>
+    <section title="Introduction">
+        <p>
+            The Internet of Things brings new opportunities for a smarter,
+            safer and more efficient world.  But these new opportunities bring
+            new security threats with potentially serious consequences.
+            Increasingly, digital attacks can manifest in the physical world.
+            This could mean an attacker discovering your location, opening your
+            garage door or even starting an oven fire in your home.
+        </p>
+
+        <p>
+            At Canopy, we take security seriously because we understand the
+            implications are real.  Sadly, "Secrurity through Obscurity" is the
+            status quo throughout the industry, particularly among proprietary
+            IoT platforms.  Competing platforms may claim to be secure, but
+            their code is not available for rigorous scrutiny by the worldwide
+            developer community, so can you trust them?
+        </p>
+
+        <p>
+            Since Security through Obscurity is widely regarded a fallacy, we
+            take the opposite approach: full transparency.  By openly sharing
+            our code and having an ongoing dialog about potential
+            vulnerabilities and how to mitigate them, we can build deservingly
+            trusted software.
+        </p>
+
+    </section>
+</chapter>
+
+<chapter title="Security Features">
+    <section title="TLS Everywhere">
+        All interactions between a Canopy Client and Canopy Server can be
+        configured to occur over HTTPS or WSS.
+    </section>
+    <section title="Per-Device Credentials">
+        Canopy requires that every device has a unique ID and Secret Key for
+        API authentication purposes.
+    </section>
+    <section title="Cloud Permission System">
+        The Canopy Permission System (codenamed "IoTAuth") is highly granular
+        and supports policies that follow the "Principal of Least Privilege".
+    </section>
+    <section title="Thorough API Unit Testing">
+        Some record attacks on web services go through "the front door" when
+        buggy code changes cause incomplete authorization checks.  Canopy's
+        unit test suite prevents this type of regression.
+    </section>
+</chapter>
+
+<chapter title="Threats">
+    <section title="">
+    </section>
+</chapter>
+
+</doc>
+

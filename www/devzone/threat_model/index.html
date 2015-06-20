@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canopy - Developer Zone - Threat Model</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../canopy_project.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700|ABeeZee|Titillium+Web:200,300,400,700' rel='stylesheet' type='text/css'>
+    <link href='../../canopy_base.css' rel='stylesheet' type='text/css'>
+    <link href='../../canopy_project.css' rel='stylesheet' type='text/css'>
+    <link href='../../canopy_project_resp.css' rel='stylesheet' type='text/css'>
+    <script type='text/javascript' src='../../3rdparty/shjs/sh_main.min.js'></script>
+    <link type='text/css' rel='stylesheet' href='../../3rdparty/shjs/sh_style_greg.css'>
+    <link href='hammock-custom.css' rel='stylesheet' type='text/css'>
+<script>
+function get_scroll_y() {
+    if (window.pageYOffset !== undefined) {
+        return window.pageYOffset;
+    }
+    if (document.body !== undefined && document.body.scrollTop !== undefined) {
+        return document.body.scrollTop;
+    }
+    if (document.html !== undefined && document.html.scrollTop !== undefined) {
+        return document.html.scrollTop;
+    }
+    return 0;
+}
+function get_element_scroll_y(id) {
+    return document.getElementById(id).offsetTop;
+}
+
+function jq( myid ) {
+     
+        return "#" + myid.replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+         
+}
+
+function update_scroll() {
+    var y = get_scroll_y();
+
+        document.getElementById('toc_overview').style.fontWeight = '';document.getElementById('toc_overview').style.backgroundColor = '';var foo = document.getElementById('overview_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_draft_status').style.fontWeight = '';document.getElementById('toc_draft_status').style.backgroundColor = '';var foo = document.getElementById('draft_status_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_abstract').style.fontWeight = '';document.getElementById('toc_abstract').style.backgroundColor = '';var foo = document.getElementById('abstract_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_introduction').style.fontWeight = '';document.getElementById('toc_introduction').style.backgroundColor = '';var foo = document.getElementById('introduction_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_security_features').style.fontWeight = '';document.getElementById('toc_security_features').style.backgroundColor = '';var foo = document.getElementById('security_features_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_tls_everywhere').style.fontWeight = '';document.getElementById('toc_tls_everywhere').style.backgroundColor = '';var foo = document.getElementById('tls_everywhere_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_per-device_credentials').style.fontWeight = '';document.getElementById('toc_per-device_credentials').style.backgroundColor = '';var foo = document.getElementById('per-device_credentials_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_cloud_permission_system').style.fontWeight = '';document.getElementById('toc_cloud_permission_system').style.backgroundColor = '';var foo = document.getElementById('cloud_permission_system_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_thorough_api_unit_testing').style.fontWeight = '';document.getElementById('toc_thorough_api_unit_testing').style.backgroundColor = '';var foo = document.getElementById('thorough_api_unit_testing_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';document.getElementById('toc_threats').style.fontWeight = '';document.getElementById('toc_threats').style.backgroundColor = '';var foo = document.getElementById('threats_section_contents');  if (foo != null) foo.style.borderLeft = '2px solid #ffffff';
+    if (0) {
+    }
+    
+            else if (y + 48 > get_element_scroll_y('threats')) {
+                document.getElementById('toc_threats').style.fontWeight = "bold";
+                document.getElementById('toc_threats').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('threats_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('thorough_api_unit_testing')) {
+                document.getElementById('toc_thorough_api_unit_testing').style.fontWeight = "bold";
+                document.getElementById('toc_thorough_api_unit_testing').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('thorough_api_unit_testing_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('cloud_permission_system')) {
+                document.getElementById('toc_cloud_permission_system').style.fontWeight = "bold";
+                document.getElementById('toc_cloud_permission_system').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('cloud_permission_system_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('per-device_credentials')) {
+                document.getElementById('toc_per-device_credentials').style.fontWeight = "bold";
+                document.getElementById('toc_per-device_credentials').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('per-device_credentials_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('tls_everywhere')) {
+                document.getElementById('toc_tls_everywhere').style.fontWeight = "bold";
+                document.getElementById('toc_tls_everywhere').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('tls_everywhere_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('security_features')) {
+                document.getElementById('toc_security_features').style.fontWeight = "bold";
+                document.getElementById('toc_security_features').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('security_features_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('introduction')) {
+                document.getElementById('toc_introduction').style.fontWeight = "bold";
+                document.getElementById('toc_introduction').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('introduction_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('abstract')) {
+                document.getElementById('toc_abstract').style.fontWeight = "bold";
+                document.getElementById('toc_abstract').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('abstract_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('draft_status')) {
+                document.getElementById('toc_draft_status').style.fontWeight = "bold";
+                document.getElementById('toc_draft_status').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('draft_status_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            
+            else if (y + 48 > get_element_scroll_y('overview')) {
+                document.getElementById('toc_overview').style.fontWeight = "bold";
+                document.getElementById('toc_overview').style.backgroundColor = "#d0d0d0";
+                var foo = document.getElementById('overview_section_contents');
+                if (foo != null) foo.style.borderLeft = '2px solid #d8d8d8';
+            }
+            $(jq('toc_overview_sections')).hide();$(jq('toc_security_features_sections')).hide();$(jq('toc_threats_sections')).hide();
+    if (0) {
+    }
+    
+            else if (y + 48 > get_element_scroll_y('threats')) {
+                $(jq('toc_threats_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('security_features')) {
+                $(jq('toc_security_features_sections')).show();
+            }
+            
+            else if (y + 48 > get_element_scroll_y('overview')) {
+                $(jq('toc_overview_sections')).show();
+            }
+            
+}
+window.onload = function() {
+    window.addEventListener("scroll", update_scroll);
+}
+$(document).ready(function() {update_scroll();});
+</script>
+
+    <script>
+    $(function() {
+        sh_highlightDocument('../../3rdparty/shjs/', '.min.js');
+    });
+    </script>
+</head>
+<!--body onload="sh_highlightDocument('../../3rdparty/shjs/', '.min.js');"-->
+<body>
+<div class=main-outer>
+    <div class='bg-white centered'>
+        <script> 
+            var RELATIVE_PATH = "../../";
+            RenderTopbar("devzone");
+        </script>
+    </div>
+
+    <div class='bg-lightgray banner-thin centered' >
+        <div class='l'>
+            <span class='logo-in-text' style='color:#ffffff'>Canopy</span> Threat Model
+        </div>
+    </div>
+</div>
+    <div class='hammock-toc-outer'><div class='hammock-toc-title'>Threat Model</div><div></div><div id='toc_overview' class='hammock-toc-chapter'><a href='#overview'>Overview</a></div><div id='toc_overview_sections' class='hammock-toc-sections'><div id='toc_draft_status' class='hammock-toc-section'><a href='#draft_status'>Draft Status</a></div><div id='toc_abstract' class='hammock-toc-section'><a href='#abstract'>Abstract</a></div><div id='toc_introduction' class='hammock-toc-section'><a href='#introduction'>Introduction</a></div></div><div id='toc_security_features' class='hammock-toc-chapter'><a href='#security_features'>Security Features</a></div><div id='toc_security_features_sections' class='hammock-toc-sections'><div id='toc_tls_everywhere' class='hammock-toc-section'><a href='#tls_everywhere'>TLS Everywhere</a></div><div id='toc_per-device_credentials' class='hammock-toc-section'><a href='#per-device_credentials'>Per-Device Credentials</a></div><div id='toc_cloud_permission_system' class='hammock-toc-section'><a href='#cloud_permission_system'>Cloud Permission System</a></div><div id='toc_thorough_api_unit_testing' class='hammock-toc-section'><a href='#thorough_api_unit_testing'>Thorough API Unit Testing</a></div></div><div id='toc_threats' class='hammock-toc-chapter'><a href='#threats'>Threats</a></div><div id='toc_threats_sections' class='hammock-toc-sections'></div></div>
+    <div class=hammock-doc-outer>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=overview name=overview></a><div class=hammock-chapter-title>
+                    Overview
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    
+        <div class=hammock-section-outer id=draft_status_section_contents>
+            <a class=hammock-a-name id=draft_status name=draft_status></a><div class=hammock-section-title>
+                Draft Status
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            This document is a draft, last updated 6/19/2015.
+        </p>
+    
+            </div>
+        </div>
+
+    
+        <div class=hammock-section-outer id=abstract_section_contents>
+            <a class=hammock-a-name id=abstract name=abstract></a><div class=hammock-section-title>
+                Abstract
+            </div>
+            <div class=hammock-section-contents>
+                
+        This document describes the security features of the Canopy Engine,
+        including a discussion of potential threats and vulnerabilities of the
+        platform and how they are (or may be) mitigated.
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer id=introduction_section_contents>
+            <a class=hammock-a-name id=introduction name=introduction></a><div class=hammock-section-title>
+                Introduction
+            </div>
+            <div class=hammock-section-contents>
+                
+        <p>
+            The Internet of Things brings new opportunities for a smarter,
+            safer and more efficient world.  But these new opportunities bring
+            new security threats with potentially serious consequences.
+            Increasingly, digital attacks can manifest in the physical world.
+            This could mean an attacker discovering your location, opening your
+            garage door or even starting an oven fire in your home.
+        </p>
+
+        <p>
+            At Canopy, we take security seriously because we understand the
+            implications are real.  Sadly, "Secrurity through Obscurity" is the
+            status quo throughout the industry, particularly among proprietary
+            IoT platforms.  Competing platforms may claim to be secure, but
+            their code is not available for rigorous scrutiny by the worldwide
+            developer community, so can you trust them?
+        </p>
+
+        <p>
+            Since Security through Obscurity is widely regarded a fallacy, we
+            take the opposite approach: full transparency.  By openly sharing
+            our code and having an ongoing dialog about potential
+            vulnerabilities and how to mitigate them, we can build deservingly
+            trusted software.
+        </p>
+
+    
+            </div>
+        </div>
+
+                </div>
+            </div>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=security_features name=security_features></a><div class=hammock-chapter-title>
+                    Security Features
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+    
+        <div class=hammock-section-outer id=tls_everywhere_section_contents>
+            <a class=hammock-a-name id=tls_everywhere name=tls_everywhere></a><div class=hammock-section-title>
+                TLS Everywhere
+            </div>
+            <div class=hammock-section-contents>
+                
+        All interactions between a Canopy Client and Canopy Server can be
+        configured to occur over HTTPS or WSS.
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer id=per-device_credentials_section_contents>
+            <a class=hammock-a-name id=per-device_credentials name=per-device_credentials></a><div class=hammock-section-title>
+                Per-Device Credentials
+            </div>
+            <div class=hammock-section-contents>
+                
+        Canopy requires that every device has a unique ID and Secret Key for
+        API authentication purposes.
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer id=cloud_permission_system_section_contents>
+            <a class=hammock-a-name id=cloud_permission_system name=cloud_permission_system></a><div class=hammock-section-title>
+                Cloud Permission System
+            </div>
+            <div class=hammock-section-contents>
+                
+        The Canopy Permission System (codenamed "IoTAuth") is highly granular
+        and supports policies that follow the "Principal of Least Privilege".
+    
+            </div>
+        </div>
+    
+        <div class=hammock-section-outer id=thorough_api_unit_testing_section_contents>
+            <a class=hammock-a-name id=thorough_api_unit_testing name=thorough_api_unit_testing></a><div class=hammock-section-title>
+                Thorough API Unit Testing
+            </div>
+            <div class=hammock-section-contents>
+                
+        Some record attacks on web services go through "the front door" when
+        buggy code changes cause incomplete authorization checks.  Canopy's
+        unit test suite prevents this type of regression.
+    
+            </div>
+        </div>
+
+                </div>
+            </div>
+
+
+            <div class=hammock-chapter-outer>
+                <a class=hammock-a-name id=threats name=threats></a><div class=hammock-chapter-title>
+                    Threats
+                </div>
+                <div class=hammock-chapter-contents>
+                    
+
+                </div>
+            </div>
+</div>
+    <script> 
+        RenderFooter();
+    </script>
+</body>
+</html>
+
