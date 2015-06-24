@@ -1526,6 +1526,122 @@
             </tbl>
         </subsection>
     </section>
+
+    <section title="Add Member">
+        <subsection title="Request">
+            To add a member to an Organization:
+            <code>
+                POST /api/org/&lt;ORG_NAME&gt;/members
+                {
+                    "add_member" : {
+                       "user" : &lt;USERNAME_OR_EMAIL&gt;,
+                    }
+                }
+            </code>
+
+            <p>
+                Only owners of the Organization are authorized to make this
+                request.
+            </p>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>No User found with provided username or email address.</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title="Remove Member">
+        <subsection title="Request">
+            To remove a member from an Organization:
+            <code>
+                POST /api/org/&lt;ORG_NAME&gt;/members
+                {
+                    "remove_member" : &lt;USERNAME_OR_EMAIL&gt;,
+                }
+            </code>
+
+            <p>
+                This request will also remove the member from all of the
+                Organization's Teams that they are on.
+            </p>
+
+            <p>
+                Only owners of the Organization are authorized to make this
+                request.
+            </p>
+
+            <p>
+                This request may be combined with an Add Member request, in
+                which case addition occurs before removal.
+            </p>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>No User found with provided username or email address.</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
 </chapter>
 
 <chapter title="Other Endpoints">
