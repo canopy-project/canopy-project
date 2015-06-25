@@ -1358,6 +1358,8 @@
                             <li>Must start with a letter</li>
                             <li>Shares namespace with User names</li>
                         </ul>
+
+                        Organization names share namespace with usernames.
                     </cell>
                 </row>
             </tbl>
@@ -1633,6 +1635,110 @@
                     <cell>not_authenticated Error</cell>
                     <cell>401</cell>
                     <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title="Create a Team">
+        <subsection title="Request">
+            To create a Team within an organization:
+            <code>
+                POST /api/org/&lt;ORG_NAME&gt;/create_team
+                {
+                    "name" : &lt;TEAM_NAME&gt;
+                    "url_alias" : &lt;TEAM_URL_ALIAS&gt;
+                }
+            </code>
+
+            <p>
+                Only owners of the Organization are authorized to make this
+                request.
+            </p>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>Invalid team name</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title="Delete a Team">
+        <subsection title="Request">
+            To delete a Team:
+            <code>
+                DELETE /api/org/&lt;ORG_NAME&gt;/team/&lt;TEAM_URL_ALIAS&gt;
+            </code>
+
+            <p>
+                Only owners of the Organization are authorized to make this
+                request.
+            </p>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>url_not_found Error</cell>
+                    <cell>404</cell>
+                    <cell>Organization with &lt;ORG_NAME&gt; does not exist or you have
+                    no access to it.  Team with &lt;TEAM_URL_ALIAS&gt; does not
+                    exist within this organization.</cell>
                 </row>
                 <row>
                     <cell>internal_error Error</cell>
