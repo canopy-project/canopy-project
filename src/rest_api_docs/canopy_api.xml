@@ -1415,6 +1415,90 @@
         </subsection>
     </section>
 
+    <section title="Delete an Organization ">
+        <subsection title="Request">
+            This operation is only available to the Organization's Owner(s).
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    DELETE /api/org/&lt;ORG_NAME&gt;
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    DELETE /api/org/Planet-Express
+                </mc_item>
+                <mc_item title="CURL" syntax='javascript'>
+                    curl -X DELETE http://sandbox.canopy.link/api/org/Planet-Express
+                </mc_item>
+            </multicode>
+            <tbl>
+                <row>
+                    <cell header='1'>Field</cell>
+                    <cell header='1'>Required</cell>
+                    <cell header='1'>Description</cell>
+                    <cell header='1'>Validation</cell>
+                </row>
+                <row>
+                    <cell><icode>"name"</icode></cell>
+                    <cell><b>Required</b></cell>
+                    <cell>Organization name</cell>
+                    <cell nowrap='1'>string
+                        <ul>
+                            <li>5-24 characters</li>
+                            <li>Characters a-z, A-Z, 0-9 and underscore(_) allowed.</li>
+                            <li>Must start with a letter</li>
+                            <li>Shares namespace with User names</li>
+                        </ul>
+
+                        Organization names share namespace with usernames.
+                    </cell>
+                </row>
+            </tbl>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "name" : &lt;ORG_NAME&gt;,
+                        "result" : "ok",
+                    }
+                </mc_item>
+                <mc_item title="EXAMPLE" syntax='javascript'>
+                    200 OK
+                    {
+                        "name" : "Planet-Express",
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>url_not_found Error</cell>
+                    <cell>404</cell>
+                    <cell>Organization with &lt;ORG_NAME&gt; does not exist or you have
+                    no access to it.</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
     <section title="List Organizations">
         <subsection title="Request">
             To obtain a list of all Organizations the current User is a member
@@ -1422,11 +1506,6 @@
             <code>
                 GET /api/user/self/orgs
             </code>
-
-            <p>
-                A User is considered a member of an Organization as long as
-                they are a member of any of the Organization's teams.
-            </p>
         </subsection>
         <subsection title="Success Response">
             <multicode>
@@ -1481,11 +1560,6 @@
             <code>
                 GET /api/org/&lt;ORG_NAME&gt;/members
             </code>
-
-            <p>
-                A User is considered a member of an Organization as long as
-                they are a member of any of the Organization's teams.
-            </p>
 
             <p>
                 Only members of the organization are authorized to make this request.
@@ -1796,6 +1870,111 @@
                     <cell>Organization with &lt;ORG_NAME&gt; does not exist or you have
                     no access to it.  Team with &lt;TEAM_URL_ALIAS&gt; does not
                     exist within this organization.</cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title="List Team Members">
+        <subsection title="Request">
+            To obtain a list of all members of Team within an Organization:
+            <code>
+                GET /api/org/&lt;ORG_NAME&gt;/team/&lt;TEAM_URL_ALIAS&gt;/members
+            </code>
+
+            <p>
+                Only members of the organization are authorized to make this request.
+            </p>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "members" : [ {
+                            "username" : &lt;USERNAME&gt;,
+                            "email" : &lt;EMAIL&gt;,
+                        }, ...
+                        ],
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
+                </row>
+                <row>
+                    <cell>internal_error Error</cell>
+                    <cell>500</cell>
+                    <cell>Internal error occurred</cell>
+                </row>
+            </tbl>
+        </subsection>
+    </section>
+
+    <section title="Add Member To Team">
+        <subsection title="Request">
+            To add an organization member to a Team:
+            <code>
+                POST /api/org/&lt;ORG_NAME&gt;/team/&lt;TEAM_URL_ALIAS&gt;/members
+                {
+                    "add_member" : {
+                       "user" : &lt;USERNAME_OR_EMAIL&gt;,
+                    }
+                }
+            </code>
+            <p>
+                Only owners of the Organization are authorized to make this
+                request.
+            </p>
+
+            <p>
+                Only members of the Organization may be added to the Team.
+            </p>
+        </subsection>
+        <subsection title="Success Response">
+            <multicode>
+                <mc_item title="REST" syntax='javascript'>
+                    200 OK
+                    {
+                        "result" : "ok",
+                    }
+                </mc_item>
+            </multicode>
+        </subsection>
+        <subsection title="Error Response">
+            This request may return the following errors:
+            <tbl>
+                <row>
+                    <cell header='1'>Error</cell>
+                    <cell header='1'>Response Code</cell>
+                    <cell header='1'>Reason</cell>
+                </row>
+                <row>
+                    <cell>bad_input Error</cell>
+                    <cell>400</cell>
+                    <cell>No User found with provided username or email address.</cell>
+                </row>
+                <row>
+                    <cell>not_authenticated Error</cell>
+                    <cell>401</cell>
+                    <cell>Missing credentials: not logged in and missing BASIC AUTH </cell>
                 </row>
                 <row>
                     <cell>internal_error Error</cell>
