@@ -1,3 +1,11 @@
+.notice {
+    background: #f0f040;
+    border-top: 2px solid #606060;
+    border-bottom: 2px solid #606060;
+    text-align: center;
+    font-weight: bold;
+
+}
 .proj_bg_blue_gradient {
     background: #204080;
     background: -webkit-linear-gradient(#204080, #102040);

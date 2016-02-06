@@ -41,6 +41,20 @@ function RenderTopbar(page) {
             }
         });
     });
+
+    document.write(
+        "<div class=notice>\
+            <br>\
+            Canopy is deprecated and no longer supported.\
+            <br><br>\
+            Co-founder Vivek has spun off a related IoT venture <a\
+            href='http://omnyiq.com'>Omny IQ</a>.\
+            <br><br>\
+            Co-founder Greg now works at <a href='http://solveforx.com'>X</a> and suggests you check out <a\
+            href='https://developers.google.com/weave/'>Google Weave</a>.\
+            <br><br>\
+        </div>"
+    );
 }
 
 function RenderFooter() {
